@@ -2,29 +2,17 @@
 <html lang="nl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>OfficeFlow</title>
 </head>
-
 <body style="margin:0; font-family:Arial; display:flex; align-items:center; justify-content:center; height:100vh;">
   <div style="text-align:center;">
     <h1>OfficeFlow</h1>
     <p>Start je abonnement</p>
 
-    <button id="checkout-button" style="padding:16px 32px;">
-      Start abonnement
-    </button>
+    <a href="https://ai-mail-assistant-production-979f.up.railway.app/billing/start-checkout?plan=starter">
+      <button style="padding:16px 32px;">Start abonnement</button>
+    </a>
   </div>
-
-  <script>
-    document.getElementById("checkout-button").onclick = async () => {
-      const res = await fetch("https://ai-mail-assistant-production-979f.up.railway.app/billing/create-checkout-session", {
-        method: "POST"
-      });
-
-      const data = await res.json();
-      window.location.href = data.url;
-    };
-  </script>
 </body>
 </html>
