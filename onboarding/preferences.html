@@ -1,18 +1,105 @@
 <!DOCTYPE html>
-<html>
+<html lang="nl">
 <head>
-  <title>Preferences</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OfficeFlow Preferences</title>
 </head>
-<body>
-  <h1>Preferences page werkt ✅</h1>
+<body style="font-family: Arial; padding: 40px;">
+  <h1>Stel je reply-voorkeuren in</h1>
+  <p id="emailText"></p>
 
-  <p id="email"></p>
+  <form id="preferencesForm" style="max-width: 500px;">
+    <label>Taal</label>
+    <br />
+    <select id="preferred_language" style="padding: 10px; width: 100%; margin-top: 6px; margin-bottom: 16px;">
+      <option value="nl">Nederlands</option>
+      <option value="en">English</option>
+    </select>
+
+    <label>Toon</label>
+    <br />
+    <select id="tone_preference" style="padding: 10px; width: 100%; margin-top: 6px; margin-bottom: 16px;">
+      <option value="direct">Direct</option>
+      <option value="friendly">Friendly</option>
+      <option value="formal">Formal</option>
+    </select>
+
+    <label>Formaliteit</label>
+    <br />
+    <select id="formality" style="padding: 10px; width: 100%; margin-top: 6px; margin-bottom: 16px;">
+      <option value="neutral">Neutraal</option>
+      <option value="informal">Informeel</option>
+      <option value="formal">Formeel</option>
+    </select>
+
+    <label>Lengte</label>
+    <br />
+    <select id="length_preference" style="padding: 10px; width: 100%; margin-top: 6px; margin-bottom: 16px;">
+      <option value="short">Kort</option>
+      <option value="medium">Gemiddeld</option>
+    </select>
+
+    <label style="display:block; margin-bottom: 16px;">
+      <input type="checkbox" id="emoji_preference" />
+      Emoji toestaan
+    </label>
+
+    <button type="submit" style="padding: 14px 24px;">Voorkeuren opslaan</button>
+  </form>
+
+  <p id="status" style="margin-top: 20px;"></p>
 
   <script>
     const params = new URLSearchParams(window.location.search);
     const email = params.get("email");
 
-    document.getElementById("email").innerText = "Email: " + email;
+    document.getElementById("emailText").innerText = email
+      ? "Gekoppeld e-mailadres: " + email
+      : "Geen e-mailadres gevonden";
+
+    document.getElementById("preferencesForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      if (!email) {
+        document.getElementById("status").innerText = "Geen e-mailadres gevonden in URL.";
+        return;
+      }
+
+      const payload = {
+        email: email,
+        preferred_language: document.getElementById("preferred_language").value,
+        tone_preference: document.getElementById("tone_preference").value,
+        formality: document.getElementById("formality").value,
+        length_preference: document.getElementById("length_preference").value,
+        emoji_preference: document.getElementById("emoji_preference").checked
+      };
+
+      document.getElementById("status").innerText = "Opslaan...";
+
+      try {
+        const response = await fetch("https://ai-mail-assistant-production-979f.up.railway.app/settings/prompt", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          document.getElementById("status").innerText = "Opslaan mislukt.";
+          console.log(data);
+          return;
+        }
+
+        document.getElementById("status").innerText = "Voorkeuren opgeslagen.";
+      } catch (error) {
+        document.getElementById("status").innerText = "Er ging iets mis.";
+        console.log(error);
+      }
+    });
   </script>
 </body>
 </html>
