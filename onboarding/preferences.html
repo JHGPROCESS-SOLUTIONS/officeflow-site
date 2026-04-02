@@ -642,8 +642,8 @@ OfficeFlow"
                   type="number"
                   id="style_learning_source_limit"
                   min="1"
-                  max="200"
-                  value="30"
+                  max="20"
+                  value="20"
                 />
                 <small>Hoeveel eerdere verzonden mails OfficeFlow maximaal mag gebruiken.</small>
               </div>
@@ -728,7 +728,7 @@ OfficeFlow"
         preferred_phrases: document.getElementById("preferred_phrases").value,
         custom_instructions: document.getElementById("custom_instructions").value.trim(),
         style_learning_enabled: document.getElementById("style_learning_enabled").checked,
-        style_learning_source_limit: isNaN(sourceLimit) ? 30 : sourceLimit
+        style_learning_source_limit: isNaN(sourceLimit) ? 20 : Math.min(sourceLimit, 20)
       };
 
       saveBtn.disabled = true;
