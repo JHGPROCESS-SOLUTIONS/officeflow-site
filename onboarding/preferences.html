@@ -45,24 +45,45 @@
       Emoji toestaan
     </label>
 
-    <button type="submit" style="padding: 14px 24px;">Voorkeuren opslaan</button>
+    <button id="saveBtn" type="submit" style="padding: 14px 24px;">Voorkeuren opslaan</button>
   </form>
 
-  <p id="status" style="margin-top: 20px;"></p>
+  <p id="status" style="margin-top: 20px; white-space: pre-wrap;"></p>
 
   <script>
+    const API_BASE = "https://ai-mail-assistant-production-979f.up.railway.app";
     const params = new URLSearchParams(window.location.search);
     const email = params.get("email");
 
-    document.getElementById("emailText").innerText = email
+    const emailText = document.getElementById("emailText");
+    const statusEl = document.getElementById("status");
+    const formEl = document.getElementById("preferencesForm");
+    const saveBtn = document.getElementById("saveBtn");
+
+    emailText.innerText = email
       ? "Gekoppeld e-mailadres: " + email
       : "Geen e-mailadres gevonden";
 
-    document.getElementById("preferencesForm").addEventListener("submit", async function (e) {
+    function setStatus(message, isError = false) {
+      statusEl.innerText = message;
+      statusEl.style.color = isError ? "#b00020" : "#111";
+    }
+
+    async function parseResponse(response) {
+      const text = await response.text();
+
+      try {
+        return text ? JSON.parse(text) : {};
+      } catch {
+        return { raw: text };
+      }
+    }
+
+    formEl.addEventListener("submit", async function (e) {
       e.preventDefault();
 
       if (!email) {
-        document.getElementById("status").innerText = "Geen e-mailadres gevonden in URL.";
+        setStatus("Geen e-mailadres gevonden in URL.", true);
         return;
       }
 
@@ -75,10 +96,11 @@
         emoji_preference: document.getElementById("emoji_preference").checked
       };
 
-      document.getElementById("status").innerText = "Opslaan...";
+      saveBtn.disabled = true;
+      setStatus("Opslaan...");
 
       try {
-        const response = await fetch("https://ai-mail-assistant-production-979f.up.railway.app/settings/prompt", {
+        const response = await fetch(`${API_BASE}/settings/prompt`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -86,18 +108,27 @@
           body: JSON.stringify(payload)
         });
 
-        const data = await response.json();
+        const data = await parseResponse(response);
 
         if (!response.ok) {
-          document.getElementById("status").innerText = "Opslaan mislukt.";
-          console.log(data);
+          const detail =
+            data?.detail ||
+            data?.error ||
+            data?.message ||
+            JSON.stringify(data);
+
+          setStatus("Opslaan mislukt: " + detail, true);
+          console.log("Save settings error:", data);
           return;
         }
 
-        document.getElementById("status").innerText = "Voorkeuren opgeslagen.";
+        setStatus("Voorkeuren opgeslagen.");
+        console.log("Save settings success:", data);
       } catch (error) {
-        document.getElementById("status").innerText = "Er ging iets mis.";
-        console.log(error);
+        setStatus("Er ging iets mis: " + error.message, true);
+        console.log("Network/client error:", error);
+      } finally {
+        saveBtn.disabled = false;
       }
     });
   </script>
