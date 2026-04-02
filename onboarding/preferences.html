@@ -1,743 +1,340 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>OfficeFlow — Stel je reply-voorkeuren in</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <style>
-    :root {
-      --bg-main: #FFFFFF;
-      --bg-subtle: #F8FAFC;
-      --text-primary: #0F172A;
-      --text-secondary: #64748B;
+<title>OfficeFlow — Stel je schrijfstijl in</title>
 
-      --primary-orange: #F97316;
-      --primary-orange-hover: #EA580C;
-      --light-accent: #FED7AA;
-      --gradient-primary: linear-gradient(135deg, #F97316 0%, #FB923C 100%);
+<style>
+:root {
+  --bg-main: #FFFFFF;
+  --bg-subtle: #F8FAFC;
+  --text-primary: #0F172A;
+  --text-secondary: #64748B;
 
-      --border-light: #E2E8F0;
-      --divider: #CBD5F5;
-      --card-bg: #FFFFFF;
+  --primary-orange: #F97316;
+  --primary-orange-hover: #EA580C;
+  --light-accent: #FED7AA;
+  --gradient: linear-gradient(135deg, #F97316, #FB923C);
 
-      --success: #22C55E;
-      --warning: #F59E0B;
-      --error: #EF4444;
+  --border: #E2E8F0;
+  --success: #22C55E;
+  --error: #EF4444;
+}
 
-      --shadow-soft: 0 12px 40px rgba(15, 23, 42, 0.08);
-      --shadow-button: 0 10px 24px rgba(249, 115, 22, 0.25);
+body {
+  margin: 0;
+  font-family: Inter, Arial;
+  background: var(--bg-subtle);
+  color: var(--text-primary);
+}
 
-      --radius-card: 24px;
-      --radius-input: 14px;
-      --radius-button: 14px;
-    }
+.container {
+  max-width: 900px;
+  margin: 50px auto;
+  padding: 20px;
+}
 
-    * {
-      box-sizing: border-box;
-    }
+.card {
+  background: white;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  padding: 40px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
 
-    html, body {
-      margin: 0;
-      padding: 0;
-      background: var(--bg-subtle);
-      color: var(--text-primary);
-      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-    }
+.logo {
+  text-align: center;
+  margin-bottom: 20px;
+}
 
-    body {
-      min-height: 100vh;
-    }
+.logo img {
+  width: 180px;
+}
 
-    .page {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 48px 20px 64px;
-    }
+h1 {
+  margin-bottom: 8px;
+}
 
-    .brand-header {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 18px;
-      margin-bottom: 28px;
-    }
+.sub {
+  color: var(--text-secondary);
+  margin-bottom: 25px;
+}
 
-    .brand-logo {
-      width: 200px;
-      max-width: 70%;
-      height: auto;
-      display: block;
-    }
+.section {
+  margin-top: 30px;
+}
 
-    .brand-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: var(--bg-main);
-      border: 1px solid var(--border-light);
-      color: var(--text-secondary);
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.01em;
-    }
+.section h2 {
+  margin-bottom: 10px;
+}
 
-    .brand-pill-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: var(--primary-orange);
-      display: inline-block;
-    }
+.helper-box {
+  background: #FFF7ED;
+  border: 1px solid #FED7AA;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 13px;
+  color: #9A3412;
+  margin-top: 10px;
+}
 
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--border-light);
-      border-radius: var(--radius-card);
-      box-shadow: var(--shadow-soft);
-      overflow: hidden;
-    }
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
 
-    .hero {
-      padding: 36px 36px 28px;
-      background:
-        radial-gradient(circle at top right, rgba(249, 115, 22, 0.10), transparent 28%),
-        linear-gradient(180deg, #FFFFFF 0%, #FFFDFB 100%);
-      border-bottom: 1px solid var(--border-light);
-    }
+.field {
+  display: flex;
+  flex-direction: column;
+}
 
-    .hero-badge {
-      display: inline-block;
-      margin-bottom: 16px;
-      padding: 8px 12px;
-      background: var(--light-accent);
-      color: var(--primary-orange-hover);
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
+.full {
+  grid-column: 1 / -1;
+}
 
-    .hero h1 {
-      margin: 0 0 12px;
-      font-size: 40px;
-      line-height: 1.08;
-      letter-spacing: -0.03em;
-      color: var(--text-primary);
-    }
+label {
+  font-weight: 600;
+  margin-bottom: 6px;
+}
 
-    .hero p {
-      margin: 0;
-      max-width: 720px;
-      color: var(--text-secondary);
-      font-size: 16px;
-      line-height: 1.65;
-    }
+small {
+  color: var(--text-secondary);
+  font-size: 12px;
+  margin-top: 6px;
+}
 
-    .content {
-      padding: 30px 36px 36px;
-    }
+select, textarea, input {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
 
-    .email-box {
-      display: flex;
-      gap: 14px;
-      align-items: flex-start;
-      margin-bottom: 26px;
-      padding: 16px 18px;
-      border: 1px solid var(--border-light);
-      background: var(--bg-subtle);
-      border-radius: 16px;
-    }
+textarea {
+  min-height: 100px;
+}
 
-    .email-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 12px;
-      background: var(--bg-main);
-      border: 1px solid var(--border-light);
-      color: var(--primary-orange);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      flex-shrink: 0;
-    }
+.checkbox {
+  margin-top: 10px;
+}
 
-    .email-text {
-      font-size: 14px;
-      color: var(--text-secondary);
-      line-height: 1.6;
-    }
+.button {
+  margin-top: 30px;
+  padding: 16px;
+  border-radius: 12px;
+  border: none;
+  background: var(--gradient);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
 
-    .email-text strong {
-      color: var(--text-primary);
-    }
+.button:hover {
+  background: var(--primary-orange-hover);
+}
 
-    form {
-      display: grid;
-      gap: 24px;
-    }
+.status {
+  margin-top: 15px;
+  font-weight: 600;
+}
 
-    .section {
-      border: 1px solid var(--border-light);
-      border-radius: 20px;
-      padding: 22px;
-      background: var(--bg-main);
-    }
+.success { color: var(--success); }
+.error { color: var(--error); }
 
-    .section-title {
-      margin: 0 0 6px;
-      font-size: 22px;
-      line-height: 1.2;
-      color: var(--text-primary);
-    }
-
-    .section-subtitle {
-      margin: 0 0 18px;
-      color: var(--text-secondary);
-      font-size: 14px;
-      line-height: 1.6;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-    }
-
-    .field {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .field.full {
-      grid-column: 1 / -1;
-    }
-
-    .field label {
-      font-size: 14px;
-      font-weight: 700;
-      margin-bottom: 8px;
-      color: var(--text-primary);
-    }
-
-    .field small {
-      margin-top: 8px;
-      font-size: 13px;
-      line-height: 1.5;
-      color: var(--text-secondary);
-    }
-
-    select,
-    textarea,
-    input[type="number"] {
-      width: 100%;
-      border: 1px solid var(--border-light);
-      border-radius: var(--radius-input);
-      background: var(--bg-main);
-      color: var(--text-primary);
-      font-size: 15px;
-      padding: 14px 14px;
-      outline: none;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
-    }
-
-    select:focus,
-    textarea:focus,
-    input[type="number"]:focus {
-      border-color: var(--primary-orange);
-      box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.14);
-    }
-
-    textarea {
-      min-height: 112px;
-      resize: vertical;
-    }
-
-    .checkbox-grid {
-      display: grid;
-      gap: 14px;
-    }
-
-    .checkbox-card {
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-      padding: 16px;
-      border: 1px solid var(--border-light);
-      border-radius: 16px;
-      background: var(--bg-subtle);
-    }
-
-    .checkbox-card input[type="checkbox"] {
-      margin-top: 3px;
-      transform: scale(1.1);
-      accent-color: var(--primary-orange);
-    }
-
-    .checkbox-content-title {
-      font-size: 14px;
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-
-    .checkbox-content-copy {
-      font-size: 13px;
-      line-height: 1.5;
-      color: var(--text-secondary);
-    }
-
-    .helper-box {
-      margin-top: 10px;
-      padding: 12px 14px;
-      border-radius: 14px;
-      background: #FFF7ED;
-      border: 1px solid #FED7AA;
-      color: #9A3412;
-      font-size: 13px;
-      line-height: 1.55;
-    }
-
-    .footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 18px;
-      flex-wrap: wrap;
-      margin-top: 6px;
-    }
-
-    .footer-note {
-      max-width: 520px;
-      font-size: 13px;
-      line-height: 1.6;
-      color: var(--text-secondary);
-    }
-
-    .actions {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 12px;
-      min-width: 260px;
-    }
-
-    .button-primary {
-      width: 100%;
-      border: none;
-      border-radius: var(--radius-button);
-      background: var(--gradient-primary);
-      color: white;
-      font-size: 15px;
-      font-weight: 700;
-      padding: 16px 20px;
-      cursor: pointer;
-      box-shadow: var(--shadow-button);
-      transition: transform 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease;
-    }
-
-    .button-primary:hover {
-      transform: translateY(-1px);
-      opacity: 0.98;
-    }
-
-    .button-primary:disabled {
-      opacity: 0.7;
-      cursor: not-allowed;
-      transform: none;
-      box-shadow: none;
-    }
-
-    .status {
-      width: 100%;
-      display: none;
-      padding: 12px 14px;
-      border-radius: 14px;
-      font-size: 14px;
-      font-weight: 600;
-      line-height: 1.5;
-      white-space: pre-wrap;
-    }
-
-    .status.show {
-      display: block;
-    }
-
-    .status.success {
-      display: block;
-      background: rgba(34, 197, 94, 0.10);
-      color: #166534;
-      border: 1px solid rgba(34, 197, 94, 0.25);
-    }
-
-    .status.error {
-      display: block;
-      background: rgba(239, 68, 68, 0.10);
-      color: #991B1B;
-      border: 1px solid rgba(239, 68, 68, 0.25);
-    }
-
-    .status.loading {
-      display: block;
-      background: rgba(249, 115, 22, 0.08);
-      color: var(--primary-orange-hover);
-      border: 1px solid rgba(249, 115, 22, 0.20);
-    }
-
-    @media (max-width: 760px) {
-      .page {
-        padding: 26px 14px 40px;
-      }
-
-      .hero,
-      .content {
-        padding-left: 20px;
-        padding-right: 20px;
-      }
-
-      .hero h1 {
-        font-size: 30px;
-      }
-
-      .grid {
-        grid-template-columns: 1fr;
-      }
-
-      .actions {
-        width: 100%;
-        align-items: stretch;
-      }
-    }
-  </style>
+</style>
 </head>
+
 <body>
-  <div class="page">
-    <div class="brand-header">
-      <img class="brand-logo" src="/OfficeFlow-logo.png" alt="OfficeFlow logo" />
-      <div class="brand-pill">
-        <span class="brand-pill-dot"></span>
-        Persoonlijke onboarding voor OfficeFlow
-      </div>
-    </div>
 
-    <div class="card">
-      <div class="hero">
-        <div class="hero-badge">Reply Preferences</div>
-        <h1>Laat OfficeFlow schrijven zoals jij dat wilt</h1>
-        <p>
-          Stel hieronder jouw voorkeuren in voor toon, lengte, formaliteit en schrijfstijl.
-          Zo zijn je eerste AI-drafts direct bruikbaar en voelen ze meteen als jouw eigen mails.
-        </p>
-      </div>
+<div class="container">
 
-      <div class="content">
-        <div class="email-box">
-          <div class="email-icon">@</div>
-          <div class="email-text" id="emailText"></div>
-        </div>
+<div class="logo">
+  <img src="/OfficeFlow-logo.png" />
+</div>
 
-        <form id="preferencesForm">
-          <div class="section">
-            <h2 class="section-title">Algemene stijl</h2>
-            <p class="section-subtitle">
-              Deze instellingen bepalen hoe OfficeFlow je standaard replysuggesties formuleert.
-            </p>
+<div class="card">
 
-            <div class="grid">
-              <div class="field">
-                <label for="preferred_language">Voorkeurstaal</label>
-                <select id="preferred_language">
-                  <option value="nl">Nederlands</option>
-                  <option value="en">English</option>
-                </select>
-                <small>De taal waarin je meestal wilt antwoorden.</small>
-              </div>
+<h1>Stel je schrijfstijl in</h1>
+<p class="sub">OfficeFlow schrijft straks precies zoals jij dat wilt.</p>
 
-              <div class="field">
-                <label for="tone_preference">Toon</label>
-                <select id="tone_preference">
-                  <option value="direct">Direct</option>
-                  <option value="friendly">Friendly</option>
-                  <option value="formal">Formal</option>
-                </select>
-                <small>Bijvoorbeeld kort en direct, vriendelijk of formeler.</small>
-              </div>
+<p id="emailText"></p>
 
-              <div class="field">
-                <label for="formality">Formaliteit</label>
-                <select id="formality">
-                  <option value="neutral">Neutraal</option>
-                  <option value="informal">Informeel</option>
-                  <option value="formal">Formeel</option>
-                </select>
-                <small>Hoe zakelijk of los je formuleringen mogen zijn.</small>
-              </div>
+<form id="form">
 
-              <div class="field">
-                <label for="length_preference">Lengte</label>
-                <select id="length_preference">
-                  <option value="short">Kort</option>
-                  <option value="medium">Gemiddeld</option>
-                </select>
-                <small>Kies of je vooral korte replies wilt of iets meer context.</small>
-              </div>
+<div class="section">
+<h2>Algemene stijl</h2>
 
-              <div class="field">
-                <label for="cta_preference">Call-to-action stijl</label>
-                <select id="cta_preference">
-                  <option value="only_when_relevant">Alleen wanneer relevant</option>
-                  <option value="always_soft">Altijd zacht afsluiten</option>
-                  <option value="minimal">Zo minimaal mogelijk</option>
-                </select>
-                <small>Bijvoorbeeld wel of niet afsluiten met een uitnodiging tot reactie.</small>
-              </div>
+<div class="grid">
 
-              <div class="field">
-                <label for="signature_mode">Handtekening</label>
-                <select id="signature_mode">
-                  <option value="none">Geen handtekening</option>
-                  <option value="include_name">Alleen naam / minimale afsluiting</option>
-                  <option value="full_signature">Volledige handtekening als beschikbaar</option>
-                </select>
-                <small>Hoe OfficeFlow moet omgaan met je afsluiting en handtekening.</small>
-              </div>
-            </div>
-          </div>
+<div class="field">
+<label>Taal</label>
+<select id="preferred_language">
+<option value="nl">Nederlands</option>
+<option value="en">English</option>
+</select>
+</div>
 
-          <div class="section">
-            <h2 class="section-title">Persoonlijke schrijfstijl</h2>
-            <p class="section-subtitle">
-              Geef OfficeFlow extra voorbeelden en regels zodat drafts nog beter aansluiten op jouw manier van schrijven.
-            </p>
+<div class="field">
+<label>Toon</label>
+<select id="tone_preference">
+<option value="direct">Direct</option>
+<option value="friendly">Friendly</option>
+<option value="formal">Formal</option>
+</select>
+</div>
 
-            <div class="grid">
-              <div class="field full">
-                <label for="preferred_phrases">Voorkeurszinnen of formuleringen</label>
-                <textarea
-                  id="preferred_phrases"
-                  placeholder="Zet elk item op een nieuwe regel, bijvoorbeeld:
+<div class="field">
+<label>Formaliteit</label>
+<select id="formality">
+<option value="neutral">Neutraal</option>
+<option value="informal">Informeel</option>
+<option value="formal">Formeel</option>
+</select>
+</div>
+
+<div class="field">
+<label>Lengte</label>
+<select id="length_preference">
+<option value="short">Kort</option>
+<option value="medium">Gemiddeld</option>
+</select>
+</div>
+
+</div>
+</div>
+
+<div class="section">
+<h2>Persoonlijke stijl</h2>
+
+<div class="grid">
+
+<div class="field full">
+<label>Voorkeurszinnen</label>
+<textarea id="preferred_phrases" placeholder="Elke regel = 1 voorkeur
+
+Bijvoorbeeld:
 Hou het praktisch en duidelijk.
-Graag kort en to the point.
-Ik kom hier vandaag nog op terug."
-                ></textarea>
-                <small>
-                  Meerdere antwoorden zijn mogelijk. Zet gewoon elke voorkeur op een nieuwe regel.
-                </small>
-              </div>
+Ik kom hier vandaag nog op terug.
+Goed punt, dank daarvoor."></textarea>
+</div>
 
-              <div class="field full">
-                <label for="forbidden_phrases">Zinnen of woorden die je wilt vermijden</label>
-                <textarea
-                  id="forbidden_phrases"
-                  placeholder="Zet elk item op een nieuwe regel, bijvoorbeeld:
+<div class="field full">
+<label>Zinnen vermijden</label>
+<textarea id="forbidden_phrases" placeholder="Elke regel = vermijden
+
+Bijvoorbeeld:
 Dank voor je bericht.
 Neem gerust contact op.
-Mocht je nog vragen hebben."
-                ></textarea>
-                <small>
-                  OfficeFlow probeert deze formuleringen niet te gebruiken in je drafts.
-                </small>
-              </div>
+Mocht je nog vragen hebben."></textarea>
+</div>
 
-              <div class="field full">
-                <label for="custom_instructions">Extra instructies</label>
-                <textarea
-                  id="custom_instructions"
-                  placeholder="Bijvoorbeeld:
-Schrijf kort en menselijk.
-Geen overdreven beleefdheid.
-Wees duidelijk en praktisch."
-                ></textarea>
-                <small>
-                  Alles wat OfficeFlow extra moet meenemen bij het schrijven van je replies.
-                </small>
-              </div>
-            </div>
+<div class="field full">
+<label>Extra instructies</label>
+<textarea id="custom_instructions" placeholder="Bijvoorbeeld:
 
-            <div class="helper-box">
-              Tip: hoe concreter je voorkeuren, hoe beter je eerste drafts direct bruikbaar zullen zijn.
-            </div>
-          </div>
+Onze openingstijden zijn 09:00–17:00.
+Antwoord altijd binnen 1 werkdag.
+Verwijs naar onze website bij prijsvragen.
+Houd het kort en praktisch."></textarea>
 
-          <div class="section">
-            <h2 class="section-title">Extra instellingen</h2>
-            <p class="section-subtitle">
-              Deze instellingen helpen OfficeFlow om je workflow en stijl nog beter te ondersteunen.
-            </p>
+<div class="helper-box">
+💡 Tip: hoe concreter je bent, hoe beter je AI replies worden.
+</div>
+</div>
 
-            <div class="checkbox-grid">
-              <label class="checkbox-card">
-                <input type="checkbox" id="emoji_preference" />
-                <div>
-                  <div class="checkbox-content-title">Emoji toestaan</div>
-                  <div class="checkbox-content-copy">
-                    Laat OfficeFlow alleen spaarzaam emoji gebruiken als dat natuurlijk past bij jouw stijl.
-                  </div>
-                </div>
-              </label>
+<div class="field full">
+<label>E-mail handtekening</label>
+<textarea id="signature_text" placeholder="Bijvoorbeeld:
 
-              <label class="checkbox-card">
-                <input type="checkbox" id="style_learning_enabled" />
-                <div>
-                  <div class="checkbox-content-title">Style learning inschakelen</div>
-                  <div class="checkbox-content-copy">
-                    Laat OfficeFlow later leren van je eerder verzonden mails om drafts nog beter op jouw stijl af te stemmen.
-                  </div>
-                </div>
-              </label>
+Met vriendelijke groet,
+Jesse Hendriks
+OfficeFlow
 
-              <label class="checkbox-card">
-                <input type="checkbox" id="auto_draft_enabled" />
-                <div>
-                  <div class="checkbox-content-title">Automatisch drafts laten voorbereiden</div>
-                  <div class="checkbox-content-copy">
-                    Laat OfficeFlow automatisch draftsuggesties klaarzetten wanneer dat relevant is.
-                  </div>
-                </div>
-              </label>
-            </div>
+www.officeflowcompany.com"></textarea>
+</div>
 
-            <div class="grid" style="margin-top: 18px;">
-              <div class="field">
-                <label for="style_learning_source_limit">Aantal mails voor style learning</label>
-                <input
-                  type="number"
-                  id="style_learning_source_limit"
-                  min="1"
-                  max="200"
-                  value="30"
-                />
-                <small>Hoeveel eerdere verzonden mails OfficeFlow maximaal mag gebruiken.</small>
-              </div>
-            </div>
-          </div>
+</div>
+</div>
 
-          <div class="footer">
-            <div class="footer-note">
-              Je mailbox wordt pas echt geactiveerd zodra deze voorkeuren zijn opgeslagen.
-              Je kunt deze instellingen later altijd opnieuw aanpassen.
-            </div>
+<div class="section">
+<h2>Extra instellingen</h2>
 
-            <div class="actions">
-              <button id="saveBtn" class="button-primary" type="submit">
-                Voorkeuren opslaan
-              </button>
-              <div id="status" class="status"></div>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
+<label class="checkbox">
+<input type="checkbox" id="emoji_preference"> Emoji toestaan
+</label>
 
-  <script>
-    const API_BASE = "https://ai-mail-assistant-production-979f.up.railway.app";
-    const params = new URLSearchParams(window.location.search);
-    const email = params.get("email");
+<label class="checkbox">
+<input type="checkbox" id="style_learning_enabled"> Style learning
+</label>
 
-    const emailText = document.getElementById("emailText");
-    const statusEl = document.getElementById("status");
-    const formEl = document.getElementById("preferencesForm");
-    const saveBtn = document.getElementById("saveBtn");
+<label class="checkbox">
+<input type="checkbox" id="auto_draft_enabled"> Automatisch drafts maken
+</label>
 
-    emailText.innerHTML = email
-      ? `Gekoppeld e-mailadres: <strong>${email}</strong>`
-      : `Geen e-mailadres gevonden in de URL.`;
+</div>
 
-    function setStatus(message, type = "") {
-      statusEl.textContent = message;
-      statusEl.className = "status show";
-      if (type) {
-        statusEl.classList.add(type);
-      }
-    }
+<button class="button">Voorkeuren opslaan</button>
 
-    async function parseResponse(response) {
-      const text = await response.text();
-      try {
-        return text ? JSON.parse(text) : {};
-      } catch {
-        return { raw: text };
-      }
-    }
+<p id="status" class="status"></p>
 
-    function textareaToArray(value) {
-      return value
-        .split("\n")
-        .map((item) => item.trim())
-        .filter((item) => item.length > 0);
-    }
+</form>
 
-    formEl.addEventListener("submit", async function (e) {
-      e.preventDefault();
+</div>
+</div>
 
-      if (!email) {
-        setStatus("Geen e-mailadres gevonden in URL.", "error");
-        return;
-      }
+<script>
 
-      const sourceLimit = parseInt(
-        document.getElementById("style_learning_source_limit").value || "30",
-        10
-      );
+const params = new URLSearchParams(window.location.search);
+const email = params.get("email");
 
-      const payload = {
-        email: email,
-        preferred_language: document.getElementById("preferred_language").value,
-        tone_preference: document.getElementById("tone_preference").value,
-        formality: document.getElementById("formality").value,
-        length_preference: document.getElementById("length_preference").value,
-        emoji_preference: document.getElementById("emoji_preference").checked,
-        cta_preference: document.getElementById("cta_preference").value,
-        signature_mode: document.getElementById("signature_mode").value,
-        forbidden_phrases: textareaToArray(document.getElementById("forbidden_phrases").value),
-        preferred_phrases: textareaToArray(document.getElementById("preferred_phrases").value),
-        custom_instructions: document.getElementById("custom_instructions").value.trim(),
-        style_learning_enabled: document.getElementById("style_learning_enabled").checked,
-        style_learning_source_limit: isNaN(sourceLimit) ? 30 : sourceLimit,
-        auto_draft_enabled: document.getElementById("auto_draft_enabled").checked
-      };
+document.getElementById("emailText").innerText =
+email ? "Gekoppeld: " + email : "Geen email gevonden";
 
-      saveBtn.disabled = true;
-      saveBtn.textContent = "Opslaan...";
-      setStatus("Bezig met opslaan...", "loading");
+document.getElementById("form").addEventListener("submit", async (e) => {
+e.preventDefault();
 
-      try {
-        const response = await fetch(`${API_BASE}/settings/prompt`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(payload)
-        });
+const payload = {
+email,
+preferred_language: document.getElementById("preferred_language").value,
+tone_preference: document.getElementById("tone_preference").value,
+formality: document.getElementById("formality").value,
+length_preference: document.getElementById("length_preference").value,
+emoji_preference: document.getElementById("emoji_preference").checked,
+style_learning_enabled: document.getElementById("style_learning_enabled").checked,
+auto_draft_enabled: document.getElementById("auto_draft_enabled").checked,
+preferred_phrases: document.getElementById("preferred_phrases").value,
+forbidden_phrases: document.getElementById("forbidden_phrases").value,
+custom_instructions: document.getElementById("custom_instructions").value,
+signature_text: document.getElementById("signature_text").value
+};
 
-        const data = await parseResponse(response);
+document.getElementById("status").innerText = "Opslaan...";
 
-        if (!response.ok) {
-          const detail =
-            data?.detail ||
-            data?.error ||
-            data?.message ||
-            JSON.stringify(data);
+try {
+const res = await fetch("https://ai-mail-assistant-production-979f.up.railway.app/settings/prompt", {
+method: "POST",
+headers: { "Content-Type": "application/json" },
+body: JSON.stringify(payload)
+});
 
-          setStatus("Opslaan mislukt: " + detail, "error");
-          console.log("Save settings error:", data);
-          return;
-        }
+if (!res.ok) {
+document.getElementById("status").innerText = "❌ Opslaan mislukt";
+document.getElementById("status").className = "status error";
+return;
+}
 
-        setStatus("Voorkeuren opgeslagen. OfficeFlow is klaar voor de volgende stap.", "success");
-        console.log("Save settings success:", data);
-      } catch (error) {
-        setStatus("Er ging iets mis: " + error.message, "error");
-        console.log("Network/client error:", error);
-      } finally {
-        saveBtn.disabled = false;
-        saveBtn.textContent = "Voorkeuren opslaan";
-      }
-    });
-  </script>
+document.getElementById("status").innerText = "✅ Opgeslagen!";
+document.getElementById("status").className = "status success";
+
+} catch {
+document.getElementById("status").innerText = "❌ Error";
+document.getElementById("status").className = "status error";
+}
+});
+
+</script>
+
 </body>
 </html>
