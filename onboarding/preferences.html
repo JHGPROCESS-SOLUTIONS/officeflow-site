@@ -669,105 +669,127 @@ OfficeFlow"
   </div>
 
   <script>
-    const API_BASE = "https://ai-mail-assistant-production-979f.up.railway.app";
-    const params = new URLSearchParams(window.location.search);
-    const email = params.get("email");
+  const API_BASE = "https://ai-mail-assistant-production-979f.up.railway.app";
+  const params = new URLSearchParams(window.location.search);
+  const email = params.get("email");
 
-    const emailText = document.getElementById("emailText");
-    const statusEl = document.getElementById("status");
-    const formEl = document.getElementById("preferencesForm");
-    const saveBtn = document.getElementById("saveBtn");
+  const emailText = document.getElementById("emailText");
+  const statusEl = document.getElementById("status");
+  const formEl = document.getElementById("preferencesForm");
+  const saveBtn = document.getElementById("saveBtn");
 
-    emailText.innerHTML = email
-      ? `Gekoppeld e-mailadres: <strong>${email}</strong>`
-      : `Geen e-mailadres gevonden in de URL.`;
+  emailText.innerHTML = email
+    ? `Gekoppeld e-mailadres: <strong>${email}</strong>`
+    : `Geen e-mailadres gevonden in de URL.`;
 
-    function setStatus(message, type = "") {
-      statusEl.textContent = message;
-      statusEl.className = "status show";
-      if (type) {
-        statusEl.classList.add(type);
-      }
+  function setStatus(message, type = "") {
+    statusEl.textContent = message;
+    statusEl.className = "status show";
+    if (type) {
+      statusEl.classList.add(type);
+    }
+  }
+
+  function getCheckedValues(groupId) {
+    return Array.from(document.querySelectorAll(`#${groupId} input:checked`)).map(input => input.value);
+  }
+
+  function getCheckedValuesAsString(groupId) {
+    return getCheckedValues(groupId).join(", ");
+  }
+
+  async function parseResponse(response) {
+    const text = await response.text();
+    try {
+      return text ? JSON.parse(text) : {};
+    } catch {
+      return { raw: text };
+    }
+  }
+
+  function formatErrorDetail(detail) {
+    if (!detail) return "Onbekende fout";
+
+    if (typeof detail === "string") return detail;
+
+    if (Array.isArray(detail)) {
+      return detail.map(item => {
+        if (typeof item === "string") return item;
+        if (item.msg) return item.msg;
+        return JSON.stringify(item);
+      }).join(" | ");
     }
 
-    function getCheckedValues(groupId) {
-      return Array.from(document.querySelectorAll(`#${groupId} input:checked`)).map(input => input.value);
+    if (detail.message) return detail.message;
+
+    return JSON.stringify(detail);
+  }
+
+  formEl.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    if (!email) {
+      setStatus("Geen e-mailadres gevonden in URL.", "error");
+      return;
     }
 
-    async function parseResponse(response) {
-      const text = await response.text();
-      try {
-        return text ? JSON.parse(text) : {};
-      } catch {
-        return { raw: text };
-      }
-    }
+    const sourceLimit = parseInt(
+      document.getElementById("style_learning_source_limit").value || "20",
+      10
+    );
 
-    formEl.addEventListener("submit", async function (e) {
-      e.preventDefault();
+    const payload = {
+      email: email,
+      preferred_language: getCheckedValuesAsString("preferred_language_group"),
+      tone_preference: getCheckedValuesAsString("tone_preference_group"),
+      formality: document.getElementById("formality").value,
+      length_preference: document.getElementById("length_preference").value,
+      emoji_preference: document.getElementById("emoji_preference").checked,
+      cta_preference: document.getElementById("cta_preference").value,
+      forbidden_phrases: document.getElementById("forbidden_phrases").value,
+      preferred_phrases: document.getElementById("preferred_phrases").value,
+      custom_instructions: document.getElementById("custom_instructions").value.trim(),
+      style_learning_enabled: document.getElementById("style_learning_enabled").checked,
+      style_learning_source_limit: isNaN(sourceLimit) ? 20 : Math.min(sourceLimit, 20)
+    };
 
-      if (!email) {
-        setStatus("Geen e-mailadres gevonden in URL.", "error");
+    saveBtn.disabled = true;
+    saveBtn.textContent = "Opslaan...";
+    setStatus("Bezig met opslaan...", "loading");
+
+    try {
+      const response = await fetch(`${API_BASE}/settings/prompt`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await parseResponse(response);
+
+      if (!response.ok) {
+        const detail =
+          formatErrorDetail(data?.detail) ||
+          data?.error ||
+          data?.message ||
+          JSON.stringify(data);
+
+        setStatus("Opslaan mislukt: " + detail, "error");
+        console.log("Save settings error:", data);
         return;
       }
 
-      const sourceLimit = parseInt(
-        document.getElementById("style_learning_source_limit").value || "30",
-        10
-      );
-
-      const payload = {
-        email: email,
-        preferred_language: getCheckedValues("preferred_language_group"),
-        tone_preference: getCheckedValues("tone_preference_group"),
-        formality: document.getElementById("formality").value,
-        length_preference: document.getElementById("length_preference").value,
-        emoji_preference: document.getElementById("emoji_preference").checked,
-        cta_preference: document.getElementById("cta_preference").value,
-        forbidden_phrases: document.getElementById("forbidden_phrases").value,
-        preferred_phrases: document.getElementById("preferred_phrases").value,
-        custom_instructions: document.getElementById("custom_instructions").value.trim(),
-        style_learning_enabled: document.getElementById("style_learning_enabled").checked,
-        style_learning_source_limit: isNaN(sourceLimit) ? 20 : Math.min(sourceLimit, 20)
-      };
-
-      saveBtn.disabled = true;
-      saveBtn.textContent = "Opslaan...";
-      setStatus("Bezig met opslaan...", "loading");
-
-      try {
-        const response = await fetch(`${API_BASE}/settings/prompt`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(payload)
-        });
-
-        const data = await parseResponse(response);
-
-        if (!response.ok) {
-          const detail =
-            data?.detail ||
-            data?.error ||
-            data?.message ||
-            JSON.stringify(data);
-
-          setStatus("Opslaan mislukt: " + detail, "error");
-          console.log("Save settings error:", data);
-          return;
-        }
-
-        setStatus("Voorkeuren opgeslagen. OfficeFlow is klaar voor de volgende stap.", "success");
-        console.log("Save settings success:", data);
-      } catch (error) {
-        setStatus("Er ging iets mis: " + error.message, "error");
-        console.log("Network/client error:", error);
-      } finally {
-        saveBtn.disabled = false;
-        saveBtn.textContent = "Voorkeuren opslaan";
-      }
-    });
-  </script>
+      setStatus("Voorkeuren opgeslagen. OfficeFlow is klaar voor de volgende stap.", "success");
+      console.log("Save settings success:", data);
+    } catch (error) {
+      setStatus("Er ging iets mis: " + error.message, "error");
+      console.log("Network/client error:", error);
+    } finally {
+      saveBtn.disabled = false;
+      saveBtn.textContent = "Voorkeuren opslaan";
+    }
+  });
+</script>
 </body>
 </html>
