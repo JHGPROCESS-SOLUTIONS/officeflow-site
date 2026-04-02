@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>OfficeFlow — Alles staat klaar</title>
+  <title>OfficeFlow — Setup voltooid</title>
 
   <style>
     :root {
@@ -18,10 +18,10 @@
       --gradient-primary: linear-gradient(135deg, #F97316 0%, #FB923C 100%);
       --border-light: #E2E8F0;
       --success: #22C55E;
-      --shadow-soft: 0 16px 50px rgba(15, 23, 42, 0.06);
-      --shadow-button: 0 10px 24px rgba(249, 115, 22, 0.22);
-      --radius-card: 24px;
-      --radius-button: 14px;
+      --shadow-soft: 0 18px 60px rgba(15, 23, 42, 0.08);
+      --shadow-button: 0 12px 28px rgba(249, 115, 22, 0.24);
+      --radius-card: 28px;
+      --radius-button: 16px;
     }
 
     * {
@@ -46,34 +46,34 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 28px 18px;
+      padding: 24px;
     }
 
-    .shell {
+    .wrapper {
       width: 100%;
-      max-width: 820px;
+      max-width: 880px;
     }
 
-    .topbar {
+    .top-pill-wrap {
       display: flex;
       justify-content: center;
-      margin-bottom: 20px;
+      margin-bottom: 22px;
     }
 
-    .brand-pill {
+    .top-pill {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 8px 12px;
+      padding: 9px 14px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.72);
+      background: rgba(255, 255, 255, 0.76);
       border: 1px solid var(--border-light);
       color: var(--text-secondary);
       font-size: 13px;
       font-weight: 600;
     }
 
-    .brand-pill-dot {
+    .top-pill-dot {
       width: 8px;
       height: 8px;
       border-radius: 999px;
@@ -90,7 +90,7 @@
     }
 
     .hero {
-      padding: 34px 34px 28px;
+      padding: 42px 38px 30px;
       text-align: center;
       background:
         radial-gradient(circle at top right, rgba(249, 115, 22, 0.08), transparent 28%),
@@ -99,11 +99,11 @@
     }
 
     .logo {
-      width: 180px;
-      max-width: 70%;
+      width: 190px;
+      max-width: 72%;
       height: auto;
       display: block;
-      margin: 0 auto 20px;
+      margin: 0 auto 18px;
     }
 
     .success-badge {
@@ -114,7 +114,7 @@
       padding: 8px 12px;
       border-radius: 999px;
       background: rgba(34, 197, 94, 0.10);
-      border: 1px solid rgba(34, 197, 94, 0.20);
+      border: 1px solid rgba(34, 197, 94, 0.18);
       color: #166534;
       font-size: 12px;
       font-weight: 700;
@@ -122,7 +122,7 @@
       text-transform: uppercase;
     }
 
-    .success-dot {
+    .success-badge-dot {
       width: 8px;
       height: 8px;
       border-radius: 999px;
@@ -132,121 +132,145 @@
 
     h1 {
       margin: 0 0 12px;
-      font-size: 40px;
-      line-height: 1.08;
+      font-size: 44px;
+      line-height: 1.06;
       letter-spacing: -0.03em;
       color: var(--text-primary);
     }
 
-    .sub {
+    .subtitle {
+      max-width: 680px;
       margin: 0 auto;
-      max-width: 620px;
-      color: var(--text-secondary);
-      font-size: 16px;
+      font-size: 17px;
       line-height: 1.7;
+      color: var(--text-secondary);
     }
 
     .content {
-      padding: 28px 34px 34px;
+      padding: 30px 38px 38px;
     }
 
-    .step-grid {
+    .status-grid {
       display: grid;
       gap: 14px;
       margin-bottom: 26px;
     }
 
-    .step {
+    .status-card {
       display: flex;
       gap: 14px;
       align-items: flex-start;
-      padding: 16px 18px;
+      padding: 18px;
       border: 1px solid var(--border-light);
-      border-radius: 16px;
+      border-radius: 18px;
       background: var(--bg-subtle);
     }
 
-    .step-number {
-      width: 30px;
-      height: 30px;
+    .status-icon {
+      width: 34px;
+      height: 34px;
       border-radius: 999px;
-      background: #FFFFFF;
-      border: 1px solid var(--light-accent);
-      color: var(--primary-orange-hover);
+      flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 13px;
+      background: #FFFFFF;
+      border: 1px solid rgba(34, 197, 94, 0.22);
+      color: var(--success);
+      font-size: 16px;
       font-weight: 800;
-      flex-shrink: 0;
     }
 
-    .step-title {
-      font-size: 14px;
+    .status-title {
+      margin: 0 0 4px;
+      font-size: 15px;
       font-weight: 700;
-      margin-bottom: 4px;
       color: var(--text-primary);
     }
 
-    .step-copy {
-      font-size: 13px;
-      line-height: 1.6;
+    .status-copy {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.65;
       color: var(--text-secondary);
     }
 
-    .cta-box {
-      border: 1px solid var(--border-light);
-      border-radius: 18px;
-      padding: 22px;
+    .highlight-box {
+      margin-bottom: 22px;
+      padding: 20px 22px;
+      border-radius: 20px;
       background: linear-gradient(180deg, #FFFFFF 0%, #FFF7ED 100%);
-      text-align: center;
+      border: 1px solid var(--light-accent);
     }
 
-    .cta-title {
+    .highlight-title {
       margin: 0 0 8px;
       font-size: 22px;
       line-height: 1.2;
       color: var(--text-primary);
     }
 
-    .cta-subtitle {
-      margin: 0 0 18px;
-      color: var(--text-secondary);
+    .highlight-copy {
+      margin: 0;
       font-size: 14px;
-      line-height: 1.6;
+      line-height: 1.7;
+      color: var(--text-secondary);
     }
 
-    .cta-button {
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .button-primary,
+    .button-secondary {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-width: 220px;
-      border: none;
+      min-height: 54px;
+      padding: 0 22px;
       border-radius: var(--radius-button);
-      background: var(--gradient-primary);
-      color: white;
       font-size: 15px;
       font-weight: 700;
-      padding: 16px 22px;
       text-decoration: none;
-      cursor: pointer;
-      box-shadow: var(--shadow-button);
-      transition: transform 0.15s ease, opacity 0.15s ease;
+      transition: transform 0.15s ease, opacity 0.15s ease, background 0.15s ease;
     }
 
-    .cta-button:hover {
+    .button-primary {
+      background: var(--gradient-primary);
+      color: #FFFFFF;
+      box-shadow: var(--shadow-button);
+    }
+
+    .button-primary:hover {
       transform: translateY(-1px);
       opacity: 0.98;
     }
 
-    .note {
-      margin-top: 14px;
-      font-size: 12px;
-      color: var(--text-secondary);
-      line-height: 1.6;
+    .button-secondary {
+      background: #FFFFFF;
+      color: var(--text-primary);
+      border: 1px solid var(--border-light);
     }
 
-    @media (max-width: 640px) {
+    .button-secondary:hover {
+      background: #F8FAFC;
+    }
+
+    .note {
+      margin-top: 16px;
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--text-secondary);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 14px;
+      }
+
       .hero,
       .content {
         padding-left: 20px;
@@ -254,14 +278,20 @@
       }
 
       h1 {
-        font-size: 30px;
+        font-size: 32px;
       }
 
-      .sub {
+      .subtitle {
         font-size: 15px;
       }
 
-      .cta-button {
+      .actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .button-primary,
+      .button-secondary {
         width: 100%;
       }
     }
@@ -269,10 +299,10 @@
 </head>
 <body>
   <div class="page">
-    <div class="shell">
-      <div class="topbar">
-        <div class="brand-pill">
-          <span class="brand-pill-dot"></span>
+    <div class="wrapper">
+      <div class="top-pill-wrap">
+        <div class="top-pill">
+          <span class="top-pill-dot"></span>
           OfficeFlow onboarding
         </div>
       </div>
@@ -282,62 +312,68 @@
           <img class="logo" src="/OfficeFlow-logo.png" alt="OfficeFlow logo" />
 
           <div class="success-badge">
-            <span class="success-dot"></span>
-            Onboarding voltooid
+            <span class="success-badge-dot"></span>
+            Setup voltooid
           </div>
 
-          <h1>OfficeFlow staat nu live</h1>
-          <p class="sub">
-            Je mailbox is gekoppeld, je voorkeuren zijn opgeslagen en je inbox kan nu met jouw stijl worden verwerkt.
+          <h1>OfficeFlow staat live</h1>
+          <p class="subtitle">
+            Je Gmail-account is gekoppeld, je voorkeuren zijn opgeslagen en OfficeFlow kan nu je inbox verwerken in jouw eigen stijl.
           </p>
         </div>
 
         <div class="content">
-          <div class="step-grid">
-            <div class="step">
-              <div class="step-number">1</div>
+          <div class="status-grid">
+            <div class="status-card">
+              <div class="status-icon">✓</div>
               <div>
-                <div class="step-title">Mailbox gekoppeld</div>
-                <div class="step-copy">
-                  Je Gmail-account is succesvol verbonden met OfficeFlow.
-                </div>
+                <h2 class="status-title">Mailbox gekoppeld</h2>
+                <p class="status-copy">
+                  Je account is succesvol verbonden met OfficeFlow.
+                </p>
               </div>
             </div>
 
-            <div class="step">
-              <div class="step-number">2</div>
+            <div class="status-card">
+              <div class="status-icon">✓</div>
               <div>
-                <div class="step-title">Voorkeuren toegepast</div>
-                <div class="step-copy">
-                  Je gekozen toon, lengte en schrijfstijl worden nu meegenomen in drafts.
-                </div>
+                <h2 class="status-title">Voorkeuren opgeslagen</h2>
+                <p class="status-copy">
+                  Toon, lengte, formaliteit en schrijfstijl zijn toegepast op toekomstige drafts.
+                </p>
               </div>
             </div>
 
-            <div class="step">
-              <div class="step-number">3</div>
+            <div class="status-card">
+              <div class="status-icon">✓</div>
               <div>
-                <div class="step-title">Inbox processing gestart</div>
-                <div class="step-copy">
-                  Relevante mails kunnen nu automatisch worden gelabeld en voorbereid als concept.
-                </div>
+                <h2 class="status-title">Inbox processing gestart</h2>
+                <p class="status-copy">
+                  Relevante e-mails kunnen nu automatisch gelabeld worden en als concept in Gmail verschijnen.
+                </p>
               </div>
             </div>
           </div>
 
-          <div class="cta-box">
-            <h2 class="cta-title">Je setup is afgerond</h2>
-            <p class="cta-subtitle">
-              Je kunt nu terug naar je website of je backend/docs openen voor verdere tests.
+          <div class="highlight-box">
+            <h3 class="highlight-title">Je eerste OfficeFlow-setup is afgerond</h3>
+            <p class="highlight-copy">
+              Je hoeft niets meer in te stellen. Je kunt nu terug naar de website of verder testen met je live flow.
             </p>
+          </div>
 
-            <a class="cta-button" href="https://officeflowcompany.com">
-              Naar OfficeFlow website
+          <div class="actions">
+            <a class="button-primary" href="https://officeflowcompany.com">
+              Ga naar OfficeFlow
             </a>
 
-            <div class="note">
-              Tijdens testen kun je ook direct je backend bekijken via Railway of de API docs openen.
-            </div>
+            <a class="button-secondary" href="https://ai-mail-assistant-production-979f.up.railway.app/docs">
+              Open API docs
+            </a>
+          </div>
+
+          <div class="note">
+            Tijdens testen kan het even duren voordat de eerste labels of drafts zichtbaar zijn in Gmail, afhankelijk van de inbox en de verwerking.
           </div>
         </div>
       </div>
