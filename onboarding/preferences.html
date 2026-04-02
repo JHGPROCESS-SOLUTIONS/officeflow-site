@@ -3,52 +3,596 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>OfficeFlow Preferences</title>
+  <title>OfficeFlow — Reply voorkeuren instellen</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #111827;
+      --muted: #6b7280;
+      --line: #e5e7eb;
+      --primary: #111827;
+      --primary-soft: #eef2ff;
+      --primary-accent: #4f46e5;
+      --success: #166534;
+      --success-bg: #ecfdf3;
+      --error: #b91c1c;
+      --error-bg: #fef2f2;
+      --shadow: 0 14px 40px rgba(17, 24, 39, 0.08);
+      --radius: 18px;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(180deg, #f7f8fc 0%, #eef2f7 100%);
+      color: var(--text);
+    }
+
+    .page {
+      min-height: 100vh;
+      padding: 48px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: 880px;
+    }
+
+    .topbar {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(229, 231, 235, 0.9);
+      padding: 10px 14px;
+      border-radius: 999px;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 8px 24px rgba(17, 24, 39, 0.04);
+    }
+
+    .brand-mark {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--primary-accent);
+    }
+
+    .brand-name {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--primary-accent);
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid rgba(229, 231, 235, 0.9);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .hero {
+      padding: 34px 34px 24px 34px;
+      border-bottom: 1px solid var(--line);
+      background:
+        radial-gradient(circle at top right, rgba(79, 70, 229, 0.08), transparent 30%),
+        linear-gradient(180deg, #ffffff 0%, #fbfcff 100%);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--primary-soft);
+      color: var(--primary-accent);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .hero h1 {
+      margin: 0 0 10px 0;
+      font-size: 38px;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+
+    .hero p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 720px;
+    }
+
+    .content {
+      padding: 30px 34px 34px 34px;
+    }
+
+    .email-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #f9fafb;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px 18px;
+      margin-bottom: 26px;
+    }
+
+    .email-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: var(--primary-soft);
+      color: var(--primary-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .email-copy {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .email-copy strong {
+      color: var(--text);
+    }
+
+    form {
+      display: grid;
+      gap: 24px;
+    }
+
+    .section {
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 22px;
+      background: #ffffff;
+    }
+
+    .section-title {
+      margin: 0 0 6px 0;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .section-subtitle {
+      margin: 0 0 18px 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    .field label {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .field small {
+      margin-top: 7px;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    select,
+    textarea,
+    input[type="number"],
+    input[type="text"] {
+      width: 100%;
+      border: 1px solid #d1d5db;
+      background: #fff;
+      color: var(--text);
+      border-radius: 14px;
+      padding: 14px 14px;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+    }
+
+    select:focus,
+    textarea:focus,
+    input[type="number"]:focus,
+    input[type="text"]:focus {
+      border-color: var(--primary-accent);
+      box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.12);
+    }
+
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    .choice-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .checkbox-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: #f9fafb;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px 16px;
+    }
+
+    .checkbox-card input[type="checkbox"] {
+      margin-top: 3px;
+      transform: scale(1.1);
+    }
+
+    .checkbox-card-title {
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .checkbox-card-copy {
+      font-size: 13px;
+      line-height: 1.45;
+      color: var(--muted);
+    }
+
+    .hint-box {
+      margin-top: 10px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: #f9fafb;
+      border: 1px dashed #d1d5db;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .footer-bar {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      padding-top: 8px;
+    }
+
+    .status {
+      font-size: 14px;
+      font-weight: 600;
+      white-space: pre-wrap;
+      padding: 12px 14px;
+      border-radius: 14px;
+      display: none;
+    }
+
+    .status.show {
+      display: inline-block;
+    }
+
+    .status.success {
+      display: inline-block;
+      color: var(--success);
+      background: var(--success-bg);
+      border: 1px solid #bbf7d0;
+    }
+
+    .status.error {
+      display: inline-block;
+      color: var(--error);
+      background: var(--error-bg);
+      border: 1px solid #fecaca;
+    }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .button-primary {
+      border: 0;
+      border-radius: 14px;
+      background: var(--primary);
+      color: white;
+      padding: 15px 22px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.12s ease, opacity 0.15s ease;
+    }
+
+    .button-primary:hover {
+      opacity: 0.96;
+      transform: translateY(-1px);
+    }
+
+    .button-primary:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .micro-note {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    @media (max-width: 760px) {
+      .hero,
+      .content {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      .hero h1 {
+        font-size: 30px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-bar {
+        align-items: stretch;
+      }
+    }
+  </style>
 </head>
-<body style="font-family: Arial; padding: 40px;">
-  <h1>Stel je reply-voorkeuren in</h1>
-  <p id="emailText"></p>
+<body>
+  <div class="page">
+    <div class="wrap">
+      <div class="topbar">
+        <div class="brand">
+          <div class="brand-mark"></div>
+          <div class="brand-name">OfficeFlow</div>
+        </div>
+      </div>
 
-  <form id="preferencesForm" style="max-width: 500px;">
-    <label>Taal</label>
-    <br />
-    <select id="preferred_language" style="padding: 10px; width: 100%; margin-top: 6px; margin-bottom: 16px;">
-      <option value="nl">Nederlands</option>
-      <option value="en">English</option>
-    </select>
+      <div class="card">
+        <div class="hero">
+          <div class="hero-badge">Persoonlijke reply-instellingen</div>
+          <h1>Laat OfficeFlow schrijven zoals jij dat wilt</h1>
+          <p>
+            Stel hieronder je voorkeuren in voor toon, lengte, formaliteit en stijl.
+            Zo worden je eerste drafts meteen bruikbaar en voelen ze direct als jouw eigen mails.
+          </p>
+        </div>
 
-    <label>Toon</label>
-    <br />
-    <select id="tone_preference" style="padding: 10px; width: 100%; margin-top: 6px; margin-bottom: 16px;">
-      <option value="direct">Direct</option>
-      <option value="friendly">Friendly</option>
-      <option value="formal">Formal</option>
-    </select>
+        <div class="content">
+          <div class="email-box">
+            <div class="email-icon">@</div>
+            <div class="email-copy" id="emailText"></div>
+          </div>
 
-    <label>Formaliteit</label>
-    <br />
-    <select id="formality" style="padding: 10px; width: 100%; margin-top: 6px; margin-bottom: 16px;">
-      <option value="neutral">Neutraal</option>
-      <option value="informal">Informeel</option>
-      <option value="formal">Formeel</option>
-    </select>
+          <form id="preferencesForm">
+            <div class="section">
+              <h2 class="section-title">Algemene stijl</h2>
+              <p class="section-subtitle">
+                Dit bepaalt hoe OfficeFlow standaard je replies formuleert.
+              </p>
 
-    <label>Lengte</label>
-    <br />
-    <select id="length_preference" style="padding: 10px; width: 100%; margin-top: 6px; margin-bottom: 16px;">
-      <option value="short">Kort</option>
-      <option value="medium">Gemiddeld</option>
-    </select>
+              <div class="grid">
+                <div class="field">
+                  <label for="preferred_language">Voorkeurstaal</label>
+                  <select id="preferred_language">
+                    <option value="nl">Nederlands</option>
+                    <option value="en">English</option>
+                  </select>
+                  <small>De taal waarin je standaard drafts wilt ontvangen.</small>
+                </div>
 
-    <label style="display:block; margin-bottom: 16px;">
-      <input type="checkbox" id="emoji_preference" />
-      Emoji toestaan
-    </label>
+                <div class="field">
+                  <label for="tone_preference">Toon</label>
+                  <select id="tone_preference">
+                    <option value="direct">Direct</option>
+                    <option value="friendly">Friendly</option>
+                    <option value="formal">Formal</option>
+                  </select>
+                  <small>Hoe je over het algemeen wilt klinken.</small>
+                </div>
 
-    <button id="saveBtn" type="submit" style="padding: 14px 24px;">Voorkeuren opslaan</button>
-  </form>
+                <div class="field">
+                  <label for="formality">Formaliteit</label>
+                  <select id="formality">
+                    <option value="neutral">Neutraal</option>
+                    <option value="informal">Informeel</option>
+                    <option value="formal">Formeel</option>
+                  </select>
+                  <small>Hoe zakelijk of los de formulering mag zijn.</small>
+                </div>
 
-  <p id="status" style="margin-top: 20px; white-space: pre-wrap;"></p>
+                <div class="field">
+                  <label for="length_preference">Gewenste lengte</label>
+                  <select id="length_preference">
+                    <option value="short">Kort</option>
+                    <option value="medium">Gemiddeld</option>
+                  </select>
+                  <small>Kies of je meestal korte of iets uitgebreidere replies wilt.</small>
+                </div>
+
+                <div class="field">
+                  <label for="cta_preference">Afsluiting / call-to-action</label>
+                  <select id="cta_preference">
+                    <option value="only_when_relevant">Alleen wanneer relevant</option>
+                    <option value="always_soft">Altijd een zachte afsluiting</option>
+                    <option value="minimal">Zo minimaal mogelijk</option>
+                  </select>
+                  <small>Bijvoorbeeld wel of niet afsluiten met “laat maar weten”.</small>
+                </div>
+
+                <div class="field">
+                  <label for="signature_mode">Handtekening</label>
+                  <select id="signature_mode">
+                    <option value="none">Geen handtekening</option>
+                    <option value="include_name">Alleen naam / minimale afsluiting</option>
+                    <option value="full_signature">Volledige handtekening als beschikbaar</option>
+                  </select>
+                  <small>Hoe OfficeFlow met je afsluiting moet omgaan.</small>
+                </div>
+              </div>
+            </div>
+
+            <div class="section">
+              <h2 class="section-title">Persoonlijke voorkeuren</h2>
+              <p class="section-subtitle">
+                Geef OfficeFlow extra richting zodat drafts nog beter aansluiten op jouw manier van schrijven.
+              </p>
+
+              <div class="choice-grid">
+                <div class="checkbox-card">
+                  <input type="checkbox" id="emoji_preference" />
+                  <div>
+                    <div class="checkbox-card-title">Emoji toestaan</div>
+                    <div class="checkbox-card-copy">
+                      Laat OfficeFlow spaarzaam emoji gebruiken als dat natuurlijk past bij jouw stijl.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="checkbox-card">
+                  <input type="checkbox" id="style_learning_enabled" />
+                  <div>
+                    <div class="checkbox-card-title">Style learning inschakelen</div>
+                    <div class="checkbox-card-copy">
+                      Laat OfficeFlow later leren van je eerder verzonden mails om je stijl nog beter na te bootsen.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="grid" style="margin-top: 18px;">
+                <div class="field">
+                  <label for="style_learning_source_limit">Aantal mails voor style learning</label>
+                  <input
+                    type="number"
+                    id="style_learning_source_limit"
+                    min="1"
+                    max="200"
+                    value="30"
+                  />
+                  <small>Hoeveel eerdere verzonden mails OfficeFlow maximaal mag gebruiken.</small>
+                </div>
+
+                <div class="field">
+                  <label for="auto_draft_enabled">Automatisch drafts maken</label>
+                  <select id="auto_draft_enabled">
+                    <option value="true">Ja</option>
+                    <option value="false">Nee</option>
+                  </select>
+                  <small>Of OfficeFlow automatisch draftsuggesties mag voorbereiden.</small>
+                </div>
+              </div>
+            </div>
+
+            <div class="section">
+              <h2 class="section-title">Woorden en stijlregels</h2>
+              <p class="section-subtitle">
+                Hier kun je meerdere voorkeuren invullen. Zet elk item op een nieuwe regel.
+              </p>
+
+              <div class="grid">
+                <div class="field full">
+                  <label for="preferred_phrases">Voorkeurszinnen of formuleringen</label>
+                  <textarea
+                    id="preferred_phrases"
+                    placeholder="Bijvoorbeeld:
+Hou het praktisch en duidelijk.
+Graag kort en to the point.
+Ik kom hier vandaag nog op terug."
+                  ></textarea>
+                  <small>OfficeFlow probeert deze stijl of formuleringen vaker te gebruiken.</small>
+                </div>
+
+                <div class="field full">
+                  <label for="forbidden_phrases">Zinnen of woorden die je niet wilt gebruiken</label>
+                  <textarea
+                    id="forbidden_phrases"
+                    placeholder="Bijvoorbeeld:
+Dank voor je bericht.
+Neem gerust contact op.
+Mocht je nog vragen hebben."
+                  ></textarea>
+                  <small>OfficeFlow vermijdt deze formuleringen in drafts.</small>
+                </div>
+
+                <div class="field full">
+                  <label for="custom_instructions">Extra instructies</label>
+                  <textarea
+                    id="custom_instructions"
+                    placeholder="Bijvoorbeeld:
+Schrijf kort en menselijk.
+Geen overdreven beleefdheid.
+Wees duidelijk en praktisch."
+                  ></textarea>
+                  <small>Alles wat OfficeFlow extra moet meenemen bij het schrijven van je replies.</small>
+                </div>
+              </div>
+
+              <div class="hint-box">
+                Tip: dit formulier hoeft niet perfect te zijn. Je kunt later altijd aanpassen en verfijnen.
+              </div>
+            </div>
+
+            <div class="footer-bar">
+              <div>
+                <div class="actions">
+                  <button id="saveBtn" class="button-primary" type="submit">
+                    Voorkeuren opslaan
+                  </button>
+                </div>
+                <div class="micro-note" style="margin-top: 10px;">
+                  Je mailbox wordt pas echt geactiveerd zodra deze voorkeuren zijn opgeslagen.
+                </div>
+              </div>
+
+              <div id="status" class="status"></div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script>
     const API_BASE = "https://ai-mail-assistant-production-979f.up.railway.app";
@@ -60,13 +604,16 @@
     const formEl = document.getElementById("preferencesForm");
     const saveBtn = document.getElementById("saveBtn");
 
-    emailText.innerText = email
-      ? "Gekoppeld e-mailadres: " + email
-      : "Geen e-mailadres gevonden";
+    emailText.innerHTML = email
+      ? `Gekoppeld e-mailadres: <strong>${email}</strong>`
+      : "Geen e-mailadres gevonden in de URL.";
 
-    function setStatus(message, isError = false) {
+    function setStatus(message, type = "") {
       statusEl.innerText = message;
-      statusEl.style.color = isError ? "#b00020" : "#111";
+      statusEl.className = "status show";
+      if (type) {
+        statusEl.classList.add(type);
+      }
     }
 
     async function parseResponse(response) {
@@ -79,13 +626,22 @@
       }
     }
 
+    function textareaToArray(value) {
+      return value
+        .split("\n")
+        .map((item) => item.trim())
+        .filter((item) => item.length > 0);
+    }
+
     formEl.addEventListener("submit", async function (e) {
       e.preventDefault();
 
       if (!email) {
-        setStatus("Geen e-mailadres gevonden in URL.", true);
+        setStatus("Geen e-mailadres gevonden in URL.", "error");
         return;
       }
+
+      const sourceLimit = parseInt(document.getElementById("style_learning_source_limit").value || "30", 10);
 
       const payload = {
         email: email,
@@ -93,11 +649,20 @@
         tone_preference: document.getElementById("tone_preference").value,
         formality: document.getElementById("formality").value,
         length_preference: document.getElementById("length_preference").value,
-        emoji_preference: document.getElementById("emoji_preference").checked
+        emoji_preference: document.getElementById("emoji_preference").checked,
+        cta_preference: document.getElementById("cta_preference").value,
+        signature_mode: document.getElementById("signature_mode").value,
+        forbidden_phrases: textareaToArray(document.getElementById("forbidden_phrases").value),
+        preferred_phrases: textareaToArray(document.getElementById("preferred_phrases").value),
+        custom_instructions: document.getElementById("custom_instructions").value.trim(),
+        style_learning_enabled: document.getElementById("style_learning_enabled").checked,
+        style_learning_source_limit: isNaN(sourceLimit) ? 30 : sourceLimit,
+        auto_draft_enabled: document.getElementById("auto_draft_enabled").value === "true"
       };
 
       saveBtn.disabled = true;
-      setStatus("Opslaan...");
+      saveBtn.innerText = "Opslaan...";
+      setStatus("Bezig met opslaan...");
 
       try {
         const response = await fetch(`${API_BASE}/settings/prompt`, {
@@ -117,18 +682,19 @@
             data?.message ||
             JSON.stringify(data);
 
-          setStatus("Opslaan mislukt: " + detail, true);
+          setStatus("Opslaan mislukt: " + detail, "error");
           console.log("Save settings error:", data);
           return;
         }
 
-        setStatus("Voorkeuren opgeslagen.");
+        setStatus("Voorkeuren opgeslagen. OfficeFlow is klaar voor de volgende stap.", "success");
         console.log("Save settings success:", data);
       } catch (error) {
-        setStatus("Er ging iets mis: " + error.message, true);
+        setStatus("Er ging iets mis: " + error.message, "error");
         console.log("Network/client error:", error);
       } finally {
         saveBtn.disabled = false;
+        saveBtn.innerText = "Voorkeuren opslaan";
       }
     });
   </script>
