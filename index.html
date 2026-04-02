@@ -3,35 +3,470 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>OfficeFlow</title>
+  <title>OfficeFlow — Start je abonnement</title>
+
+  <style>
+    :root {
+      --bg-main: #FFFFFF;
+      --bg-subtle: #F8FAFC;
+      --bg-gradient: linear-gradient(180deg, #FFFFFF 0%, #FFF7ED 100%);
+      --text-primary: #0F172A;
+      --text-secondary: #64748B;
+      --primary-orange: #F97316;
+      --primary-orange-hover: #EA580C;
+      --light-accent: #FED7AA;
+      --gradient-primary: linear-gradient(135deg, #F97316 0%, #FB923C 100%);
+      --border-light: #E2E8F0;
+      --shadow-soft: 0 16px 50px rgba(15, 23, 42, 0.06);
+      --shadow-button: 0 10px 24px rgba(249, 115, 22, 0.22);
+      --radius-card: 24px;
+      --radius-input: 14px;
+      --radius-button: 14px;
+      --success: #22C55E;
+      --error: #EF4444;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text-primary);
+    }
+
+    body {
+      min-height: 100vh;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 20px;
+    }
+
+    .shell {
+      width: 100%;
+      max-width: 980px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .brand-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.72);
+      border: 1px solid var(--border-light);
+      color: var(--text-secondary);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .brand-pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--primary-orange);
+      display: inline-block;
+    }
+
+    .hero-card {
+      background: var(--bg-main);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      min-height: 580px;
+    }
+
+    .hero-left {
+      padding: 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background:
+        radial-gradient(circle at top left, rgba(249, 115, 22, 0.10), transparent 30%),
+        linear-gradient(180deg, #FFFFFF 0%, #FFFDFB 100%);
+    }
+
+    .logo-wrap {
+      margin-bottom: 24px;
+    }
+
+    .logo-wrap img {
+      width: 180px;
+      max-width: 70%;
+      height: auto;
+      display: block;
+    }
+
+    .badge {
+      display: inline-block;
+      margin-bottom: 16px;
+      padding: 8px 12px;
+      background: #FFF7ED;
+      color: var(--primary-orange-hover);
+      border: 1px solid var(--light-accent);
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0 0 14px;
+      font-size: 48px;
+      line-height: 1.02;
+      letter-spacing: -0.04em;
+      color: var(--text-primary);
+      max-width: 560px;
+    }
+
+    .sub {
+      margin: 0 0 28px;
+      color: var(--text-secondary);
+      font-size: 17px;
+      line-height: 1.7;
+      max-width: 560px;
+    }
+
+    .benefits {
+      display: grid;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .benefit {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 14px 16px;
+      border: 1px solid var(--border-light);
+      border-radius: 16px;
+      background: rgba(248, 250, 252, 0.8);
+    }
+
+    .benefit-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--primary-orange);
+      margin-top: 6px;
+      flex-shrink: 0;
+    }
+
+    .benefit-title {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .benefit-copy {
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--text-secondary);
+    }
+
+    .hero-right {
+      padding: 48px;
+      border-left: 1px solid var(--border-light);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: #FFFFFF;
+    }
+
+    .form-card-title {
+      margin: 0 0 8px;
+      font-size: 28px;
+      line-height: 1.15;
+      color: var(--text-primary);
+    }
+
+    .form-card-subtitle {
+      margin: 0 0 24px;
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--text-secondary);
+    }
+
+    .field {
+      margin-bottom: 18px;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .field input {
+      width: 100%;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-input);
+      background: #FFFFFF;
+      color: var(--text-primary);
+      font-size: 15px;
+      padding: 15px 14px;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .field input:focus {
+      border-color: var(--primary-orange);
+      box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.12);
+    }
+
+    .field-help {
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .cta-button {
+      width: 100%;
+      border: none;
+      border-radius: var(--radius-button);
+      background: var(--gradient-primary);
+      color: white;
+      font-size: 15px;
+      font-weight: 700;
+      padding: 16px 20px;
+      cursor: pointer;
+      box-shadow: var(--shadow-button);
+      transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-1px);
+      opacity: 0.98;
+    }
+
+    .cta-button:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .secure-note {
+      margin-top: 14px;
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .status {
+      display: none;
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.5;
+      white-space: pre-wrap;
+    }
+
+    .status.show {
+      display: block;
+    }
+
+    .status.error {
+      background: rgba(239, 68, 68, 0.10);
+      color: #991B1B;
+      border: 1px solid rgba(239, 68, 68, 0.25);
+    }
+
+    .mini-proof {
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border-light);
+      display: grid;
+      gap: 10px;
+    }
+
+    .mini-proof-item {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    @media (max-width: 900px) {
+      .hero-card {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-right {
+        border-left: none;
+        border-top: 1px solid var(--border-light);
+      }
+
+      h1 {
+        font-size: 38px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        padding: 18px 12px;
+      }
+
+      .hero-left,
+      .hero-right {
+        padding: 24px 20px;
+      }
+
+      h1 {
+        font-size: 32px;
+      }
+
+      .sub {
+        font-size: 15px;
+      }
+    }
+  </style>
 </head>
-<body style="margin:0; font-family:Arial; display:flex; align-items:center; justify-content:center; height:100vh;">
-  <div style="text-align:center;">
-    <h1>OfficeFlow</h1>
-    <p>Start je abonnement</p>
+<body>
+  <div class="page">
+    <div class="shell">
+      <div class="topbar">
+        <div class="brand-pill">
+          <span class="brand-pill-dot"></span>
+          OfficeFlow onboarding
+        </div>
+      </div>
 
-    <input
-      type="email"
-      id="email"
-      placeholder="Vul je e-mailadres in"
-      style="padding: 12px; width: 260px;"
-    />
+      <div class="hero-card">
+        <div class="hero-left">
+          <div class="logo-wrap">
+            <img src="/OfficeFlow-logo.png" alt="OfficeFlow logo" />
+          </div>
 
-    <br><br>
+          <div class="badge">AI Email Workflow</div>
 
-    <button id="startBtn" style="padding:16px 32px;">
-      Start abonnement
-    </button>
+          <h1>Minder inboxwerk. Meer overzicht. Betere replies.</h1>
+
+          <p class="sub">
+            Verbind je mailbox, stel je schrijfstijl in en laat OfficeFlow slimme conceptantwoorden voorbereiden in jouw toon.
+          </p>
+
+          <div class="benefits">
+            <div class="benefit">
+              <div class="benefit-dot"></div>
+              <div>
+                <div class="benefit-title">Altijd jouw stijl</div>
+                <div class="benefit-copy">OfficeFlow schrijft kort, duidelijk en in de toon die jij kiest.</div>
+              </div>
+            </div>
+
+            <div class="benefit">
+              <div class="benefit-dot"></div>
+              <div>
+                <div class="benefit-title">Meer rust in je inbox</div>
+                <div class="benefit-copy">Belangrijke mails sneller opgepakt, zonder dat alles handmatig hoeft.</div>
+              </div>
+            </div>
+
+            <div class="benefit">
+              <div class="benefit-dot"></div>
+              <div>
+                <div class="benefit-title">Jij houdt de controle</div>
+                <div class="benefit-copy">Geen auto-send. Alleen slimme drafts die jij altijd zelf beoordeelt.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-right">
+          <h2 class="form-card-title">Start je abonnement</h2>
+          <p class="form-card-subtitle">
+            Vul je e-mailadres in en ga door naar Stripe. Daarna koppel je je mailbox en stel je OfficeFlow in.
+          </p>
+
+          <form id="checkoutForm">
+            <div class="field">
+              <label for="email">E-mailadres</label>
+              <input
+                type="email"
+                id="email"
+                placeholder="naam@bedrijf.nl"
+                autocomplete="email"
+                required
+              />
+              <div class="field-help">
+                Gebruik het e-mailadres waarmee je OfficeFlow wilt koppelen.
+              </div>
+            </div>
+
+            <button id="startBtn" class="cta-button" type="submit">
+              Start abonnement
+            </button>
+
+            <div id="status" class="status"></div>
+          </form>
+
+          <div class="secure-note">
+            Veilige checkout via Stripe. Daarna koppel je Google en stel je je reply-voorkeuren in.
+          </div>
+
+          <div class="mini-proof">
+            <div class="mini-proof-item">✓ Eerst betalen, daarna pas mailbox koppelen</div>
+            <div class="mini-proof-item">✓ Geen automatische verzending van e-mails</div>
+            <div class="mini-proof-item">✓ Opgezet voor rustige, professionele AI drafts</div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script>
-    document.getElementById("startBtn").addEventListener("click", function () {
-      const email = document.getElementById("email").value.trim();
+    const form = document.getElementById("checkoutForm");
+    const emailInput = document.getElementById("email");
+    const startBtn = document.getElementById("startBtn");
+    const statusEl = document.getElementById("status");
+
+    function setStatus(message = "", type = "") {
+      statusEl.textContent = message;
+      statusEl.className = "status";
+      if (message) {
+        statusEl.classList.add("show");
+      }
+      if (type) {
+        statusEl.classList.add(type);
+      }
+    }
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const email = emailInput.value.trim();
 
       if (!email) {
-        alert("Vul eerst je e-mailadres in.");
+        setStatus("Vul eerst je e-mailadres in.", "error");
         return;
       }
+
+      startBtn.disabled = true;
+      startBtn.textContent = "Even geduld...";
 
       const url =
         "https://ai-mail-assistant-production-979f.up.railway.app/billing/start-checkout?plan=starter&email=" +
