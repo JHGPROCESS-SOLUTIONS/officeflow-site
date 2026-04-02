@@ -10,9 +10,35 @@
     <h1>OfficeFlow</h1>
     <p>Start je abonnement</p>
 
-    <a href="https://ai-mail-assistant-production-979f.up.railway.app/billing/start-checkout?plan=starter">
-      <button style="padding:16px 32px;">Start abonnement</button>
-    </a>
+    <input
+      type="email"
+      id="email"
+      placeholder="Vul je e-mailadres in"
+      style="padding: 12px; width: 260px;"
+    />
+
+    <br><br>
+
+    <button id="startBtn" style="padding:16px 32px;">
+      Start abonnement
+    </button>
   </div>
+
+  <script>
+    document.getElementById("startBtn").addEventListener("click", function () {
+      const email = document.getElementById("email").value.trim();
+
+      if (!email) {
+        alert("Vul eerst je e-mailadres in.");
+        return;
+      }
+
+      const url =
+        "https://ai-mail-assistant-production-979f.up.railway.app/billing/start-checkout?plan=starter&email=" +
+        encodeURIComponent(email);
+
+      window.location.href = url;
+    });
+  </script>
 </body>
 </html>
