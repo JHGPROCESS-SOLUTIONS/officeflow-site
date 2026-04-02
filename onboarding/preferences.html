@@ -10,22 +10,17 @@
       --bg-main: #FFFFFF;
       --bg-subtle: #F8FAFC;
       --bg-gradient: linear-gradient(180deg, #FFFFFF 0%, #FFF7ED 100%);
-
       --text-primary: #0F172A;
       --text-secondary: #64748B;
-
       --primary-orange: #F97316;
       --primary-orange-hover: #EA580C;
       --light-accent: #FED7AA;
       --gradient-primary: linear-gradient(135deg, #F97316 0%, #FB923C 100%);
-
       --border-light: #E2E8F0;
       --success: #22C55E;
       --error: #EF4444;
-
       --shadow-soft: 0 16px 50px rgba(15, 23, 42, 0.06);
       --shadow-button: 0 10px 24px rgba(249, 115, 22, 0.22);
-
       --radius-card: 24px;
       --radius-input: 14px;
       --radius-button: 14px;
@@ -250,16 +245,52 @@
       box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.12);
     }
 
-    select[multiple] {
-      min-height: 142px;
-    }
-
     textarea {
       min-height: 108px;
       resize: vertical;
     }
 
-    .multi-note {
+    .chip-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip {
+      position: relative;
+    }
+
+    .chip input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .chip span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 10px 14px;
+      border: 1px solid var(--border-light);
+      border-radius: 999px;
+      background: #FFFFFF;
+      color: var(--text-primary);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      user-select: none;
+    }
+
+    .chip input:checked + span {
+      background: #FFF7ED;
+      border-color: var(--primary-orange);
+      color: var(--primary-orange-hover);
+      box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.10);
+    }
+
+    .chip-help {
       margin-top: 8px;
       font-size: 12px;
       color: var(--text-secondary);
@@ -456,31 +487,31 @@
 
             <div class="grid">
               <div class="field">
-                <label for="preferred_language">Taal</label>
-                <select id="preferred_language" multiple>
-                  <option value="nl">Nederlands</option>
-                  <option value="en">Engels</option>
-                  <option value="de">Duits</option>
-                  <option value="fr">Frans</option>
-                  <option value="es">Spaans</option>
-                  <option value="it">Italiaans</option>
-                </select>
-                <div class="multi-note">Meerdere antwoorden mogelijk. Houd Ctrl of Cmd ingedrukt om meerdere opties te kiezen.</div>
+                <label>Taal</label>
+                <div class="chip-group" id="preferred_language_group">
+                  <label class="chip"><input type="checkbox" value="nl"><span>Nederlands</span></label>
+                  <label class="chip"><input type="checkbox" value="en"><span>Engels</span></label>
+                  <label class="chip"><input type="checkbox" value="de"><span>Duits</span></label>
+                  <label class="chip"><input type="checkbox" value="fr"><span>Frans</span></label>
+                  <label class="chip"><input type="checkbox" value="es"><span>Spaans</span></label>
+                  <label class="chip"><input type="checkbox" value="it"><span>Italiaans</span></label>
+                </div>
+                <div class="chip-help">Je kunt meerdere talen aanklikken.</div>
                 <small>Welke talen gebruik je in je replies?</small>
               </div>
 
               <div class="field">
-                <label for="tone_preference">Toon</label>
-                <select id="tone_preference" multiple>
-                  <option value="direct">Direct</option>
-                  <option value="vriendelijk">Vriendelijk</option>
-                  <option value="formeel">Formeel</option>
-                  <option value="professioneel">Professioneel</option>
-                  <option value="enthousiast">Enthousiast</option>
-                  <option value="rustig">Rustig</option>
-                  <option value="kort_en_bondig">Kort en bondig</option>
-                </select>
-                <div class="multi-note">Meerdere antwoorden mogelijk. Houd Ctrl of Cmd ingedrukt om meerdere opties te kiezen.</div>
+                <label>Toon</label>
+                <div class="chip-group" id="tone_preference_group">
+                  <label class="chip"><input type="checkbox" value="direct"><span>Direct</span></label>
+                  <label class="chip"><input type="checkbox" value="vriendelijk"><span>Vriendelijk</span></label>
+                  <label class="chip"><input type="checkbox" value="formeel"><span>Formeel</span></label>
+                  <label class="chip"><input type="checkbox" value="professioneel"><span>Professioneel</span></label>
+                  <label class="chip"><input type="checkbox" value="enthousiast"><span>Enthousiast</span></label>
+                  <label class="chip"><input type="checkbox" value="rustig"><span>Rustig</span></label>
+                  <label class="chip"><input type="checkbox" value="kort_en_bondig"><span>Kort en bondig</span></label>
+                </div>
+                <div class="chip-help">Je kunt meerdere tonen aanklikken.</div>
                 <small>Hoe wil je overkomen in je communicatie?</small>
               </div>
 
@@ -504,7 +535,7 @@
                 <small>Hoe lang je standaard replies ongeveer mogen zijn.</small>
               </div>
 
-              <div class="field">
+              <div class="field full">
                 <label for="cta_preference">Afsluiting / call-to-action</label>
                 <select id="cta_preference">
                   <option value="only_when_relevant">Alleen wanneer relevant</option>
@@ -524,26 +555,26 @@
 
             <div class="grid">
               <div class="field full">
-                <label for="preferred_phrases">Voorkeurszinnen</label>
+                <label for="preferred_phrases">Wat wil je juist wél terugzien?</label>
                 <textarea
                   id="preferred_phrases"
                   placeholder="Bijv:
-Hou het kort.
-Goed punt.
-Ik kom hier later op terug."
+Gebruik altijd mijn naam in de afsluiting.
+Houd het kort.
+Kom snel tot de kern."
                 ></textarea>
-                <small>Zinnen die je graag gebruikt.</small>
+                <small>Schrijf hier kort wat OfficeFlow juist vaker moet doen of gebruiken.</small>
               </div>
 
               <div class="field full">
-                <label for="forbidden_phrases">Niet gebruiken</label>
+                <label for="forbidden_phrases">Wat wil je juist níet gebruiken?</label>
                 <textarea
                   id="forbidden_phrases"
                   placeholder="Bijv:
 Dank voor je bericht.
 Neem gerust contact op."
                 ></textarea>
-                <small>Zinnen die OfficeFlow moet vermijden.</small>
+                <small>Schrijf hier woorden of zinnen die OfficeFlow moet vermijden.</small>
               </div>
 
               <div class="field full">
@@ -557,7 +588,7 @@ Verwijs naar website bij prijzen"
                 ></textarea>
                 <small>Korte extra regels die belangrijk zijn voor je replies.</small>
                 <div class="helper-box">
-                  Tip: zet hier alleen de belangrijkste vaste regels neer. Kort en duidelijk werkt het best.
+                  Tip: zet hier alleen vaste regels neer die vaak terugkomen. Kort en concreet werkt het best.
                 </div>
               </div>
 
@@ -599,16 +630,6 @@ OfficeFlow"
                   <div class="checkbox-content-title">Style learning inschakelen</div>
                   <div class="checkbox-content-copy">
                     Laat OfficeFlow leren van eerder verzonden mails om je schrijfstijl beter te volgen.
-                  </div>
-                </div>
-              </label>
-
-              <label class="checkbox-card">
-                <input type="checkbox" id="auto_draft_enabled" />
-                <div>
-                  <div class="checkbox-content-title">Automatische drafts</div>
-                  <div class="checkbox-content-copy">
-                    Laat OfficeFlow automatisch draftsuggesties voorbereiden wanneer dat relevant is.
                   </div>
                 </div>
               </label>
@@ -669,8 +690,8 @@ OfficeFlow"
       }
     }
 
-    function getMultiSelectValues(id) {
-      return Array.from(document.getElementById(id).selectedOptions).map(option => option.value);
+    function getCheckedValues(groupId) {
+      return Array.from(document.querySelectorAll(`#${groupId} input:checked`)).map(input => input.value);
     }
 
     async function parseResponse(response) {
@@ -697,8 +718,8 @@ OfficeFlow"
 
       const payload = {
         email: email,
-        preferred_language: getMultiSelectValues("preferred_language"),
-        tone_preference: getMultiSelectValues("tone_preference"),
+        preferred_language: getCheckedValues("preferred_language_group"),
+        tone_preference: getCheckedValues("tone_preference_group"),
         formality: document.getElementById("formality").value,
         length_preference: document.getElementById("length_preference").value,
         emoji_preference: document.getElementById("emoji_preference").checked,
