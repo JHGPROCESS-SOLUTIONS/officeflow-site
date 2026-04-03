@@ -598,9 +598,7 @@ Verwijs naar website bij prijzen"
                   id="signature_text"
                   placeholder="Bijv:
 
-Met vriendelijke groet,
-Jesse Hendriks
-OfficeFlow"
+Met vriendelijke groet,"
                 ></textarea>
                 <small>De standaard handtekening die onder je drafts mag komen.</small>
               </div>
@@ -794,7 +792,7 @@ OfficeFlow"
       try {
         await savePromptSettings(payload);
 
-        setStatus("Voorkeuren opgeslagen. OfficeFlow wordt nu geactiveerd...", "loading");
+        setStatus("Voorkeuren opgeslagen. OfficeFlow wordt nu geactiveerd...\nDit duurt ongeveer 1 minuut. Even geduld.", "loading");
 
         await completeOnboarding(email);
 
