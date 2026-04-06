@@ -1,277 +1,832 @@
-export default function OfficeFlowWebsite() {
-  return (
-    <div className="min-h-screen bg-white text-slate-900">
-      <header className="border-b border-slate-200/80 bg-white/95 backdrop-blur">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 lg:px-8">
-          <div className="flex items-center gap-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-slate-200 bg-white shadow-sm">
-              <div className="relative h-8 w-8">
-                <div className="absolute inset-x-0 bottom-0 h-5 rounded-md bg-slate-800" />
-                <div className="absolute left-0 top-1 h-0 w-0 border-b-[12px] border-l-[16px] border-r-[16px] border-b-transparent border-l-slate-800 border-r-transparent" />
-                <div className="absolute right-0 top-1 h-0 w-0 border-b-[12px] border-l-[16px] border-r-[16px] border-b-transparent border-l-transparent border-r-slate-700" />
-                <div className="absolute left-[7px] top-0 h-5 w-4 rounded-sm border border-orange-200 bg-white shadow-sm" />
-                <div className="absolute left-[9px] top-[3px] h-[2px] w-2 rounded bg-orange-500" />
-                <div className="absolute left-[9px] top-[7px] h-[2px] w-3 rounded bg-slate-300" />
-                <div className="absolute left-[9px] top-[11px] h-[2px] w-2 rounded bg-slate-300" />
-                <div className="absolute left-[5px] top-[10px] h-3 w-8 rotate-[-36deg] rounded-full bg-gradient-to-r from-orange-500 to-orange-400" />
-              </div>
-            </div>
-            <div className="text-2xl font-semibold tracking-tight">
-              <span className="text-slate-900">Office</span>
-              <span className="bg-gradient-to-r from-orange-500 to-orange-400 bg-clip-text text-transparent">Flow</span>
-            </div>
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OfficeFlow</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --bg-soft: #f8fafc;
+      --text: #0f172a;
+      --text-soft: #64748b;
+      --border: #e2e8f0;
+      --orange: #f97316;
+      --orange-dark: #ea580c;
+      --orange-light: #fed7aa;
+      --gradient: linear-gradient(135deg, #f97316 0%, #fb923c 100%);
+      --shadow-sm: 0 10px 30px rgba(15, 23, 42, 0.06);
+      --shadow-lg: 0 24px 80px rgba(15, 23, 42, 0.12);
+      --radius: 24px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(249, 115, 22, 0.10), transparent 30%),
+        radial-gradient(circle at 85% 20%, rgba(251, 146, 60, 0.12), transparent 26%),
+        linear-gradient(to bottom, #ffffff 0%, #fffaf7 45%, #ffffff 100%);
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .orb {
+      position: fixed;
+      border-radius: 999px;
+      filter: blur(50px);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.5;
+      animation: float 10s ease-in-out infinite;
+    }
+
+    .orb-1 {
+      width: 260px;
+      height: 260px;
+      background: rgba(249, 115, 22, 0.18);
+      top: 70px;
+      left: -60px;
+    }
+
+    .orb-2 {
+      width: 320px;
+      height: 320px;
+      background: rgba(251, 146, 60, 0.12);
+      top: 420px;
+      right: -120px;
+      animation-delay: -3s;
+    }
+
+    .orb-3 {
+      width: 220px;
+      height: 220px;
+      background: rgba(249, 115, 22, 0.10);
+      bottom: 80px;
+      left: 45%;
+      animation-delay: -6s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) translateX(0px); }
+      50% { transform: translateY(-18px) translateX(10px); }
+    }
+
+    .wrap {
+      position: relative;
+      z-index: 1;
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 0;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+
+    .logo .flow {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      color: var(--text-soft);
+      font-size: 14px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 34px;
+      align-items: center;
+      padding: 36px 0 80px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      background: rgba(254, 215, 170, 0.55);
+      border: 1px solid rgba(249, 115, 22, 0.15);
+      border-radius: 999px;
+      color: var(--orange-dark);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      backdrop-filter: blur(10px);
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--gradient);
+      box-shadow: 0 0 0 6px rgba(249, 115, 22, 0.12);
+    }
+
+    h1 {
+      margin: 20px 0 18px;
+      font-size: clamp(42px, 6vw, 72px);
+      line-height: 1.02;
+      letter-spacing: -0.05em;
+      max-width: 720px;
+    }
+
+    .gradient-text {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .lead {
+      font-size: 18px;
+      line-height: 1.8;
+      color: var(--text-soft);
+      max-width: 640px;
+      margin-bottom: 30px;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 54px;
+      padding: 0 22px;
+      border-radius: 16px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      font-size: 15px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      color: #fff;
+      background: var(--gradient);
+      box-shadow: 0 16px 35px rgba(249, 115, 22, 0.28);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px) scale(1.01);
+      box-shadow: 0 22px 45px rgba(234, 88, 12, 0.32);
+    }
+
+    .btn-secondary {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.8);
+      border-color: var(--border);
+      backdrop-filter: blur(10px);
+    }
+
+    .btn-secondary:hover {
+      background: var(--bg-soft);
+      transform: translateY(-2px);
+    }
+
+    .trust {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      color: var(--text-soft);
+      font-size: 14px;
+    }
+
+    .trust span {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .trust span::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #22c55e;
+    }
+
+    .hero-card {
+      position: relative;
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(226, 232, 240, 0.9);
+      box-shadow: var(--shadow-lg);
+      border-radius: 30px;
+      padding: 26px;
+      backdrop-filter: blur(18px);
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(249, 115, 22, 0.10), transparent 35%);
+      pointer-events: none;
+    }
+
+    .mini-window {
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .window-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      background: #fffaf7;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .window-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .window-dots span {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #fdba74;
+    }
+
+    .window-title {
+      font-size: 13px;
+      color: var(--text-soft);
+      font-weight: 600;
+    }
+
+    .mail-list {
+      padding: 14px;
+      background: linear-gradient(180deg, #ffffff, #fffdfb);
+    }
+
+    .mail-item {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 12px;
+      align-items: start;
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: #fff;
+      margin-bottom: 12px;
+      transition: transform 0.25s ease;
+      animation: cardFloat 6s ease-in-out infinite;
+    }
+
+    .mail-item:nth-child(2) { animation-delay: -2s; }
+    .mail-item:nth-child(3) { animation-delay: -4s; }
+
+    @keyframes cardFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      margin-top: 7px;
+      border-radius: 999px;
+      background: var(--gradient);
+    }
+
+    .mail-title {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .mail-text {
+      font-size: 13px;
+      color: var(--text-soft);
+      line-height: 1.6;
+    }
+
+    .pill {
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      background: #fff7ed;
+      color: var(--orange-dark);
+      border: 1px solid #fed7aa;
+      white-space: nowrap;
+    }
+
+    .reply-box {
+      margin-top: 16px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: #ffffff;
+      padding: 18px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .reply-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      font-size: 13px;
+      color: var(--text-soft);
+      font-weight: 600;
+    }
+
+    .reply-body {
+      color: var(--text);
+      line-height: 1.8;
+      font-size: 14px;
+    }
+
+    .reply-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    .chip {
+      font-size: 12px;
+      color: var(--text-soft);
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--bg-soft);
+    }
+
+    .section {
+      padding: 26px 0 90px;
+    }
+
+    .section.alt {
+      background: linear-gradient(180deg, rgba(248, 250, 252, 0.85), rgba(255, 255, 255, 0.9));
+      border-top: 1px solid rgba(226, 232, 240, 0.8);
+      border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+    }
+
+    .section-head {
+      max-width: 720px;
+      margin-bottom: 34px;
+    }
+
+    .section-head h2 {
+      margin: 0 0 12px;
+      font-size: clamp(30px, 4vw, 48px);
+      letter-spacing: -0.04em;
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--text-soft);
+      line-height: 1.8;
+      font-size: 17px;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .feature-card {
+      background: rgba(255, 255, 255, 0.86);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.10);
+    }
+
+    .icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, rgba(249, 115, 22, 0.14), rgba(251, 146, 60, 0.16));
+      color: var(--orange-dark);
+      font-size: 20px;
+      margin-bottom: 16px;
+    }
+
+    .feature-card h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+    }
+
+    .feature-card p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--text-soft);
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .step {
+      position: relative;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .step-number {
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: #fff;
+      background: var(--gradient);
+      box-shadow: 0 12px 24px rgba(249, 115, 22, 0.24);
+      margin-bottom: 16px;
+    }
+
+    .step h3 {
+      margin: 0 0 10px;
+      font-size: 19px;
+    }
+
+    .step p {
+      margin: 0;
+      color: var(--text-soft);
+      line-height: 1.8;
+    }
+
+    .footer-cta {
+      padding: 0 0 90px;
+    }
+
+    .cta-panel {
+      position: relative;
+      overflow: hidden;
+      border-radius: 32px;
+      padding: 42px;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(30, 41, 59, 0.96));
+      color: #fff;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .cta-panel::before,
+    .cta-panel::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(30px);
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    .cta-panel::before {
+      width: 240px;
+      height: 240px;
+      background: rgba(249, 115, 22, 0.55);
+      top: -60px;
+      right: -20px;
+    }
+
+    .cta-panel::after {
+      width: 180px;
+      height: 180px;
+      background: rgba(251, 146, 60, 0.45);
+      bottom: -50px;
+      left: -30px;
+    }
+
+    .cta-panel-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .cta-panel h2 {
+      margin: 0 0 10px;
+      font-size: clamp(28px, 4vw, 44px);
+      letter-spacing: -0.04em;
+    }
+
+    .cta-panel p {
+      margin: 0;
+      color: rgba(255,255,255,0.78);
+      max-width: 620px;
+      line-height: 1.8;
+    }
+
+    .footer-links {
+      margin-top: 18px;
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      color: rgba(255,255,255,0.76);
+      font-size: 14px;
+    }
+
+    .footer-links a:hover {
+      color: #fff;
+    }
+
+    @media (max-width: 980px) {
+      .hero,
+      .features,
+      .steps {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 18px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .cta-panel-inner {
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        width: min(100% - 24px, 1180px);
+      }
+
+      .hero-card,
+      .cta-panel,
+      .feature-card,
+      .step {
+        border-radius: 22px;
+      }
+
+      .cta-row {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <div class="wrap">
+    <div class="container">
+      <nav class="nav">
+        <div class="logo">Office<span class="flow">Flow</span></div>
+        <div class="nav-links">
+          <a href="#features">Features</a>
+          <a href="#how-it-works">Hoe het werkt</a>
+          <a href="/privacy.html">Privacy</a>
+          <a href="/terms.html">Terms</a>
+        </div>
+      </nav>
+
+      <section class="hero">
+        <div>
+          <div class="eyebrow">AI EMAIL WORKFLOW</div>
+          <h1>
+            Minder inboxwerk.<br>
+            Meer overzicht.<br>
+            <span class="gradient-text">Betere replies.</span>
+          </h1>
+          <p class="lead">
+            OfficeFlow is een AI-gestuurde e-mailassistent die je inbox automatisch analyseert en slimme conceptantwoorden schrijft in jouw eigen stijl.
+            Je koppelt je mailbox, stelt je voorkeuren in en krijgt direct bruikbare drafts voor je belangrijkste mails — zonder auto-send, dus jij blijft altijd in controle.
+          </p>
+
+          <div class="cta-row">
+            <a class="btn btn-primary" href="/onboarding.html">Start abonnement</a>
+            <a class="btn btn-secondary" href="#features">Bekijk hoe het werkt</a>
           </div>
 
-          <nav className="hidden items-center gap-8 text-sm text-slate-600 md:flex">
-            <a href="#features" className="transition hover:text-slate-900">Features</a>
-            <a href="#solutions" className="transition hover:text-slate-900">Solutions</a>
-            <a href="#pricing" className="transition hover:text-slate-900">Pricing</a>
-            <a href="#contact" className="transition hover:text-slate-900">Contact</a>
-          </nav>
-
-          <div className="flex items-center gap-3">
-            <button className="hidden rounded-xl px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100 md:inline-flex">
-              Inloggen
-            </button>
-            <button className="rounded-xl bg-gradient-to-r from-orange-500 to-orange-400 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-orange-200 transition hover:scale-[1.02]">
-              Plan demo
-            </button>
+          <div class="trust">
+            <span>Geen automatische verzending</span>
+            <span>Schrijft in jouw stijl</span>
+            <span>Meer rust in je inbox</span>
           </div>
         </div>
-      </header>
 
-      <main>
-        <section className="relative overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(251,146,60,0.16),transparent_26%),radial-gradient(circle_at_left,rgba(249,115,22,0.08),transparent_22%)]" />
-          <div className="relative mx-auto grid max-w-7xl gap-16 px-6 py-20 lg:grid-cols-2 lg:px-8 lg:py-28">
-            <div className="flex flex-col justify-center">
-              <div className="mb-6 inline-flex w-fit items-center gap-2 rounded-full border border-orange-100 bg-orange-50 px-4 py-2 text-sm font-medium text-orange-700">
-                Slimme automatisering voor mail, facturen en offertes
+        <div class="hero-card">
+          <div class="mini-window">
+            <div class="window-top">
+              <div class="window-dots">
+                <span></span><span></span><span></span>
               </div>
-              <h1 className="max-w-2xl text-5xl font-semibold leading-tight tracking-tight text-slate-900 lg:text-6xl">
-                Automatiseer je backoffice met een uitstraling die net zo premium voelt als je service.
-              </h1>
-              <p className="mt-6 max-w-xl text-lg leading-8 text-slate-600">
-                OfficeFlow verbindt Gmail en Outlook met offerte- en factuurflows, zodat je sneller werkt, minder fouten maakt en altijd professioneel overkomt.
-              </p>
-              <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-                <button className="rounded-2xl bg-gradient-to-r from-orange-500 to-orange-400 px-7 py-4 text-base font-semibold text-white shadow-xl shadow-orange-200 transition hover:scale-[1.02]">
-                  Start gratis demo
-                </button>
-                <button className="rounded-2xl border border-slate-200 bg-white px-7 py-4 text-base font-semibold text-slate-800 shadow-sm transition hover:border-slate-300 hover:bg-slate-50">
-                  Bekijk hoe het werkt
-                </button>
-              </div>
-              <div className="mt-10 flex items-center gap-8 text-sm text-slate-500">
-                <div>
-                  <div className="text-2xl font-semibold text-slate-900">80%</div>
-                  minder handmatig werk
-                </div>
-                <div>
-                  <div className="text-2xl font-semibold text-slate-900">24/7</div>
-                  geautomatiseerde opvolging
-                </div>
-                <div>
-                  <div className="text-2xl font-semibold text-slate-900">1 plek</div>
-                  voor mailbox en documenten
-                </div>
-              </div>
+              <div class="window-title">OfficeFlow Inbox Preview</div>
+              <div class="pill">AI actief</div>
             </div>
 
-            <div className="relative">
-              <div className="absolute -left-6 top-10 h-24 w-24 rounded-full bg-orange-100 blur-2xl" />
-              <div className="absolute right-0 top-0 h-28 w-28 rounded-full bg-orange-200/60 blur-3xl" />
-              <div className="relative rounded-[32px] border border-slate-200 bg-white p-5 shadow-2xl shadow-slate-200/70">
-                <div className="rounded-[28px] border border-slate-100 bg-slate-50 p-4">
-                  <div className="mb-4 flex items-center justify-between">
-                    <div>
-                      <div className="text-sm font-semibold text-slate-900">Inbox automation</div>
-                      <div className="text-xs text-slate-500">Gmail + Outlook + offertes</div>
-                    </div>
-                    <div className="rounded-full bg-green-50 px-3 py-1 text-xs font-medium text-green-700">Live</div>
-                  </div>
+            <div class="mail-list">
+              <div class="mail-item">
+                <div class="dot"></div>
+                <div>
+                  <div class="mail-title">Prijsindicatie voor nieuw project</div>
+                  <div class="mail-text">Klant vraagt om een snelle prijs en planning voor volgende week.</div>
+                </div>
+                <div class="pill">Priority</div>
+              </div>
 
-                  <div className="space-y-3">
-                    <div className="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-100">
-                      <div className="flex items-start justify-between gap-4">
-                        <div>
-                          <div className="text-sm font-medium text-slate-900">Nieuwe offerte aanvraag</div>
-                          <div className="mt-1 text-sm text-slate-500">Klant vraagt prijsvoorstel aan via e-mail.</div>
-                        </div>
-                        <div className="rounded-full bg-orange-50 px-3 py-1 text-xs font-medium text-orange-700">Nieuw</div>
-                      </div>
-                    </div>
+              <div class="mail-item">
+                <div class="dot"></div>
+                <div>
+                  <div class="mail-title">Update op je offerteaanvraag</div>
+                  <div class="mail-text">OfficeFlow stelt direct een korte, bruikbare reply voor in jouw toon.</div>
+                </div>
+                <div class="pill">Draft ready</div>
+              </div>
 
-                    <div className="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-100">
-                      <div className="text-xs uppercase tracking-[0.18em] text-slate-400">AI verwerking</div>
-                      <div className="mt-3 h-2 overflow-hidden rounded-full bg-slate-100">
-                        <div className="h-full w-4/5 rounded-full bg-gradient-to-r from-orange-500 to-orange-400" />
-                      </div>
-                      <div className="mt-3 flex items-center justify-between text-sm">
-                        <span className="text-slate-600">Concept offerte gegenereerd</span>
-                        <span className="font-medium text-slate-900">82%</span>
-                      </div>
-                    </div>
+              <div class="mail-item">
+                <div class="dot"></div>
+                <div>
+                  <div class="mail-title">Status leverancier bevestigd</div>
+                  <div class="mail-text">Informatieve update zonder actie? Dan blijft je inbox overzichtelijk.</div>
+                </div>
+                <div class="pill">FYI</div>
+              </div>
 
-                    <div className="grid gap-3 md:grid-cols-2">
-                      <div className="rounded-2xl bg-slate-900 p-4 text-white shadow-lg">
-                        <div className="text-xs uppercase tracking-[0.18em] text-slate-400">Facturatie</div>
-                        <div className="mt-3 text-2xl font-semibold">€ 48.240</div>
-                        <div className="mt-1 text-sm text-slate-300">Deze maand automatisch verwerkt</div>
-                      </div>
-                      <div className="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-100">
-                        <div className="text-xs uppercase tracking-[0.18em] text-slate-400">Taken</div>
-                        <ul className="mt-3 space-y-2 text-sm text-slate-600">
-                          <li>✔ Offerte verstuurd</li>
-                          <li>✔ Factuur aangemaakt</li>
-                          <li>✔ Herinnering ingepland</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
+              <div class="reply-box">
+                <div class="reply-top">
+                  <span>Voorgestelde reply</span>
+                  <span>Jouw stijl</span>
+                </div>
+                <div class="reply-body">
+                  Ik stuur je vandaag nog een prijsindicatie en een korte planning. Als je wilt, neem ik daarin meteen de twee opties mee.
+                </div>
+                <div class="reply-actions">
+                  <div class="chip">Kort</div>
+                  <div class="chip">Direct</div>
+                  <div class="chip">Geen auto-send</div>
                 </div>
               </div>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
+    </div>
 
-        <section className="border-y border-slate-200 bg-slate-50/70">
-          <div className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-6 py-10 text-center text-sm text-slate-500 md:grid-cols-4 lg:px-8">
-            <div>Gmail integratie</div>
-            <div>Outlook integratie</div>
-            <div>Factuurautomatisering</div>
-            <div>Offerteflows</div>
-          </div>
-        </section>
+    <section class="section alt" id="features">
+      <div class="container">
+        <div class="section-head">
+          <h2>Ontworpen om luxe, rust en snelheid te voelen.</h2>
+          <p>
+            Geen drukke tool met ruis, maar een strakke AI workflow die direct waarde levert: minder handmatig mailwerk, meer overzicht en sterkere antwoorden zonder dat jij de controle verliest.
+          </p>
+        </div>
 
-        <section id="features" className="mx-auto max-w-7xl px-6 py-24 lg:px-8">
-          <div className="max-w-2xl">
-            <div className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-orange-600">Features</div>
-            <h2 className="text-4xl font-semibold tracking-tight text-slate-900">Alles in een rustige, professionele interface.</h2>
-            <p className="mt-4 text-lg text-slate-600">
-              Ontworpen met een strak kleurenpalet, veel witruimte en subtiele oranje accenten die vertrouwen en snelheid uitstralen.
+        <div class="features">
+          <div class="feature-card">
+            <div class="icon">✍️</div>
+            <h3>Schrijft in jouw stijl</h3>
+            <p>
+              Kies toon, lengte en schrijfstijl. OfficeFlow maakt replies die voelen alsof jij ze zelf in één keer hebt geschreven.
             </p>
           </div>
 
-          <div className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-            {[
-              {
-                title: 'Slimme e-mail verwerking',
-                text: 'Verwerk inkomende berichten automatisch en zet ze om in acties, taken of offertes.',
-              },
-              {
-                title: 'Offertes in jouw stijl',
-                text: 'Genereer professionele offertes met vaste templates en snelle goedkeuring.',
-              },
-              {
-                title: 'Facturatie zonder gedoe',
-                text: 'Maak en verstuur facturen direct vanuit je workflow zonder losse systemen.',
-              },
-              {
-                title: 'Premium dashboard',
-                text: 'Overzichtelijke statistieken, rustige kleuren en een interface die vertrouwen wekt.',
-              },
-            ].map((item) => (
-              <div key={item.title} className="rounded-[28px] border border-slate-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
-                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-50 text-orange-600 shadow-sm">
-                  <div className="h-2.5 w-2.5 rounded-full bg-gradient-to-r from-orange-500 to-orange-400" />
-                </div>
-                <h3 className="text-xl font-semibold text-slate-900">{item.title}</h3>
-                <p className="mt-3 leading-7 text-slate-600">{item.text}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section id="solutions" className="bg-slate-900 py-24 text-white">
-          <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-2 lg:px-8">
-            <div>
-              <div className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-orange-400">Waarom deze stijl werkt</div>
-              <h2 className="text-4xl font-semibold tracking-tight">Modern, premium en direct geloofwaardig.</h2>
-              <p className="mt-6 max-w-xl text-lg leading-8 text-slate-300">
-                De combinatie van wit, diep slate en gecontroleerde oranje accenten zorgt voor een moderne SaaS-uitstraling. Professioneel genoeg voor zakelijke klanten, maar toch onderscheidend.
-              </p>
-            </div>
-
-            <div className="grid gap-4">
-              {[
-                'Wit als basis voor rust en ruimte',
-                'Diepe donkere tekstkleur voor premium contrast',
-                'Oranje gradient alleen op call-to-actions en highlights',
-                'Ronde hoeken en zachte schaduwen voor een luxe digitale uitstraling',
-              ].map((point) => (
-                <div key={point} className="rounded-2xl border border-white/10 bg-white/5 p-5 text-slate-200">
-                  {point}
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section id="pricing" className="mx-auto max-w-7xl px-6 py-24 lg:px-8">
-          <div className="mx-auto max-w-2xl text-center">
-            <div className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-orange-600">Pricing</div>
-            <h2 className="text-4xl font-semibold tracking-tight text-slate-900">Een voorbeeld van hoe je aanbod eruit kan zien.</h2>
+          <div class="feature-card">
+            <div class="icon">📥</div>
+            <h3>Prioriteit in je inbox</h3>
+            <p>
+              Belangrijke e-mails worden sneller zichtbaar, zodat jij direct weet waar je tijd en aandacht naartoe moet.
+            </p>
           </div>
 
-          <div className="mt-14 grid gap-6 lg:grid-cols-3">
-            {[
-              { name: 'Starter', price: '€49', desc: 'Voor kleine teams die e-mailprocessen willen automatiseren.' },
-              { name: 'Growth', price: '€149', desc: 'Voor bedrijven met offertes, facturen en geavanceerde flows.', featured: true },
-              { name: 'Scale', price: 'Op maat', desc: 'Voor grotere teams met meerdere mailboxen en complexe workflows.' },
-            ].map((plan) => (
-              <div
-                key={plan.name}
-                className={`rounded-[30px] border p-8 ${plan.featured ? 'border-orange-200 bg-gradient-to-b from-orange-50 to-white shadow-xl shadow-orange-100' : 'border-slate-200 bg-white shadow-sm'}`}
-              >
-                <div className="flex items-center justify-between">
-                  <h3 className="text-2xl font-semibold text-slate-900">{plan.name}</h3>
-                  {plan.featured && <span className="rounded-full bg-orange-500 px-3 py-1 text-xs font-semibold text-white">Populair</span>}
-                </div>
-                <div className="mt-6 text-4xl font-semibold text-slate-900">{plan.price}</div>
-                <p className="mt-4 leading-7 text-slate-600">{plan.desc}</p>
-                <button className={`mt-8 w-full rounded-2xl px-5 py-3.5 text-sm font-semibold transition ${plan.featured ? 'bg-gradient-to-r from-orange-500 to-orange-400 text-white shadow-lg shadow-orange-200' : 'border border-slate-200 bg-white text-slate-800 hover:bg-slate-50'}`}>
-                  Kies {plan.name}
-                </button>
-              </div>
-            ))}
+          <div class="feature-card">
+            <div class="icon">🛡️</div>
+            <h3>Altijd onder jouw controle</h3>
+            <p>
+              Geen automatische verzending. Elke draft blijft een suggestie die jij kunt reviewen, aanpassen en zelf versturen.
+            </p>
           </div>
-        </section>
-
-        <section className="px-6 pb-24 lg:px-8">
-          <div className="mx-auto max-w-7xl rounded-[36px] bg-slate-900 px-8 py-16 text-white shadow-2xl shadow-slate-200 lg:px-14">
-            <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
-              <div>
-                <div className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-orange-400">Call to action</div>
-                <h2 className="text-4xl font-semibold tracking-tight">Klaar om OfficeFlow als premium merk neer te zetten?</h2>
-                <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-300">
-                  Dit voorbeeld combineert jouw logo-richting met een complete website stijl: kleurpalet, knoppen, cards, pricing en hero-sectie in een consistente premium SaaS-look.
-                </p>
-              </div>
-              <div className="rounded-[28px] bg-white/5 p-5 backdrop-blur">
-                <div className="space-y-3 rounded-[24px] border border-white/10 p-5">
-                  <input className="w-full rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-slate-400 outline-none" placeholder="Jouw e-mailadres" />
-                  <input className="w-full rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-slate-400 outline-none" placeholder="Bedrijfsnaam" />
-                  <button className="w-full rounded-2xl bg-gradient-to-r from-orange-500 to-orange-400 px-5 py-3.5 text-sm font-semibold text-white shadow-lg shadow-orange-500/20">
-                    Vraag een demo aan
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
-
-      <footer id="contact" className="border-t border-slate-200 bg-white">
-        <div className="mx-auto flex max-w-7xl flex-col gap-6 px-6 py-10 text-sm text-slate-500 lg:flex-row lg:items-center lg:justify-between lg:px-8">
-          <div className="text-lg font-semibold tracking-tight">
-            <span className="text-slate-900">Office</span>
-            <span className="bg-gradient-to-r from-orange-500 to-orange-400 bg-clip-text text-transparent">Flow</span>
-          </div>
-          <div>Automate. Invoice. Optimize.</div>
-          <div>hello@officeflow.nl</div>
         </div>
-      </footer>
-    </div>
-  );
-}
+      </div>
+    </section>
+
+    <section class="section" id="how-it-works">
+      <div class="container">
+        <div class="section-head">
+          <h2>Zo werkt OfficeFlow</h2>
+          <p>
+            In een paar simpele stappen zet je een premium AI workflow neer voor je inbox — zonder ingewikkelde setup of extra tools.
+          </p>
+        </div>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Koppel je mailbox</h3>
+            <p>
+              Verbind veilig je Gmail-account en geef OfficeFlow toegang om je inbox te analyseren en drafts voor te bereiden.
+            </p>
+          </div>
+
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Stel je voorkeuren in</h3>
+            <p>
+              Bepaal toon, lengte en stijl. Zo schrijft OfficeFlow direct antwoorden die passen bij jouw manier van communiceren.
+            </p>
+          </div>
+
+          <div class="step">
+            <div class="step-number">3</div>
+            <h3>Review en verstuur</h3>
+            <p>
+              Je krijgt direct bruikbare drafts voor je belangrijkste mails. Jij reviewt, past aan waar nodig en verstuurt zelf.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="footer-cta">
+      <div class="container">
+        <div class="cta-panel">
+          <div class="cta-panel-inner">
+            <div>
+              <h2>Maak van je inbox weer een rustige workflow.</h2>
+              <p>
+                Start met OfficeFlow en ervaar hoe veel sneller e-mail voelt wanneer prioriteit, toon en draftkwaliteit automatisch goed staan.
+              </p>
+              <div class="footer-links">
+                <a href="/privacy.html">Privacy Policy</a>
+                <a href="/terms.html">Terms of Service</a>
+              </div>
+            </div>
+
+            <div>
+              <a class="btn btn-primary" href="/onboarding.html">Start abonnement</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
