@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/facturen/:path*",
+      "destination": "https://billing-saas-one.vercel.app/facturen/:path*"
+    }
+  ]
+}
