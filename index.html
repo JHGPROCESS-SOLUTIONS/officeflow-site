@@ -3,834 +3,526 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>OfficeFlow</title>
+  <title>OfficeFlow — Slimme tools voor jouw werkproces</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #ffffff;
-      --bg-soft: #f8fafc;
-      --text: #0f172a;
-      --text-soft: #64748b;
-      --border: #e2e8f0;
-      --orange: #f97316;
-      --orange-dark: #ea580c;
-      --orange-light: #fed7aa;
-      --gradient: linear-gradient(135deg, #f97316 0%, #fb923c 100%);
-      --shadow-sm: 0 10px 30px rgba(15, 23, 42, 0.06);
-      --shadow-lg: 0 24px 80px rgba(15, 23, 42, 0.12);
-      --radius: 24px;
+      --orange:       #f97316;
+      --orange-dark:  #ea580c;
+      --orange-light: #fb923c;
+      --orange-soft:  #fed7aa;
+      --orange-bg:    #fff7ed;
+      --blue:         #4f46e5;
+      --blue-light:   #6366f1;
+      --blue-soft:    #c7d2fe;
+      --blue-bg:      #eef2ff;
+      --navy:         #08142f;
+      --navy-2:       #0b1a3a;
+      --navy-3:       #10224a;
+      --white:        #ffffff;
+      --bg:           #f8fafc;
+      --bg-warm:      #fffaf7;
+      --text:         #0f172a;
+      --text-2:       #64748b;
+      --border:       #e2e8f0;
+      --green:        #22c55e;
+      --grad-orange:  linear-gradient(135deg, #f97316 0%, #fb923c 100%);
+      --grad-blue:    linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+      --grad-hero:    linear-gradient(135deg, #0f172a 0%, #f97316 55%, #4f46e5 100%);
+      --shadow:       0 4px 24px rgba(15,23,42,.07);
+      --shadow-lg:    0 20px 60px rgba(15,23,42,.10);
+      --r: 16px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--white); color: var(--text); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    .wrap { max-width: 1160px; margin: 0 auto; padding: 0 28px; }
+
+    /* NAV */
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,.94); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; gap: 20px; }
+    .logo-img { height: 36px; width: auto; }
+    .nav-links { display: flex; align-items: center; gap: 2px; }
+    .nav-links a { font-size: 14px; font-weight: 500; color: var(--text-2); padding: 8px 14px; border-radius: 8px; transition: color .2s, background .2s; }
+    .nav-links a:hover { color: var(--text); background: var(--bg); }
+    .nav-right { display: flex; align-items: center; gap: 10px; }
+
+    .btn { display: inline-flex; align-items: center; gap: 8px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 600; padding: 11px 22px; border-radius: 10px; transition: all .2s ease; cursor: pointer; border: none; white-space: nowrap; line-height: 1; }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-ghost { background: transparent; color: var(--text-2); border: 1.5px solid var(--border); }
+    .btn-ghost:hover { border-color: var(--text); color: var(--text); }
+    .btn-orange { background: var(--grad-orange); color: #fff; box-shadow: 0 4px 16px rgba(249,115,22,.28); }
+    .btn-orange:hover { box-shadow: 0 8px 24px rgba(249,115,22,.4); }
+    .btn-blue { background: var(--grad-blue); color: #fff; box-shadow: 0 4px 16px rgba(79,70,229,.28); }
+    .btn-blue:hover { box-shadow: 0 8px 24px rgba(79,70,229,.4); }
+    .btn-lg { padding: 15px 30px; font-size: 15px; border-radius: 12px; }
+
+    /* HERO */
+    .hero { padding: 88px 0 72px; background: linear-gradient(180deg, #ffffff 0%, var(--bg-warm) 100%); border-bottom: 1px solid var(--border); position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at 8% 20%, rgba(249,115,22,.06) 0%, transparent 40%), radial-gradient(circle at 88% 10%, rgba(79,70,229,.05) 0%, transparent 35%); }
+    .hero-inner { position: relative; z-index: 1; text-align: center; max-width: 840px; margin: 0 auto; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--white); border: 1.5px solid var(--border); border-radius: 999px; padding: 7px 16px; font-size: 12px; font-weight: 600; letter-spacing: .03em; color: var(--text-2); margin-bottom: 32px; }
+    .badge-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 3px rgba(34,197,94,.2); }
+    h1 { font-size: clamp(40px, 5.5vw, 64px); font-weight: 800; line-height: 1.1; letter-spacing: -.025em; margin-bottom: 22px; }
+    .h1-grad { background: var(--grad-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero-sub { font-size: 18px; font-weight: 400; color: var(--text-2); line-height: 1.75; max-width: 600px; margin: 0 auto 40px; }
+    .hero-sub strong { color: var(--text); font-weight: 600; }
+    .hero-cta { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin-bottom: 44px; }
+    .hero-trust { display: flex; justify-content: center; align-items: center; gap: 24px; flex-wrap: wrap; font-size: 13px; color: var(--text-2); font-weight: 500; }
+    .trust-item { display: flex; align-items: center; gap: 6px; }
+    .trust-item svg { color: var(--green); }
+
+    /* SECTIONS */
+    section { padding: 96px 0; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 14px; }
+    .ey-orange { color: var(--orange-dark); }
+    .ey-orange::before { content: ''; width: 18px; height: 2px; background: var(--orange); border-radius: 1px; display: inline-block; }
+    .ey-blue { color: var(--blue); }
+    .ey-blue::before { content: ''; width: 18px; height: 2px; background: var(--blue-light); border-radius: 1px; display: inline-block; }
+    .ey-light { color: rgba(255,255,255,.4); }
+    .ey-light::before { content: ''; width: 18px; height: 2px; background: rgba(255,255,255,.25); border-radius: 1px; display: inline-block; }
+    h2 { font-size: clamp(30px, 3.8vw, 46px); font-weight: 800; line-height: 1.1; letter-spacing: -.025em; margin-bottom: 16px; }
+    .sub { font-size: 17px; font-weight: 400; color: var(--text-2); line-height: 1.75; }
+    .sub strong { color: var(--text); font-weight: 600; }
+
+    /* PRODUCTS */
+    .products-bg { background: var(--bg); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .products-header { text-align: center; margin-bottom: 16px; }
+    .products-header .sub { max-width: 580px; margin: 0 auto 18px; }
+    .standalone-notice {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--white); border: 1.5px solid var(--border);
+      border-radius: 10px; padding: 10px 18px; margin-bottom: 44px;
+      font-size: 13px; font-weight: 600; color: var(--text-2);
+    }
+    .standalone-notice svg { color: var(--text-2); flex-shrink: 0; }
+    .products-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .pcard { background: var(--white); border-radius: 20px; border: 1.5px solid var(--border); overflow: hidden; box-shadow: var(--shadow); transition: transform .25s, box-shadow .25s, border-color .25s; }
+    .pcard:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+    .pcard-orange:hover { border-color: var(--orange); }
+    .pcard-blue:hover { border-color: var(--blue-light); }
+    .pcard-header { padding: 36px 36px 28px; }
+    .ptag { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 6px 13px; border-radius: 8px; margin-bottom: 22px; }
+    .ptag-orange { background: var(--orange-bg); color: var(--orange-dark); }
+    .ptag-blue { background: var(--blue-bg); color: var(--blue); }
+    .pcard h3 { font-size: 28px; font-weight: 800; letter-spacing: -.02em; margin-bottom: 12px; line-height: 1.15; }
+    .pcard-desc { font-size: 15px; color: var(--text-2); line-height: 1.75; margin-bottom: 24px; }
+    .pcard-price { display: flex; align-items: baseline; gap: 6px; }
+    .price-num { font-size: 44px; font-weight: 800; letter-spacing: -.03em; line-height: 1; }
+    .price-orange { color: var(--orange); }
+    .price-blue { color: var(--blue); }
+    .price-sub { font-size: 14px; color: var(--text-2); }
+    .pcard-divider { height: 1px; background: var(--border); margin: 0 36px; }
+    .pcard-body { padding: 28px 36px 36px; }
+    .feat-list { list-style: none; display: grid; gap: 11px; margin-bottom: 28px; }
+    .feat-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--text-2); line-height: 1.5; }
+    .feat-list li svg { flex-shrink: 0; margin-top: 2px; }
+    .fl-orange li svg { color: var(--orange); }
+    .fl-blue li svg { color: var(--blue-light); }
+    .pcard-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .card-link { font-size: 14px; font-weight: 600; color: var(--text-2); border-bottom: 1.5px solid var(--border); padding-bottom: 1px; transition: color .2s, border-color .2s; }
+    .card-link:hover { color: var(--text); border-color: var(--text); }
+
+    /* HOW IT WORKS — DARK */
+    .how-bg { background: var(--navy); }
+    .how-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 56px; }
+    .how-col { border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,.07); }
+    .how-col-head { display: flex; align-items: center; gap: 12px; padding: 18px 22px; border-bottom: 1px solid rgba(255,255,255,.07); }
+    .hch-o { background: rgba(249,115,22,.09); }
+    .hch-b { background: rgba(79,70,229,.09); }
+    .how-col-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .hci-o { background: var(--grad-orange); }
+    .hci-b { background: var(--grad-blue); }
+    .how-col-icon svg { color: #fff; }
+    .how-col-title { font-size: 15px; font-weight: 700; color: #fff; }
+    .how-col-price { font-size: 13px; color: rgba(255,255,255,.35); margin-top: 2px; }
+    .how-steps { display: flex; flex-direction: column; }
+    .how-step { display: flex; gap: 14px; padding: 18px 22px; border-bottom: 1px solid rgba(255,255,255,.05); background: rgba(255,255,255,.02); transition: background .2s; }
+    .how-step:last-child { border-bottom: none; }
+    .how-step:hover { background: rgba(255,255,255,.04); }
+    .snum { width: 22px; height: 22px; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; font-size: 10px; font-weight: 700; }
+    .sn-o { background: rgba(249,115,22,.18); color: var(--orange-light); }
+    .sn-b { background: rgba(99,102,241,.18); color: #818cf8; }
+    .step-title { font-size: 13px; font-weight: 600; color: rgba(255,255,255,.8); margin-bottom: 4px; }
+    .step-body { font-size: 12px; color: rgba(255,255,255,.35); line-height: 1.65; }
+    .step-body strong { color: rgba(255,255,255,.6); font-weight: 600; }
+
+    /* MINI VISUALS */
+    .mini-visual { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); border-radius: 10px; overflow: hidden; margin-top: 10px; }
+    .mv-head { background: rgba(255,255,255,.04); padding: 8px 14px; border-bottom: 1px solid rgba(255,255,255,.06); display: flex; align-items: center; justify-content: space-between; }
+    .mv-dots { display: flex; gap: 4px; }
+    .mv-dots span { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,.1); }
+    .mv-title { font-size: 10px; color: rgba(255,255,255,.2); letter-spacing: .04em; }
+    .mv-count { font-size: 10px; color: rgba(255,255,255,.18); background: rgba(255,255,255,.06); padding: 2px 7px; border-radius: 999px; }
+    .mv-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 14px; border-bottom: 1px solid rgba(255,255,255,.04); gap: 8px; }
+    .mv-row:last-child { border-bottom: none; }
+    .mv-name { font-size: 11px; color: rgba(255,255,255,.5); font-weight: 500; flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .mv-amount { font-size: 11px; color: rgba(255,255,255,.28); }
+    .mv-lbl { padding: 2px 7px; border-radius: 4px; font-size: 9px; font-weight: 700; letter-spacing: .05em; flex-shrink: 0; }
+    .ml-p { background: rgba(249,115,22,.18); color: var(--orange-light); }
+    .ml-r { background: rgba(99,102,241,.18); color: #818cf8; }
+    .ml-w { background: rgba(168,85,247,.14); color: #c084fc; }
+    .ml-d { background: rgba(34,197,94,.14); color: #4ade80; }
+    .ml-i { background: rgba(255,255,255,.07); color: rgba(255,255,255,.3); }
+    .mv-ai { font-size: 9px; background: rgba(249,115,22,.18); color: var(--orange-light); padding: 2px 6px; border-radius: 3px; font-weight: 700; }
+    .ml-beo { background: rgba(249,115,22,.18); color: var(--orange-light); }
+    .ml-ver { background: rgba(99,102,241,.18); color: #818cf8; }
+    .ml-bet { background: rgba(34,197,94,.14); color: #4ade80; }
+    .ml-her { background: rgba(168,85,247,.14); color: #c084fc; }
+
+    .standalone-bar { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.09); border-radius: 12px; padding: 18px 22px; margin-top: 32px; display: flex; align-items: flex-start; gap: 12px; }
+    .sb-icon { width: 36px; height: 36px; border-radius: 8px; background: rgba(255,255,255,.06); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .sb-icon svg { color: rgba(255,255,255,.35); }
+    .sb-text { font-size: 13px; color: rgba(255,255,255,.38); line-height: 1.65; }
+    .sb-text strong { color: rgba(255,255,255,.7); font-weight: 600; }
+
+    /* WHY */
+    .why-bg { background: var(--bg-warm); border-top: 1px solid var(--border); }
+    .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 52px; }
+    .why-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 16px; padding: 30px; transition: border-color .2s, transform .2s, box-shadow .2s; }
+    .why-card:hover { border-color: var(--orange-soft); transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+    .why-icon { width: 44px; height: 44px; border-radius: 12px; background: var(--orange-bg); display: flex; align-items: center; justify-content: center; margin-bottom: 18px; }
+    .why-icon svg { color: var(--orange); }
+    .why-title { font-size: 17px; font-weight: 700; margin-bottom: 8px; letter-spacing: -.01em; }
+    .why-body { font-size: 14px; color: var(--text-2); line-height: 1.75; }
+
+    /* TESTIMONIALS */
+    .testi-bg { background: var(--bg); border-top: 1px solid var(--border); }
+    .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 52px; }
+    .testi-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 16px; padding: 32px; }
+    .testi-stars { font-size: 14px; letter-spacing: 2px; color: var(--orange); margin-bottom: 16px; }
+    .testi-quote { font-size: 16px; color: var(--text); line-height: 1.65; margin-bottom: 22px; font-style: italic; }
+    .testi-sep { width: 28px; height: 2px; background: var(--orange-soft); border-radius: 1px; margin-bottom: 16px; }
+    .testi-name { font-size: 14px; font-weight: 700; }
+    .testi-role { font-size: 13px; color: var(--text-2); margin-top: 3px; }
+
+    /* CTA */
+    .cta-bg { background: var(--navy); position: relative; overflow: hidden; }
+    .cta-bg::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at 15% 50%, rgba(249,115,22,.11) 0%, transparent 40%), radial-gradient(circle at 85% 50%, rgba(79,70,229,.11) 0%, transparent 40%); }
+    .cta-inner { position: relative; z-index: 1; text-align: center; max-width: 640px; margin: 0 auto; }
+    .cta-inner h2 { color: #fff; }
+    .cta-inner p { color: rgba(255,255,255,.45); font-size: 17px; line-height: 1.75; margin: 16px 0 40px; }
+    .cta-btns { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+    .cta-fine { margin-top: 18px; font-size: 12px; color: rgba(255,255,255,.22); display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+
+    /* FOOTER */
+    footer { background: #060e1e; padding: 56px 0 36px; border-top: 1px solid rgba(255,255,255,.04); }
+    .footer-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: 40px; padding-bottom: 36px; border-bottom: 1px solid rgba(255,255,255,.06); }
+    .footer-logo-img { height: 34px; width: auto; margin-bottom: 14px; filter: brightness(0) invert(1); opacity: .65; }
+    .footer-desc { font-size: 13px; color: rgba(255,255,255,.28); line-height: 1.75; }
+    .footer-col-title { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.22); margin-bottom: 16px; font-weight: 600; }
+    .footer-links { display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a { font-size: 13px; color: rgba(255,255,255,.36); transition: color .2s; }
+    .footer-links a:hover { color: rgba(255,255,255,.75); }
+    .footer-bottom { padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 12px; color: rgba(255,255,255,.18); }
+
+    /* ANIMATIONS */
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity .65s ease, transform .65s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    .rd1 { transition-delay: .08s; } .rd2 { transition-delay: .17s; } .rd3 { transition-delay: .26s; }
+
+    @media (max-width: 960px) {
+      .products-grid, .how-grid, .testi-grid { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
     }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at top left, rgba(249, 115, 22, 0.10), transparent 30%),
-        radial-gradient(circle at 85% 20%, rgba(251, 146, 60, 0.12), transparent 26%),
-        linear-gradient(to bottom, #ffffff 0%, #fffaf7 45%, #ffffff 100%);
-      overflow-x: hidden;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .orb {
-      position: fixed;
-      border-radius: 999px;
-      filter: blur(50px);
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.5;
-      animation: float 10s ease-in-out infinite;
-    }
-
-    .orb-1 {
-      width: 260px;
-      height: 260px;
-      background: rgba(249, 115, 22, 0.18);
-      top: 70px;
-      left: -60px;
-    }
-
-    .orb-2 {
-      width: 320px;
-      height: 320px;
-      background: rgba(251, 146, 60, 0.12);
-      top: 420px;
-      right: -120px;
-      animation-delay: -3s;
-    }
-
-    .orb-3 {
-      width: 220px;
-      height: 220px;
-      background: rgba(249, 115, 22, 0.10);
-      bottom: 80px;
-      left: 45%;
-      animation-delay: -6s;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0px) translateX(0px); }
-      50% { transform: translateY(-18px) translateX(10px); }
-    }
-
-    .wrap {
-      position: relative;
-      z-index: 1;
-    }
-
-    .container {
-      width: min(1180px, calc(100% - 40px));
-      margin: 0 auto;
-    }
-
-    .nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 24px 0;
-    }
-
-    .logo {
-      font-size: 24px;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-    }
-
-    .logo .flow {
-      background: var(--gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      color: var(--text-soft);
-      font-size: 14px;
-    }
-
-    .nav-links a:hover {
-      color: var(--text);
-    }
-
-    .hero {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 34px;
-      align-items: center;
-      padding: 36px 0 80px;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 8px 14px;
-      background: rgba(254, 215, 170, 0.55);
-      border: 1px solid rgba(249, 115, 22, 0.15);
-      border-radius: 999px;
-      color: var(--orange-dark);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      backdrop-filter: blur(10px);
-    }
-
-    .eyebrow::before {
-      content: "";
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: var(--gradient);
-      box-shadow: 0 0 0 6px rgba(249, 115, 22, 0.12);
-    }
-
-    h1 {
-      margin: 20px 0 18px;
-      font-size: clamp(42px, 6vw, 72px);
-      line-height: 1.02;
-      letter-spacing: -0.05em;
-      max-width: 720px;
-    }
-
-    .gradient-text {
-      background: var(--gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .lead {
-      font-size: 18px;
-      line-height: 1.8;
-      color: var(--text-soft);
-      max-width: 640px;
-      margin-bottom: 30px;
-    }
-
-    .cta-row {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-bottom: 22px;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      min-height: 54px;
-      padding: 0 22px;
-      border-radius: 16px;
-      border: 1px solid transparent;
-      font-weight: 700;
-      font-size: 15px;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
-      cursor: pointer;
-    }
-
-    .btn-primary {
-      color: #fff;
-      background: var(--gradient);
-      box-shadow: 0 16px 35px rgba(249, 115, 22, 0.28);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px) scale(1.01);
-      box-shadow: 0 22px 45px rgba(234, 88, 12, 0.32);
-    }
-
-    .btn-secondary {
-      color: var(--text);
-      background: rgba(255, 255, 255, 0.8);
-      border-color: var(--border);
-      backdrop-filter: blur(10px);
-    }
-
-    .btn-secondary:hover {
-      background: var(--bg-soft);
-      transform: translateY(-2px);
-    }
-
-    .trust {
-      display: flex;
-      gap: 18px;
-      flex-wrap: wrap;
-      color: var(--text-soft);
-      font-size: 14px;
-    }
-
-    .trust span {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .trust span::before {
-      content: "";
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: #22c55e;
-    }
-
-    .hero-card {
-      position: relative;
-      background: rgba(255, 255, 255, 0.82);
-      border: 1px solid rgba(226, 232, 240, 0.9);
-      box-shadow: var(--shadow-lg);
-      border-radius: 30px;
-      padding: 26px;
-      backdrop-filter: blur(18px);
-      overflow: hidden;
-    }
-
-    .hero-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(249, 115, 22, 0.10), transparent 35%);
-      pointer-events: none;
-    }
-
-    .mini-window {
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      overflow: hidden;
-      background: #fff;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .window-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px 18px;
-      background: #fffaf7;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .window-dots {
-      display: flex;
-      gap: 6px;
-    }
-
-    .window-dots span {
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: #fdba74;
-    }
-
-    .window-title {
-      font-size: 13px;
-      color: var(--text-soft);
-      font-weight: 600;
-    }
-
-    .mail-list {
-      padding: 14px;
-      background: linear-gradient(180deg, #ffffff, #fffdfb);
-    }
-
-    .mail-item {
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      gap: 12px;
-      align-items: start;
-      padding: 14px;
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      background: #fff;
-      margin-bottom: 12px;
-      transition: transform 0.25s ease;
-      animation: cardFloat 6s ease-in-out infinite;
-    }
-
-    .mail-item:nth-child(2) { animation-delay: -2s; }
-    .mail-item:nth-child(3) { animation-delay: -4s; }
-
-    @keyframes cardFloat {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-4px); }
-    }
-
-    .dot {
-      width: 10px;
-      height: 10px;
-      margin-top: 7px;
-      border-radius: 999px;
-      background: var(--gradient);
-    }
-
-    .mail-title {
-      font-size: 15px;
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-
-    .mail-text {
-      font-size: 13px;
-      color: var(--text-soft);
-      line-height: 1.6;
-    }
-
-    .pill {
-      padding: 8px 10px;
-      border-radius: 999px;
-      font-size: 11px;
-      font-weight: 700;
-      background: #fff7ed;
-      color: var(--orange-dark);
-      border: 1px solid #fed7aa;
-      white-space: nowrap;
-    }
-
-    .reply-box {
-      margin-top: 16px;
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      background: #ffffff;
-      padding: 18px;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .reply-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      font-size: 13px;
-      color: var(--text-soft);
-      font-weight: 600;
-    }
-
-    .reply-body {
-      color: var(--text);
-      line-height: 1.8;
-      font-size: 14px;
-    }
-
-    .reply-actions {
-      display: flex;
-      gap: 10px;
-      margin-top: 16px;
-      flex-wrap: wrap;
-    }
-
-    .chip {
-      font-size: 12px;
-      color: var(--text-soft);
-      padding: 8px 10px;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      background: var(--bg-soft);
-    }
-
-    .section {
-      padding: 26px 0 90px;
-    }
-
-    .section.alt {
-      background: linear-gradient(180deg, rgba(248, 250, 252, 0.85), rgba(255, 255, 255, 0.9));
-      border-top: 1px solid rgba(226, 232, 240, 0.8);
-      border-bottom: 1px solid rgba(226, 232, 240, 0.8);
-    }
-
-    .section-head {
-      max-width: 720px;
-      margin-bottom: 34px;
-    }
-
-    .section-head h2 {
-      margin: 0 0 12px;
-      font-size: clamp(30px, 4vw, 48px);
-      letter-spacing: -0.04em;
-    }
-
-    .section-head p {
-      margin: 0;
-      color: var(--text-soft);
-      line-height: 1.8;
-      font-size: 17px;
-    }
-
-    .features {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .feature-card {
-      background: rgba(255, 255, 255, 0.86);
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 24px;
-      box-shadow: var(--shadow-sm);
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-      backdrop-filter: blur(10px);
-    }
-
-    .feature-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.10);
-    }
-
-    .icon {
-      width: 46px;
-      height: 46px;
-      border-radius: 14px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, rgba(249, 115, 22, 0.14), rgba(251, 146, 60, 0.16));
-      color: var(--orange-dark);
-      font-size: 20px;
-      margin-bottom: 16px;
-    }
-
-    .feature-card h3 {
-      margin: 0 0 10px;
-      font-size: 18px;
-    }
-
-    .feature-card p {
-      margin: 0;
-      font-size: 15px;
-      line-height: 1.8;
-      color: var(--text-soft);
-    }
-
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .step {
-      position: relative;
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 24px;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .step-number {
-      width: 40px;
-      height: 40px;
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      color: #fff;
-      background: var(--gradient);
-      box-shadow: 0 12px 24px rgba(249, 115, 22, 0.24);
-      margin-bottom: 16px;
-    }
-
-    .step h3 {
-      margin: 0 0 10px;
-      font-size: 19px;
-    }
-
-    .step p {
-      margin: 0;
-      color: var(--text-soft);
-      line-height: 1.8;
-    }
-
-    .footer-cta {
-      padding: 0 0 90px;
-    }
-
-    .cta-panel {
-      position: relative;
-      overflow: hidden;
-      border-radius: 32px;
-      padding: 42px;
-      background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(30, 41, 59, 0.96));
-      color: #fff;
-      box-shadow: var(--shadow-lg);
-    }
-
-    .cta-panel::before,
-    .cta-panel::after {
-      content: "";
-      position: absolute;
-      border-radius: 999px;
-      filter: blur(30px);
-      opacity: 0.35;
-      pointer-events: none;
-    }
-
-    .cta-panel::before {
-      width: 240px;
-      height: 240px;
-      background: rgba(249, 115, 22, 0.55);
-      top: -60px;
-      right: -20px;
-    }
-
-    .cta-panel::after {
-      width: 180px;
-      height: 180px;
-      background: rgba(251, 146, 60, 0.45);
-      bottom: -50px;
-      left: -30px;
-    }
-
-    .cta-panel-inner {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
-
-    .cta-panel h2 {
-      margin: 0 0 10px;
-      font-size: clamp(28px, 4vw, 44px);
-      letter-spacing: -0.04em;
-    }
-
-    .cta-panel p {
-      margin: 0;
-      color: rgba(255,255,255,0.78);
-      max-width: 620px;
-      line-height: 1.8;
-    }
-
-    .footer-links {
-      margin-top: 18px;
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      color: rgba(255,255,255,0.76);
-      font-size: 14px;
-    }
-
-    .footer-links a:hover {
-      color: #fff;
-    }
-
-    @media (max-width: 980px) {
-      .hero,
-      .features,
-      .steps {
-        grid-template-columns: 1fr;
-      }
-
-      .hero {
-        padding-top: 18px;
-      }
-
-      .nav-links {
-        display: none;
-      }
-
-      .cta-panel-inner {
-        align-items: flex-start;
-      }
-    }
-
     @media (max-width: 640px) {
-      .container {
-        width: min(100% - 24px, 1180px);
-      }
-
-      .hero-card,
-      .cta-panel,
-      .feature-card,
-      .step {
-        border-radius: 22px;
-      }
-
-      .cta-row {
-        flex-direction: column;
-      }
-
-      .btn {
-        width: 100%;
-      }
+      .nav-links { display: none; }
+      .why-grid, .footer-grid { grid-template-columns: 1fr; }
+      section { padding: 72px 0; }
+      .hero-cta .btn, .cta-btns .btn { width: 100%; justify-content: center; }
     }
   </style>
 </head>
 <body>
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
-  <div class="orb orb-3"></div>
 
+<nav>
+  <div class="wrap nav-inner">
+    <a href="index.html"><img src="OfficeFlow-logo.png" alt="OfficeFlow" class="logo-img"></a>
+    <div class="nav-links">
+      <a href="#producten">Mailbox Manager</a>
+      <a href="#producten">Facturen &amp; Offertes</a>
+      <a href="#waarom">Waarom OfficeFlow</a>
+    </div>
+    <div class="nav-right">
+      <a class="btn btn-ghost" href="/onboarding.html">Inloggen</a>
+      <a class="btn btn-orange" href="#producten">Bekijk producten →</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="wrap hero-inner">
+    <div class="hero-badge">
+      <div class="badge-dot"></div>
+      Twee zelfstandige tools — kies wat jouw bedrijf nodig heeft
+    </div>
+    <h1>Slimme tools voor<br><span class="h1-grad">jouw werkproces.</span></h1>
+    <p class="hero-sub">OfficeFlow biedt twee <strong>onafhankelijke producten</strong> — elk een specialist in zijn domein. E-mail automatisering of professionele facturatie en offertes. Kies één, of gebruik beide apart.</p>
+    <div class="hero-cta">
+      <a class="btn btn-orange btn-lg" href="/onboarding.html">Mailbox Manager — €24/mnd</a>
+      <a class="btn btn-blue btn-lg" href="#producten">Facturen &amp; Offertes — Vanaf €19</a>
+    </div>
+    <div class="hero-trust">
+      <div class="trust-item"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Twee losse producten — geen verplichte koppeling</div>
+      <div class="trust-item"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Beide maandelijks opzegbaar</div>
+      <div class="trust-item"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Nooit auto-send — altijd jij in controle</div>
+    </div>
+  </div>
+</section>
+
+<section id="producten" class="products-bg">
   <div class="wrap">
-    <div class="container">
-      <nav class="nav">
-        <a href="index.html" class="logo">Office<span class="flow">Flow</span></a>
-        <div class="nav-links">
-          <a href="#features">Features</a>
-          <a href="#how-it-works">Hoe het werkt</a>
-          <a href="privacy.html">Privacy</a>
-          <a href="terms.html">Terms</a>
+    <div class="products-header reveal">
+      <div class="eyebrow ey-orange">Twee producten</div>
+      <h2>Elk een specialist<br>in zijn eigen domein.</h2>
+      <p class="sub">Beide producten staan <strong>volledig los van elkaar.</strong> Geen gedeelde data, geen verplichte koppeling. Jij kiest wat relevant is voor jouw bedrijf.</p>
+    </div>
+    <div class="standalone-notice reveal">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+      Deze producten werken niet samen — elk heeft zijn eigen login, abonnement en functionaliteit.
+    </div>
+    <div class="products-grid">
+      <div class="pcard pcard-orange reveal rd1">
+        <div class="pcard-header">
+          <div class="ptag ptag-orange"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 2H3v16h5l3 3 3-3h7V2z"></path></svg>E-mail automatisering</div>
+          <h3>Mailbox Manager</h3>
+          <p class="pcard-desc">AI die je Gmail-inbox begrijpt. Elke mail krijgt een status, mails die een reactie nodig hebben krijgen een conceptantwoord in jouw toon. Jij blijft in Gmail — OfficeFlow werkt op de achtergrond.</p>
+          <div class="pcard-price"><span class="price-num price-orange">€24</span><span class="price-sub">per maand<br>excl. btw</span></div>
         </div>
-      </nav>
-
-      <section class="hero">
-        <div>
-          <div class="eyebrow">AI EMAIL WORKFLOW</div>
-          <h1>
-            Minder inboxwerk.<br>
-            Meer overzicht.<br>
-            <span class="gradient-text">Betere replies.</span>
-          </h1>
-          <p class="lead">
-            OfficeFlow is een AI-gestuurde e-mailassistent die je inbox automatisch analyseert en slimme conceptantwoorden schrijft in jouw eigen stijl.
-            Je koppelt je mailbox, stelt je voorkeuren in en krijgt direct bruikbare drafts voor je belangrijkste mails — zonder auto-send, dus jij blijft altijd in controle.
-          </p>
-
-          <div class="cta-row">
-            <a class="btn btn-primary" href="onboarding.html">Start abonnement</a>
-            <a class="btn btn-secondary" href="#features">Bekijk hoe het werkt</a>
-          </div>
-
-          <div class="trust">
-            <span>Geen automatische verzending</span>
-            <span>Schrijft in jouw stijl</span>
-            <span>Meer rust in je inbox</span>
+        <div class="pcard-divider"></div>
+        <div class="pcard-body">
+          <ul class="feat-list fl-orange">
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Automatische labels: Priority, To Respond, Done & meer</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Conceptreplies in jouw toon en schrijfstijl</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Nooit auto-send — jij beslist altijd</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Leert van jouw verstuurde mails</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Werkt in je bestaande Gmail — geen nieuwe app</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Koppeling via Google OAuth in 2 minuten</li>
+          </ul>
+          <div class="pcard-actions">
+            <a class="btn btn-orange" href="/onboarding.html">Start Mailbox →</a>
+            <a class="card-link" href="/onboarding.html">Meer details</a>
           </div>
         </div>
+      </div>
 
-        <div class="hero-card">
-          <div class="mini-window">
-            <div class="window-top">
-              <div class="window-dots">
-                <span></span><span></span><span></span>
+      <div class="pcard pcard-blue reveal rd2">
+        <div class="pcard-header">
+          <div class="ptag ptag-blue"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>Facturen &amp; offertes</div>
+          <h3>Facturen &amp; Offertes</h3>
+          <p class="pcard-desc">Een compleet platform voor dienstverlenende bedrijven. Van offerte en abonnement tot werkregistratie, factuur, Moneybird-sync en betalingsopvolging — in één logische workflow.</p>
+          <div class="pcard-price"><span class="price-num price-blue">€19</span><span class="price-sub">per maand<br>excl. btw · tot €89</span></div>
+        </div>
+        <div class="pcard-divider"></div>
+        <div class="pcard-body">
+          <ul class="feat-list fl-blue">
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Offertes, abonnementen &amp; werkregistratie</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Automatische factuurcreatie met BTW-bewaking</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Moneybird provider-sync ingebouwd</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Herinneringen &amp; betalingsopvolging</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Slimme automatisering — altijd menselijke controle</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Overzichtelijk dashboard met duidelijke volgende stap</li>
+          </ul>
+          <div class="pcard-actions">
+            <a class="btn btn-blue" href="#producten" style="opacity:.5; cursor: not-allowed;">Binnenkort beschikbaar</a>
+            <a class="card-link" href="mailto:mail@officeflowcompany.com?subject=Interesse in Facturen %26 Offertes">Blijf op de hoogte</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="how-bg">
+  <div class="wrap">
+    <div class="eyebrow ey-light reveal">Hoe het werkt</div>
+    <h2 class="reveal" style="color:#fff; max-width:500px;">Twee specialisten.<br>Elk in hun eigen domein.</h2>
+    <p class="sub reveal" style="color:rgba(255,255,255,.4); max-width:500px;">Ze werken niet samen — dat is ook niet nodig. Elk product is een volwaardige oplossing op zichzelf.</p>
+    <div class="how-grid">
+      <div class="how-col reveal rd1">
+        <div class="how-col-head hch-o">
+          <div class="how-col-icon hci-o"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 2H3v16h5l3 3 3-3h7V2z"></path></svg></div>
+          <div><div class="how-col-title">Mailbox Manager</div><div class="how-col-price">E-mail automatisering · €24/mnd</div></div>
+        </div>
+        <div class="how-steps">
+          <div class="how-step">
+            <div class="snum sn-o">1</div>
+            <div><div class="step-title">Koppel je Gmail via Google OAuth</div><div class="step-body">In <strong>twee minuten</strong> verbonden. OfficeFlow krijgt leestoegang en mag concepten aanmaken — meer niet.</div></div>
+          </div>
+          <div class="how-step">
+            <div class="snum sn-o">2</div>
+            <div><div class="step-title">Stel jouw toon en voorkeuren in</div><div class="step-body">Omschrijf je schrijfstijl. OfficeFlow leert ook van je <strong>verstuurde mails.</strong></div></div>
+          </div>
+          <div class="how-step">
+            <div class="snum sn-o">3</div>
+            <div style="flex:1">
+              <div class="step-title">Open Gmail — alles staat klaar</div>
+              <div class="step-body">Elke mail gelabeld. Conceptreplies in je Drafts. <strong>Jij leest, past aan, verstuurt.</strong></div>
+              <div class="mini-visual">
+                <div class="mv-head"><div class="mv-dots"><span></span><span></span><span></span></div><div class="mv-title">Gmail · Jouw inbox</div></div>
+                <div class="mv-row"><span class="mv-name">Alex Kramer — Offerte aanvraag Q3</span><div style="display:flex;gap:4px;align-items:center"><span class="mv-lbl ml-r">TO RESPOND</span><span class="mv-ai">✦ CONCEPT</span></div></div>
+                <div class="mv-row"><span class="mv-name">Sara Jansen — Samenwerking voorstel</span><span class="mv-lbl ml-p">PRIORITY</span></div>
+                <div class="mv-row"><span class="mv-name">Mark Timmermans — Contract update</span><span class="mv-lbl ml-w">WAITING</span></div>
+                <div class="mv-row"><span class="mv-name">Newsletter · MarketingBlog</span><span class="mv-lbl ml-i">IGNORE</span></div>
               </div>
-              <div class="window-title">OfficeFlow Inbox Preview</div>
-              <div class="pill">AI actief</div>
             </div>
+          </div>
+        </div>
+      </div>
 
-            <div class="mail-list">
-              <div class="mail-item">
-                <div class="dot"></div>
-                <div>
-                  <div class="mail-title">Prijsindicatie voor nieuw project</div>
-                  <div class="mail-text">Klant vraagt om een snelle prijs en planning voor volgende week.</div>
-                </div>
-                <div class="pill">Priority</div>
-              </div>
-
-              <div class="mail-item">
-                <div class="dot"></div>
-                <div>
-                  <div class="mail-title">Update op je offerteaanvraag</div>
-                  <div class="mail-text">OfficeFlow stelt direct een korte, bruikbare reply voor in jouw toon.</div>
-                </div>
-                <div class="pill">Draft ready</div>
-              </div>
-
-              <div class="mail-item">
-                <div class="dot"></div>
-                <div>
-                  <div class="mail-title">Status leverancier bevestigd</div>
-                  <div class="mail-text">Informatieve update zonder actie? Dan blijft je inbox overzichtelijk.</div>
-                </div>
-                <div class="pill">FYI</div>
-              </div>
-
-              <div class="reply-box">
-                <div class="reply-top">
-                  <span>Voorgestelde reply</span>
-                  <span>Jouw stijl</span>
-                </div>
-                <div class="reply-body">
-                  Ik stuur je vandaag nog een prijsindicatie en een korte planning. Als je wilt, neem ik daarin meteen de twee opties mee.
-                </div>
-                <div class="reply-actions">
-                  <div class="chip">Kort</div>
-                  <div class="chip">Direct</div>
-                  <div class="chip">Geen auto-send</div>
-                </div>
+      <div class="how-col reveal rd2">
+        <div class="how-col-head hch-b">
+          <div class="how-col-icon hci-b"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg></div>
+          <div><div class="how-col-title">Facturen &amp; Offertes</div><div class="how-col-price">Facturen, offertes &amp; automatisering · Vanaf €19/mnd</div></div>
+        </div>
+        <div class="how-steps">
+          <div class="how-step">
+            <div class="snum sn-b">1</div>
+            <div><div class="step-title">Voeg klanten, offertes en abonnementen toe</div><div class="step-body">Klanten zijn het centrale ankerpunt. Abonnementen genereren automatisch <strong>terugkerende billable events.</strong></div></div>
+          </div>
+          <div class="how-step">
+            <div class="snum sn-b">2</div>
+            <div><div class="step-title">Werk en kosten worden facturen</div><div class="step-body">Worklogs en losse kosten stromen door naar factuurconcept. <strong>BTW en totalen bewaakt.</strong></div></div>
+          </div>
+          <div class="how-step">
+            <div class="snum sn-b">3</div>
+            <div style="flex:1">
+              <div class="step-title">Sync, verstuur en volg op</div>
+              <div class="step-body">Moneybird-sync, verzending en herinneringen via de <strong>operations cockpit.</strong></div>
+              <div class="mini-visual">
+                <div class="mv-head"><div class="mv-title">Operations Cockpit</div><span class="mv-count">3 acties</span></div>
+                <div class="mv-row"><span class="mv-name">#089 Bakker & Partners</span><span class="mv-amount">€4.250</span><span class="mv-lbl ml-beo">BEOORDELEN</span></div>
+                <div class="mv-row"><span class="mv-name">#087 Janssen Consulting</span><span class="mv-amount">€2.100</span><span class="mv-lbl ml-ver">VERSTUURD</span></div>
+                <div class="mv-row"><span class="mv-name">#085 Maas Solutions</span><span class="mv-amount">€3.600</span><span class="mv-lbl ml-bet">BETAALD</span></div>
+                <div class="mv-row"><span class="mv-name">#081 De Vries BV</span><span class="mv-amount">€1.800</span><span class="mv-lbl ml-her">HERINNERING</span></div>
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
     </div>
 
-    <section class="section alt" id="features">
-      <div class="container">
-        <div class="section-head">
-          <h2>Ontworpen om luxe, rust en snelheid te voelen.</h2>
-          <p>
-            Geen drukke tool met ruis, maar een strakke AI workflow die direct waarde levert: minder handmatig mailwerk, meer overzicht en sterkere antwoorden zonder dat jij de controle verliest.
-          </p>
-        </div>
-
-        <div class="features">
-          <div class="feature-card">
-            <div class="icon">✍️</div>
-            <h3>Schrijft in jouw stijl</h3>
-            <p>
-              Kies toon, lengte en schrijfstijl. OfficeFlow maakt replies die voelen alsof jij ze zelf in één keer hebt geschreven.
-            </p>
-          </div>
-
-          <div class="feature-card">
-            <div class="icon">📥</div>
-            <h3>Prioriteit in je inbox</h3>
-            <p>
-              Belangrijke e-mails worden sneller zichtbaar, zodat jij direct weet waar je tijd en aandacht naartoe moet.
-            </p>
-          </div>
-
-          <div class="feature-card">
-            <div class="icon">🛡️</div>
-            <h3>Altijd onder jouw controle</h3>
-            <p>
-              Geen automatische verzending. Elke draft blijft een suggestie die jij kunt reviewen, aanpassen en zelf versturen.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="how-it-works">
-      <div class="container">
-        <div class="section-head">
-          <h2>Zo werkt OfficeFlow</h2>
-          <p>
-            In een paar simpele stappen zet je een premium AI workflow neer voor je inbox — zonder ingewikkelde setup of extra tools.
-          </p>
-        </div>
-
-        <div class="steps">
-          <div class="step">
-            <div class="step-number">1</div>
-            <h3>Koppel je mailbox</h3>
-            <p>
-              Verbind veilig je Gmail-account en geef OfficeFlow toegang om je inbox te analyseren en drafts voor te bereiden.
-            </p>
-          </div>
-
-          <div class="step">
-            <div class="step-number">2</div>
-            <h3>Stel je voorkeuren in</h3>
-            <p>
-              Bepaal toon, lengte en stijl. Zo schrijft OfficeFlow direct antwoorden die passen bij jouw manier van communiceren.
-            </p>
-          </div>
-
-          <div class="step">
-            <div class="step-number">3</div>
-            <h3>Review en verstuur</h3>
-            <p>
-              Je krijgt direct bruikbare drafts voor je belangrijkste mails. Jij reviewt, past aan waar nodig en verstuurt zelf.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="footer-cta">
-      <div class="container">
-        <div class="cta-panel">
-          <div class="cta-panel-inner">
-            <div>
-              <h2>Maak van je inbox weer een rustige workflow.</h2>
-              <p>
-                Start met OfficeFlow en ervaar hoe veel sneller e-mail voelt wanneer prioriteit, toon en draftkwaliteit automatisch goed staan.
-              </p>
-              <div class="footer-links">
-                <a href="privacy.html">Privacy Policy</a>
-                <a href="terms.html">Terms of Service</a>
-              </div>
-            </div>
-
-            <div>
-              <a class="btn btn-primary" href="onboarding.html">Start abonnement</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <div class="standalone-bar reveal">
+      <div class="sb-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
+      <div class="sb-text"><strong>Beide producten zijn volledig zelfstandig.</strong> Ze delen geen data, geen login en geen workflow. Je kunt Mailbox Manager gebruiken zonder Facturen &amp; Offertes te activeren — en andersom. Er is geen technische of commerciële koppeling.</div>
+    </div>
   </div>
+</section>
+
+<section id="waarom" class="why-bg">
+  <div class="wrap">
+    <div class="eyebrow ey-orange reveal">Onze aanpak</div>
+    <h2 class="reveal">Automatisering die<br>je vertrouwen geeft.</h2>
+    <div class="why-grid">
+      <div class="why-card reveal rd1">
+        <div class="why-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"></path></svg></div>
+        <div class="why-title">Nooit automatisch verstuurd</div>
+        <div class="why-body">AI bereidt voor. Jij besluit. Geen enkele reply of factuur gaat de deur uit zonder jouw goedkeuring.</div>
+      </div>
+      <div class="why-card reveal rd2">
+        <div class="why-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></div>
+        <div class="why-title">Altijd duidelijke volgende stap</div>
+        <div class="why-body">Het systeem vertelt je wat nu de logische actie is. Geen gissen, geen vergeten opvolgstap.</div>
+      </div>
+      <div class="why-card reveal rd3">
+        <div class="why-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg></div>
+        <div class="why-title">Rustige, overzichtelijke interface</div>
+        <div class="why-body">Geen rommelig dashboard. Een heldere werkruimte die rust geeft in plaats van stress.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testi-bg">
+  <div class="wrap">
+    <div class="eyebrow ey-orange reveal">Ervaringen</div>
+    <h2 class="reveal">Wat gebruikers zeggen.</h2>
+    <div class="testi-grid">
+      <div class="testi-card reveal rd1">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"Mijn inbox voelt eindelijk beheersbaar. De conceptreplies zijn verrassend goed — het schrijft echt in mijn stijl. Scheelt me minstens een uur per dag."</div>
+        <div class="testi-sep"></div>
+        <div class="testi-name">Joost H.</div>
+        <div class="testi-role">Ondernemer · Mailbox Manager gebruiker</div>
+      </div>
+      <div class="testi-card reveal rd2">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"De workflow van werklog naar factuur naar Moneybird werkt echt. Geen vergeten facturen meer, geen handmatig herinneren. Het systeem doet het gewoon."</div>
+        <div class="testi-sep"></div>
+        <div class="testi-name">Roos V.</div>
+        <div class="testi-role">Operations lead · Facturen &amp; Offertes gebruiker</div>
+      </div>
+      <div class="testi-card reveal rd3">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"Ik gebruik alleen Mailbox Manager — en dat is precies wat ik nodig had. Geen overbodige functies, gewoon mijn inbox onder controle."</div>
+        <div class="testi-sep"></div>
+        <div class="testi-name">Mark P.</div>
+        <div class="testi-role">Freelancer · Mailbox Manager gebruiker</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-bg">
+  <div class="wrap">
+    <div class="cta-inner">
+      <div class="eyebrow ey-light" style="justify-content:center;">Start vandaag</div>
+      <h2>Welke tool heeft<br>jouw bedrijf nodig?</h2>
+      <p>Twee losse producten. Geen verplichte koppeling. Start met wat nu het meeste oplevert.</p>
+      <div class="cta-btns">
+        <a class="btn btn-orange btn-lg" href="/onboarding.html">Mailbox Manager — €24/mnd</a>
+        <a class="btn btn-blue btn-lg" href="#producten" style="opacity:.55; cursor: not-allowed;">Facturen &amp; Offertes — Binnenkort</a>
+      </div>
+      <div class="cta-fine">
+        <span>Beide maandelijks opzegbaar</span><span>·</span>
+        <span>Geen verplichte koppeling</span><span>·</span>
+        <span>Nooit auto-send</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <img src="OfficeFlow-logo.png" alt="OfficeFlow" class="footer-logo-img">
+        <div class="footer-desc">Twee zelfstandige tools voor slimme werkprocessen. Mailbox automatisering én professionele facturatie — elk een specialist in zijn eigen domein.</div>
+      </div>
+      <div>
+        <div class="footer-col-title">Producten</div>
+        <div class="footer-links">
+          <a href="/onboarding.html">Mailbox Manager</a>
+          <a href="#producten">Facturen &amp; Offertes (binnenkort)</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Bedrijf</div>
+        <div class="footer-links">
+          <a href="privacy.html">Privacybeleid</a>
+          <a href="terms.html">Algemene voorwaarden</a>
+          <a href="mailto:mail@officeflowcompany.com">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 OfficeFlow · mail@officeflowcompany.com</div>
+      <div class="footer-copy">Automatisch waar het slim is. Controle waar het telt.</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver(
+    es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } }),
+    { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+  );
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
 </body>
 </html>
