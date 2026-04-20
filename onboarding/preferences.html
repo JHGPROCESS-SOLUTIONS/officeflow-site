@@ -667,7 +667,7 @@ Met vriendelijke groet,"
   </div>
 
   <script>
-    const API_BASE = "https://ai-mail-assistant-production-979f.up.railway.app";
+    const API_BASE = "https://api.officeflowcompany.com";
     const params = new URLSearchParams(window.location.search);
     const email = params.get("email");
 
@@ -757,6 +757,32 @@ Met vriendelijke groet,"
       return data;
     }
 
+    function countDraftsFromMessages(messages) {
+      if (!Array.isArray(messages)) return 0;
+      return messages.reduce((total, message) => total + (message && message.draft_created === true ? 1 : 0), 0);
+    }
+
+    function buildSuccessUrl(email, onboardingResult) {
+      const base = "https://officeflowcompany.com/success.html";
+      const urlParams = new URLSearchParams();
+      if (email) urlParams.set("email", email);
+
+      if (onboardingResult && typeof onboardingResult === "object") {
+        const processedCount = Number(onboardingResult.processed_count || 0);
+        const labelsCount = Number(onboardingResult.labels_created_count || 0);
+        const draftsCount = countDraftsFromMessages(onboardingResult.messages);
+        const firstDraft = onboardingResult.first_draft_generated === true ? "1" : "0";
+
+        urlParams.set("processed", String(processedCount));
+        urlParams.set("drafts", String(draftsCount));
+        urlParams.set("labels", String(labelsCount));
+        urlParams.set("first_draft", firstDraft);
+      }
+
+      const query = urlParams.toString();
+      return query ? `${base}?${query}` : base;
+    }
+
     formEl.addEventListener("submit", async function (e) {
       e.preventDefault();
 
@@ -787,26 +813,32 @@ Met vriendelijke groet,"
       };
 
       saveBtn.disabled = true;
-      saveBtn.textContent = "Opslaan...";
-      setStatus("Voorkeuren opslaan...", "loading");
+      saveBtn.textContent = "Bezig...";
 
       try {
+        setStatus("1/4 Voorkeuren opslaan...", "loading");
         await savePromptSettings(payload);
 
-        setStatus("Voorkeuren opgeslagen. OfficeFlow wordt nu geactiveerd...\nDit duurt ongeveer 1 minuut. Even geduld.", "loading");
+        setStatus("2/4 Voorkeuren opgeslagen.\n3/4 Labels aanmaken en inbox scannen...\nDit duurt meestal 20–60 seconden.", "loading");
 
-        await completeOnboarding(email);
+        const onboardingResult = await completeOnboarding(email);
 
-        setStatus("Voorkeuren opgeslagen en onboarding afgerond. OfficeFlow staat nu live.", "success");
+        const draftsCount = countDraftsFromMessages(onboardingResult && onboardingResult.messages);
+        const processedCount = Number((onboardingResult && onboardingResult.processed_count) || 0);
 
+        setStatus(
+          `4/4 Klaar.\n${processedCount} mails verwerkt, ${draftsCount} drafts staan klaar in Gmail.`,
+          "success"
+        );
+
+        const successUrl = buildSuccessUrl(email, onboardingResult);
         setTimeout(() => {
-          window.location.href = "https://officeflow-site-one.vercel.app/success.html";
-        }, 1800);
+          window.location.href = successUrl;
+        }, 1400);
 
       } catch (error) {
         setStatus("Opslaan mislukt: " + error.message, "error");
         console.log("Onboarding error:", error);
-      } finally {
         saveBtn.disabled = false;
         saveBtn.textContent = "Voorkeuren opslaan";
       }
