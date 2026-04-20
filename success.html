@@ -150,49 +150,46 @@
       padding: 30px 38px 38px;
     }
 
-    .status-grid {
+    .stats-grid {
       display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 14px;
       margin-bottom: 26px;
     }
 
-    .status-card {
-      display: flex;
-      gap: 14px;
-      align-items: flex-start;
-      padding: 18px;
+    .stat-card {
+      padding: 20px 18px;
       border: 1px solid var(--border-light);
-      border-radius: 18px;
+      border-radius: 20px;
       background: var(--bg-subtle);
+      text-align: center;
     }
 
-    .status-icon {
-      width: 34px;
-      height: 34px;
-      border-radius: 999px;
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #FFFFFF;
-      border: 1px solid rgba(34, 197, 94, 0.22);
-      color: var(--success);
-      font-size: 16px;
-      font-weight: 800;
+    .stat-number {
+      font-size: 34px;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 6px;
     }
 
-    .status-title {
-      margin: 0 0 4px;
-      font-size: 15px;
+    .stat-label {
+      font-size: 13px;
       font-weight: 700;
       color: var(--text-primary);
+      line-height: 1.35;
+      margin-bottom: 4px;
     }
 
-    .status-copy {
-      margin: 0;
-      font-size: 14px;
-      line-height: 1.65;
+    .stat-sub {
+      font-size: 12px;
       color: var(--text-secondary);
+      line-height: 1.5;
+      margin: 0;
     }
 
     .highlight-box {
@@ -266,6 +263,10 @@
       color: var(--text-secondary);
     }
 
+    .note strong {
+      color: var(--text-primary);
+    }
+
     @media (max-width: 720px) {
       .page {
         padding: 14px;
@@ -283,6 +284,10 @@
 
       .subtitle {
         font-size: 15px;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
       }
 
       .actions {
@@ -316,64 +321,115 @@
             Setup voltooid
           </div>
 
-          <h1>OfficeFlow staat live</h1>
-          <p class="subtitle">
-            Je Gmail-account is gekoppeld, je voorkeuren zijn opgeslagen en OfficeFlow kan nu je inbox verwerken in jouw eigen stijl.
+          <h1 id="heroTitle">OfficeFlow staat live</h1>
+          <p class="subtitle" id="heroSubtitle">
+            Je Gmail is gekoppeld, je voorkeuren zijn opgeslagen en je eerste drafts staan klaar in Gmail.
           </p>
         </div>
 
         <div class="content">
-          <div class="status-grid">
-            <div class="status-card">
-              <div class="status-icon">✓</div>
-              <div>
-                <h2 class="status-title">Mailbox gekoppeld</h2>
-                <p class="status-copy">
-                  Je account is succesvol verbonden met OfficeFlow.
-                </p>
-              </div>
+          <div class="stats-grid" id="statsGrid">
+            <div class="stat-card">
+              <div class="stat-number" id="statProcessed">—</div>
+              <div class="stat-label">Mails verwerkt</div>
+              <p class="stat-sub">Geclassificeerd en voorzien van label</p>
             </div>
-
-            <div class="status-card">
-              <div class="status-icon">✓</div>
-              <div>
-                <h2 class="status-title">Voorkeuren opgeslagen</h2>
-                <p class="status-copy">
-                  Toon, lengte, formaliteit en schrijfstijl zijn toegepast op toekomstige drafts.
-                </p>
-              </div>
+            <div class="stat-card">
+              <div class="stat-number" id="statDrafts">—</div>
+              <div class="stat-label">Drafts aangemaakt</div>
+              <p class="stat-sub">Staan klaar in Gmail ter review</p>
             </div>
-
-            <div class="status-card">
-              <div class="status-icon">✓</div>
-              <div>
-                <h2 class="status-title">Inbox processing gestart</h2>
-                <p class="status-copy">
-                  Relevante e-mails kunnen nu automatisch gelabeld worden en als concept in Gmail verschijnen.
-                </p>
-              </div>
+            <div class="stat-card">
+              <div class="stat-number" id="statLabels">—</div>
+              <div class="stat-label">Labels actief</div>
+              <p class="stat-sub">Priority, To Respond, Done en meer</p>
             </div>
           </div>
 
           <div class="highlight-box">
-            <h3 class="highlight-title">Je setup is afgerond</h3>
-            <p class="highlight-copy">
-              OfficeFlow is nu actief. Je kunt terug naar de website of je live flow verder testen.
+            <h3 class="highlight-title" id="highlightTitle">Open Gmail om je drafts te zien</h3>
+            <p class="highlight-copy" id="highlightCopy">
+              OfficeFlow heeft je inbox gescand en concepten klaargezet in Gmail. Je bekijkt, past aan en verstuurt zelf — OfficeFlow verstuurt nooit automatisch.
             </p>
           </div>
 
           <div class="actions">
-            <a class="button-primary" href="https://officeflowcompany.com">
-              Ga naar OfficeFlow
+            <a class="button-primary" href="https://mail.google.com/mail/u/0/#inbox" target="_blank" rel="noopener noreferrer">
+              Open Gmail
+            </a>
+            <a class="button-secondary" href="https://officeflowcompany.com">
+              Terug naar OfficeFlow
             </a>
           </div>
 
-          <div class="note">
-            Het kan even duren voordat de eerste labels of drafts zichtbaar zijn in Gmail, afhankelijk van de inbox en de verwerking.
+          <div class="note" id="footerNote">
+            Je drafts zijn <strong>niet</strong> verzonden. Alles blijft onder jouw controle.
           </div>
         </div>
       </div>
     </div>
   </div>
+
+  <script>
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+
+      const processedRaw = params.get("processed");
+      const draftsRaw = params.get("drafts");
+      const labelsRaw = params.get("labels");
+      const firstDraftRaw = params.get("first_draft");
+
+      function toNonNegativeInt(value) {
+        const n = parseInt(value, 10);
+        if (isNaN(n) || n < 0) return null;
+        return n;
+      }
+
+      const processed = toNonNegativeInt(processedRaw);
+      const drafts = toNonNegativeInt(draftsRaw);
+      const labels = toNonNegativeInt(labelsRaw);
+      const firstDraft = firstDraftRaw === "1";
+
+      const statProcessed = document.getElementById("statProcessed");
+      const statDrafts = document.getElementById("statDrafts");
+      const statLabels = document.getElementById("statLabels");
+      const heroTitle = document.getElementById("heroTitle");
+      const heroSubtitle = document.getElementById("heroSubtitle");
+      const highlightTitle = document.getElementById("highlightTitle");
+      const highlightCopy = document.getElementById("highlightCopy");
+      const footerNote = document.getElementById("footerNote");
+
+      if (processed !== null) statProcessed.textContent = String(processed);
+      if (drafts !== null) statDrafts.textContent = String(drafts);
+      if (labels !== null) statLabels.textContent = String(labels);
+
+      // Geen stats in URL = directe landing, fallback blijft staan
+      if (processed === null && drafts === null && labels === null) {
+        statProcessed.textContent = "—";
+        statDrafts.textContent = "—";
+        statLabels.textContent = "—";
+        heroSubtitle.textContent = "Je Gmail is gekoppeld en OfficeFlow is actief. Labels en drafts verschijnen in Gmail zodra nieuwe mail binnenkomt.";
+        return;
+      }
+
+      // Tune copy naar daadwerkelijke uitkomst
+      if (drafts !== null && drafts > 0) {
+        highlightTitle.textContent = drafts === 1
+          ? "Je eerste draft staat klaar in Gmail"
+          : `Je eerste ${drafts} drafts staan klaar in Gmail`;
+        highlightCopy.textContent = "Open Gmail, controleer de concepten en verstuur zelf. OfficeFlow verstuurt nooit automatisch.";
+      } else if (processed !== null && processed > 0 && (drafts === 0 || drafts === null)) {
+        highlightTitle.textContent = "Je inbox is klaar voor OfficeFlow";
+        highlightCopy.textContent = "Er waren nu geen mails die een draft nodig hadden. Zodra er Priority of To Respond mail binnenkomt, zet OfficeFlow automatisch een concept klaar.";
+      } else if (!firstDraft) {
+        highlightTitle.textContent = "Je inbox is klaar voor OfficeFlow";
+        highlightCopy.textContent = "Zodra er nieuwe mail binnenkomt die om een reactie vraagt, zet OfficeFlow automatisch een concept klaar in Gmail.";
+      }
+
+      footerNote.innerHTML = drafts !== null && drafts > 0
+        ? "Drafts zijn <strong>niet</strong> verzonden. Alles blijft onder jouw controle."
+        : "OfficeFlow verstuurt nooit automatisch. Jij blijft in controle over elke reply.";
+    })();
+  </script>
 </body>
 </html>
