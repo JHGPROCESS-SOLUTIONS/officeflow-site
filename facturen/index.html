@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Facturen &amp; Offertes — OfficeFlow</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --orange: #f97316; --orange-soft: #fed7aa; --orange-bg: #fff7ed;
+      --blue: #4f46e5; --blue-light: #6366f1; --blue-soft: #c7d2fe; --blue-bg: #eef2ff;
+      --navy: #08142f; --navy-2: #0b1a3a; --navy-3: #10224a;
+      --white: #ffffff; --bg: #f8fafc; --bg-cool: #f8fbff;
+      --text: #0f172a; --text-2: #64748b; --border: #e2e8f0; --green: #22c55e;
+      --grad-blue: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+      --shadow: 0 4px 24px rgba(15,23,42,.07);
+      --shadow-lg: 0 20px 60px rgba(15,23,42,.10);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--white); color: var(--text); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    .wrap { max-width: 1160px; margin: 0 auto; padding: 0 28px; }
+
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,.94); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; gap: 20px; }
+    .logo-img { height: 36px; width: auto; }
+    .nav-links { display: flex; gap: 2px; }
+    .nav-links a { font-size: 14px; font-weight: 500; color: var(--text-2); padding: 8px 14px; border-radius: 8px; transition: color .2s, background .2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); background: var(--bg); }
+    .nav-right { display: flex; gap: 10px; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 600; padding: 11px 22px; border-radius: 10px; transition: all .2s; cursor: pointer; border: none; white-space: nowrap; line-height: 1; }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-ghost { background: transparent; color: var(--text-2); border: 1.5px solid var(--border); }
+    .btn-ghost:hover { border-color: var(--text); color: var(--text); }
+    .btn-blue { background: var(--grad-blue); color: #fff; box-shadow: 0 4px 16px rgba(79,70,229,.28); }
+    .btn-blue:hover { box-shadow: 0 8px 24px rgba(79,70,229,.4); }
+    .btn-lg { padding: 15px 30px; font-size: 15px; border-radius: 12px; }
+
+    /* HERO */
+    .hero { padding: 80px 0 72px; background: linear-gradient(160deg, #ffffff 50%, var(--blue-bg) 100%); border-bottom: 1px solid var(--border); position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; top: -100px; right: -100px; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(79,70,229,.07) 0%, transparent 65%); pointer-events: none; }
+    .hero-breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-2); margin-bottom: 36px; }
+    .hero-breadcrumb a { color: var(--text-2); } .hero-breadcrumb a:hover { color: var(--text); }
+    .hero-breadcrumb span { color: var(--border); }
+    .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; }
+    .hero-tag { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 6px 13px; border-radius: 8px; background: var(--blue-bg); color: var(--blue); margin-bottom: 24px; }
+    h1 { font-size: clamp(38px, 5vw, 58px); font-weight: 800; line-height: 1.1; letter-spacing: -.025em; margin-bottom: 22px; }
+    .h1-blue { color: var(--blue); }
+    .hero-sub { font-size: 17px; color: var(--text-2); line-height: 1.8; max-width: 480px; margin-bottom: 36px; }
+    .hero-sub strong { color: var(--text); font-weight: 600; }
+    .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 32px; }
+    .hero-price { font-size: 14px; color: var(--text-2); font-weight: 500; }
+    .hero-price strong { color: var(--blue); font-size: 16px; font-weight: 700; }
+
+    /* COCKPIT VISUAL */
+    .cockpit { background: var(--navy); border-radius: 18px; overflow: hidden; box-shadow: var(--shadow-lg); border: 1px solid rgba(255,255,255,.06); }
+    .ck-bar { background: rgba(255,255,255,.04); border-bottom: 1px solid rgba(255,255,255,.07); padding: 12px 18px; display: flex; align-items: center; gap: 10px; }
+    .ck-dots { display: flex; gap: 5px; } .ck-dots span { width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,.12); }
+    .ck-title { font-size: 11px; color: rgba(255,255,255,.22); margin: 0 auto; letter-spacing: .05em; }
+    .ck-section-title { font-size: 10px; color: rgba(255,255,255,.22); letter-spacing: .1em; text-transform: uppercase; padding: 14px 18px 6px; }
+    .ck-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 18px; border-bottom: 1px solid rgba(255,255,255,.04); gap: 10px; transition: background .15s; }
+    .ck-row:last-child { border-bottom: none; }
+    .ck-row:hover { background: rgba(255,255,255,.03); }
+    .ck-left { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; }
+    .ck-icon { width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .ci-blue { background: rgba(99,102,241,.18); } .ci-blue svg { color: #818cf8; }
+    .ci-green { background: rgba(34,197,94,.14); } .ci-green svg { color: #4ade80; }
+    .ci-orange { background: rgba(249,115,22,.15); } .ci-orange svg { color: var(--orange); }
+    .ci-soft { background: rgba(255,255,255,.06); } .ci-soft svg { color: rgba(255,255,255,.3); }
+    .ck-name { font-size: 12px; color: rgba(255,255,255,.7); font-weight: 500; }
+    .ck-sub { font-size: 10px; color: rgba(255,255,255,.28); margin-top: 2px; }
+    .ck-badge { padding: 3px 8px; border-radius: 4px; font-size: 9px; font-weight: 700; letter-spacing: .06em; flex-shrink: 0; }
+    .cb-o { background: rgba(249,115,22,.18); color: var(--orange); }
+    .cb-b { background: rgba(99,102,241,.18); color: #818cf8; }
+    .cb-g { background: rgba(34,197,94,.14); color: #4ade80; }
+    .cb-p { background: rgba(168,85,247,.14); color: #c084fc; }
+    .cb-s { background: rgba(255,255,255,.07); color: rgba(255,255,255,.3); }
+    .ck-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(255,255,255,.06); border-top: 1px solid rgba(255,255,255,.06); }
+    .ck-stat { padding: 14px; text-align: center; background: var(--navy); }
+    .ck-stat-v { font-size: 20px; font-weight: 800; color: #818cf8; line-height: 1; letter-spacing: -.02em; }
+    .ck-stat-l { font-size: 10px; color: rgba(255,255,255,.22); margin-top: 4px; }
+
+    /* SECTIONS */
+    section { padding: 96px 0; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 14px; }
+    .ey-b { color: var(--blue); }
+    .ey-b::before { content: ''; width: 18px; height: 2px; background: var(--blue-light); border-radius: 1px; display: inline-block; }
+    .ey-light { color: rgba(255,255,255,.4); }
+    .ey-light::before { content: ''; width: 18px; height: 2px; background: rgba(255,255,255,.25); border-radius: 1px; display: inline-block; }
+    h2 { font-size: clamp(28px, 3.5vw, 44px); font-weight: 800; line-height: 1.1; letter-spacing: -.025em; margin-bottom: 16px; }
+    .sub { font-size: 16px; color: var(--text-2); line-height: 1.75; }
+    .sub strong { color: var(--text); font-weight: 600; }
+
+    /* LIFECYCLE */
+    .lifecycle-bg { background: var(--navy); }
+    .lifecycle { display: flex; flex-direction: column; gap: 1px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.07); border-radius: 16px; overflow: hidden; margin-top: 48px; }
+    .lc { display: flex; align-items: center; gap: 16px; padding: 18px 22px; background: var(--navy); transition: background .2s; }
+    .lc:hover { background: rgba(255,255,255,.03); }
+    .lc-num { font-size: 13px; font-weight: 800; width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .ln-b { background: rgba(99,102,241,.18); color: #818cf8; }
+    .lc-content { flex: 1; }
+    .lc-title { font-size: 14px; font-weight: 600; color: rgba(255,255,255,.8); margin-bottom: 4px; }
+    .lc-body { font-size: 13px; color: rgba(255,255,255,.35); line-height: 1.6; }
+    .lc-body strong { color: rgba(255,255,255,.6); font-weight: 600; }
+    .lc-badge { padding: 4px 10px; border-radius: 5px; font-size: 10px; font-weight: 700; letter-spacing: .06em; flex-shrink: 0; }
+
+    /* MODULES */
+    .modules-bg { background: var(--bg-cool); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .modules-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 48px; }
+    .mcard { background: var(--white); border: 1.5px solid var(--border); border-radius: 14px; padding: 28px; transition: border-color .2s, transform .2s, box-shadow .2s; }
+    .mcard:hover { border-color: var(--blue-soft); transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+    .mcard-icon { width: 42px; height: 42px; border-radius: 12px; background: var(--blue-bg); display: flex; align-items: center; justify-content: center; margin-bottom: 18px; }
+    .mcard-icon svg { color: var(--blue); }
+    .mcard h4 { font-size: 16px; font-weight: 700; margin-bottom: 8px; letter-spacing: -.01em; }
+    .mcard p { font-size: 13px; color: var(--text-2); line-height: 1.7; }
+
+    /* AUTOMATION */
+    .auto-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; margin-top: 56px; }
+    .auto-states { display: flex; flex-direction: column; gap: 14px; }
+    .astate { display: flex; align-items: flex-start; gap: 16px; padding: 22px 24px; border-radius: 14px; border: 1.5px solid var(--border); background: var(--white); }
+    .astate-icon { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .asi-green { background: #dcfce7; } .asi-green svg { color: #15803d; }
+    .asi-yellow { background: #fef3c7; } .asi-yellow svg { color: #92400e; }
+    .asi-red { background: #fee2e2; } .asi-red svg { color: #b91c1c; }
+    .astate h4 { font-size: 15px; font-weight: 700; margin-bottom: 5px; }
+    .astate p { font-size: 13px; color: var(--text-2); line-height: 1.65; }
+
+    /* PRICING */
+    .pricing-bg { background: var(--bg); border-top: 1px solid var(--border); }
+    .pricing-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 48px; }
+    .pbox { background: var(--navy); border-radius: 16px; padding: 28px 22px; color: #fff; border: 1px solid rgba(255,255,255,.07); display: flex; flex-direction: column; }
+    .pbox.featured { border-color: rgba(99,102,241,.4); position: relative; }
+    .pbox-popular { position: absolute; top: -1px; left: 50%; transform: translateX(-50%); background: var(--blue); color: #fff; font-size: 10px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; padding: 4px 14px; border-radius: 0 0 8px 8px; white-space: nowrap; }
+    .pbox-name { font-size: 13px; font-weight: 700; color: rgba(255,255,255,.5); letter-spacing: .04em; text-transform: uppercase; margin-bottom: 16px; }
+    .pbox-price { font-size: 46px; font-weight: 800; color: #818cf8; line-height: 1; letter-spacing: -.03em; margin-bottom: 4px; }
+    .pbox-period { font-size: 13px; color: rgba(255,255,255,.3); margin-bottom: 6px; }
+    .pbox-annual { font-size: 12px; color: rgba(99,102,241,.65); font-weight: 500; margin-bottom: 20px; }
+    .pbox-limit { display: flex; flex-direction: column; gap: 4px; padding: 10px 12px; background: rgba(255,255,255,.04); border-radius: 8px; border: 1px solid rgba(255,255,255,.06); margin-bottom: 20px; }
+    .pbox-limit-row { display: flex; align-items: center; gap: 7px; font-size: 12px; color: rgba(255,255,255,.5); font-weight: 600; }
+    .pbox-limit-row svg { color: #818cf8; flex-shrink: 0; }
+    .pbox-feats { list-style: none; display: flex; flex-direction: column; gap: 9px; margin-bottom: 24px; flex: 1; }
+    .pbox-feats li { display: flex; align-items: flex-start; gap: 8px; font-size: 12px; color: rgba(255,255,255,.55); line-height: 1.5; }
+    .pbox-feats li svg { color: #818cf8; flex-shrink: 0; margin-top: 1px; }
+    .pbox-btn { width: 100%; display: inline-flex; justify-content: center; align-items: center; padding: 12px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 600; border-radius: 10px; border: 1.5px solid rgba(99,102,241,.3); background: rgba(99,102,241,.12); color: #818cf8; cursor: pointer; transition: all .2s; }
+    .pbox-btn:hover { background: var(--blue); color: #fff; border-color: var(--blue); }
+    .pbox.featured .pbox-btn { background: var(--blue); color: #fff; border-color: var(--blue); box-shadow: 0 4px 16px rgba(79,70,229,.35); }
+    .pbox.featured .pbox-btn:hover { box-shadow: 0 8px 24px rgba(79,70,229,.5); }
+    .pricing-note { text-align: center; margin-top: 24px; font-size: 13px; color: var(--text-2); }
+
+    /* CTA BAR */
+    .cta-bar { background: var(--blue); padding: 56px 0; text-align: center; }
+    .cta-bar h2 { color: #fff; margin-bottom: 10px; }
+    .cta-bar p { font-size: 16px; color: rgba(255,255,255,.7); margin-bottom: 28px; }
+    .btn-white { background: #fff; color: var(--blue); font-weight: 700; }
+    .btn-white:hover { background: var(--blue-bg); }
+
+    footer { background: #060e1e; padding: 36px 0; border-top: 1px solid rgba(255,255,255,.04); }
+    .footer-min { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+    .footer-logo-img { height: 28px; width: auto; filter: brightness(0) invert(1); opacity: .5; }
+    .footer-links-min { display: flex; gap: 18px; flex-wrap: wrap; }
+    .footer-links-min a { font-size: 13px; color: rgba(255,255,255,.3); transition: color .2s; }
+    .footer-links-min a:hover { color: rgba(255,255,255,.7); }
+    .footer-copy { font-size: 12px; color: rgba(255,255,255,.18); }
+
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .65s ease, transform .65s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    .rd1 { transition-delay: .08s; } .rd2 { transition-delay: .17s; } .rd3 { transition-delay: .26s; }
+
+    @media (max-width: 960px) {
+      .hero-grid, .auto-grid { grid-template-columns: 1fr; }
+      .modules-grid { grid-template-columns: 1fr 1fr; }
+      .pricing-grid { grid-template-columns: 1fr 1fr; }
+      .cockpit { display: none; }
+    }
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .modules-grid, .pricing-grid { grid-template-columns: 1fr; }
+      section { padding: 64px 0; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-inner">
+    <a href="/"><img src="/OfficeFlow-logo.png" alt="OfficeFlow" class="logo-img"></a>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/#producten">Mailbox Manager</a>
+      <a href="/facturen/" class="active">Facturen &amp; Offertes</a>
+    </div>
+    <div class="nav-right">
+      <a class="btn btn-ghost" href="mailto:mail@officeflowcompany.com?subject=Inloggen%20Facturen%20%26%20Offertes">Inloggen</a>
+      <a class="btn btn-blue" href="#prijzen">Start gratis →</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-breadcrumb"><a href="/">OfficeFlow</a><span>/</span><span>Facturen &amp; Offertes</span></div>
+    <div class="hero-grid">
+      <div>
+        <div class="hero-tag"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>Facturen &amp; offertes platform</div>
+        <h1>Van klantafspraak<br>naar betaling —<br><span class="h1-blue">één logische flow.</span></h1>
+        <p class="hero-sub">Offertes, abonnementen, werkregistratie, facturen, Moneybird-sync, herinneringen en betalingsopvolging — allemaal in <strong>één rustig, sterk geautomatiseerd systeem.</strong> Geen losse tools. Geen vergeten facturen.</p>
+        <div class="hero-cta">
+          <a class="btn btn-blue btn-lg" href="#prijzen">Start voor €19 p/m →</a>
+          <a class="btn btn-ghost btn-lg" href="#modules">Bekijk alle modules</a>
+        </div>
+        <div class="hero-price">Vanaf <strong>€19 per maand</strong> excl. btw · Maandelijks opzegbaar</div>
+      </div>
+      <div class="cockpit">
+        <div class="ck-bar"><div class="ck-dots"><span></span><span></span><span></span></div><div class="ck-title">OfficeFlow — Vandaag</div></div>
+        <div class="ck-section-title">Acties nodig</div>
+        <div class="ck-row"><div class="ck-left"><div class="ck-icon ci-orange"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg></div><div><div class="ck-name">#2024-089 Bakker &amp; Partners</div><div class="ck-sub">€4.250 · Klaar voor beoordeling</div></div></div><span class="ck-badge cb-o">BEOORDELEN</span></div>
+        <div class="ck-row"><div class="ck-left"><div class="ck-icon ci-blue"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div><div><div class="ck-name">#2024-081 De Vries BV</div><div class="ck-sub">€1.800 · Herinnering klaar</div></div></div><span class="ck-badge cb-p">OPVOLGING</span></div>
+        <div class="ck-section-title">Recent verwerkt</div>
+        <div class="ck-row"><div class="ck-left"><div class="ck-icon ci-green"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg></div><div><div class="ck-name">#2024-087 Janssen Consulting</div><div class="ck-sub">€2.100 · Gesynchroniseerd &amp; verstuurd</div></div></div><span class="ck-badge cb-b">VERSTUURD</span></div>
+        <div class="ck-row"><div class="ck-left"><div class="ck-icon ci-green"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg></div><div><div class="ck-name">#2024-085 Maas Solutions</div><div class="ck-sub">€3.600 · Betaling ontvangen</div></div></div><span class="ck-badge cb-g">BETAALD</span></div>
+        <div class="ck-row"><div class="ck-left"><div class="ck-icon ci-soft"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div><div><div class="ck-name">Abonnement · 3 klanten</div><div class="ck-sub">Automatisch gefactureerd</div></div></div><span class="ck-badge cb-s">AUTOMATISCH</span></div>
+        <div class="ck-stats">
+          <div class="ck-stat"><div class="ck-stat-v">€38k</div><div class="ck-stat-l">Lopend</div></div>
+          <div class="ck-stat"><div class="ck-stat-v">12</div><div class="ck-stat-l">Open</div></div>
+          <div class="ck-stat"><div class="ck-stat-v">3</div><div class="ck-stat-l">Acties</div></div>
+          <div class="ck-stat"><div class="ck-stat-v">€9k</div><div class="ck-stat-l">Te innen</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="lifecycle-bg">
+  <div class="wrap">
+    <div class="eyebrow ey-light reveal">Factuur-lifecycle</div>
+    <h2 class="reveal" style="color:#fff;max-width:480px;">Elke factuur volgt<br>een bewuste route.</h2>
+    <p class="sub reveal" style="color:rgba(255,255,255,.4);max-width:500px;">OfficeFlow behandelt facturen niet als documenten, maar als operationele objecten. Elke stap is bewust, controleerbaar en begeleid.</p>
+    <div class="lifecycle">
+      <div class="lc"><div class="lc-num ln-b">1</div><div class="lc-content"><div class="lc-title">Concept aangemaakt</div><div class="lc-body">Factuur gegenereerd vanuit worklog, manual charge of abonnement. <strong>BTW en totalen gecontroleerd.</strong></div></div><span class="ck-badge cb-s">CONCEPT</span></div>
+      <div class="lc"><div class="lc-num ln-b">2</div><div class="lc-content"><div class="lc-title">Klaar voor beoordeling</div><div class="lc-body">Alles is correct — factuur wacht op <strong>menselijke controle</strong> voor versturen.</div></div><span class="ck-badge cb-o">BEOORDELEN</span></div>
+      <div class="lc"><div class="lc-num ln-b">3</div><div class="lc-content"><div class="lc-title">Synchronisatie naar Moneybird</div><div class="lc-body">Export payload wordt opgebouwd en gevalideerd. <strong>Provider-sync stap voor stap bewaakt.</strong></div></div><span class="ck-badge cb-b">SYNC</span></div>
+      <div class="lc"><div class="lc-num ln-b">4</div><div class="lc-content"><div class="lc-title">Verstuurd naar klant</div><div class="lc-body">Factuur verstuurd. Betaaltermijn loopt. <strong>Systeem monitort betalingsstatus.</strong></div></div><span class="ck-badge cb-b">VERSTUURD</span></div>
+      <div class="lc"><div class="lc-num ln-b">5</div><div class="lc-content"><div class="lc-title">Herinnering &amp; opvolging</div><div class="lc-body">Bij geen betaling: systeem bereidt herinnering voor op het juiste moment. <strong>Jij bepaalt of je verstuurt.</strong></div></div><span class="ck-badge cb-p">HERINNERING</span></div>
+      <div class="lc"><div class="lc-num ln-b">6</div><div class="lc-content"><div class="lc-title">Betaling ontvangen</div><div class="lc-body">Betaling geregistreerd. Factuur afgerond. <strong>Cyclus compleet.</strong></div></div><span class="ck-badge cb-g">BETAALD</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="modules" class="modules-bg">
+  <div class="wrap">
+    <div class="eyebrow ey-b reveal">Modules</div>
+    <h2 class="reveal">Alle bouwstenen<br>in één systeem.</h2>
+    <p class="sub reveal" style="max-width:520px;">OfficeFlow bestaat uit nauw samenhangende modules die samen de volledige commerciële en operationele flow afdekken.</p>
+    <div class="modules-grid">
+      <div class="mcard reveal rd1"><div class="mcard-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div><h4>Klantenbeheer</h4><p>Klanten als centraal ankerpunt. Alle offertes, abonnementen, worklogs en facturen zijn klantgebonden.</p></div>
+      <div class="mcard reveal rd2"><div class="mcard-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg></div><h4>Offertes</h4><p>Offertes opstellen, bewaken en omzetten richting facturatie. Professioneel en consistent.</p></div>
+      <div class="mcard reveal rd3"><div class="mcard-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div><h4>Abonnementen</h4><p>Terugkerende klantafspraken die automatisch billable events genereren voor periodieke facturatie.</p></div>
+      <div class="mcard reveal rd1"><div class="mcard-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg></div><h4>Werkregistratie</h4><p>Uren en verrichte taken vastleggen die later factureerbaar worden. Van werk naar factuur.</p></div>
+      <div class="mcard reveal rd2"><div class="mcard-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg></div><h4>Facturen &amp; BTW</h4><p>Facturen als operationele objecten met lifecycle, BTW-bewaking, provider-sync en betaalmonitoring.</p></div>
+      <div class="mcard reveal rd3"><div class="mcard-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg></div><h4>Moneybird sync</h4><p>Automatische synchronisatie met Moneybird. Export payload opgebouwd, gevalideerd en stap voor stap gesynchroniseerd.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow ey-b reveal">Automatisering</div>
+    <h2 class="reveal">Slim automatiseren.<br>Nooit blind.</h2>
+    <div class="auto-grid">
+      <p class="sub reveal" style="max-width:400px;">Het systeem automatiseert waar het veilig kan — maar vraagt menselijke controle waar dat logisch is. Elke actie heeft één van drie uitkomsten.</p>
+      <div class="auto-states reveal rd1">
+        <div class="astate"><div class="astate-icon asi-green"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></div><div><h4>Toegestaan — direct uitvoeren</h4><p>De stap is veilig en compleet. Het systeem voert automatisch uit zonder tussenkomst.</p></div></div>
+        <div class="astate"><div class="astate-icon asi-yellow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg></div><div><h4>Review vereist — jij beslist</h4><p>De stap vraagt eerst menselijke controle. Je ziet waarom en krijgt een duidelijke vervolgactie.</p></div></div>
+        <div class="astate"><div class="astate-icon asi-red"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg></div><div><h4>Geblokkeerd — met uitleg</h4><p>De stap mag nu niet doorgaan. Het systeem legt uit waarom en toont wat er eerst moet gebeuren.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pricing-bg" id="prijzen">
+  <div class="wrap">
+    <div class="eyebrow ey-b reveal" style="justify-content:center;">Prijzen</div>
+    <h2 class="reveal" style="text-align:center;">Kies het pakket<br>dat bij jou past.</h2>
+    <p class="sub reveal" style="max-width:460px;margin:0 auto;text-align:center;">Maandelijks opzegbaar. Alle modules inbegrepen. Geen verborgen kosten.</p>
+    <div class="pricing-grid">
+
+      <!-- SVG check icon shorthand -->
+      <div class="pbox reveal rd1">
+        <div class="pbox-name">Solo</div>
+        <div class="pbox-price">€19</div>
+        <div class="pbox-period">per maand · excl. btw</div>
+        <div class="pbox-annual">€190 per jaar — 2 maanden gratis</div>
+        <div class="pbox-limit">
+          <div class="pbox-limit-row"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>25 facturen per maand</div>
+          <div class="pbox-limit-row"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>25 offertes per maand</div>
+        </div>
+        <ul class="pbox-feats">
+          <li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Klantenbeheer</li>
+          <li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Abonnementen &amp; werkregistratie</li>
+          <li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Slimme automatisering</li>
+          <li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Moneybird sync</li>
+          <li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Herinneringen &amp; opvolging</li>
+          <li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Klantportaal</li>
+          <li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>BTW-bewaking ingebouwd</li>
+        </ul>
+        <a class="pbox-btn" href="mailto:mail@officeflowcompany.com?subject=Interesse%20Facturen%20Solo%20%E2%80%94%20%E2%82%AC19%2Fmnd">Starten met Solo →</a>
+      </div>
+
+      <div class="pbox featured reveal rd2">
+        <div class="pbox-popular">Meest gekozen</div>
+        <div class="pbox-name">Start</div>
+        <div class="pbox-price">€34</div>
+        <div class="pbox-period">per maand · excl. btw</div>
+        <div class="pbox-annual">€340 per jaar — 2 maanden gratis</div>
+        <div class="pbox-limit">
+          <div class="pbox-limit-row"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>100 facturen per maand</div>
+          <div class="pbox-limit-row"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>100 offertes per maand</div>
+        </div>
+        <ul class="pbox-feats">
+          <li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Klantenbeheer</li>
+          <li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Abonnementen &amp; werkregistratie</li>
+          <li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Slimme automatisering</li>
+          <li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Moneybird sync</li>
+          <li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Herinneringen &amp; opvolging</li>
+          <li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Klantportaal</li>
+          <li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>BTW-bewaking ingebouwd</li>
+        </ul>
+        <a class="pbox-btn" href="mailto:mail@officeflowcompany.com?subject=Interesse%20Facturen%20Start%20%E2%80%94%20%E2%82%AC34%2Fmnd">Starten met Start →</a>
+      </div>
+
+      <div class="pbox reveal rd3">
+        <div class="pbox-name">Groei</div>
+        <div class="pbox-price">€54</div>
+        <div class="pbox-period">per maand · excl. btw</div>
+        <div class="pbox-annual">€540 per jaar — 2 maanden gratis</div>
+        <div class="pbox-limit">
+          <div class="pbox-limit-row"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>300 facturen per maand</div>
+          <div class="pbox-limit-row"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>300 offertes per maand</div>
+        </div>
+        <ul class="pbox-feats">
+          <li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Klantenbeheer</li>
+          <li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Abonnementen &amp; werkregistratie</li>
+          <li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Slimme automatisering</li>
+          <li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Moneybird sync</li>
+          <li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Herinneringen &amp; opvolging</li>
+          <li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Klantportaal</li>
+          <li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>BTW-bewaking ingebouwd</li>
+        </ul>
+        <a class="pbox-btn" href="mailto:mail@officeflowcompany.com?subject=Interesse%20Facturen%20Groei%20%E2%80%94%20%E2%82%AC54%2Fmnd">Starten met Groei →</a>
+      </div>
+
+      <div class="pbox reveal" style="transition-delay:.35s;">
+        <div class="pbox-name">Pro</div>
+        <div class="pbox-price">€89</div>
+        <div class="pbox-period">per maand · excl. btw</div>
+        <div class="pbox-annual">€890 per jaar — 2 maanden gratis</div>
+        <div class="pbox-limit">
+          <div class="pbox-limit-row"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Onbeperkt facturen</div>
+          <div class="pbox-limit-row"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Onbeperkt offertes</div>
+        </div>
+        <ul class="pbox-feats">
+          <li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Klantenbeheer</li>
+          <li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Abonnementen &amp; werkregistratie</li>
+          <li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Slimme automatisering</li>
+          <li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Moneybird sync</li>
+          <li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Herinneringen &amp; opvolging</li>
+          <li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Klantportaal</li>
+          <li><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>BTW-bewaking ingebouwd</li>
+        </ul>
+        <a class="pbox-btn" href="mailto:mail@officeflowcompany.com?subject=Interesse%20Facturen%20Pro%20%E2%80%94%20%E2%82%AC89%2Fmnd">Starten met Pro →</a>
+      </div>
+
+    </div>
+    <p class="pricing-note reveal">Alle pakketten zijn maandelijks opzegbaar · Jaarlijks abonnement = 2 maanden gratis · Prijzen excl. btw</p>
+  </div>
+</section>
+
+<div class="cta-bar">
+  <div class="wrap">
+    <h2>Klaar om je facturatie te professionaliseren?</h2>
+    <p>Van klantafspraak naar betaling — zonder handmatig gedoe.</p>
+    <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;">
+      <a class="btn btn-white btn-lg" href="#prijzen">Start voor €19 p/m →</a>
+      <a class="btn btn-lg" style="background:rgba(255,255,255,.12);color:#fff;border:1.5px solid rgba(255,255,255,.25);" href="/">Vergelijk producten</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap footer-min">
+    <img src="/OfficeFlow-logo.png" alt="OfficeFlow" class="footer-logo-img">
+    <div class="footer-links-min">
+      <a href="/">Home</a><a href="/#producten">Mailbox Manager</a>
+      <a href="/facturen/">Facturen &amp; Offertes</a>
+      <a href="/privacy.html">Privacy</a><a href="/terms.html">Voorwaarden</a>
+      <a href="mailto:mail@officeflowcompany.com">Contact</a>
+    </div>
+    <div class="footer-copy">© 2026 OfficeFlow</div>
+  </div>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } }), { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
