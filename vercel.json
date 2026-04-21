@@ -1,4 +1,11 @@
 {
+  "redirects": [
+    {
+      "source": "/callback",
+      "destination": "/facturen/callback",
+      "permanent": false
+    }
+  ],
   "rewrites": [
     {
       "source": "/facturen/:path*",
