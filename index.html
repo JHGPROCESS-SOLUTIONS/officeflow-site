@@ -376,12 +376,7 @@
       background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
       border-bottom: 1px solid var(--border);
     }
-    .dash-title { font-size: 12.5px; font-weight: 700; color: var(--text); letter-spacing: -.005em; display: inline-flex; align-items: center; gap: 8px; }
-    .dash-title::before {
-      content: ''; width: 18px; height: 18px; border-radius: 5px;
-      background: linear-gradient(135deg, var(--orange) 0%, var(--blue) 100%);
-      display: inline-block;
-    }
+    .dash-title { font-size: 12.5px; font-weight: 700; color: var(--text); letter-spacing: -.005em; }
     .dash-date { font-size: 11.5px; color: var(--text-2); font-weight: 500; display: inline-flex; align-items: center; gap: 7px; }
     .dash-live { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 3px rgba(34,197,94,.2); animation: dashPulse 2s ease-in-out infinite; }
     @keyframes dashPulse { 0%,100%{opacity:1;} 50%{opacity:.45;} }
@@ -390,10 +385,8 @@
       display: grid; grid-template-columns: 1fr 1fr;
       gap: 1px; background: var(--border);
     }
-    .dash-card { padding: 16px 16px 14px; display: flex; flex-direction: column; min-width: 0; }
-    .dash-card-orange { background: linear-gradient(180deg, #fffaf5 0%, #ffffff 40%); }
-    .dash-card-blue   { background: linear-gradient(180deg, #f8f9ff 0%, #ffffff 40%); }
-    .dash-card-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .dash-card { padding: 16px 18px 14px; display: flex; flex-direction: column; min-width: 0; background: #ffffff; }
+    .dash-card-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
     .dash-tag { font-size: 9.5px; font-weight: 800; letter-spacing: .08em; padding: 4px 9px; border-radius: 6px; }
     .dash-tag-orange { background: var(--orange-bg); color: var(--orange-dark); }
     .dash-tag-blue { background: var(--blue-bg); color: var(--blue); }
@@ -403,101 +396,107 @@
       animation: dashPulse 2.2s ease-in-out infinite;
     }
 
-    .dash-mini-stats { display: flex; gap: 10px; margin-bottom: 10px; }
-    .dash-mini-stat { flex: 1; padding: 8px 10px; border-radius: 8px; background: rgba(255,255,255,.7); border: 1px solid var(--border); }
-    .dash-mini-num { font-size: 17px; font-weight: 800; letter-spacing: -.01em; line-height: 1; }
-    .dash-mini-num-orange { color: var(--orange-dark); }
-    .dash-mini-num-blue { color: var(--blue); }
-    .dash-mini-lbl { font-size: 10px; color: var(--text-2); font-weight: 500; margin-top: 3px; }
+    /* One-line summary replaces the boxed stats */
+    .dash-summary {
+      font-size: 11.5px; color: var(--text-2); font-weight: 500;
+      margin-bottom: 10px; line-height: 1.4;
+      padding-bottom: 10px; border-bottom: 1px solid rgba(15,23,42,.05);
+    }
+    .dash-summary strong { color: var(--text); font-weight: 700; }
+    .dash-summary .sum-o { color: var(--orange-dark); font-weight: 700; }
+    .dash-summary .sum-b { color: var(--blue); font-weight: 700; }
 
-    /* Scrollable body — fixed max-height so dashboard stays compact */
+    /* Scrollable flat list — no per-item boxing */
     .dash-scroll {
-      max-height: 240px;
+      max-height: 250px;
       overflow-y: auto;
-      padding-right: 4px;
-      margin-right: -4px;
-      display: flex; flex-direction: column; gap: 8px;
+      padding-right: 2px;
+      margin-right: -2px;
+      display: flex; flex-direction: column;
       scrollbar-width: thin;
       scrollbar-color: #e2e8f0 transparent;
     }
-    .dash-scroll::-webkit-scrollbar { width: 5px; }
+    .dash-scroll::-webkit-scrollbar { width: 4px; }
     .dash-scroll::-webkit-scrollbar-track { background: transparent; }
     .dash-scroll::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
-    .dash-scroll::-webkit-scrollbar-thumb:hover { background: #cbd5e1; }
 
-    /* Mail item with AI draft preview */
+    /* Mail item — flat, clean row */
     .mail-item {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 10px 12px;
-      transition: border-color .2s, box-shadow .2s;
-    }
-    .mail-item:hover { border-color: var(--orange-soft); box-shadow: 0 4px 12px rgba(249,115,22,.08); }
-    .mail-head { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
-    .mail-avatar {
-      width: 22px; height: 22px; border-radius: 50%;
-      background: linear-gradient(135deg, #fb923c, #f97316);
-      color: #fff; font-size: 10px; font-weight: 700;
-      display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
-    }
-    .mail-avatar.av-b { background: linear-gradient(135deg, #818cf8, #4f46e5); }
-    .mail-avatar.av-g { background: linear-gradient(135deg, #4ade80, #16a34a); }
-    .mail-avatar.av-p { background: linear-gradient(135deg, #c084fc, #9333ea); }
-    .mail-avatar.av-r { background: linear-gradient(135deg, #fb7185, #e11d48); }
-    .mail-sender { font-size: 11.5px; font-weight: 700; color: var(--text); flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .mail-tag {
-      font-size: 8.5px; font-weight: 800; letter-spacing: .06em;
-      padding: 2px 6px; border-radius: 4px; flex-shrink: 0;
-    }
-    .tag-pri { background: rgba(239,68,68,.14); color: #dc2626; }
-    .tag-res { background: rgba(99,102,241,.14); color: #4f46e5; }
-    .tag-fol { background: rgba(245,158,11,.14); color: #b45309; }
-    .tag-wai { background: rgba(168,85,247,.14); color: #9333ea; }
-    .tag-don { background: rgba(34,197,94,.14); color: #16a34a; }
-    .mail-subject { font-size: 11.5px; color: var(--text); font-weight: 500; margin-bottom: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .mail-draft {
-      background: linear-gradient(180deg, #fff7ed 0%, #fffbf5 100%);
-      border: 1px dashed #fed7aa;
-      border-radius: 6px;
-      padding: 6px 8px;
-      font-size: 10.5px;
-      color: #7c2d12;
-      line-height: 1.45;
+      padding: 9px 8px;
+      border-radius: 7px;
+      display: flex; align-items: center; gap: 10px;
+      transition: background .15s;
       position: relative;
     }
-    .mail-draft::before {
-      content: 'AI CONCEPT';
-      position: absolute; top: -7px; left: 8px;
-      background: var(--orange); color: #fff;
-      font-size: 7.5px; font-weight: 800; letter-spacing: .08em;
-      padding: 1px 5px; border-radius: 3px;
+    .mail-item + .mail-item::before {
+      content: ''; position: absolute; top: 0; left: 8px; right: 8px;
+      height: 1px; background: rgba(15,23,42,.05);
     }
+    .mail-item:hover { background: rgba(249,115,22,.045); }
+    .mail-item:hover::before, .mail-item:hover + .mail-item::before { background: transparent; }
 
-    /* Invoice/offer item */
-    .inv-item {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 9px 12px;
-      display: flex; align-items: center; gap: 10px;
-      transition: border-color .2s, box-shadow .2s;
+    .mail-avatar {
+      width: 26px; height: 26px; border-radius: 50%;
+      background: #f97316;
+      color: #fff; font-size: 12px; font-weight: 600;
+      display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
-    .inv-item:hover { border-color: var(--blue-soft); box-shadow: 0 4px 12px rgba(79,70,229,.08); }
+    .mail-avatar.av-b { background: #1a73e8; }
+    .mail-avatar.av-g { background: #34a853; }
+    .mail-avatar.av-p { background: #9333ea; }
+    .mail-avatar.av-r { background: #ea4335; }
+
+    .mail-body { flex: 1; min-width: 0; overflow: hidden; }
+    .mail-sender { font-size: 12px; font-weight: 700; color: var(--text); line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .mail-subject { font-size: 10.5px; color: var(--text-2); line-height: 1.3; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 400; }
+
+    .mail-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+    .mail-ai {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 16px; height: 16px;
+      color: var(--orange); opacity: .75;
+    }
+    .mail-ai svg { width: 11px; height: 11px; }
+
+    .mail-tag {
+      font-size: 8.5px; font-weight: 800; letter-spacing: .06em;
+      padding: 3px 7px; border-radius: 4px; flex-shrink: 0;
+    }
+    .tag-pri { background: rgba(239,68,68,.12); color: #dc2626; }
+    .tag-res { background: rgba(99,102,241,.12); color: #4f46e5; }
+    .tag-fol { background: rgba(245,158,11,.14); color: #b45309; }
+    .tag-wai { background: rgba(168,85,247,.12); color: #9333ea; }
+    .tag-don { background: rgba(34,197,94,.12); color: #16a34a; }
+
+    /* Invoice/offer item — flat row, no boxing */
+    .inv-item {
+      padding: 9px 8px;
+      border-radius: 7px;
+      display: flex; align-items: center; gap: 10px;
+      transition: background .15s;
+      position: relative;
+    }
+    .inv-item + .inv-item::before {
+      content: ''; position: absolute; top: 0; left: 8px; right: 8px;
+      height: 1px; background: rgba(15,23,42,.05);
+    }
+    .inv-item:hover { background: rgba(79,70,229,.04); }
+    .inv-item:hover::before, .inv-item:hover + .inv-item::before { background: transparent; }
+
     .inv-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
     .inv-left { flex: 1; min-width: 0; }
-    .inv-ref { font-size: 11px; font-weight: 700; color: var(--text); }
-    .inv-client { font-size: 10.5px; color: var(--text-2); margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .inv-right { text-align: right; flex-shrink: 0; }
-    .inv-amount { font-size: 12px; font-weight: 800; color: var(--text); letter-spacing: -.01em; }
+    .inv-ref { font-size: 12px; font-weight: 700; color: var(--text); line-height: 1.2; }
+    .inv-client { font-size: 10.5px; color: var(--text-2); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .inv-right { text-align: right; flex-shrink: 0; display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+    .inv-amount { font-size: 12px; font-weight: 800; color: var(--text); letter-spacing: -.01em; line-height: 1; }
     .inv-badge {
       font-size: 8.5px; font-weight: 800; letter-spacing: .06em;
       padding: 2px 6px; border-radius: 4px;
-      display: inline-block; margin-top: 2px;
+      display: inline-block;
     }
-    .b-paid { background: rgba(34,197,94,.14); color: #16a34a; }
-    .b-sent { background: rgba(99,102,241,.14); color: #4f46e5; }
-    .b-over { background: rgba(239,68,68,.14); color: #dc2626; }
+    .b-paid { background: rgba(34,197,94,.12); color: #16a34a; }
+    .b-sent { background: rgba(99,102,241,.12); color: #4f46e5; }
+    .b-over { background: rgba(239,68,68,.12); color: #dc2626; }
     .b-conc { background: rgba(245,158,11,.14); color: #b45309; }
     .b-draf { background: rgba(148,163,184,.18); color: #475569; }
 
@@ -522,7 +521,7 @@
 
 <nav>
   <div class="wrap nav-inner">
-    <a href="index.html" class="logo-link" aria-label="OfficeFlow"><span class="logo-mark" aria-hidden="true"></span><span class="logo-wordmark">Office<span class="flow">Flow</span></span></a>
+    <a href="index.html" class="logo-link" aria-label="OfficeFlow"><span class="logo-wordmark">Office<span class="flow">Flow</span></span></a>
     <div class="nav-links">
       <a href="#producten">Mailbox Manager</a>
       <a href="#producten">Facturen &amp; Offertes</a>
@@ -570,75 +569,73 @@
               <span class="dash-tag dash-tag-orange">MAILBOX MANAGER</span>
               <span class="dash-pulse"></span>
             </div>
-            <div class="dash-mini-stats">
-              <div class="dash-mini-stat">
-                <div class="dash-mini-num dash-mini-num-orange">12</div>
-                <div class="dash-mini-lbl">mails geordend</div>
-              </div>
-              <div class="dash-mini-stat">
-                <div class="dash-mini-num dash-mini-num-orange">4</div>
-                <div class="dash-mini-lbl">AI concepten</div>
-              </div>
-            </div>
+            <div class="dash-summary"><span class="sum-o">12</span> mails geordend &middot; <span class="sum-o">4</span> AI concepten klaar</div>
             <div class="dash-scroll">
               <div class="mail-item">
-                <div class="mail-head">
-                  <span class="mail-avatar av-r">KB</span>
-                  <span class="mail-sender">Karin Brouwer</span>
+                <div class="mail-body">
+                  <div class="mail-sender">Karin Brouwer</div>
+                  <div class="mail-subject">Offerte voor renovatie keuken</div>
+                </div>
+                <div class="mail-right">
+                  <span class="mail-ai" title="AI concept klaar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></span>
                   <span class="mail-tag tag-pri">PRIORITY</span>
                 </div>
-                <div class="mail-subject">Offerte voor renovatie keuken — graag reactie</div>
-                <div class="mail-draft">Hi Karin, bedankt voor je aanvraag. Ik stuur je morgen een uitgewerkte offerte met planning en prijs.</div>
               </div>
               <div class="mail-item">
-                <div class="mail-head">
-                  <span class="mail-avatar av-b">TV</span>
-                  <span class="mail-sender">Tom Visser</span>
+                <div class="mail-body">
+                  <div class="mail-sender">Tom Visser</div>
+                  <div class="mail-subject">Kun je de factuur nog aanpassen?</div>
+                </div>
+                <div class="mail-right">
+                  <span class="mail-ai" title="AI concept klaar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></span>
                   <span class="mail-tag tag-res">TO RESPOND</span>
                 </div>
-                <div class="mail-subject">Kun je de factuur nog aanpassen?</div>
-                <div class="mail-draft">Hoi Tom, geen probleem — ik pas de factuur aan en stuur de nieuwe versie vanmiddag.</div>
               </div>
               <div class="mail-item">
-                <div class="mail-head">
-                  <span class="mail-avatar">MS</span>
-                  <span class="mail-sender">Marloes Smit</span>
+                <div class="mail-body">
+                  <div class="mail-sender">Marloes Smit</div>
+                  <div class="mail-subject">Laatste update afspraak vrijdag</div>
+                </div>
+                <div class="mail-right">
                   <span class="mail-tag tag-fol">FOLLOW UP</span>
                 </div>
-                <div class="mail-subject">Laatste update afspraak vrijdag</div>
               </div>
               <div class="mail-item">
-                <div class="mail-head">
-                  <span class="mail-avatar av-p">RJ</span>
-                  <span class="mail-sender">Ruben de Jong</span>
+                <div class="mail-body">
+                  <div class="mail-sender">Ruben de Jong</div>
+                  <div class="mail-subject">Wacht op zijn bevestiging</div>
+                </div>
+                <div class="mail-right">
                   <span class="mail-tag tag-wai">WAITING</span>
                 </div>
-                <div class="mail-subject">Afgestemd — wacht op zijn bevestiging</div>
               </div>
               <div class="mail-item">
-                <div class="mail-head">
-                  <span class="mail-avatar av-g">LB</span>
-                  <span class="mail-sender">Lotte Berends</span>
+                <div class="mail-body">
+                  <div class="mail-sender">Lotte Berends</div>
+                  <div class="mail-subject">Thanks, alles in orde nu</div>
+                </div>
+                <div class="mail-right">
                   <span class="mail-tag tag-don">DONE</span>
                 </div>
-                <div class="mail-subject">Thanks, alles in orde nu</div>
               </div>
               <div class="mail-item">
-                <div class="mail-head">
-                  <span class="mail-avatar av-b">SP</span>
-                  <span class="mail-sender">Sander Pauwels</span>
+                <div class="mail-body">
+                  <div class="mail-sender">Sander Pauwels</div>
+                  <div class="mail-subject">Vraag over factuur #042</div>
+                </div>
+                <div class="mail-right">
+                  <span class="mail-ai" title="AI concept klaar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></span>
                   <span class="mail-tag tag-res">TO RESPOND</span>
                 </div>
-                <div class="mail-subject">Vraag over factuur #042</div>
-                <div class="mail-draft">Hi Sander, factuur #042 gaat over het onderhoud van maart. Uitsplitsing stuur ik apart.</div>
               </div>
               <div class="mail-item">
-                <div class="mail-head">
-                  <span class="mail-avatar">JH</span>
-                  <span class="mail-sender">Jeroen Hermans</span>
+                <div class="mail-body">
+                  <div class="mail-sender">Jeroen Hermans</div>
+                  <div class="mail-subject">Offerte volgende week toesturen</div>
+                </div>
+                <div class="mail-right">
                   <span class="mail-tag tag-fol">FOLLOW UP</span>
                 </div>
-                <div class="mail-subject">Offerte volgende week toesturen</div>
               </div>
             </div>
           </div>
@@ -648,16 +645,7 @@
               <span class="dash-tag dash-tag-blue">FACTUREN &amp; OFFERTES</span>
               <span class="dash-pulse"></span>
             </div>
-            <div class="dash-mini-stats">
-              <div class="dash-mini-stat">
-                <div class="dash-mini-num dash-mini-num-blue">€4.850</div>
-                <div class="dash-mini-lbl">deze maand</div>
-              </div>
-              <div class="dash-mini-stat">
-                <div class="dash-mini-num dash-mini-num-blue">3</div>
-                <div class="dash-mini-lbl">openstaand</div>
-              </div>
-            </div>
+            <div class="dash-summary"><span class="sum-b">€4.850</span> deze maand &middot; <span class="sum-b">3</span> openstaand</div>
             <div class="dash-scroll">
               <div class="inv-item">
                 <span class="inv-dot dot-green"></span>
@@ -1210,7 +1198,7 @@
   <div class="wrap">
     <div class="footer-grid">
       <div>
-        <div class="footer-logo"><span class="logo-mark" aria-hidden="true"></span><span class="footer-logo-text">Office<span class="flow">Flow</span></span></div>
+        <div class="footer-logo"><span class="footer-logo-text">Office<span class="flow">Flow</span></span></div>
         <div class="footer-desc">Twee zelfstandige tools voor slimme werkprocessen. Mailbox automatisering én professionele facturatie — elk een specialist in zijn eigen domein.</div>
       </div>
       <div>
