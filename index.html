@@ -190,14 +190,43 @@
     .why-body { font-size: 14px; color: var(--text-2); line-height: 1.75; }
 
     /* TESTIMONIALS */
-    .testi-bg { background: var(--bg); border-top: 1px solid var(--border); }
-    .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 52px; }
+    .testi-bg { background: var(--bg); border-top: 1px solid var(--border); overflow: hidden; }
     .testi-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 16px; padding: 32px; }
     .testi-stars { font-size: 14px; letter-spacing: 2px; color: var(--orange); margin-bottom: 16px; }
     .testi-quote { font-size: 16px; color: var(--text); line-height: 1.65; margin-bottom: 22px; font-style: italic; }
     .testi-sep { width: 28px; height: 2px; background: var(--orange-soft); border-radius: 1px; margin-bottom: 16px; }
     .testi-name { font-size: 14px; font-weight: 700; }
     .testi-role { font-size: 13px; color: var(--text-2); margin-top: 3px; }
+
+    /* Auto-scrolling testimonials carousel */
+    .testi-carousel {
+      position: relative;
+      margin-top: 48px;
+      overflow: hidden;
+      /* soft fade on left/right edges */
+      -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 80px, #000 calc(100% - 80px), transparent 100%);
+              mask-image: linear-gradient(90deg, transparent 0, #000 80px, #000 calc(100% - 80px), transparent 100%);
+    }
+    .testi-track {
+      display: flex;
+      gap: 20px;
+      width: max-content;
+      animation: testiScroll 60s linear infinite;
+    }
+    .testi-carousel:hover .testi-track { animation-play-state: paused; }
+    @keyframes testiScroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .testi-carousel .testi-card {
+      width: 380px;
+      flex: 0 0 380px;
+      padding: 28px 30px;
+    }
+    @media (max-width: 640px) {
+      .testi-carousel .testi-card { width: 300px; flex: 0 0 300px; padding: 24px; }
+      .testi-carousel .testi-quote { font-size: 15px; }
+    }
 
     /* CTA */
     .cta-bg { background: var(--navy); position: relative; overflow: hidden; }
@@ -290,9 +319,9 @@
     .hero-stack-row { display: inline-flex; align-items: center; gap: 18px; flex-wrap: wrap; justify-content: center; margin-top: 14px; }
     .hero-stack-item { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--text-2); text-transform: none; letter-spacing: 0; padding: 6px 12px; background: var(--white); border: 1px solid var(--border); border-radius: 8px; }
 
-    /* Hero dual-product live dashboard */
+    /* Hero dual-product live dashboard — spans wider horizontally */
     .hero-dashboard {
-      max-width: 760px; margin: 56px auto 0;
+      max-width: 1040px; margin: 64px auto 0;
       text-align: left; position: relative; z-index: 1;
       background: #fff;
       border-radius: 18px;
@@ -379,19 +408,6 @@
     <span class="orb orb-1"></span>
     <span class="orb orb-2"></span>
     <span class="orb orb-3"></span>
-  </div>
-
-  <div class="hero-chip chip-tl" aria-hidden="true">
-    <span class="chip-dot dot-orange"></span>12 mails geordend vandaag
-  </div>
-  <div class="hero-chip chip-tr" aria-hidden="true">
-    <span class="chip-dot dot-blue"></span>Offerte #018 verstuurd
-  </div>
-  <div class="hero-chip chip-bl" aria-hidden="true">
-    <span class="chip-dot dot-green"></span>Factuur #041 — <strong>€2.450 betaald</strong>
-  </div>
-  <div class="hero-chip chip-br" aria-hidden="true">
-    <span class="chip-dot dot-orange"></span>4 AI concepten klaar
   </div>
 
   <div class="wrap hero-inner">
@@ -633,27 +649,150 @@
   <div class="wrap">
     <div class="eyebrow ey-orange reveal">Ervaringen</div>
     <h2 class="reveal">Wat gebruikers zeggen.</h2>
-    <div class="testi-grid">
-      <div class="testi-card reveal rd1">
+  </div>
+  <div class="testi-carousel" aria-label="Gebruikerservaringen">
+    <div class="testi-track">
+      <!-- Set 1 -->
+      <div class="testi-card">
         <div class="testi-stars">★★★★★</div>
         <div class="testi-quote">"Mijn inbox voelt eindelijk beheersbaar. De conceptreplies zijn verrassend goed — het schrijft echt in mijn stijl. Scheelt me minstens een uur per dag."</div>
         <div class="testi-sep"></div>
         <div class="testi-name">Joost H.</div>
-        <div class="testi-role">Ondernemer · Mailbox Manager gebruiker</div>
+        <div class="testi-role">Ondernemer · Mailbox Manager</div>
       </div>
-      <div class="testi-card reveal rd2">
+      <div class="testi-card">
         <div class="testi-stars">★★★★★</div>
-        <div class="testi-quote">"De workflow van werklog naar factuur naar Moneybird werkt echt. Geen vergeten facturen meer, geen handmatig herinneren. Het systeem doet het gewoon."</div>
+        <div class="testi-quote">"De workflow van werklog naar factuur naar Moneybird werkt echt. Geen vergeten facturen meer, geen handmatig herinneren."</div>
         <div class="testi-sep"></div>
         <div class="testi-name">Roos V.</div>
-        <div class="testi-role">Operations lead · Facturen &amp; Offertes gebruiker</div>
+        <div class="testi-role">Operations lead · Facturen &amp; Offertes</div>
       </div>
-      <div class="testi-card reveal rd3">
+      <div class="testi-card">
         <div class="testi-stars">★★★★★</div>
         <div class="testi-quote">"Ik gebruik alleen Mailbox Manager — en dat is precies wat ik nodig had. Geen overbodige functies, gewoon mijn inbox onder controle."</div>
         <div class="testi-sep"></div>
         <div class="testi-name">Mark P.</div>
-        <div class="testi-role">Freelancer · Mailbox Manager gebruiker</div>
+        <div class="testi-role">Freelancer · Mailbox Manager</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"De Morning Briefing is echt iets anders. Binnen 30 seconden weet ik wat er speelt voor de dag, in plaats van 30 minuten mail doorspitten."</div>
+        <div class="testi-sep"></div>
+        <div class="testi-name">Sophie K.</div>
+        <div class="testi-role">Consultant · Mailbox Manager</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"Offertes maken voelde altijd als een klus. Nu klik ik ze in 2 minuten uit. Professioneel, helder, en klanten reageren sneller."</div>
+        <div class="testi-sep"></div>
+        <div class="testi-name">Bart de V.</div>
+        <div class="testi-role">Installateur · Facturen &amp; Offertes</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"Wat ik fijn vind: het stuurt niks automatisch weg. Elke reply wordt een concept, ik blijf aan de knoppen. Precies goed."</div>
+        <div class="testi-sep"></div>
+        <div class="testi-name">Lisa B.</div>
+        <div class="testi-role">Marketeer · Mailbox Manager</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"De belofte-detectie is bizar nuttig. Zeg ik iets toe in een mail, dan wordt het gevolgd. Niks valt meer tussen wal en schip."</div>
+        <div class="testi-sep"></div>
+        <div class="testi-name">Thom R.</div>
+        <div class="testi-role">Accountmanager · Mailbox Manager</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"Sinds OfficeFlow weet ik exact welke facturen openstaan. Betaalgedrag klanten is verbeterd — die automatische herinneringen werken."</div>
+        <div class="testi-sep"></div>
+        <div class="testi-name">Emma D.</div>
+        <div class="testi-role">Boekhouder · Facturen &amp; Offertes</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"Eerst twijfelde ik over AI in m'n inbox. Na een week kan ik niet meer terug. Voelt als een persoonlijke assistent die mijn stijl kent."</div>
+        <div class="testi-sep"></div>
+        <div class="testi-name">David M.</div>
+        <div class="testi-role">Ondernemer · Mailbox Manager</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"Beide tools apart gekocht voor verschillende redenen. Doen allebei precies wat ze beloven. Geen bloat, geen gedoe."</div>
+        <div class="testi-sep"></div>
+        <div class="testi-name">Sanne T.</div>
+        <div class="testi-role">Freelance adviseur · Beide producten</div>
+      </div>
+      <!-- Set 2 — duplicate for seamless loop, aria-hidden so screenreaders don't read twice -->
+      <div class="testi-card" aria-hidden="true">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"Mijn inbox voelt eindelijk beheersbaar. De conceptreplies zijn verrassend goed — het schrijft echt in mijn stijl. Scheelt me minstens een uur per dag."</div>
+        <div class="testi-sep"></div>
+        <div class="testi-name">Joost H.</div>
+        <div class="testi-role">Ondernemer · Mailbox Manager</div>
+      </div>
+      <div class="testi-card" aria-hidden="true">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"De workflow van werklog naar factuur naar Moneybird werkt echt. Geen vergeten facturen meer, geen handmatig herinneren."</div>
+        <div class="testi-sep"></div>
+        <div class="testi-name">Roos V.</div>
+        <div class="testi-role">Operations lead · Facturen &amp; Offertes</div>
+      </div>
+      <div class="testi-card" aria-hidden="true">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"Ik gebruik alleen Mailbox Manager — en dat is precies wat ik nodig had. Geen overbodige functies, gewoon mijn inbox onder controle."</div>
+        <div class="testi-sep"></div>
+        <div class="testi-name">Mark P.</div>
+        <div class="testi-role">Freelancer · Mailbox Manager</div>
+      </div>
+      <div class="testi-card" aria-hidden="true">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"De Morning Briefing is echt iets anders. Binnen 30 seconden weet ik wat er speelt voor de dag, in plaats van 30 minuten mail doorspitten."</div>
+        <div class="testi-sep"></div>
+        <div class="testi-name">Sophie K.</div>
+        <div class="testi-role">Consultant · Mailbox Manager</div>
+      </div>
+      <div class="testi-card" aria-hidden="true">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"Offertes maken voelde altijd als een klus. Nu klik ik ze in 2 minuten uit. Professioneel, helder, en klanten reageren sneller."</div>
+        <div class="testi-sep"></div>
+        <div class="testi-name">Bart de V.</div>
+        <div class="testi-role">Installateur · Facturen &amp; Offertes</div>
+      </div>
+      <div class="testi-card" aria-hidden="true">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"Wat ik fijn vind: het stuurt niks automatisch weg. Elke reply wordt een concept, ik blijf aan de knoppen. Precies goed."</div>
+        <div class="testi-sep"></div>
+        <div class="testi-name">Lisa B.</div>
+        <div class="testi-role">Marketeer · Mailbox Manager</div>
+      </div>
+      <div class="testi-card" aria-hidden="true">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"De belofte-detectie is bizar nuttig. Zeg ik iets toe in een mail, dan wordt het gevolgd. Niks valt meer tussen wal en schip."</div>
+        <div class="testi-sep"></div>
+        <div class="testi-name">Thom R.</div>
+        <div class="testi-role">Accountmanager · Mailbox Manager</div>
+      </div>
+      <div class="testi-card" aria-hidden="true">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"Sinds OfficeFlow weet ik exact welke facturen openstaan. Betaalgedrag klanten is verbeterd — die automatische herinneringen werken."</div>
+        <div class="testi-sep"></div>
+        <div class="testi-name">Emma D.</div>
+        <div class="testi-role">Boekhouder · Facturen &amp; Offertes</div>
+      </div>
+      <div class="testi-card" aria-hidden="true">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"Eerst twijfelde ik over AI in m'n inbox. Na een week kan ik niet meer terug. Voelt als een persoonlijke assistent die mijn stijl kent."</div>
+        <div class="testi-sep"></div>
+        <div class="testi-name">David M.</div>
+        <div class="testi-role">Ondernemer · Mailbox Manager</div>
+      </div>
+      <div class="testi-card" aria-hidden="true">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"Beide tools apart gekocht voor verschillende redenen. Doen allebei precies wat ze beloven. Geen bloat, geen gedoe."</div>
+        <div class="testi-sep"></div>
+        <div class="testi-name">Sanne T.</div>
+        <div class="testi-role">Freelance adviseur · Beide producten</div>
       </div>
     </div>
   </div>
