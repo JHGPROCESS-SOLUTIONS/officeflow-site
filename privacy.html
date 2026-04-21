@@ -33,10 +33,28 @@
       font-size: 20px;
     }
 
-    p {
-      color: #64748B;
-      line-height: 1.6;
+    h3 {
+      margin-top: 24px;
+      font-size: 16px;
+      color: #0F172A;
+    }
+
+    p, ul {
+      color: #475569;
+      line-height: 1.7;
       margin-top: 10px;
+    }
+
+    ul {
+      padding-left: 22px;
+    }
+
+    li {
+      margin-bottom: 6px;
+    }
+
+    strong {
+      color: #0F172A;
     }
 
     .logo {
@@ -51,6 +69,23 @@
       -webkit-text-fill-color: transparent;
     }
 
+    .meta {
+      font-size: 13px;
+      color: #94A3B8;
+      margin-top: 4px;
+    }
+
+    .callout {
+      margin-top: 20px;
+      padding: 18px 22px;
+      background: #FFF7ED;
+      border: 1px solid #FED7AA;
+      border-radius: 12px;
+      color: #7C2D12;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
     .back {
       display: inline-block;
       margin-top: 40px;
@@ -61,6 +96,10 @@
 
     .back:hover {
       color: #EA580C;
+    }
+
+    a {
+      color: #F97316;
     }
   </style>
 </head>
@@ -74,39 +113,143 @@
     </div>
 
     <h1>Privacy Policy</h1>
+    <p class="meta">Laatst bijgewerkt: 20 april 2026</p>
 
     <p>
-      OfficeFlow respects your privacy and is committed to protecting your data.
-      This policy explains how we handle your information.
+      OfficeFlow ("wij", "ons") respecteert je privacy en gaat zorgvuldig om met je persoonlijke gegevens en Gmail-data.
+      Dit privacybeleid beschrijft welke gegevens we verzamelen, waarom we ze nodig hebben, hoe we ze opslaan en welke rechten je hebt.
+      Deze policy geldt voor het product <strong>Mailbox Manager</strong> (Gmail-integratie) en voor OfficeFlow als geheel.
     </p>
 
-    <h2>1. Data we use</h2>
+    <div class="callout">
+      <strong>Google API Services User Data Policy.</strong>
+      Het gebruik van informatie die OfficeFlow ontvangt via Google API's voldoet aan het
+      <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank" rel="noopener">Google API Services User Data Policy</a>,
+      inclusief de Limited Use-vereisten. We gebruiken Gmail-gegevens uitsluitend om de functies van de app te leveren aan de ingelogde gebruiker —
+      niet voor advertenties, niet voor het trainen van generieke AI-modellen en niet voor overdracht aan derden buiten het strikt noodzakelijke.
+    </div>
+
+    <h2>1. Verantwoordelijke</h2>
     <p>
-      We only access the minimum data required to provide our service:
-      your email address and selected Gmail content.
+      OfficeFlow is een Nederlandse onderneming, ingeschreven bij de Kamer van Koophandel onder nummer <strong>42041799</strong>.
+      Voor vragen over dit privacybeleid of over je gegevens kun je contact opnemen via
+      <a href="mailto:mail@officeflowcompany.com">mail@officeflowcompany.com</a>.
     </p>
 
-    <h2>2. How we use your data</h2>
+    <h2>2. Welke gegevens we verwerken</h2>
+
+    <h3>2.1 Accountgegevens</h3>
+    <ul>
+      <li>E-mailadres</li>
+      <li>Naam (optioneel, uit je Google-account)</li>
+      <li>Abonnementsstatus en betaalgegevens (verwerkt door Stripe — wij zien je kaartgegevens niet)</li>
+      <li>Voorkeuren en instellingen die je opgeeft tijdens onboarding</li>
+    </ul>
+
+    <h3>2.2 Gmail-gegevens (Mailbox Manager)</h3>
+    <p>Na expliciete toestemming via Google OAuth verwerken we:</p>
+    <ul>
+      <li>Metadata van e-mails (afzender, ontvanger, onderwerp, datum, labels, thread-ID)</li>
+      <li>Inhoud van inkomende e-mails (om te classificeren en concept-replies te genereren)</li>
+      <li>Inhoud van eerder verstuurde e-mails (om je schrijfstijl en toon te leren)</li>
+      <li>Gmail-labels die we beheren (zoals Priority, To Respond, Waiting On Reply, Follow Up, Done)</li>
+      <li>Door OfficeFlow aangemaakte concepten (drafts)</li>
+    </ul>
+
+    <h3>2.3 Gebruiksgegevens</h3>
+    <ul>
+      <li>Logs van acties binnen OfficeFlow (bijv. wanneer een concept is aangemaakt)</li>
+      <li>Technische gegevens voor foutopsporing (IP, user agent, timestamp)</li>
+    </ul>
+
+    <h2>3. Gmail-scopes die we gebruiken</h2>
+    <p>Voor Mailbox Manager vragen we de volgende Google OAuth-scopes:</p>
+    <ul>
+      <li><strong>gmail.readonly</strong> — om inkomende mails en verstuurde mails te lezen voor classificatie en stijlanalyse</li>
+      <li><strong>gmail.modify</strong> — om labels aan threads toe te voegen (Priority, To Respond, etc.) en concepten aan te maken</li>
+      <li><strong>gmail.compose</strong> — om concept-antwoorden (drafts) in de juiste thread te plaatsen</li>
+      <li><strong>userinfo.email</strong> / <strong>userinfo.profile</strong> — om je account te koppelen aan OfficeFlow</li>
+    </ul>
     <p>
-      Your data is used to:
-      <br>• Analyze emails
-      <br>• Generate AI draft replies
-      <br>• Improve your writing style suggestions
+      OfficeFlow verstuurt <strong>nooit automatisch</strong> e-mails. Concepten blijven als draft in je Gmail staan en alleen jij bepaalt of ze verzonden worden.
+      We archiveren of verwijderen nooit mails namens jou.
     </p>
 
-    <h2>3. No data selling</h2>
+    <h2>4. Waarvoor we je gegevens gebruiken</h2>
+    <ul>
+      <li>E-mails classificeren en van een status-label voorzien</li>
+      <li>Concept-antwoorden genereren in jouw toon en schrijfstijl</li>
+      <li>De "Morning Briefing" opstellen met belangrijke punten van je dag</li>
+      <li>Toezeggingen en follow-ups in je mails detecteren</li>
+      <li>Accountbeheer, facturatie en support</li>
+      <li>Het product veilig houden en misbruik voorkomen</li>
+    </ul>
+    <p>We gebruiken je Gmail-gegevens <strong>niet</strong> voor advertenties, niet voor het trainen van generieke AI-modellen en niet voor andere doeleinden dan hierboven beschreven.</p>
+
+    <h2>5. Delen met derden (subverwerkers)</h2>
+    <p>We delen alleen met partijen die strikt nodig zijn om de dienst te leveren. Elke partij is gebonden aan een verwerkersovereenkomst en passende beveiliging.</p>
+    <ul>
+      <li><strong>Google (Gmail API)</strong> — bronsysteem voor je mailbox</li>
+      <li><strong>Supabase</strong> — opslag van account- en appdata (EU-hosting)</li>
+      <li><strong>OpenAI</strong> — AI-verwerking van mailinhoud voor classificatie en draft-generatie. OpenAI gebruikt deze data niet voor het trainen van modellen (API-data is standaard uitgesloten van training).</li>
+      <li><strong>Stripe</strong> — betalingsverwerking en abonnementsbeheer</li>
+      <li><strong>Railway</strong> — hosting van de backend</li>
+    </ul>
+    <p>We verkopen je gegevens <strong>nooit</strong>. We delen je data niet met adverteerders of data brokers.</p>
+
+    <h2>6. Hoe lang we data bewaren</h2>
+    <ul>
+      <li>Accountgegevens: zolang je abonnement actief is</li>
+      <li>Gmail-inhoud: we bewaren alleen het minimum dat nodig is voor classificatie, stijlleren en draft-generatie. Oudere verwerkingsresultaten worden periodiek opgeschoond.</li>
+      <li>Logs: maximaal 90 dagen</li>
+      <li>Na opzegging: accountdata wordt binnen <strong>30 dagen</strong> verwijderd, tenzij we wettelijk verplicht zijn iets langer te bewaren (bijv. facturen: 7 jaar conform Nederlandse fiscale wetgeving)</li>
+    </ul>
+
+    <h2>7. Toegang, verwijdering en intrekking</h2>
+    <p>Je hebt op elk moment volledige controle over je data:</p>
+    <ul>
+      <li><strong>Toegang intrekken:</strong> via <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">myaccount.google.com/permissions</a> kun je de OfficeFlow-koppeling direct verwijderen.</li>
+      <li><strong>Account en data verwijderen:</strong> stuur een mail naar <a href="mailto:mail@officeflowcompany.com">mail@officeflowcompany.com</a> vanaf het bij ons bekende e-mailadres. We bevestigen binnen 72 uur en verwijderen je data binnen 30 dagen.</li>
+      <li><strong>Inzage of export:</strong> op verzoek leveren we een kopie van je accountdata aan.</li>
+    </ul>
+
+    <h2>8. Beveiliging</h2>
+    <ul>
+      <li>Alle verbindingen via HTTPS/TLS</li>
+      <li>OAuth-tokens versleuteld opgeslagen</li>
+      <li>Data-opslag in Supabase met EU-hosting en rij-niveau beveiliging</li>
+      <li>Toegang tot productiedata is strikt beperkt tot geautoriseerde medewerkers</li>
+    </ul>
+    <p>Geen enkel systeem is 100% veilig. Bij een datalek informeren we betrokkenen en de Autoriteit Persoonsgegevens conform de AVG.</p>
+
+    <h2>9. Je rechten onder de AVG</h2>
+    <p>Als gebruiker in de EU heb je recht op:</p>
+    <ul>
+      <li>Inzage in je gegevens</li>
+      <li>Rectificatie van onjuiste gegevens</li>
+      <li>Verwijdering ("recht om vergeten te worden")</li>
+      <li>Beperking van verwerking</li>
+      <li>Dataportabiliteit</li>
+      <li>Bezwaar tegen verwerking</li>
+    </ul>
     <p>
-      We never sell your data. Ever.
+      Verzoeken kun je richten aan <a href="mailto:mail@officeflowcompany.com">mail@officeflowcompany.com</a>.
+      Je hebt daarnaast het recht een klacht in te dienen bij de
+      <a href="https://autoriteitpersoonsgegevens.nl/" target="_blank" rel="noopener">Autoriteit Persoonsgegevens</a>.
     </p>
 
-    <h2>4. Third parties</h2>
+    <h2>10. Wijzigingen</h2>
     <p>
-      We use trusted providers like Google and OpenAI strictly to deliver the service.
+      We kunnen dit beleid van tijd tot tijd aanpassen. Bij wezenlijke wijzigingen informeren we je per e-mail.
+      De datum bovenaan deze pagina geeft aan wanneer het beleid voor het laatst is bijgewerkt.
     </p>
 
-    <h2>5. Your control</h2>
+    <h2>11. Contact</h2>
     <p>
-      You remain in full control. OfficeFlow never sends emails automatically.
+      Vragen over privacy, je data of dit beleid?<br>
+      <strong>OfficeFlow</strong><br>
+      KVK 42041799<br>
+      E-mail: <a href="mailto:mail@officeflowcompany.com">mail@officeflowcompany.com</a>
     </p>
 
     <a href="index.html" class="back">← Back to homepage</a>

@@ -33,10 +33,28 @@
       font-size: 20px;
     }
 
-    p {
-      color: #64748B;
-      line-height: 1.6;
+    h3 {
+      margin-top: 24px;
+      font-size: 16px;
+      color: #0F172A;
+    }
+
+    p, ul {
+      color: #475569;
+      line-height: 1.7;
       margin-top: 10px;
+    }
+
+    ul {
+      padding-left: 22px;
+    }
+
+    li {
+      margin-bottom: 6px;
+    }
+
+    strong {
+      color: #0F172A;
     }
 
     .logo {
@@ -51,6 +69,12 @@
       -webkit-text-fill-color: transparent;
     }
 
+    .meta {
+      font-size: 13px;
+      color: #94A3B8;
+      margin-top: 4px;
+    }
+
     .back {
       display: inline-block;
       margin-top: 40px;
@@ -61,6 +85,10 @@
 
     .back:hover {
       color: #EA580C;
+    }
+
+    a {
+      color: #F97316;
     }
   </style>
 </head>
@@ -74,49 +102,112 @@
     </div>
 
     <h1>Terms of Service</h1>
+    <p class="meta">Laatst bijgewerkt: 20 april 2026</p>
 
     <p>
-      By using OfficeFlow, you agree to the following terms and conditions.
+      Deze voorwaarden beschrijven de afspraken tussen jou (de gebruiker) en <strong>OfficeFlow</strong>
+      (KVK 42041799, gevestigd in Nederland) voor het gebruik van onze diensten: <strong>Mailbox Manager</strong>
+      en <strong>Facturen &amp; Offertes</strong>. Door een account aan te maken of de dienst te gebruiken ga je akkoord met deze voorwaarden.
     </p>
 
-    <h2>1. Service description</h2>
+    <h2>1. Beschrijving van de dienst</h2>
     <p>
-      OfficeFlow is an AI-powered email assistant that analyzes your inbox and generates draft replies.
-      The service is designed to support your workflow, not replace your judgment.
+      OfficeFlow levert twee zelfstandige SaaS-producten:
+    </p>
+    <ul>
+      <li><strong>Mailbox Manager</strong> — een AI-assistent die inkomende Gmail-berichten classificeert, concept-antwoorden voorbereidt en je helpt overzicht te houden. De dienst verstuurt nooit automatisch e-mails.</li>
+      <li><strong>Facturen &amp; Offertes</strong> — een platform voor offertes, abonnementen, werkregistratie, facturatie, BTW-bewaking, Moneybird-sync en betalingsopvolging.</li>
+    </ul>
+    <p>De producten zijn onafhankelijk af te nemen. Er is geen verplichte bundel.</p>
+
+    <h2>2. Account en verantwoordelijkheid</h2>
+    <ul>
+      <li>Je bent verantwoordelijk voor de juistheid van je accountgegevens.</li>
+      <li>Je bent verantwoordelijk voor het beveiligen van de toegang tot je account.</li>
+      <li>Je bent volledig verantwoordelijk voor alle concept-antwoorden die je via Mailbox Manager verstuurt. OfficeFlow verstuurt nooit automatisch mails.</li>
+      <li>Je gebruikt de dienst niet voor onrechtmatige, frauduleuze of schadelijke doeleinden.</li>
+    </ul>
+
+    <h2>3. Nauwkeurigheid van AI</h2>
+    <p>
+      OfficeFlow maakt gebruik van AI-modellen om classificaties en concept-antwoorden te genereren.
+      AI-output kan onjuist, onvolledig of misleidend zijn. Je bent zelf verantwoordelijk voor het controleren en bewerken van concepten voordat je ze verstuurt.
+      OfficeFlow is niet aansprakelijk voor beslissingen die je neemt op basis van AI-gegenereerde inhoud.
     </p>
 
-    <h2>2. User responsibility</h2>
+    <h2>4. Betaling en abonnementen</h2>
+    <h3>4.1 Prijzen</h3>
+    <ul>
+      <li>Mailbox Manager: €24 per maand (excl. btw)</li>
+      <li>Facturen &amp; Offertes: vanaf €19 per maand (excl. btw), oplopend tot €89 afhankelijk van volume</li>
+    </ul>
+
+    <h3>4.2 Betaling via Stripe</h3>
     <p>
-      You are fully responsible for reviewing all generated drafts before sending them.
-      OfficeFlow does not automatically send emails.
+      Betalingen worden verwerkt door <strong>Stripe</strong>. OfficeFlow ziet of bewaart geen kaartgegevens.
+      Abonnementen verlengen automatisch per maand totdat je opzegt.
     </p>
 
-    <h2>3. Accuracy of AI</h2>
+    <h3>4.3 Opzeggen</h3>
     <p>
-      While we strive to provide high-quality suggestions, AI-generated content may not always be accurate or complete.
-      OfficeFlow is not liable for any decisions made based on generated drafts.
+      Abonnementen zijn <strong>maandelijks opzegbaar</strong>. Opzegging gaat in aan het einde van de lopende factuurperiode.
+      Reeds betaalde maanden worden niet gerestitueerd, tenzij wettelijk verplicht of zoals hieronder beschreven.
     </p>
 
-    <h2>4. Payments & subscriptions</h2>
+    <h3>4.4 Refund policy</h3>
     <p>
-      Access to OfficeFlow may require a paid subscription via Stripe.
-      Subscriptions renew automatically unless canceled.
+      Ben je binnen 14 dagen na de eerste betaling niet tevreden? Neem contact op via
+      <a href="mailto:mail@officeflowcompany.com">mail@officeflowcompany.com</a> en we beoordelen een redelijk terugbetalingsverzoek.
     </p>
 
-    <h2>5. Data usage</h2>
+    <h2>5. Data en privacy</h2>
     <p>
-      Your data is used solely to provide and improve the service.
-      For more details, see our Privacy Policy.
+      Hoe we met je gegevens omgaan staat in ons <a href="privacy.html">Privacybeleid</a>.
+      Voor Gmail-integratie houden we ons aan het <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank" rel="noopener">Google API Services User Data Policy</a>
+      en de bijbehorende Limited Use-vereisten.
     </p>
 
-    <h2>6. Termination</h2>
+    <h2>6. Beschikbaarheid en onderhoud</h2>
     <p>
-      We reserve the right to suspend or terminate access if the service is misused.
+      We streven naar continue beschikbaarheid, maar kunnen geen 100% uptime garanderen.
+      We voeren onderhoud uit wanneer nodig en informeren bij geplande onderbrekingen waar mogelijk van tevoren.
     </p>
 
-    <h2>7. Changes</h2>
+    <h2>7. Beëindiging door OfficeFlow</h2>
     <p>
-      We may update these terms from time to time. Continued use of the service means you accept the updated terms.
+      We kunnen een account opschorten of beëindigen bij misbruik, fraude, niet-betaling of schending van deze voorwaarden.
+      Bij beëindiging vervalt je toegang tot de dienst. Data verwijderen we volgens ons privacybeleid.
+    </p>
+
+    <h2>8. Aansprakelijkheid</h2>
+    <p>
+      OfficeFlow is niet aansprakelijk voor indirecte schade, gevolgschade, gederfde winst of verlies van data.
+      De totale aansprakelijkheid is in alle gevallen beperkt tot het bedrag dat je in de laatste 12 maanden aan OfficeFlow hebt betaald.
+    </p>
+
+    <h2>9. Intellectueel eigendom</h2>
+    <p>
+      Alle rechten op de OfficeFlow-software, merknaam en visuele identiteit berusten bij OfficeFlow.
+      Je krijgt een persoonlijk, niet-exclusief gebruiksrecht zolang je abonnement actief is.
+    </p>
+
+    <h2>10. Wijzigingen van de voorwaarden</h2>
+    <p>
+      We kunnen deze voorwaarden aanpassen. Bij wezenlijke wijzigingen informeren we je per e-mail.
+      Door de dienst te blijven gebruiken na een wijziging ga je akkoord met de aangepaste voorwaarden.
+    </p>
+
+    <h2>11. Toepasselijk recht</h2>
+    <p>
+      Op deze voorwaarden is <strong>Nederlands recht</strong> van toepassing.
+      Geschillen worden voorgelegd aan de bevoegde rechter in Nederland.
+    </p>
+
+    <h2>12. Contact</h2>
+    <p>
+      <strong>OfficeFlow</strong><br>
+      KVK 42041799<br>
+      E-mail: <a href="mailto:mail@officeflowcompany.com">mail@officeflowcompany.com</a>
     </p>
 
     <a href="index.html" class="back">← Back to homepage</a>

@@ -251,6 +251,45 @@
       .testi-carousel .testi-quote { font-size: 15px; }
     }
 
+    /* FAQ */
+    .faq-bg { background: linear-gradient(180deg, #fef8ef 0%, #fdfaf5 100%); }
+    .faq-wrap { max-width: 760px; margin: 0 auto; }
+    .faq-head { text-align: center; margin-bottom: 48px; }
+    .faq-head .eyebrow { justify-content: center; }
+    .faq-list { display: flex; flex-direction: column; gap: 12px; }
+    .faq-item {
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .faq-item[open] { border-color: rgba(249,115,22,.35); box-shadow: 0 8px 24px rgba(15,23,42,.05); }
+    .faq-item summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-icon {
+      width: 22px; height: 22px; flex-shrink: 0;
+      border-radius: 50%;
+      background: #fff4e6;
+      color: var(--orange);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 700;
+      transition: transform .2s;
+    }
+    .faq-item[open] .faq-icon { transform: rotate(45deg); background: var(--orange); color: #fff; }
+    .faq-answer { padding: 0 24px 22px 24px; color: var(--text-2); font-size: 15px; line-height: 1.7; }
+    .faq-answer strong { color: var(--text); font-weight: 600; }
+
     /* CTA */
     .cta-bg { background: linear-gradient(180deg, #08142f 0%, #050e25 100%); position: relative; overflow: hidden; }
     .cta-bg::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at 15% 50%, rgba(249,115,22,.13) 0%, transparent 40%), radial-gradient(circle at 85% 50%, rgba(79,70,229,.13) 0%, transparent 40%); }
@@ -1167,6 +1206,112 @@
         <div class="testi-sep"></div>
         <div class="testi-name">Evelien Sprenger</div>
         <div class="testi-role">Schildersbedrijf · Facturen &amp; Offertes</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq" class="faq-bg">
+  <div class="wrap">
+    <div class="faq-wrap">
+      <div class="faq-head reveal">
+        <div class="eyebrow">Veelgestelde vragen</div>
+        <h2>Nog twijfel? Hier zijn de antwoorden.</h2>
+      </div>
+
+      <div class="faq-list">
+
+        <details class="faq-item reveal">
+          <summary>
+            <span>Kan ik maandelijks opzeggen?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="faq-answer">
+            Ja. Beide producten zijn maandelijks opzegbaar, zonder opzegtermijn of verborgen kosten.
+            Je betaalt de lopende maand af en daarna stopt het abonnement automatisch.
+          </div>
+        </details>
+
+        <details class="faq-item reveal">
+          <summary>
+            <span>Verstuurt OfficeFlow automatisch mails?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="faq-answer">
+            Nee — en dat is expres. Mailbox Manager maakt <strong>alleen concepten</strong> aan in je Gmail.
+            Jij bepaalt altijd zelf of en wanneer een bericht verstuurd wordt. Geen auto-send, geen auto-archive.
+          </div>
+        </details>
+
+        <details class="faq-item reveal">
+          <summary>
+            <span>Werkt het ook met Outlook of Microsoft 365?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="faq-answer">
+            Op dit moment ondersteunt Mailbox Manager alleen <strong>Gmail</strong>.
+            Outlook / Microsoft 365-ondersteuning staat op de roadmap en volgt zodra de Gmail-flow volledig stabiel is.
+            Facturen &amp; Offertes werkt los van je mailprovider.
+          </div>
+        </details>
+
+        <details class="faq-item reveal">
+          <summary>
+            <span>Wat gebeurt er met mijn data?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="faq-answer">
+            Je Gmail-data wordt alleen gebruikt om mails te classificeren en concepten in jouw stijl te genereren.
+            We verkopen niets, trainen geen generieke modellen op jouw data en houden ons aan het Google API Services User Data Policy.
+            Zie het <a href="privacy.html">privacybeleid</a> voor de volledige uitleg.
+          </div>
+        </details>
+
+        <details class="faq-item reveal">
+          <summary>
+            <span>Heb ik beide producten nodig?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="faq-answer">
+            Nee. Mailbox Manager en Facturen &amp; Offertes zijn volledig losse producten.
+            Ze delen geen data en je kunt er één afnemen zonder de ander. Kies wat jouw bedrijf nu het meeste oplevert.
+          </div>
+        </details>
+
+        <details class="faq-item reveal">
+          <summary>
+            <span>Zijn de prijzen inclusief btw?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="faq-answer">
+            Nee, de genoemde prijzen zijn <strong>excl. btw</strong>. Mailbox Manager is €24/mnd.
+            Facturen &amp; Offertes start vanaf €19/mnd en loopt op tot €89/mnd afhankelijk van je volume. Betaling loopt via Stripe.
+          </div>
+        </details>
+
+        <details class="faq-item reveal">
+          <summary>
+            <span>Hoe lang duurt de setup?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="faq-answer">
+            Mailbox Manager koppel je in zo'n 2 minuten via Google OAuth. Daarna loopt de classificatie en draft-generatie op de achtergrond.
+            Facturen &amp; Offertes zet je op via onboarding met je bedrijfsgegevens en optionele Moneybird-koppeling.
+          </div>
+        </details>
+
+        <details class="faq-item reveal">
+          <summary>
+            <span>Waarom is Mailbox Manager nu beperkt beschikbaar?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="faq-answer">
+            Omdat Mailbox Manager met Gmail-data werkt, loopt er op dit moment een <strong>Google-verificatie</strong>.
+            Gedurende die periode is toegang tijdelijk beperkt tot goedgekeurde testers.
+            Meld je gerust aan — zodra de verificatie rond is ontvang je bericht.
+          </div>
+        </details>
+
       </div>
     </div>
   </div>
