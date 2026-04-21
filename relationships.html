@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Relationship Intelligence — OfficeFlow</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f8fafc;
+      color: #0f172a;
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+    .container { max-width: 960px; margin: 0 auto; padding: 32px 24px; }
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+    .topbar a.back {
+      color: #475569;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .topbar a.back:hover { color: #0f172a; }
+    h1 { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+    .subtitle { color: #64748b; font-size: 14px; margin-bottom: 24px; }
+
+    .lookup-card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 24px;
+      box-shadow: 0 1px 2px rgba(15,23,42,0.04);
+    }
+    .lookup-card label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #64748b;
+      margin-bottom: 6px;
+    }
+    .lookup-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .lookup-row .field { flex: 1; min-width: 220px; }
+    input[type="email"], input[type="text"] {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 14px;
+      background: #fff;
+    }
+    input:focus { outline: none; border-color: #6366f1; box-shadow: 0 0 0 3px rgba(99,102,241,0.15); }
+    button.primary {
+      padding: 10px 20px;
+      background: #0f172a;
+      color: #fff;
+      border: 0;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      align-self: flex-end;
+    }
+    button.primary:hover { background: #1e293b; }
+    button.primary:disabled { background: #94a3b8; cursor: not-allowed; }
+
+    .state {
+      padding: 32px;
+      text-align: center;
+      color: #64748b;
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      font-size: 14px;
+    }
+    .state.error { color: #b91c1c; background: #fef2f2; border-color: #fecaca; }
+
+    .header-card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .header-card .contact {
+      font-size: 20px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 8px;
+      word-break: break-all;
+    }
+    .header-card .meta {
+      color: #64748b;
+      font-size: 14px;
+    }
+    .header-card .meta .dot { margin: 0 8px; color: #cbd5e1; }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .stat {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+    .stat .k { font-size: 11px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+    .stat .v { font-size: 22px; font-weight: 700; color: #0f172a; margin-top: 4px; }
+    .stat.priority .v { color: #dc2626; }
+    .stat.torespond .v { color: #d97706; }
+    .stat.waiting .v { color: #7c3aed; }
+    .stat.followup .v { color: #2563eb; }
+    .stat.done .v { color: #059669; }
+
+    .section-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #475569;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin: 24px 0 8px 0;
+    }
+    .panel {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .panel table { width: 100%; border-collapse: collapse; }
+    .panel th, .panel td {
+      text-align: left;
+      padding: 12px 16px;
+      border-bottom: 1px solid #f1f5f9;
+      font-size: 14px;
+    }
+    .panel th {
+      background: #f8fafc;
+      color: #64748b;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      font-weight: 600;
+    }
+    .panel tr:last-child td { border-bottom: 0; }
+    .empty-row {
+      text-align: center;
+      color: #94a3b8;
+      padding: 24px 16px !important;
+      font-style: italic;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      margin-right: 4px;
+    }
+    .badge.priority { background: #fef2f2; color: #b91c1c; }
+    .badge.torespond { background: #fef3c7; color: #b45309; }
+    .badge.waiting { background: #ede9fe; color: #6d28d9; }
+    .badge.followup { background: #dbeafe; color: #1d4ed8; }
+    .badge.done { background: #dcfce7; color: #166534; }
+    .badge.fyi { background: #f1f5f9; color: #475569; }
+    .badge.notification { background: #f1f5f9; color: #64748b; }
+    .badge.marketing { background: #fef3c7; color: #92400e; }
+    .badge.ignore { background: #f1f5f9; color: #94a3b8; }
+
+    .thread-subject {
+      color: #0f172a;
+      font-weight: 500;
+      text-decoration: none;
+    }
+    .thread-subject:hover { color: #4f46e5; }
+    .direction {
+      font-size: 11px;
+      color: #64748b;
+      background: #f1f5f9;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .direction.outgoing { background: #dbeafe; color: #1d4ed8; }
+    .direction.incoming { background: #dcfce7; color: #166534; }
+    .due-soon { color: #dc2626; font-weight: 600; }
+    .due-ok { color: #475569; }
+    @media (max-width: 640px) {
+      .panel th:nth-child(3), .panel td:nth-child(3) { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="topbar">
+      <a class="back" href="/">&larr; Terug naar dashboard</a>
+      <div style="font-size:12px;color:#94a3b8;">OfficeFlow Relationship Intelligence</div>
+    </div>
+
+    <h1>Relationship Intelligence</h1>
+    <p class="subtitle">Zie in één oogopslag hoe een contact in jouw inbox zit — alle threads, labels, laatste contact en openstaande beloftes.</p>
+
+    <div class="lookup-card">
+      <div class="lookup-row">
+        <div class="field">
+          <label for="userEmail">Jouw mailbox (user)</label>
+          <input id="userEmail" type="email" placeholder="jouw@email.com" />
+        </div>
+        <div class="field">
+          <label for="contactEmail">Contact e-mail</label>
+          <input id="contactEmail" type="email" placeholder="klant@bedrijf.com" />
+        </div>
+        <button id="loadBtn" class="primary">Ophalen</button>
+      </div>
+    </div>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    const API_BASE = "https://api.officeflowcompany.com";
+
+    const params = new URLSearchParams(location.search);
+    const qUser = params.get("email") || "";
+    const qContact = params.get("contact") || "";
+    document.getElementById("userEmail").value = qUser;
+    document.getElementById("contactEmail").value = qContact;
+
+    document.getElementById("loadBtn").addEventListener("click", loadData);
+    document.getElementById("userEmail").addEventListener("keydown", e => { if (e.key === "Enter") loadData(); });
+    document.getElementById("contactEmail").addEventListener("keydown", e => { if (e.key === "Enter") loadData(); });
+
+    if (qUser && qContact) loadData();
+
+    function escapeHtml(str) {
+      if (!str) return "";
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function labelBadgeClass(name) {
+      return ({
+        "Priority": "priority",
+        "To Respond": "torespond",
+        "Waiting On Reply": "waiting",
+        "Follow Up": "followup",
+        "Done": "done",
+        "FYI": "fyi",
+        "Notification": "notification",
+        "Marketing": "marketing",
+        "Ignore": "ignore",
+      })[name] || "fyi";
+    }
+
+    function fmtDate(iso) {
+      if (!iso) return "—";
+      try {
+        const d = new Date(iso);
+        return d.toLocaleDateString("nl-NL", { day: "2-digit", month: "short", year: "numeric" });
+      } catch { return iso; }
+    }
+
+    function daysUntil(iso) {
+      if (!iso) return null;
+      try {
+        const d = new Date(iso + "T00:00:00");
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        return Math.round((d - today) / (1000 * 60 * 60 * 24));
+      } catch { return null; }
+    }
+
+    async function loadData() {
+      const userEmail = document.getElementById("userEmail").value.trim();
+      const contactEmail = document.getElementById("contactEmail").value.trim();
+      const box = document.getElementById("result");
+
+      if (!userEmail || !contactEmail) {
+        box.innerHTML = `<div class="state error">Vul zowel jouw mailbox als het contact e-mailadres in.</div>`;
+        return;
+      }
+
+      box.innerHTML = `<div class="state">Laden...</div>`;
+      document.getElementById("loadBtn").disabled = true;
+
+      try {
+        const url = `${API_BASE}/relationships/${encodeURIComponent(contactEmail)}?email=${encodeURIComponent(userEmail)}`;
+        const res = await fetch(url);
+        if (!res.ok) {
+          const err = await res.text();
+          throw new Error(`API fout (${res.status}): ${err.slice(0, 200)}`);
+        }
+        const data = await res.json();
+        renderResult(data);
+      } catch (exc) {
+        box.innerHTML = `<div class="state error">${escapeHtml(exc.message || String(exc))}</div>`;
+      } finally {
+        document.getElementById("loadBtn").disabled = false;
+      }
+    }
+
+    function renderResult(data) {
+      const box = document.getElementById("result");
+      const b = data.label_breakdown || {};
+
+      const directionBadge = data.last_contact_direction
+        ? `<span class="direction ${data.last_contact_direction}">${data.last_contact_direction === "outgoing" ? "Jij stuurde als laatste" : "Zij stuurden als laatste"}</span>`
+        : "";
+
+      const commitmentsRows = (data.active_commitments || []).length
+        ? data.active_commitments.map(c => {
+            const du = daysUntil(c.due_date);
+            const dueClass = du !== null && du <= 2 ? "due-soon" : "due-ok";
+            const dueText = du === null
+              ? fmtDate(c.due_date)
+              : du < 0
+                ? `${Math.abs(du)} dag${Math.abs(du) === 1 ? "" : "en"} te laat`
+                : du === 0
+                  ? "Vandaag"
+                  : du === 1
+                    ? "Morgen"
+                    : `Over ${du} dagen`;
+            return `
+              <tr>
+                <td><strong>${escapeHtml(c.action_text || "Opvolgen")}</strong></td>
+                <td class="${dueClass}">${escapeHtml(dueText)}</td>
+                <td>${escapeHtml(c.subject || "—")}</td>
+              </tr>`;
+          }).join("")
+        : `<tr><td colspan="3" class="empty-row">Geen openstaande beloftes aan dit contact.</td></tr>`;
+
+      const threadsRows = (data.recent_threads || []).length
+        ? data.recent_threads.map(t => {
+            const labels = (t.labels || [])
+              .map(l => `<span class="badge ${labelBadgeClass(l)}">${escapeHtml(l)}</span>`)
+              .join("");
+            return `
+              <tr>
+                <td><a class="thread-subject" href="https://mail.google.com/mail/u/0/#inbox/${escapeHtml(t.thread_id)}" target="_blank" rel="noopener">${escapeHtml(t.subject || "(geen onderwerp)")}</a></td>
+                <td>${labels || '<span class="badge fyi">—</span>'}</td>
+                <td><span class="direction ${t.direction || ""}">${t.direction === "outgoing" ? "Uit" : "In"}</span></td>
+              </tr>`;
+          }).join("")
+        : `<tr><td colspan="3" class="empty-row">Geen threads gevonden.</td></tr>`;
+
+      box.innerHTML = `
+        <div class="header-card">
+          <div class="contact">${escapeHtml(data.contact_email)}</div>
+          <div class="meta">
+            <strong>${data.total_threads || 0}</strong> thread${data.total_threads === 1 ? "" : "s"} totaal
+            <span class="dot">•</span>
+            Laatste contact: <strong>${fmtDate(data.last_contact_at)}</strong>
+            ${directionBadge ? `<span class="dot">•</span>${directionBadge}` : ""}
+          </div>
+          ${data.last_contact_subject ? `<div class="meta" style="margin-top:6px;">Onderwerp: <em>${escapeHtml(data.last_contact_subject)}</em></div>` : ""}
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat priority"><div class="k">Priority</div><div class="v">${b["Priority"] || 0}</div></div>
+          <div class="stat torespond"><div class="k">To Respond</div><div class="v">${b["To Respond"] || 0}</div></div>
+          <div class="stat waiting"><div class="k">Waiting</div><div class="v">${b["Waiting On Reply"] || 0}</div></div>
+          <div class="stat followup"><div class="k">Follow Up</div><div class="v">${b["Follow Up"] || 0}</div></div>
+          <div class="stat done"><div class="k">Done</div><div class="v">${b["Done"] || 0}</div></div>
+        </div>
+
+        <div class="section-title">Openstaande beloftes aan dit contact</div>
+        <div class="panel">
+          <table>
+            <thead><tr><th>Actie</th><th>Deadline</th><th>Subject</th></tr></thead>
+            <tbody>${commitmentsRows}</tbody>
+          </table>
+        </div>
+
+        <div class="section-title">Recente threads</div>
+        <div class="panel">
+          <table>
+            <thead><tr><th>Onderwerp</th><th>Labels</th><th>Richting</th></tr></thead>
+            <tbody>${threadsRows}</tbody>
+          </table>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>
