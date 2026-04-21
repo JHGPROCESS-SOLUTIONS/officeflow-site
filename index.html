@@ -61,19 +61,35 @@
     .btn-lg { padding: 15px 30px; font-size: 15px; border-radius: 12px; }
 
     /* HERO */
-    .hero { padding: 88px 0 72px; background: linear-gradient(180deg, #ffffff 0%, var(--bg-warm) 100%); border-bottom: 1px solid var(--border); position: relative; overflow: hidden; }
+    .hero { padding: 72px 0 88px; background: linear-gradient(180deg, #ffffff 0%, var(--bg-warm) 100%); border-bottom: 1px solid var(--border); position: relative; overflow: hidden; }
     .hero::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at 8% 20%, rgba(249,115,22,.06) 0%, transparent 40%), radial-gradient(circle at 88% 10%, rgba(79,70,229,.05) 0%, transparent 35%); }
-    .hero-inner { position: relative; z-index: 1; text-align: center; max-width: 840px; margin: 0 auto; }
-    .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--white); border: 1.5px solid var(--border); border-radius: 999px; padding: 7px 16px; font-size: 12px; font-weight: 600; letter-spacing: .03em; color: var(--text-2); margin-bottom: 32px; }
+    .hero-inner {
+      position: relative; z-index: 1;
+      max-width: 1200px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+      gap: 56px;
+      align-items: center;
+    }
+    .hero-content { text-align: left; }
+    .hero-visual { position: relative; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--white); border: 1.5px solid var(--border); border-radius: 999px; padding: 7px 16px; font-size: 12px; font-weight: 600; letter-spacing: .03em; color: var(--text-2); margin-bottom: 26px; }
     .badge-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 3px rgba(34,197,94,.2); }
-    h1 { font-size: clamp(40px, 5.5vw, 64px); font-weight: 800; line-height: 1.1; letter-spacing: -.025em; margin-bottom: 22px; }
+    h1 { font-size: clamp(36px, 4.6vw, 56px); font-weight: 800; line-height: 1.1; letter-spacing: -.025em; margin-bottom: 20px; }
     .h1-grad { background: var(--grad-hero); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .hero-sub { font-size: 18px; font-weight: 400; color: var(--text-2); line-height: 1.75; max-width: 600px; margin: 0 auto 40px; }
+    .hero-sub { font-size: 17px; font-weight: 400; color: var(--text-2); line-height: 1.7; max-width: 560px; margin: 0 0 32px; }
     .hero-sub strong { color: var(--text); font-weight: 600; }
-    .hero-cta { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin-bottom: 44px; }
-    .hero-trust { display: flex; justify-content: center; align-items: center; gap: 24px; flex-wrap: wrap; font-size: 13px; color: var(--text-2); font-weight: 500; }
+    .hero-cta { display: flex; justify-content: flex-start; gap: 12px; flex-wrap: wrap; margin-bottom: 28px; }
+    .hero-trust { display: flex; justify-content: flex-start; align-items: center; gap: 18px; flex-wrap: wrap; font-size: 12.5px; color: var(--text-2); font-weight: 500; }
     .trust-item { display: flex; align-items: center; gap: 6px; }
     .trust-item svg { color: var(--green); }
+
+    @media (max-width: 980px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 48px; text-align: center; }
+      .hero-content { text-align: center; }
+      .hero-sub { margin-left: auto; margin-right: auto; }
+      .hero-cta, .hero-trust { justify-content: center; }
+    }
 
     /* SECTIONS */
     section { padding: 96px 0; }
@@ -191,9 +207,13 @@
 
     /* TESTIMONIALS */
     .testi-bg { background: var(--bg); border-top: 1px solid var(--border); overflow: hidden; }
-    .testi-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 16px; padding: 32px; }
+    .testi-card {
+      background: var(--white); border: 1.5px solid var(--border); border-radius: 16px; padding: 32px;
+      display: flex; flex-direction: column;
+    }
     .testi-stars { font-size: 14px; letter-spacing: 2px; color: var(--orange); margin-bottom: 16px; }
-    .testi-quote { font-size: 16px; color: var(--text); line-height: 1.65; margin-bottom: 22px; font-style: italic; }
+    .testi-stars .star-dim { color: #cbd5e1; }
+    .testi-quote { font-size: 16px; color: var(--text); line-height: 1.65; margin-bottom: 22px; font-style: italic; flex: 1; }
     .testi-sep { width: 28px; height: 2px; background: var(--orange-soft); border-radius: 1px; margin-bottom: 16px; }
     .testi-name { font-size: 14px; font-weight: 700; }
     .testi-role { font-size: 13px; color: var(--text-2); margin-top: 3px; }
@@ -269,10 +289,17 @@
     /* ============ WORDMARK LOGO + HERO ENHANCEMENTS ============ */
 
     /* Wordmark logo (replaces PNG in nav) */
-    .logo-link { display: inline-flex; align-items: center; text-decoration: none; }
+    .logo-link { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-mark {
+      width: 30px; height: 30px; border-radius: 8px;
+      background: linear-gradient(135deg, var(--orange) 0%, var(--blue) 100%);
+      display: inline-block;
+      box-shadow: 0 3px 10px rgba(79,70,229,.18), 0 2px 6px rgba(249,115,22,.14);
+      flex-shrink: 0;
+    }
     .logo-wordmark {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 26px;
+      font-size: 24px;
       font-weight: 800;
       letter-spacing: -.02em;
       color: var(--navy);
@@ -280,6 +307,16 @@
       white-space: nowrap;
     }
     .logo-wordmark .flow { color: var(--orange); }
+
+    /* Footer wordmark variant — on dark background */
+    .footer-logo { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+    .footer-logo .logo-mark { width: 26px; height: 26px; border-radius: 7px; }
+    .footer-logo-text {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 20px; font-weight: 800; letter-spacing: -.02em;
+      color: rgba(255,255,255,.9); line-height: 1;
+    }
+    .footer-logo-text .flow { color: var(--orange-light); }
 
     /* Hero: fuller background with bigger ambient orbs */
     .hero { padding: 72px 0 96px; }
@@ -319,24 +356,29 @@
     .hero-stack-row { display: inline-flex; align-items: center; gap: 18px; flex-wrap: wrap; justify-content: center; margin-top: 14px; }
     .hero-stack-item { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--text-2); text-transform: none; letter-spacing: 0; padding: 6px 12px; background: var(--white); border: 1px solid var(--border); border-radius: 8px; }
 
-    /* Hero dual-product live dashboard — spans wider horizontally */
+    /* Hero dual-product live dashboard — luxe, compact, scrollable */
     .hero-dashboard {
-      max-width: 1040px; margin: 64px auto 0;
+      width: 100%; margin: 0;
       text-align: left; position: relative; z-index: 1;
       background: #fff;
-      border-radius: 18px;
+      border-radius: 20px;
       border: 1px solid var(--border);
-      box-shadow: 0 30px 80px rgba(15,23,42,.12), 0 8px 20px rgba(15,23,42,.05);
+      box-shadow: 0 40px 90px -20px rgba(15,23,42,.22), 0 12px 28px -8px rgba(15,23,42,.08), 0 0 0 1px rgba(255,255,255,.6) inset;
       overflow: hidden;
     }
     .hero-dash-head {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 14px 22px;
-      background: #f8fafc;
+      padding: 13px 18px;
+      background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
       border-bottom: 1px solid var(--border);
     }
-    .dash-title { font-size: 13px; font-weight: 700; color: var(--text); letter-spacing: -.005em; }
-    .dash-date { font-size: 12px; color: var(--text-2); font-weight: 500; display: inline-flex; align-items: center; gap: 7px; }
+    .dash-title { font-size: 12.5px; font-weight: 700; color: var(--text); letter-spacing: -.005em; display: inline-flex; align-items: center; gap: 8px; }
+    .dash-title::before {
+      content: ''; width: 18px; height: 18px; border-radius: 5px;
+      background: linear-gradient(135deg, var(--orange) 0%, var(--blue) 100%);
+      display: inline-block;
+    }
+    .dash-date { font-size: 11.5px; color: var(--text-2); font-weight: 500; display: inline-flex; align-items: center; gap: 7px; }
     .dash-live { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 3px rgba(34,197,94,.2); animation: dashPulse 2s ease-in-out infinite; }
     @keyframes dashPulse { 0%,100%{opacity:1;} 50%{opacity:.45;} }
 
@@ -344,9 +386,11 @@
       display: grid; grid-template-columns: 1fr 1fr;
       gap: 1px; background: var(--border);
     }
-    .dash-card { background: #fff; padding: 22px 22px 20px; }
-    .dash-card-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
-    .dash-tag { font-size: 10.5px; font-weight: 800; letter-spacing: .08em; padding: 5px 10px; border-radius: 6px; }
+    .dash-card { padding: 16px 16px 14px; display: flex; flex-direction: column; min-width: 0; }
+    .dash-card-orange { background: linear-gradient(180deg, #fffaf5 0%, #ffffff 40%); }
+    .dash-card-blue   { background: linear-gradient(180deg, #f8f9ff 0%, #ffffff 40%); }
+    .dash-card-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .dash-tag { font-size: 9.5px; font-weight: 800; letter-spacing: .08em; padding: 4px 9px; border-radius: 6px; }
     .dash-tag-orange { background: var(--orange-bg); color: var(--orange-dark); }
     .dash-tag-blue { background: var(--blue-bg); color: var(--blue); }
     .dash-pulse {
@@ -355,23 +399,106 @@
       animation: dashPulse 2.2s ease-in-out infinite;
     }
 
-    .dash-stat-row {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
-      margin-bottom: 16px; padding-bottom: 16px;
-      border-bottom: 1px dashed var(--border);
-    }
-    .dash-num { font-size: 26px; font-weight: 800; letter-spacing: -.02em; line-height: 1; }
-    .dash-num-orange { color: var(--orange-dark); }
-    .dash-num-blue { color: var(--blue); }
-    .dash-lbl { font-size: 11.5px; color: var(--text-2); font-weight: 500; margin-top: 5px; }
+    .dash-mini-stats { display: flex; gap: 10px; margin-bottom: 10px; }
+    .dash-mini-stat { flex: 1; padding: 8px 10px; border-radius: 8px; background: rgba(255,255,255,.7); border: 1px solid var(--border); }
+    .dash-mini-num { font-size: 17px; font-weight: 800; letter-spacing: -.01em; line-height: 1; }
+    .dash-mini-num-orange { color: var(--orange-dark); }
+    .dash-mini-num-blue { color: var(--blue); }
+    .dash-mini-lbl { font-size: 10px; color: var(--text-2); font-weight: 500; margin-top: 3px; }
 
-    .dash-row { display: flex; align-items: center; gap: 10px; padding: 8px 0; font-size: 13px; }
-    .dash-row + .dash-row { border-top: 1px solid var(--border); }
-    .dash-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+    /* Scrollable body — fixed max-height so dashboard stays compact */
+    .dash-scroll {
+      max-height: 240px;
+      overflow-y: auto;
+      padding-right: 4px;
+      margin-right: -4px;
+      display: flex; flex-direction: column; gap: 8px;
+      scrollbar-width: thin;
+      scrollbar-color: #e2e8f0 transparent;
+    }
+    .dash-scroll::-webkit-scrollbar { width: 5px; }
+    .dash-scroll::-webkit-scrollbar-track { background: transparent; }
+    .dash-scroll::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
+    .dash-scroll::-webkit-scrollbar-thumb:hover { background: #cbd5e1; }
+
+    /* Mail item with AI draft preview */
+    .mail-item {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .mail-item:hover { border-color: var(--orange-soft); box-shadow: 0 4px 12px rgba(249,115,22,.08); }
+    .mail-head { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+    .mail-avatar {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: linear-gradient(135deg, #fb923c, #f97316);
+      color: #fff; font-size: 10px; font-weight: 700;
+      display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .mail-avatar.av-b { background: linear-gradient(135deg, #818cf8, #4f46e5); }
+    .mail-avatar.av-g { background: linear-gradient(135deg, #4ade80, #16a34a); }
+    .mail-avatar.av-p { background: linear-gradient(135deg, #c084fc, #9333ea); }
+    .mail-avatar.av-r { background: linear-gradient(135deg, #fb7185, #e11d48); }
+    .mail-sender { font-size: 11.5px; font-weight: 700; color: var(--text); flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .mail-tag {
+      font-size: 8.5px; font-weight: 800; letter-spacing: .06em;
+      padding: 2px 6px; border-radius: 4px; flex-shrink: 0;
+    }
+    .tag-pri { background: rgba(239,68,68,.14); color: #dc2626; }
+    .tag-res { background: rgba(99,102,241,.14); color: #4f46e5; }
+    .tag-fol { background: rgba(245,158,11,.14); color: #b45309; }
+    .tag-wai { background: rgba(168,85,247,.14); color: #9333ea; }
+    .tag-don { background: rgba(34,197,94,.14); color: #16a34a; }
+    .mail-subject { font-size: 11.5px; color: var(--text); font-weight: 500; margin-bottom: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .mail-draft {
+      background: linear-gradient(180deg, #fff7ed 0%, #fffbf5 100%);
+      border: 1px dashed #fed7aa;
+      border-radius: 6px;
+      padding: 6px 8px;
+      font-size: 10.5px;
+      color: #7c2d12;
+      line-height: 1.45;
+      position: relative;
+    }
+    .mail-draft::before {
+      content: 'AI CONCEPT';
+      position: absolute; top: -7px; left: 8px;
+      background: var(--orange); color: #fff;
+      font-size: 7.5px; font-weight: 800; letter-spacing: .08em;
+      padding: 1px 5px; border-radius: 3px;
+    }
+
+    /* Invoice/offer item */
+    .inv-item {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 9px 12px;
+      display: flex; align-items: center; gap: 10px;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .inv-item:hover { border-color: var(--blue-soft); box-shadow: 0 4px 12px rgba(79,70,229,.08); }
+    .inv-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .inv-left { flex: 1; min-width: 0; }
+    .inv-ref { font-size: 11px; font-weight: 700; color: var(--text); }
+    .inv-client { font-size: 10.5px; color: var(--text-2); margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .inv-right { text-align: right; flex-shrink: 0; }
+    .inv-amount { font-size: 12px; font-weight: 800; color: var(--text); letter-spacing: -.01em; }
+    .inv-badge {
+      font-size: 8.5px; font-weight: 800; letter-spacing: .06em;
+      padding: 2px 6px; border-radius: 4px;
+      display: inline-block; margin-top: 2px;
+    }
+    .b-paid { background: rgba(34,197,94,.14); color: #16a34a; }
+    .b-sent { background: rgba(99,102,241,.14); color: #4f46e5; }
+    .b-over { background: rgba(239,68,68,.14); color: #dc2626; }
+    .b-conc { background: rgba(245,158,11,.14); color: #b45309; }
+    .b-draf { background: rgba(148,163,184,.18); color: #475569; }
+
     .dot-red   { background: #ef4444; box-shadow: 0 0 0 3px rgba(239,68,68,.15); }
     .dot-amber { background: #f59e0b; box-shadow: 0 0 0 3px rgba(245,158,11,.15); }
-    .dash-row-label { color: var(--text); font-weight: 500; flex: 1; }
-    .dash-row-value { color: var(--text-2); font-weight: 600; font-size: 12px; }
 
     /* Hide floating chips on smaller screens so hero stays clean */
     @media (max-width: 1100px) {
@@ -379,9 +506,10 @@
     }
     @media (max-width: 720px) {
       .hero-dash-grid { grid-template-columns: 1fr; }
+      .dash-scroll { max-height: 200px; }
     }
     @media (max-width: 640px) {
-      .hero-dashboard { max-width: 100%; margin-top: 40px; }
+      .hero-dashboard { max-width: 100%; margin-top: 0; }
       .orb-1, .orb-2 { width: 340px; height: 340px; }
     }
   </style>
@@ -390,7 +518,7 @@
 
 <nav>
   <div class="wrap nav-inner">
-    <a href="index.html" class="logo-link" aria-label="OfficeFlow"><span class="logo-wordmark">Office<span class="flow">Flow</span></span></a>
+    <a href="index.html" class="logo-link" aria-label="OfficeFlow"><span class="logo-mark" aria-hidden="true"></span><span class="logo-wordmark">Office<span class="flow">Flow</span></span></a>
     <div class="nav-links">
       <a href="#producten">Mailbox Manager</a>
       <a href="#producten">Facturen &amp; Offertes</a>
@@ -411,67 +539,216 @@
   </div>
 
   <div class="wrap hero-inner">
-    <div class="hero-badge">
-      <div class="badge-dot"></div>
-      Twee zelfstandige tools — kies wat jouw bedrijf nodig heeft
-    </div>
-    <h1>Slimme tools voor<br><span class="h1-grad">jouw werkproces.</span></h1>
-    <p class="hero-sub">OfficeFlow biedt twee <strong>onafhankelijke producten</strong> — elk een specialist in zijn domein. E-mail automatisering of professionele facturatie en offertes. Kies één, of gebruik beide apart.</p>
-    <div class="hero-cta">
-      <a class="btn btn-orange btn-lg" href="/onboarding.html">Mailbox Manager — €24/mnd</a>
-      <a class="btn btn-blue btn-lg" href="/facturen/">Facturen &amp; Offertes — Vanaf €19</a>
-    </div>
-    <div class="hero-trust">
-      <div class="trust-item"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Twee losse producten — geen verplichte koppeling</div>
-      <div class="trust-item"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Beide maandelijks opzegbaar</div>
-      <div class="trust-item"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Nooit auto-send — altijd jij in controle</div>
-    </div>
-
-    <!-- Dual-product live overview dashboard -->
-    <div class="hero-dashboard">
-      <div class="hero-dash-head">
-        <div class="dash-title">OfficeFlow · Overzicht</div>
-        <div class="dash-date"><span class="dash-live"></span>Dinsdag 21 april · Live</div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <div class="badge-dot"></div>
+        Twee zelfstandige tools — kies wat jouw bedrijf nodig heeft
       </div>
-      <div class="hero-dash-grid">
-        <div class="dash-card dash-card-orange">
-          <div class="dash-card-head">
-            <span class="dash-tag dash-tag-orange">MAILBOX MANAGER</span>
-            <span class="dash-pulse"></span>
-          </div>
-          <div class="dash-stat-row">
-            <div class="dash-stat">
-              <div class="dash-num dash-num-orange">12</div>
-              <div class="dash-lbl">mails geordend</div>
-            </div>
-            <div class="dash-stat">
-              <div class="dash-num dash-num-orange">4</div>
-              <div class="dash-lbl">AI concepten</div>
-            </div>
-          </div>
-          <div class="dash-row"><span class="dash-dot dot-red"></span><span class="dash-row-label">Priority</span><span class="dash-row-value">3</span></div>
-          <div class="dash-row"><span class="dash-dot dot-blue"></span><span class="dash-row-label">To Respond</span><span class="dash-row-value">5</span></div>
-          <div class="dash-row"><span class="dash-dot dot-amber"></span><span class="dash-row-label">Follow Up</span><span class="dash-row-value">2</span></div>
-        </div>
+      <h1>Slimme tools voor<br><span class="h1-grad">jouw werkproces.</span></h1>
+      <p class="hero-sub">OfficeFlow biedt twee <strong>onafhankelijke producten</strong> — elk een specialist in zijn domein. E-mail automatisering of professionele facturatie en offertes. Kies één, of gebruik beide apart.</p>
+      <div class="hero-cta">
+        <a class="btn btn-orange btn-lg" href="/onboarding.html">Mailbox Manager — €24/mnd</a>
+        <a class="btn btn-blue btn-lg" href="/facturen/">Facturen &amp; Offertes — Vanaf €19</a>
+      </div>
+      <div class="hero-trust">
+        <div class="trust-item"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Geen verplichte koppeling</div>
+        <div class="trust-item"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Maandelijks opzegbaar</div>
+        <div class="trust-item"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Nooit auto-send</div>
+      </div>
+    </div>
 
-        <div class="dash-card dash-card-blue">
-          <div class="dash-card-head">
-            <span class="dash-tag dash-tag-blue">FACTUREN &amp; OFFERTES</span>
-            <span class="dash-pulse"></span>
-          </div>
-          <div class="dash-stat-row">
-            <div class="dash-stat">
-              <div class="dash-num dash-num-blue">€4.850</div>
-              <div class="dash-lbl">deze maand</div>
+    <div class="hero-visual">
+      <!-- Dual-product live overview dashboard — luxe, scrollable -->
+      <div class="hero-dashboard">
+        <div class="hero-dash-head">
+          <div class="dash-title">OfficeFlow · Overzicht</div>
+          <div class="dash-date"><span class="dash-live"></span>Dinsdag 21 april · Live</div>
+        </div>
+        <div class="hero-dash-grid">
+          <div class="dash-card dash-card-orange">
+            <div class="dash-card-head">
+              <span class="dash-tag dash-tag-orange">MAILBOX MANAGER</span>
+              <span class="dash-pulse"></span>
             </div>
-            <div class="dash-stat">
-              <div class="dash-num dash-num-blue">3</div>
-              <div class="dash-lbl">openstaand</div>
+            <div class="dash-mini-stats">
+              <div class="dash-mini-stat">
+                <div class="dash-mini-num dash-mini-num-orange">12</div>
+                <div class="dash-mini-lbl">mails geordend</div>
+              </div>
+              <div class="dash-mini-stat">
+                <div class="dash-mini-num dash-mini-num-orange">4</div>
+                <div class="dash-mini-lbl">AI concepten</div>
+              </div>
+            </div>
+            <div class="dash-scroll">
+              <div class="mail-item">
+                <div class="mail-head">
+                  <span class="mail-avatar av-r">KB</span>
+                  <span class="mail-sender">Karin Brouwer</span>
+                  <span class="mail-tag tag-pri">PRIORITY</span>
+                </div>
+                <div class="mail-subject">Offerte voor renovatie keuken — graag reactie</div>
+                <div class="mail-draft">Hi Karin, bedankt voor je aanvraag. Ik stuur je morgen een uitgewerkte offerte met planning en prijs.</div>
+              </div>
+              <div class="mail-item">
+                <div class="mail-head">
+                  <span class="mail-avatar av-b">TV</span>
+                  <span class="mail-sender">Tom Visser</span>
+                  <span class="mail-tag tag-res">TO RESPOND</span>
+                </div>
+                <div class="mail-subject">Kun je de factuur nog aanpassen?</div>
+                <div class="mail-draft">Hoi Tom, geen probleem — ik pas de factuur aan en stuur de nieuwe versie vanmiddag.</div>
+              </div>
+              <div class="mail-item">
+                <div class="mail-head">
+                  <span class="mail-avatar">MS</span>
+                  <span class="mail-sender">Marloes Smit</span>
+                  <span class="mail-tag tag-fol">FOLLOW UP</span>
+                </div>
+                <div class="mail-subject">Laatste update afspraak vrijdag</div>
+              </div>
+              <div class="mail-item">
+                <div class="mail-head">
+                  <span class="mail-avatar av-p">RJ</span>
+                  <span class="mail-sender">Ruben de Jong</span>
+                  <span class="mail-tag tag-wai">WAITING</span>
+                </div>
+                <div class="mail-subject">Afgestemd — wacht op zijn bevestiging</div>
+              </div>
+              <div class="mail-item">
+                <div class="mail-head">
+                  <span class="mail-avatar av-g">LB</span>
+                  <span class="mail-sender">Lotte Berends</span>
+                  <span class="mail-tag tag-don">DONE</span>
+                </div>
+                <div class="mail-subject">Thanks, alles in orde nu</div>
+              </div>
+              <div class="mail-item">
+                <div class="mail-head">
+                  <span class="mail-avatar av-b">SP</span>
+                  <span class="mail-sender">Sander Pauwels</span>
+                  <span class="mail-tag tag-res">TO RESPOND</span>
+                </div>
+                <div class="mail-subject">Vraag over factuur #042</div>
+                <div class="mail-draft">Hi Sander, factuur #042 gaat over het onderhoud van maart. Uitsplitsing stuur ik apart.</div>
+              </div>
+              <div class="mail-item">
+                <div class="mail-head">
+                  <span class="mail-avatar">JH</span>
+                  <span class="mail-sender">Jeroen Hermans</span>
+                  <span class="mail-tag tag-fol">FOLLOW UP</span>
+                </div>
+                <div class="mail-subject">Offerte volgende week toesturen</div>
+              </div>
             </div>
           </div>
-          <div class="dash-row"><span class="dash-dot dot-green"></span><span class="dash-row-label">Factuur #041</span><span class="dash-row-value">Betaald</span></div>
-          <div class="dash-row"><span class="dash-dot dot-blue"></span><span class="dash-row-label">Offerte #018</span><span class="dash-row-value">Verstuurd</span></div>
-          <div class="dash-row"><span class="dash-dot dot-amber"></span><span class="dash-row-label">Factuur #042</span><span class="dash-row-value">Verzonden</span></div>
+
+          <div class="dash-card dash-card-blue">
+            <div class="dash-card-head">
+              <span class="dash-tag dash-tag-blue">FACTUREN &amp; OFFERTES</span>
+              <span class="dash-pulse"></span>
+            </div>
+            <div class="dash-mini-stats">
+              <div class="dash-mini-stat">
+                <div class="dash-mini-num dash-mini-num-blue">€4.850</div>
+                <div class="dash-mini-lbl">deze maand</div>
+              </div>
+              <div class="dash-mini-stat">
+                <div class="dash-mini-num dash-mini-num-blue">3</div>
+                <div class="dash-mini-lbl">openstaand</div>
+              </div>
+            </div>
+            <div class="dash-scroll">
+              <div class="inv-item">
+                <span class="inv-dot dot-green"></span>
+                <div class="inv-left">
+                  <div class="inv-ref">Factuur #041</div>
+                  <div class="inv-client">Brouwer Interieur B.V.</div>
+                </div>
+                <div class="inv-right">
+                  <div class="inv-amount">€2.450</div>
+                  <span class="inv-badge b-paid">BETAALD</span>
+                </div>
+              </div>
+              <div class="inv-item">
+                <span class="inv-dot dot-blue"></span>
+                <div class="inv-left">
+                  <div class="inv-ref">Offerte #018</div>
+                  <div class="inv-client">Visser Bouw &amp; Renovatie</div>
+                </div>
+                <div class="inv-right">
+                  <div class="inv-amount">€1.820</div>
+                  <span class="inv-badge b-sent">VERSTUURD</span>
+                </div>
+              </div>
+              <div class="inv-item">
+                <span class="inv-dot dot-amber"></span>
+                <div class="inv-left">
+                  <div class="inv-ref">Factuur #042</div>
+                  <div class="inv-client">Pauwels Consultancy</div>
+                </div>
+                <div class="inv-right">
+                  <div class="inv-amount">€780</div>
+                  <span class="inv-badge b-sent">VERSTUURD</span>
+                </div>
+              </div>
+              <div class="inv-item">
+                <span class="inv-dot dot-red"></span>
+                <div class="inv-left">
+                  <div class="inv-ref">Factuur #038</div>
+                  <div class="inv-client">Hermans Techniek</div>
+                </div>
+                <div class="inv-right">
+                  <div class="inv-amount">€1.150</div>
+                  <span class="inv-badge b-over">TE LAAT</span>
+                </div>
+              </div>
+              <div class="inv-item">
+                <span class="inv-dot dot-amber"></span>
+                <div class="inv-left">
+                  <div class="inv-ref">Offerte #019</div>
+                  <div class="inv-client">Berends Studio</div>
+                </div>
+                <div class="inv-right">
+                  <div class="inv-amount">€3.400</div>
+                  <span class="inv-badge b-conc">CONCEPT</span>
+                </div>
+              </div>
+              <div class="inv-item">
+                <span class="inv-dot dot-green"></span>
+                <div class="inv-left">
+                  <div class="inv-ref">Factuur #040</div>
+                  <div class="inv-client">De Jong Installaties</div>
+                </div>
+                <div class="inv-right">
+                  <div class="inv-amount">€625</div>
+                  <span class="inv-badge b-paid">BETAALD</span>
+                </div>
+              </div>
+              <div class="inv-item">
+                <span class="inv-dot dot-blue"></span>
+                <div class="inv-left">
+                  <div class="inv-ref">Offerte #020</div>
+                  <div class="inv-client">Smit Catering</div>
+                </div>
+                <div class="inv-right">
+                  <div class="inv-amount">€2.150</div>
+                  <span class="inv-badge b-sent">VERSTUURD</span>
+                </div>
+              </div>
+              <div class="inv-item">
+                <span class="inv-dot" style="background:#cbd5e1;"></span>
+                <div class="inv-left">
+                  <div class="inv-ref">Factuur #043</div>
+                  <div class="inv-client">Nieuwe klant (nog niet ingevuld)</div>
+                </div>
+                <div class="inv-right">
+                  <div class="inv-amount">—</div>
+                  <span class="inv-badge b-draf">CONCEPT</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -655,144 +932,257 @@
       <!-- Set 1 -->
       <div class="testi-card">
         <div class="testi-stars">★★★★★</div>
-        <div class="testi-quote">"Mijn inbox voelt eindelijk beheersbaar. De conceptreplies zijn verrassend goed — het schrijft echt in mijn stijl. Scheelt me minstens een uur per dag."</div>
+        <div class="testi-quote">"Eerlijk, ik was sceptisch. Maar na twee weken merk ik dat ik gewoon sneller door m'n inbox ga. De concepten zitten vaker goed dan niet, en de toon klopt."</div>
         <div class="testi-sep"></div>
-        <div class="testi-name">Joost H.</div>
-        <div class="testi-role">Ondernemer · Mailbox Manager</div>
+        <div class="testi-name">Jordy Veenstra</div>
+        <div class="testi-role">Zelfstandig adviseur · Mailbox Manager</div>
       </div>
       <div class="testi-card">
         <div class="testi-stars">★★★★★</div>
-        <div class="testi-quote">"De workflow van werklog naar factuur naar Moneybird werkt echt. Geen vergeten facturen meer, geen handmatig herinneren."</div>
+        <div class="testi-quote">"Van werkbon naar factuur naar Moneybird in één flow. Scheelt me echt een halve middag per week. Niet meer handmatig bonnetjes overtikken."</div>
         <div class="testi-sep"></div>
-        <div class="testi-name">Roos V.</div>
-        <div class="testi-role">Operations lead · Facturen &amp; Offertes</div>
+        <div class="testi-name">Merel de Jong</div>
+        <div class="testi-role">Kantoormanager · Facturen &amp; Offertes</div>
       </div>
       <div class="testi-card">
         <div class="testi-stars">★★★★★</div>
-        <div class="testi-quote">"Ik gebruik alleen Mailbox Manager — en dat is precies wat ik nodig had. Geen overbodige functies, gewoon mijn inbox onder controle."</div>
+        <div class="testi-quote">"Gebruik puur de Mailbox Manager. Doet wat het moet doen zonder poeha. Geen fancy AI-praatjes, gewoon een opgeruimde inbox."</div>
         <div class="testi-sep"></div>
-        <div class="testi-name">Mark P.</div>
-        <div class="testi-role">Freelancer · Mailbox Manager</div>
+        <div class="testi-name">Pim Broekhuis</div>
+        <div class="testi-role">Freelance developer · Mailbox Manager</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★<span class="star-dim">★</span></div>
+        <div class="testi-quote">"Werkt prima voor standaard klantmails. Voor klachten of emotionele mails raadt de AI soms de verkeerde toon aan — dan pas ik hem zelf even aan. Verder zeer tevreden."</div>
+        <div class="testi-sep"></div>
+        <div class="testi-name">Wesley van Eijk</div>
+        <div class="testi-role">Salesmanager · Mailbox Manager</div>
       </div>
       <div class="testi-card">
         <div class="testi-stars">★★★★★</div>
-        <div class="testi-quote">"De Morning Briefing is echt iets anders. Binnen 30 seconden weet ik wat er speelt voor de dag, in plaats van 30 minuten mail doorspitten."</div>
+        <div class="testi-quote">"De Morning Briefing is waar ik elke dag mee start. Binnen een minuut weet ik wat er speelt. Geen mail meer doorspitten voor koffie."</div>
         <div class="testi-sep"></div>
-        <div class="testi-name">Sophie K.</div>
-        <div class="testi-role">Consultant · Mailbox Manager</div>
+        <div class="testi-name">Annemieke Smits</div>
+        <div class="testi-role">Operations · Mailbox Manager</div>
       </div>
       <div class="testi-card">
         <div class="testi-stars">★★★★★</div>
-        <div class="testi-quote">"Offertes maken voelde altijd als een klus. Nu klik ik ze in 2 minuten uit. Professioneel, helder, en klanten reageren sneller."</div>
+        <div class="testi-quote">"Offertes die ik vroeger 's avonds nog zat te maken, tik ik nu in 3 minuten uit. Klanten reageren ook sneller — ziet er gewoon strak uit."</div>
         <div class="testi-sep"></div>
-        <div class="testi-name">Bart de V.</div>
+        <div class="testi-name">Dex van Leeuwen</div>
         <div class="testi-role">Installateur · Facturen &amp; Offertes</div>
       </div>
       <div class="testi-card">
         <div class="testi-stars">★★★★★</div>
-        <div class="testi-quote">"Wat ik fijn vind: het stuurt niks automatisch weg. Elke reply wordt een concept, ik blijf aan de knoppen. Precies goed."</div>
+        <div class="testi-quote">"Dat niks automatisch de deur uit gaat is voor mij het belangrijkst. Het stelt dingen voor, maar ik blijf aan de knoppen. Precies zoals ik het wil."</div>
         <div class="testi-sep"></div>
-        <div class="testi-name">Lisa B.</div>
-        <div class="testi-role">Marketeer · Mailbox Manager</div>
+        <div class="testi-name">Lonneke Hoogendoorn</div>
+        <div class="testi-role">Ondernemer · Mailbox Manager</div>
       </div>
       <div class="testi-card">
-        <div class="testi-stars">★★★★★</div>
-        <div class="testi-quote">"De belofte-detectie is bizar nuttig. Zeg ik iets toe in een mail, dan wordt het gevolgd. Niks valt meer tussen wal en schip."</div>
+        <div class="testi-stars">★★★★<span class="star-dim">★</span></div>
+        <div class="testi-quote">"Op zich goed product, maar soms moet ik een concept nog flink aanpassen voor langere mails. Korte reacties gaan wel meteen goed. Leercurve, denk ik."</div>
         <div class="testi-sep"></div>
-        <div class="testi-name">Thom R.</div>
+        <div class="testi-name">Floris Reijnders</div>
         <div class="testi-role">Accountmanager · Mailbox Manager</div>
       </div>
       <div class="testi-card">
         <div class="testi-stars">★★★★★</div>
-        <div class="testi-quote">"Sinds OfficeFlow weet ik exact welke facturen openstaan. Betaalgedrag klanten is verbeterd — die automatische herinneringen werken."</div>
+        <div class="testi-quote">"Wat ik echt mis bij andere tools: herinneringen en betalingsopvolging die niet irritant zijn. Hier is het subtiel, en toch betalen klanten sneller."</div>
         <div class="testi-sep"></div>
-        <div class="testi-name">Emma D.</div>
+        <div class="testi-name">Ricardo Korver</div>
         <div class="testi-role">Boekhouder · Facturen &amp; Offertes</div>
       </div>
       <div class="testi-card">
         <div class="testi-stars">★★★★★</div>
-        <div class="testi-quote">"Eerst twijfelde ik over AI in m'n inbox. Na een week kan ik niet meer terug. Voelt als een persoonlijke assistent die mijn stijl kent."</div>
+        <div class="testi-quote">"De belofte-detectie klinkt gimmicky maar is het niet. Ik zeg iets toe in een mail, en een dag later heb ik netjes een reminder. Dat alleen al is z'n geld waard."</div>
         <div class="testi-sep"></div>
-        <div class="testi-name">David M.</div>
-        <div class="testi-role">Ondernemer · Mailbox Manager</div>
+        <div class="testi-name">Noa Tjepkema</div>
+        <div class="testi-role">Projectleider · Mailbox Manager</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★<span class="star-dim">★</span></div>
+        <div class="testi-quote">"Prima tool, eerlijk. Onboarding kon iets sneller en ik moest even zoeken in de instellingen. Als het eenmaal draait werkt het zoals beloofd."</div>
+        <div class="testi-sep"></div>
+        <div class="testi-name">Jelle Bakkers</div>
+        <div class="testi-role">Coach · Mailbox Manager</div>
       </div>
       <div class="testi-card">
         <div class="testi-stars">★★★★★</div>
-        <div class="testi-quote">"Beide tools apart gekocht voor verschillende redenen. Doen allebei precies wat ze beloven. Geen bloat, geen gedoe."</div>
+        <div class="testi-quote">"Gebruik beide producten, maar apart. Prettig dat ze niet in elkaars vaarwater zitten. Twee losse tools, beide gewoon goed in wat ze doen."</div>
         <div class="testi-sep"></div>
-        <div class="testi-name">Sanne T.</div>
-        <div class="testi-role">Freelance adviseur · Beide producten</div>
+        <div class="testi-name">Jasmijn Pauwels</div>
+        <div class="testi-role">Zzp'er · Beide producten</div>
       </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"De Moneybird-sync is voor mij de killer feature. Uren loggen, factuur klik, staat meteen in m'n boekhouding. Geen dubbel werk meer."</div>
+        <div class="testi-sep"></div>
+        <div class="testi-name">Stijn Vermeulen</div>
+        <div class="testi-role">Aannemer · Facturen &amp; Offertes</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"Van werkbon tot factuur zonder tussenstappen. Ik houd eindelijk overzicht over wat wel en niet gefactureerd is — dat was bij mij altijd een puinhoop."</div>
+        <div class="testi-sep"></div>
+        <div class="testi-name">Nadia el Khatib</div>
+        <div class="testi-role">Zelfstandig tekstschrijver · Facturen &amp; Offertes</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★<span class="star-dim">★</span></div>
+        <div class="testi-quote">"Werkt goed voor mijn abonnementen en losse offertes. Kleine opmerking: voor terugkerende klanten had ik graag meer templates gezien. Voor nu bouw ik ze zelf."</div>
+        <div class="testi-sep"></div>
+        <div class="testi-name">Bram Oosterhoff</div>
+        <div class="testi-role">Abonnementen · Facturen &amp; Offertes</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"Die BTW-bewaking heeft me al twee keer behoed voor een verkeerd tarief. Klein dingetje, maar scheelt echt gedoe achteraf met de boekhouder."</div>
+        <div class="testi-sep"></div>
+        <div class="testi-name">Yvonne Dragt</div>
+        <div class="testi-role">Administratie · Facturen &amp; Offertes</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"Eindelijk een tool die herinneringen stuurt zonder dat het als een schooiers-mail aanvoelt. Klanten betalen netjes, de relatie blijft goed."</div>
+        <div class="testi-sep"></div>
+        <div class="testi-name">Thijmen Kramer</div>
+        <div class="testi-role">Interim-manager · Facturen &amp; Offertes</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"Openstaande facturen in één oogopslag. Vroeger scrolde ik door m'n mailbox om te zien wat er nog binnen moest komen — nu zie ik het in 5 seconden."</div>
+        <div class="testi-sep"></div>
+        <div class="testi-name">Evelien Sprenger</div>
+        <div class="testi-role">Schildersbedrijf · Facturen &amp; Offertes</div>
+      </div>
+
       <!-- Set 2 — duplicate for seamless loop, aria-hidden so screenreaders don't read twice -->
       <div class="testi-card" aria-hidden="true">
         <div class="testi-stars">★★★★★</div>
-        <div class="testi-quote">"Mijn inbox voelt eindelijk beheersbaar. De conceptreplies zijn verrassend goed — het schrijft echt in mijn stijl. Scheelt me minstens een uur per dag."</div>
+        <div class="testi-quote">"Eerlijk, ik was sceptisch. Maar na twee weken merk ik dat ik gewoon sneller door m'n inbox ga. De concepten zitten vaker goed dan niet, en de toon klopt."</div>
         <div class="testi-sep"></div>
-        <div class="testi-name">Joost H.</div>
-        <div class="testi-role">Ondernemer · Mailbox Manager</div>
+        <div class="testi-name">Jordy Veenstra</div>
+        <div class="testi-role">Zelfstandig adviseur · Mailbox Manager</div>
       </div>
       <div class="testi-card" aria-hidden="true">
         <div class="testi-stars">★★★★★</div>
-        <div class="testi-quote">"De workflow van werklog naar factuur naar Moneybird werkt echt. Geen vergeten facturen meer, geen handmatig herinneren."</div>
+        <div class="testi-quote">"Van werkbon naar factuur naar Moneybird in één flow. Scheelt me echt een halve middag per week. Niet meer handmatig bonnetjes overtikken."</div>
         <div class="testi-sep"></div>
-        <div class="testi-name">Roos V.</div>
-        <div class="testi-role">Operations lead · Facturen &amp; Offertes</div>
+        <div class="testi-name">Merel de Jong</div>
+        <div class="testi-role">Kantoormanager · Facturen &amp; Offertes</div>
       </div>
       <div class="testi-card" aria-hidden="true">
         <div class="testi-stars">★★★★★</div>
-        <div class="testi-quote">"Ik gebruik alleen Mailbox Manager — en dat is precies wat ik nodig had. Geen overbodige functies, gewoon mijn inbox onder controle."</div>
+        <div class="testi-quote">"Gebruik puur de Mailbox Manager. Doet wat het moet doen zonder poeha. Geen fancy AI-praatjes, gewoon een opgeruimde inbox."</div>
         <div class="testi-sep"></div>
-        <div class="testi-name">Mark P.</div>
-        <div class="testi-role">Freelancer · Mailbox Manager</div>
+        <div class="testi-name">Pim Broekhuis</div>
+        <div class="testi-role">Freelance developer · Mailbox Manager</div>
+      </div>
+      <div class="testi-card" aria-hidden="true">
+        <div class="testi-stars">★★★★<span class="star-dim">★</span></div>
+        <div class="testi-quote">"Werkt prima voor standaard klantmails. Voor klachten of emotionele mails raadt de AI soms de verkeerde toon aan — dan pas ik hem zelf even aan. Verder zeer tevreden."</div>
+        <div class="testi-sep"></div>
+        <div class="testi-name">Wesley van Eijk</div>
+        <div class="testi-role">Salesmanager · Mailbox Manager</div>
       </div>
       <div class="testi-card" aria-hidden="true">
         <div class="testi-stars">★★★★★</div>
-        <div class="testi-quote">"De Morning Briefing is echt iets anders. Binnen 30 seconden weet ik wat er speelt voor de dag, in plaats van 30 minuten mail doorspitten."</div>
+        <div class="testi-quote">"De Morning Briefing is waar ik elke dag mee start. Binnen een minuut weet ik wat er speelt. Geen mail meer doorspitten voor koffie."</div>
         <div class="testi-sep"></div>
-        <div class="testi-name">Sophie K.</div>
-        <div class="testi-role">Consultant · Mailbox Manager</div>
+        <div class="testi-name">Annemieke Smits</div>
+        <div class="testi-role">Operations · Mailbox Manager</div>
       </div>
       <div class="testi-card" aria-hidden="true">
         <div class="testi-stars">★★★★★</div>
-        <div class="testi-quote">"Offertes maken voelde altijd als een klus. Nu klik ik ze in 2 minuten uit. Professioneel, helder, en klanten reageren sneller."</div>
+        <div class="testi-quote">"Offertes die ik vroeger 's avonds nog zat te maken, tik ik nu in 3 minuten uit. Klanten reageren ook sneller — ziet er gewoon strak uit."</div>
         <div class="testi-sep"></div>
-        <div class="testi-name">Bart de V.</div>
+        <div class="testi-name">Dex van Leeuwen</div>
         <div class="testi-role">Installateur · Facturen &amp; Offertes</div>
       </div>
       <div class="testi-card" aria-hidden="true">
         <div class="testi-stars">★★★★★</div>
-        <div class="testi-quote">"Wat ik fijn vind: het stuurt niks automatisch weg. Elke reply wordt een concept, ik blijf aan de knoppen. Precies goed."</div>
+        <div class="testi-quote">"Dat niks automatisch de deur uit gaat is voor mij het belangrijkst. Het stelt dingen voor, maar ik blijf aan de knoppen. Precies zoals ik het wil."</div>
         <div class="testi-sep"></div>
-        <div class="testi-name">Lisa B.</div>
-        <div class="testi-role">Marketeer · Mailbox Manager</div>
+        <div class="testi-name">Lonneke Hoogendoorn</div>
+        <div class="testi-role">Ondernemer · Mailbox Manager</div>
       </div>
       <div class="testi-card" aria-hidden="true">
-        <div class="testi-stars">★★★★★</div>
-        <div class="testi-quote">"De belofte-detectie is bizar nuttig. Zeg ik iets toe in een mail, dan wordt het gevolgd. Niks valt meer tussen wal en schip."</div>
+        <div class="testi-stars">★★★★<span class="star-dim">★</span></div>
+        <div class="testi-quote">"Op zich goed product, maar soms moet ik een concept nog flink aanpassen voor langere mails. Korte reacties gaan wel meteen goed. Leercurve, denk ik."</div>
         <div class="testi-sep"></div>
-        <div class="testi-name">Thom R.</div>
+        <div class="testi-name">Floris Reijnders</div>
         <div class="testi-role">Accountmanager · Mailbox Manager</div>
       </div>
       <div class="testi-card" aria-hidden="true">
         <div class="testi-stars">★★★★★</div>
-        <div class="testi-quote">"Sinds OfficeFlow weet ik exact welke facturen openstaan. Betaalgedrag klanten is verbeterd — die automatische herinneringen werken."</div>
+        <div class="testi-quote">"Wat ik echt mis bij andere tools: herinneringen en betalingsopvolging die niet irritant zijn. Hier is het subtiel, en toch betalen klanten sneller."</div>
         <div class="testi-sep"></div>
-        <div class="testi-name">Emma D.</div>
+        <div class="testi-name">Ricardo Korver</div>
         <div class="testi-role">Boekhouder · Facturen &amp; Offertes</div>
       </div>
       <div class="testi-card" aria-hidden="true">
         <div class="testi-stars">★★★★★</div>
-        <div class="testi-quote">"Eerst twijfelde ik over AI in m'n inbox. Na een week kan ik niet meer terug. Voelt als een persoonlijke assistent die mijn stijl kent."</div>
+        <div class="testi-quote">"De belofte-detectie klinkt gimmicky maar is het niet. Ik zeg iets toe in een mail, en een dag later heb ik netjes een reminder. Dat alleen al is z'n geld waard."</div>
         <div class="testi-sep"></div>
-        <div class="testi-name">David M.</div>
-        <div class="testi-role">Ondernemer · Mailbox Manager</div>
+        <div class="testi-name">Noa Tjepkema</div>
+        <div class="testi-role">Projectleider · Mailbox Manager</div>
+      </div>
+      <div class="testi-card" aria-hidden="true">
+        <div class="testi-stars">★★★★<span class="star-dim">★</span></div>
+        <div class="testi-quote">"Prima tool, eerlijk. Onboarding kon iets sneller en ik moest even zoeken in de instellingen. Als het eenmaal draait werkt het zoals beloofd."</div>
+        <div class="testi-sep"></div>
+        <div class="testi-name">Jelle Bakkers</div>
+        <div class="testi-role">Coach · Mailbox Manager</div>
       </div>
       <div class="testi-card" aria-hidden="true">
         <div class="testi-stars">★★★★★</div>
-        <div class="testi-quote">"Beide tools apart gekocht voor verschillende redenen. Doen allebei precies wat ze beloven. Geen bloat, geen gedoe."</div>
+        <div class="testi-quote">"Gebruik beide producten, maar apart. Prettig dat ze niet in elkaars vaarwater zitten. Twee losse tools, beide gewoon goed in wat ze doen."</div>
         <div class="testi-sep"></div>
-        <div class="testi-name">Sanne T.</div>
-        <div class="testi-role">Freelance adviseur · Beide producten</div>
+        <div class="testi-name">Jasmijn Pauwels</div>
+        <div class="testi-role">Zzp'er · Beide producten</div>
+      </div>
+      <div class="testi-card" aria-hidden="true">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"De Moneybird-sync is voor mij de killer feature. Uren loggen, factuur klik, staat meteen in m'n boekhouding. Geen dubbel werk meer."</div>
+        <div class="testi-sep"></div>
+        <div class="testi-name">Stijn Vermeulen</div>
+        <div class="testi-role">Aannemer · Facturen &amp; Offertes</div>
+      </div>
+      <div class="testi-card" aria-hidden="true">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"Van werkbon tot factuur zonder tussenstappen. Ik houd eindelijk overzicht over wat wel en niet gefactureerd is — dat was bij mij altijd een puinhoop."</div>
+        <div class="testi-sep"></div>
+        <div class="testi-name">Nadia el Khatib</div>
+        <div class="testi-role">Zelfstandig tekstschrijver · Facturen &amp; Offertes</div>
+      </div>
+      <div class="testi-card" aria-hidden="true">
+        <div class="testi-stars">★★★★<span class="star-dim">★</span></div>
+        <div class="testi-quote">"Werkt goed voor mijn abonnementen en losse offertes. Kleine opmerking: voor terugkerende klanten had ik graag meer templates gezien. Voor nu bouw ik ze zelf."</div>
+        <div class="testi-sep"></div>
+        <div class="testi-name">Bram Oosterhoff</div>
+        <div class="testi-role">Abonnementen · Facturen &amp; Offertes</div>
+      </div>
+      <div class="testi-card" aria-hidden="true">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"Die BTW-bewaking heeft me al twee keer behoed voor een verkeerd tarief. Klein dingetje, maar scheelt echt gedoe achteraf met de boekhouder."</div>
+        <div class="testi-sep"></div>
+        <div class="testi-name">Yvonne Dragt</div>
+        <div class="testi-role">Administratie · Facturen &amp; Offertes</div>
+      </div>
+      <div class="testi-card" aria-hidden="true">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"Eindelijk een tool die herinneringen stuurt zonder dat het als een schooiers-mail aanvoelt. Klanten betalen netjes, de relatie blijft goed."</div>
+        <div class="testi-sep"></div>
+        <div class="testi-name">Thijmen Kramer</div>
+        <div class="testi-role">Interim-manager · Facturen &amp; Offertes</div>
+      </div>
+      <div class="testi-card" aria-hidden="true">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-quote">"Openstaande facturen in één oogopslag. Vroeger scrolde ik door m'n mailbox om te zien wat er nog binnen moest komen — nu zie ik het in 5 seconden."</div>
+        <div class="testi-sep"></div>
+        <div class="testi-name">Evelien Sprenger</div>
+        <div class="testi-role">Schildersbedrijf · Facturen &amp; Offertes</div>
       </div>
     </div>
   </div>
@@ -824,7 +1214,7 @@
   <div class="wrap">
     <div class="footer-grid">
       <div>
-        <img src="OfficeFlow-logo.png" alt="OfficeFlow" class="footer-logo-img">
+        <div class="footer-logo"><span class="logo-mark" aria-hidden="true"></span><span class="footer-logo-text">Office<span class="flow">Flow</span></span></div>
         <div class="footer-desc">Twee zelfstandige tools voor slimme werkprocessen. Mailbox automatisering én professionele facturatie — elk een specialist in zijn eigen domein.</div>
       </div>
       <div>
