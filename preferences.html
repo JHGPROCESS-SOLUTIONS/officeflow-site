@@ -54,10 +54,19 @@
     }
 
     .brand-logo {
-      width: 170px;
-      max-width: 70%;
-      height: auto;
-      display: block;
+      display: inline-block;
+      text-decoration: none;
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+    }
+
+    .brand-logo .flow {
+      background: linear-gradient(90deg, #F97316, #FB923C);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     .brand-pill {
@@ -509,7 +518,7 @@
 <body>
   <div class="page">
     <div class="brand-header">
-      <img class="brand-logo" src="/OfficeFlow-logo.png" alt="OfficeFlow logo" />
+      <a href="/" class="brand-logo">Office<span class="flow">Flow</span></a>
       <div class="brand-pill">
         <span class="brand-pill-dot"></span>
         Laatste stap voor je eerste conceptantwoord
