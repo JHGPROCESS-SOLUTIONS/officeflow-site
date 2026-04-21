@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inloggen – OfficeFlow</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --orange: #F97316;
+      --orange-2: #EA580C;
+      --navy: #08142f;
+      --text: #0F172A;
+      --text-2: #64748B;
+      --border: #E2E8F0;
+      --bg: #F8FAFC;
+      --warm: #fdfaf5;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(180deg, var(--warm) 0%, #fef8ef 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .auth-card {
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: 20px;
+      padding: 44px 40px;
+      max-width: 440px;
+      width: 100%;
+      box-shadow: 0 20px 60px rgba(15,23,42,.06);
+    }
+    .logo {
+      display: inline-block;
+      text-decoration: none;
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 32px;
+      color: var(--navy);
+    }
+    .logo .flow {
+      background: linear-gradient(90deg, #F97316, #FB923C);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    h1 { font-size: 26px; margin: 0 0 8px; letter-spacing: -.01em; }
+    .subtitle { color: var(--text-2); font-size: 15px; margin-bottom: 32px; line-height: 1.5; }
+    .form-group { margin-bottom: 18px; }
+    label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: var(--text); }
+    input[type="email"], input[type="password"] {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-size: 15px;
+      font-family: inherit;
+      transition: border-color .2s;
+    }
+    input:focus { outline: none; border-color: var(--orange); }
+    .btn-primary {
+      width: 100%;
+      background: var(--orange);
+      color: #fff;
+      border: none;
+      padding: 13px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .2s;
+      font-family: inherit;
+      margin-top: 8px;
+    }
+    .btn-primary:hover { background: var(--orange-2); }
+    .btn-primary:disabled { opacity: .6; cursor: not-allowed; }
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 16px;
+      font-size: 13px;
+    }
+    .meta-row a { color: var(--orange); text-decoration: none; font-weight: 500; }
+    .meta-row a:hover { text-decoration: underline; }
+    .divider { height: 1px; background: var(--border); margin: 28px 0; }
+    .bottom-link { text-align: center; font-size: 14px; color: var(--text-2); }
+    .bottom-link a { color: var(--orange); font-weight: 600; text-decoration: none; }
+    .alert {
+      padding: 12px 14px;
+      border-radius: 10px;
+      font-size: 14px;
+      margin-bottom: 20px;
+      display: none;
+    }
+    .alert-error { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+    .alert-ok { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+    .alert.show { display: block; }
+  </style>
+</head>
+<body>
+  <div class="auth-card">
+    <a href="/" class="logo">Office<span class="flow">Flow</span></a>
+    <h1>Inloggen</h1>
+    <p class="subtitle">Log in op je dashboard om je abonnement en Gmail-koppeling te beheren.</p>
+
+    <div class="alert alert-error" id="error-msg"></div>
+
+    <form id="login-form">
+      <div class="form-group">
+        <label for="email">E-mailadres</label>
+        <input type="email" id="email" required autocomplete="email" placeholder="jij@bedrijf.nl" />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Wachtwoord</label>
+        <input type="password" id="password" required autocomplete="current-password" placeholder="••••••••" />
+      </div>
+
+      <button type="submit" class="btn-primary" id="submit-btn">Inloggen</button>
+
+      <div class="meta-row">
+        <span></span>
+        <a href="/reset-password.html">Wachtwoord vergeten?</a>
+      </div>
+    </form>
+
+    <div class="divider"></div>
+
+    <div class="bottom-link">
+      Nog geen account? <a href="/#producten">Start hier →</a>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    // VUL HIER JE SUPABASE CREDENTIALS IN
+    const SUPABASE_URL = 'https://lvjdqpklkueajxzznaqq.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx2amRxcGtsa3VlYWp4enpuYXFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxODc5MTMsImV4cCI6MjA4OTc2MzkxM30.vnUBZpET7spcQ0oIhSwSFeZZdw1F2WYcYul2lbyotsk';
+    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    // Als al ingelogd → direct door naar dashboard
+    (async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) window.location.href = '/dashboard.html';
+    })();
+
+    const form = document.getElementById('login-form');
+    const errorBox = document.getElementById('error-msg');
+    const submitBtn = document.getElementById('submit-btn');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorBox.classList.remove('show');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Bezig…';
+
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+
+      if (error) {
+        errorBox.textContent = error.message.includes('Invalid')
+          ? 'E-mailadres of wachtwoord klopt niet.'
+          : error.message;
+        errorBox.classList.add('show');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Inloggen';
+        return;
+      }
+
+      window.location.href = '/dashboard.html';
+    });
+  </script>
+</body>
+</html>
