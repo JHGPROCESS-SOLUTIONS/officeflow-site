@@ -826,13 +826,28 @@
       document.getElementById('user-email').textContent = session.user.email;
       document.getElementById('gmail-email').textContent = session.user.email;
 
-      // Nette voornaam: metadata > email local part (gestript van digits en dots)
+      // Nette voornaam, alleen als we 'm betrouwbaar kunnen bepalen.
+      // Bron 1: metadata.first_name (gezet bij onboarding — beste optie)
+      // Bron 2: metadata.full_name → eerste woord
+      // Bron 3: email local part, ALLEEN als er een duidelijk scheidingsteken in zit
+      //          (jesse.hendriks → Jesse). Geen separator → geen gok → "Welkom terug".
       const meta = session.user.user_metadata || {};
-      const emailLocal = session.user.email.split('@')[0].split(/[._-]/)[0].replace(/\d+/g, '');
-      const rawName = (meta.first_name || meta.full_name?.split(' ')[0] || emailLocal || '').trim();
-      const firstName = rawName ? rawName[0].toUpperCase() + rawName.slice(1).toLowerCase() : '';
+      const emailLocal = session.user.email.split('@')[0];
+      const hasSeparator = /[._-]/.test(emailLocal);
+      const fromEmail = hasSeparator
+        ? emailLocal.split(/[._-]/)[0].replace(/\d+/g, '')
+        : '';
+      const rawName = (
+        meta.first_name ||
+        (meta.full_name ? meta.full_name.split(' ')[0] : '') ||
+        fromEmail ||
+        ''
+      ).trim();
+      const firstName = rawName && rawName.length >= 2
+        ? rawName[0].toUpperCase() + rawName.slice(1).toLowerCase()
+        : '';
       document.getElementById('welcome-title').textContent =
-        firstName && firstName.length >= 2 ? `Welkom terug, ${firstName}` : 'Welkom terug';
+        firstName ? `Welkom terug, ${firstName}` : 'Welkom terug';
 
       const [stats, subscription] = await Promise.all([
         loadStats(session.access_token),
