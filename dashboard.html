@@ -131,6 +131,24 @@
     .link-row a { color: var(--orange); text-decoration: none; font-weight: 500; }
     .link-row a:hover { text-decoration: underline; }
 
+    .gmail-only-notice {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: 12px;
+      background: #FFFBEB;
+      border: 1px solid #FDE68A;
+      display: flex; gap: 12px; align-items: flex-start;
+      font-size: 13px; line-height: 1.6; color: #78350F;
+    }
+    .gmail-only-notice strong { color: #422006; }
+    .gmail-only-notice a { color: #B45309; font-weight: 600; text-decoration: underline; }
+    .gmail-only-icon {
+      flex: 0 0 20px; width: 20px; height: 20px; border-radius: 999px;
+      background: #F59E0B; color: #fff; font-size: 12px; font-weight: 800;
+      display: inline-flex; align-items: center; justify-content: center;
+      margin-top: 1px;
+    }
+
     /* MODAL */
     [hidden] { display: none !important; }
     .modal-overlay {
@@ -218,6 +236,13 @@
           <div class="card-meta" id="gmail-email">—</div>
         </div>
         <a class="btn-ghost" href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">Beheer bij Google</a>
+      </div>
+      <div class="gmail-only-notice" role="note">
+        <span class="gmail-only-icon" aria-hidden="true">!</span>
+        <div>
+          <strong>Werk in Gmail, niet in Apple Mail of Outlook.</strong>
+          AI-concepten verschijnen in de Gmail-thread met een verzendknop. In andere e-mailclients (Apple Mail, Outlook, Thunderbird) tonen labels geen kleuren en kun je concepten niet vanuit de thread versturen. Open <a href="https://mail.google.com" target="_blank" rel="noopener">mail.google.com</a> of gebruik de officiële Gmail-app op je telefoon.
+        </div>
       </div>
     </div>
 
