@@ -467,6 +467,56 @@
         box-shadow:0 4px 12px rgba(249,115,22,.25)
       }
     }
+
+    /* ====== MOBILE POLISH (<=768px) — desktop unchanged ====== */
+    @media (max-width: 768px) {
+      .container { padding: 0 16px; }
+      .nav { padding: 16px 0; gap: 10px; }
+      .logo { font-size: 19px; gap: 8px; }
+      .logo svg { width: 26px; height: 26px; }
+      .nav-actions { gap: 6px; flex-wrap: nowrap; }
+      .nav-actions .btn { padding: 9px 12px; font-size: 12.5px; white-space: nowrap; }
+      .btn-secondary { display: none; } /* "Terug" — logo klikt terug */
+
+      /* Hero */
+      .hero { padding: 32px 0 48px; }
+      h1 { font-size: clamp(28px, 7.5vw, 40px); line-height: 1.15; }
+      .lead { font-size: 15px; line-height: 1.6; }
+      .hero-cta { flex-direction: column; align-items: stretch; gap: 10px; }
+      .hero-cta .btn, .hero-cta .btn-lg { width: 100%; justify-content: center; }
+
+      /* Sections */
+      .section { padding: 48px 0; }
+      h2 { font-size: clamp(24px, 6vw, 32px); }
+
+      /* Benefits/Steps/Dash */
+      .benefits, .steps, .dash-tiles, .labels-list { grid-template-columns: 1fr; gap: 14px; }
+      .benefit, .step, .dash-tile { padding: 22px 20px; }
+      .labels-list .lbl-row { padding: 14px 16px; }
+
+      /* Account wrap */
+      .account-wrap { grid-template-columns: 1fr; gap: 28px; }
+
+      /* Thread mock / dashboard mock shrink */
+      .thread-mock, .dash-mock { font-size: 13px; }
+
+      /* CTA */
+      .cta { padding: 44px 0; }
+      .cta h2 { font-size: clamp(24px, 6vw, 30px); }
+      .cta .btn-lg { width: 100%; justify-content: center; }
+
+      /* Footer */
+      footer { padding: 30px 0; }
+      .ft-inner { flex-direction: column; align-items: flex-start; gap: 14px; }
+      .ft-links { gap: 14px 18px; }
+      .ft-links a { font-size: 13px; }
+      .footer-copy { font-size: 12.5px; }
+    }
+    @media (max-width: 420px) {
+      h1 { font-size: 26px; }
+      .hero { padding: 24px 0 40px; }
+      .nav-actions .btn { padding: 8px 11px; font-size: 12px; }
+    }
   </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
