@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# App routes — niet indexeren
+Disallow: /dashboard.html
+Disallow: /preferences.html
+Disallow: /onboarding.html
+Disallow: /success.html
+Disallow: /set-password.html
+Disallow: /reset-password.html
+Disallow: /facturen/
+
+Sitemap: https://officeflowcompany.com/sitemap.xml
