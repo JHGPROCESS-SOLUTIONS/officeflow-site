@@ -485,6 +485,10 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
           Gmail-koppeling
         </a></li>
+        <li><a href="#radar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Follow-Up Radar
+        </a></li>
         <li><a href="#account">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
           Account
@@ -648,6 +652,53 @@
             <div>
               <strong>Werk in Gmail zelf.</strong>
               Conceptantwoorden verschijnen direct in de Gmail-thread met een verzendknop. Open <a href="https://mail.google.com" target="_blank" rel="noopener">mail.google.com</a> of gebruik de officiële Gmail-app op je telefoon.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ FOLLOW-UP RADAR ============ -->
+      <section id="radar">
+        <div class="section-title">Follow-Up Radar</div>
+        <div class="card">
+          <div class="card-row">
+            <div>
+              <div class="card-label">Status</div>
+              <div class="card-title">
+                <span class="status-dot"></span>Actief
+              </div>
+              <div class="card-meta">Scan elke ochtend · opvolg-concepten verschijnen in je Gmail-thread, nooit auto-verzonden.</div>
+            </div>
+            <span class="am-badge" style="background:#ecfdf5; color:#047857; border:1px solid #a7f3d0; padding:4px 10px; border-radius:999px; font-size:12px; font-weight:700;">Live</span>
+          </div>
+
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:14px; margin-top:18px;">
+            <div style="border:1px solid var(--border, #e5e7eb); border-radius:12px; padding:14px 16px; background:#fffdf9;">
+              <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ea580c" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <strong style="font-size:14px; color:#1f2937;">Belofte-radar</strong>
+              </div>
+              <div style="font-size:13px; color:#4b5563; line-height:1.55;">
+                Beloof je iets in een verzonden mail ("ik stuur je morgen de offerte"), dan onthoudt OfficeFlow de deadline. Na afloop escaleert de thread naar <strong>Priority</strong> en staat er een opvolgconcept klaar.
+              </div>
+            </div>
+
+            <div style="border:1px solid var(--border, #e5e7eb); border-radius:12px; padding:14px 16px; background:#fffdf9;">
+              <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ea580c" stroke-width="2.2"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg>
+                <strong style="font-size:14px; color:#1f2937;">Stilte-radar</strong>
+              </div>
+              <div style="font-size:13px; color:#4b5563; line-height:1.55;">
+                Wacht je al <strong>5+ dagen</strong> op een reactie (label <em>Waiting On Reply</em>), dan escaleert de thread naar <strong>Priority</strong> en komt er automatisch een vriendelijke bump-concept in jouw stijl.
+              </div>
+            </div>
+          </div>
+
+          <div class="gmail-only-notice" role="note" style="margin-top:18px;">
+            <span class="gmail-only-icon" aria-hidden="true">!</span>
+            <div>
+              <strong>Jij blijft de knop.</strong>
+              Opvolg-concepten worden nooit automatisch verzonden. Ze verschijnen in de bestaande Gmail-thread en veranderen niks aan de status totdat jij verzendt.
             </div>
           </div>
         </div>
