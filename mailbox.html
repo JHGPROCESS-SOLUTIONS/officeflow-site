@@ -107,7 +107,7 @@
       content:"";width:6px;height:6px;border-radius:999px;background:var(--orange);
       box-shadow:0 0 0 4px rgba(249,115,22,.14)
     }
-    h1{font-size:clamp(42px,5.4vw,60px);line-height:1.05;letter-spacing:-.035em;margin:0 0 18px;font-weight:800}
+    h1{font-size:clamp(34px,3.8vw,48px);line-height:1.12;letter-spacing:-.03em;margin:0 0 20px;font-weight:800;max-width:520px}
     h1 .grad{background:var(--gradient-orange);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
     .lead{font-size:18px;color:var(--text-soft);line-height:1.7;margin:0 0 28px;max-width:520px}
     .lead strong{color:var(--text);font-weight:600}
@@ -139,15 +139,17 @@
     .gm-sub{flex:1;color:var(--text-soft);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
     .gm-sub strong{color:var(--text);font-weight:600}
     .gm-time{font-size:11px;color:var(--text-mute);flex-shrink:0}
-    .lbl-prio{background:#fff1f2;color:#be123c}
-    .lbl-resp{background:#eef2ff;color:#4338ca}
-    .lbl-wait{background:#fefce8;color:#a16207}
-    .lbl-follow{background:#fff7ed;color:#c2410c}
-    .lbl-done{background:#f0fdf4;color:#15803d}
-    .lbl-fyi{background:#f1f5f9;color:#475569}
-    .lbl-notif{background:#faf5ff;color:#7e22ce}
-    .lbl-mkt{background:#fdf2f8;color:#be185d}
-    .lbl-ign{background:#f1f5f9;color:#64748b}
+    /* Gmail label colors — synced met jouw Gmail-labels */
+    .lbl-prio{background:#fee2e2;color:#b91c1c}
+    .lbl-resp{background:#dbeafe;color:#1d4ed8}
+    .lbl-wait{background:#f3e8ff;color:#7e22ce}
+    .lbl-follow{background:#e5e7eb;color:#1f2937}
+    .lbl-done{background:#d1fae5;color:#065f46}
+    .lbl-fyi{background:#fef9c3;color:#854d0e}
+    .lbl-notif{background:#ede9fe;color:#6d28d9}
+    .lbl-mkt{background:#fef3c7;color:#92400e}
+    .lbl-ign{background:#fee2e2;color:#7f1d1d}
+    .lbl-unw{background:#d1d5db;color:#111827}
 
     /* SECTIONS */
     .section{padding:96px 0;position:relative}
@@ -196,20 +198,46 @@
     .step p{font-size:13.5px;color:var(--text-soft);line-height:1.65;margin:0}
 
     /* LABELS (afbeelding 3 inspired) */
-    .labels-wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:48px;align-items:start}
-    .labels-list{display:grid;grid-template-columns:1fr 1fr;gap:10px 16px}
-    .lbl-row{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;background:#fff;border:1px solid var(--border-soft);font-size:13.5px;font-weight:600}
-    .lbl-row-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+    .labels-wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:start}
+    .labels-list{display:flex;flex-direction:column;gap:8px}
+    .lbl-row{display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:12px;background:#fff;border:1px solid var(--border-soft);font-size:14px;font-weight:600}
+    .lbl-row-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0}
     .lbl-row-hint{font-size:12px;color:var(--text-mute);font-weight:500;margin-left:auto}
+
+    /* Thread mock with draft reply */
+    .thread-mock{background:#fff;border:1px solid var(--border);border-radius:18px;overflow:hidden;box-shadow:var(--shadow-strong)}
+    .th-top{padding:16px 20px;border-bottom:1px solid var(--border-soft);display:flex;align-items:center;justify-content:space-between;gap:12px;background:#fafbfd}
+    .th-subject{font-size:15px;font-weight:700;letter-spacing:-.015em;line-height:1.3}
+    .th-meta{display:flex;gap:8px;margin-top:6px;align-items:center;flex-wrap:wrap}
+    .th-meta-chip{font-size:11px;color:var(--text-mute);font-weight:500}
+    .th-msg{padding:18px 20px;border-bottom:1px solid var(--border-soft)}
+    .th-msg-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+    .th-avatar{width:32px;height:32px;border-radius:50%;background:#dbeafe;color:#1d4ed8;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0}
+    .th-msg-name{font-size:13px;font-weight:700}
+    .th-msg-time{font-size:11px;color:var(--text-mute);margin-left:auto}
+    .th-msg-body{font-size:13px;color:var(--text-soft);line-height:1.6}
+    .th-draft{padding:18px 20px;background:linear-gradient(180deg,#fff7ed 0%,#ffffff 100%)}
+    .th-draft-head{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+    .th-draft-tag{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--orange);background:#fff7ed;border:1px solid #fed7aa;padding:3px 9px;border-radius:999px}
+    .th-draft-hint{font-size:11px;color:var(--text-mute);margin-left:auto}
+    .th-draft-box{background:#fff;border:1.5px solid #fed7aa;border-radius:12px;padding:14px 16px;font-size:13px;color:var(--text);line-height:1.65;box-shadow:0 4px 14px rgba(249,115,22,.08)}
+    .th-draft-box p{margin:0 0 8px}
+    .th-draft-box p:last-child{margin:0}
+    .th-draft-foot{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+    .th-btn{font-size:12px;font-weight:700;padding:8px 14px;border-radius:8px;border:1px solid transparent;line-height:1;cursor:default}
+    .th-btn-send{background:var(--gradient-orange);color:#fff;box-shadow:0 4px 12px rgba(249,115,22,.25)}
+    .th-btn-edit{background:#fff;color:var(--text);border-color:var(--border)}
+    .th-btn-discard{background:transparent;color:var(--text-mute)}
     .dot-prio{background:#dc2626}
-    .dot-resp{background:#4f46e5}
-    .dot-wait{background:#ca8a04}
-    .dot-follow{background:#ea580c}
-    .dot-done{background:#16a34a}
-    .dot-fyi{background:#64748b}
-    .dot-notif{background:#9333ea}
-    .dot-mkt{background:#ec4899}
-    .dot-ign{background:#94a3b8}
+    .dot-resp{background:#2563eb}
+    .dot-wait{background:#a855f7}
+    .dot-follow{background:#374151}
+    .dot-done{background:#065f46}
+    .dot-fyi{background:#eab308}
+    .dot-notif{background:#c4b5fd}
+    .dot-mkt{background:#d97706}
+    .dot-ign{background:#7f1d1d}
+    .dot-unw{background:#1f2937}
 
     /* DASHBOARD MOCK (afbeelding 2 inspired) */
     .dash-mock{
@@ -271,6 +299,14 @@
     .price-feats{list-style:none;padding:0;margin:0 0 28px;display:grid;gap:10px;text-align:left}
     .price-feats li{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--text);line-height:1.5}
     .price-feats svg{color:var(--green);flex-shrink:0;margin-top:2px}
+    .unavail-banner{
+      display:flex;align-items:flex-start;gap:12px;text-align:left;
+      background:#FFF7ED;border:1px solid #FED7AA;color:#9A3412;
+      border-radius:14px;padding:14px 16px;margin:0 0 18px;font-size:13.5px;line-height:1.5
+    }
+    .unavail-banner svg{flex-shrink:0;margin-top:2px;color:#C2410C}
+    .unavail-banner strong{display:block;font-size:14px;color:#7C2D12;margin-bottom:2px}
+    .unavail-banner span{display:block;color:#9A3412}
 
     /* CTA BAR */
     .cta{padding:60px 0;background:var(--gradient-orange);text-align:center;color:#fff}
@@ -369,8 +405,8 @@
     <div class="hero-grid">
       <div>
         <div class="eyebrow">Voor Gmail · Geen auto-send</div>
-        <h1>Een inbox die <span class="grad">zichzelf sorteert</span>. Jij houdt de knop.</h1>
-        <p class="lead">Mailbox Manager leest je Gmail, plakt <strong>9 heldere labels</strong> op alles wat binnenkomt en zet concept-antwoorden klaar in de thread. Jij bepaalt wat er verstuurd wordt — altijd.</p>
+        <h1>Je inbox sorteert <span class="grad">zichzelf</span>. Jij houdt de knop.</h1>
+        <p class="lead">Mailbox Manager leest je Gmail, plakt <strong>10 heldere labels</strong> op alles wat binnenkomt en zet concept-antwoorden klaar in de thread. Jij bepaalt wat er verstuurd wordt — altijd.</p>
         <div class="hero-cta">
           <a class="btn btn-primary btn-lg" href="/onboarding.html">Start nu →</a>
           <a class="btn btn-secondary btn-lg" href="#werkt">Zo werkt het</a>
@@ -445,7 +481,7 @@
   <div class="container">
     <div class="section-head">
       <div class="section-eyebrow">Wat je krijgt</div>
-      <h2 class="section-title">9 labels die direct in Gmail staan.</h2>
+      <h2 class="section-title">10 labels die direct in Gmail staan.</h2>
       <p class="section-sub">Geen aparte app, geen nieuw tabblad. OfficeFlow werkt gewoon in je Gmail — op web, telefoon, of elke Gmail-client die je gebruikt.</p>
     </div>
     <div class="labels-wrap">
@@ -460,18 +496,45 @@
           <div class="lbl-row"><span class="lbl-row-dot dot-notif"></span>Notification<span class="lbl-row-hint">systeem</span></div>
           <div class="lbl-row"><span class="lbl-row-dot dot-mkt"></span>Marketing<span class="lbl-row-hint">nieuwsbrief</span></div>
           <div class="lbl-row"><span class="lbl-row-dot dot-ign"></span>Ignore<span class="lbl-row-hint">spam</span></div>
+          <div class="lbl-row"><span class="lbl-row-dot dot-unw"></span>Unwanted<span class="lbl-row-hint">ongewenst</span></div>
         </div>
       </div>
       <div class="reveal">
-        <div class="gmail-mock">
-          <div class="gm-bar"><div class="gm-dots"><span></span><span></span><span></span></div><div class="gm-url">Labels — Gmail zijbalk</div></div>
-          <div class="gm-row"><div class="gm-sender" style="width:140px"><span class="lbl-row-dot dot-prio" style="display:inline-block;margin-right:8px;vertical-align:middle"></span>Priority</div><div class="gm-sub">Klantvragen, offertes in behandeling, urgente zaken.</div></div>
-          <div class="gm-row"><div class="gm-sender" style="width:140px"><span class="lbl-row-dot dot-resp" style="display:inline-block;margin-right:8px;vertical-align:middle"></span>To Respond</div><div class="gm-sub">Mails die expliciet vragen om een antwoord van jou.</div></div>
-          <div class="gm-row"><div class="gm-sender" style="width:140px"><span class="lbl-row-dot dot-wait" style="display:inline-block;margin-right:8px;vertical-align:middle"></span>Waiting On Reply</div><div class="gm-sub">Je hebt gereageerd, wacht nu op iemand anders.</div></div>
-          <div class="gm-row"><div class="gm-sender" style="width:140px"><span class="lbl-row-dot dot-follow" style="display:inline-block;margin-right:8px;vertical-align:middle"></span>Follow Up</div><div class="gm-sub">Jij beloofde terug te komen — niet vergeten.</div></div>
-          <div class="gm-row"><div class="gm-sender" style="width:140px"><span class="lbl-row-dot dot-done" style="display:inline-block;margin-right:8px;vertical-align:middle"></span>Done</div><div class="gm-sub">Thread is klaar, hoeft geen actie meer.</div></div>
-          <div class="gm-row"><div class="gm-sender" style="width:140px"><span class="lbl-row-dot dot-notif" style="display:inline-block;margin-right:8px;vertical-align:middle"></span>Notification</div><div class="gm-sub">Bezorgingen, boekingen, systeemmeldingen.</div></div>
-          <div class="gm-row"><div class="gm-sender" style="width:140px"><span class="lbl-row-dot dot-mkt" style="display:inline-block;margin-right:8px;vertical-align:middle"></span>Marketing</div><div class="gm-sub">Nieuwsbrieven, aanbiedingen, verkoopmails.</div></div>
+        <div class="thread-mock">
+          <div class="th-top">
+            <div>
+              <div class="th-subject">Vraag over factuur #1042</div>
+              <div class="th-meta">
+                <span class="gm-label lbl-resp">To Respond</span>
+                <span class="th-meta-chip">· Linda Visser · 11:47</span>
+              </div>
+            </div>
+          </div>
+          <div class="th-msg">
+            <div class="th-msg-head">
+              <div class="th-avatar">LV</div>
+              <div class="th-msg-name">Linda Visser</div>
+              <div class="th-msg-time">11:47</div>
+            </div>
+            <div class="th-msg-body">Hi, ik kreeg zojuist factuur #1042 binnen. Ik zie twee posten die ik niet helemaal begrijp — kun je me uitleggen waar "advies uren" en "projectopslag" precies voor staan? Alvast bedankt!</div>
+          </div>
+          <div class="th-draft">
+            <div class="th-draft-head">
+              <span class="th-draft-tag">Concept klaar</span>
+              <span class="th-draft-hint">Geschreven in jouw stijl · wacht op jou</span>
+            </div>
+            <div class="th-draft-box">
+              <p>Hoi Linda,</p>
+              <p>Goede vraag — "advies uren" zijn de uren die ik besteed heb aan het sparren over de campagne-strategie (8u in maart). "Projectopslag" is een vaste 10% opslag voor coördinatie en administratieve afhandeling.</p>
+              <p>Ik stuur de urenspecificatie zo per mail na zodat het compleet is. Laat het gerust weten als er nog iets onduidelijk is.</p>
+              <p>Groet, Jesse</p>
+            </div>
+            <div class="th-draft-foot">
+              <span class="th-btn th-btn-send">Verzenden</span>
+              <span class="th-btn th-btn-edit">Bewerken</span>
+              <span class="th-btn th-btn-discard">Verwerpen</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -638,13 +701,20 @@
       <div class="price-per">Excl. btw · maandelijks opzegbaar</div>
       <div class="price-note">Start wanneer je wilt. Stop wanneer je wilt.</div>
       <ul class="price-feats">
-        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>9 automatische labels in Gmail</li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>10 automatische labels in Gmail</li>
         <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Concept-antwoorden in jouw stijl</li>
         <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Thread-bewust — drafts verstoren geen status</li>
         <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Nooit auto-send, nooit auto-archive</li>
         <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Dashboard met weekoverzicht</li>
         <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Support via mail, antwoord binnen 1 werkdag</li>
       </ul>
+      <div class="unavail-banner" role="status">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <div>
+          <strong>Tijdelijk niet beschikbaar</strong>
+          <span>We wachten op Google OAuth-verificatie. Aanmelden kan zodra dit is goedgekeurd.</span>
+        </div>
+      </div>
       <a class="btn btn-primary btn-lg" href="/onboarding.html" style="width:100%">Start nu →</a>
     </div>
   </div>
@@ -678,7 +748,7 @@
       <a href="/terms.html">Voorwaarden</a>
       <a href="mailto:mail@officeflowcompany.com">Contact</a>
     </nav>
-    <div class="footer-copy">© 2026 OfficeFlow</div>
+    <div class="footer-copy">© 2026 OfficeFlow · KVK 42041799</div>
   </div>
 </footer>
 
