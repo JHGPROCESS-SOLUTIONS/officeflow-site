@@ -106,13 +106,28 @@
 
     .logo-wrap {
       margin-bottom: 24px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
     }
 
-    .logo-wrap img {
-      width: 180px;
-      max-width: 70%;
-      height: auto;
-      display: block;
+    .logo-wrap svg { flex-shrink: 0; display: block; }
+
+    .logo-wrap .logo-text {
+      font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      color: var(--navy, #0b1220);
+      line-height: 1;
+    }
+
+    .logo-wrap .logo-text .flow {
+      background: linear-gradient(90deg, #F97316, #FB923C);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
     }
 
     .badge {
@@ -357,8 +372,14 @@
 
       <div class="hero-card">
         <div class="hero-left">
-          <div class="logo-wrap">
-            <img src="/OfficeFlow-logo.png" alt="OfficeFlow logo" />
+          <div class="logo-wrap" aria-label="OfficeFlow">
+            <svg viewBox="0 0 48 48" width="40" height="40" aria-hidden="true">
+              <defs><linearGradient id="of-onb-mark" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F97316"/><stop offset="100%" stop-color="#FB923C"/></linearGradient></defs>
+              <rect width="48" height="48" rx="11" fill="url(#of-onb-mark)"/>
+              <circle cx="24" cy="24" r="11" fill="none" stroke="#fff" stroke-width="3.2"/>
+              <path d="M21.5 19.5 L28 24 L21.5 28.5" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="logo-text">Office<span class="flow">Flow</span></span>
           </div>
 
           <div class="badge">AI Email Workflow</div>

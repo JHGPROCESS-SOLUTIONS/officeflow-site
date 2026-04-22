@@ -58,15 +58,23 @@
     }
 
     .logo {
-      font-size: 20px;
-      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -.01em;
       margin-bottom: 40px;
     }
+
+    .logo svg { flex-shrink: 0; display: block; }
 
     .logo span {
       background: linear-gradient(90deg, #F97316, #FB923C);
       -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
+      color: transparent;
     }
 
     .meta {
@@ -97,7 +105,13 @@
 
   <div class="container">
 
-    <div class="logo">
+    <div class="logo" aria-label="OfficeFlow">
+      <svg viewBox="0 0 48 48" width="28" height="28" aria-hidden="true">
+        <defs><linearGradient id="of-terms-mark" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F97316"/><stop offset="100%" stop-color="#FB923C"/></linearGradient></defs>
+        <rect width="48" height="48" rx="11" fill="url(#of-terms-mark)"/>
+        <circle cx="24" cy="24" r="11" fill="none" stroke="#fff" stroke-width="3.2"/>
+        <path d="M21.5 19.5 L28 24 L21.5 28.5" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
       Office<span>Flow</span>
     </div>
 

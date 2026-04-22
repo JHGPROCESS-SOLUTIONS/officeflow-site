@@ -40,17 +40,24 @@
       box-shadow: 0 20px 60px rgba(15,23,42,.06);
     }
     .logo {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
       text-decoration: none;
       font-size: 22px;
       font-weight: 700;
       margin-bottom: 32px;
       color: var(--navy);
+      letter-spacing: -.01em;
     }
+    .logo svg { flex-shrink: 0; display: block; }
+    .logo .logo-text { line-height: 1; }
     .logo .flow {
       background: linear-gradient(90deg, #F97316, #FB923C);
       -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
+      color: transparent;
     }
     h1 { font-size: 26px; margin: 0 0 8px; letter-spacing: -.01em; }
     .subtitle { color: var(--text-2); font-size: 15px; margin-bottom: 32px; line-height: 1.5; }
@@ -108,7 +115,15 @@
 </head>
 <body>
   <div class="auth-card">
-    <a href="/" class="logo">Office<span class="flow">Flow</span></a>
+    <a href="/" class="logo" aria-label="OfficeFlow">
+      <svg viewBox="0 0 48 48" width="30" height="30" aria-hidden="true">
+        <defs><linearGradient id="of-login-mark" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F97316"/><stop offset="100%" stop-color="#FB923C"/></linearGradient></defs>
+        <rect width="48" height="48" rx="11" fill="url(#of-login-mark)"/>
+        <circle cx="24" cy="24" r="11" fill="none" stroke="#fff" stroke-width="3.2"/>
+        <path d="M21.5 19.5 L28 24 L21.5 28.5" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="logo-text">Office<span class="flow">Flow</span></span>
+    </a>
     <h1>Inloggen</h1>
     <p class="subtitle">Log in op je dashboard om je abonnement en Gmail-koppeling te beheren.</p>
 

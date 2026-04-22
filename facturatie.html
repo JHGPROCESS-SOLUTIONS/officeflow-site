@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OfficeFlow Facturen & Operations</title>
+  <style>
+    :root{
+      --text:#0f172a;
+      --text-soft:#64748b;
+      --border:#dbe4f0;
+      --orange:#f97316;
+      --orange-dark:#ea580c;
+      --blue:#6366f1;
+      --blue-dark:#4f46e5;
+      --purple:#8b5cf6;
+      --bg-soft:#f8fafc;
+      --gradient-blue:linear-gradient(135deg,#6366f1 0%,#8b5cf6 100%);
+      --gradient-orange:linear-gradient(135deg,#f97316 0%,#fb923c 100%);
+      --gradient-mixed:linear-gradient(135deg,#6366f1 0%,#8b5cf6 55%,#f97316 100%);
+      --shadow:0 24px 60px rgba(15,23,42,.06);
+      --shadow-strong:0 30px 80px rgba(15,23,42,.08);
+      --radius:26px;
+      --card-bg:rgba(255,255,255,.82);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+
+    body{
+      margin:0;
+      font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      color:var(--text);
+      background:linear-gradient(180deg,#ffffff 0%,#f9faff 40%,#f8fbff 100%);
+    }
+
+    a{text-decoration:none;color:inherit}
+
+    .container{
+      max-width:1150px;
+      margin:auto;
+      padding:0 20px;
+    }
+
+    .nav{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:18px;
+      padding:24px 0 0;
+      flex-wrap:wrap;
+    }
+
+    .logo{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size:28px;
+      font-weight:900;
+      letter-spacing:-.04em;
+      line-height:1;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .logo svg { flex-shrink: 0; display: block; }
+
+    .logo span{
+      background:var(--gradient-orange);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      background-clip:text;
+    }
+
+    .nav-links,.nav-actions{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .nav-links a{
+      color:var(--text-soft);
+      font-size:14px;
+      font-weight:600;
+      transition:color .2s ease;
+    }
+
+    .nav-links a:hover{
+      color:var(--text);
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:16px 26px;
+      border-radius:16px;
+      font-weight:800;
+      border:1px solid transparent;
+      transition:.2s ease;
+      white-space:nowrap;
+    }
+
+    .btn:hover{
+      transform:translateY(-2px);
+    }
+
+    .btn-primary{
+      background:var(--gradient-blue);
+      color:#fff;
+      box-shadow:0 18px 40px rgba(99,102,241,.24);
+    }
+
+    .btn-secondary{
+      background:rgba(255,255,255,.72);
+      border-color:var(--border);
+      color:var(--text);
+    }
+
+    .hero{
+      padding:88px 0 70px;
+      position:relative;
+    }
+
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background:
+        radial-gradient(circle at 12% 12%,rgba(99,102,241,.12),transparent 25%),
+        radial-gradient(circle at 86% 15%,rgba(249,115,22,.10),transparent 22%);
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.06fr .94fr;
+      gap:34px;
+      align-items:start;
+      position:relative;
+      z-index:1;
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:8px 14px;
+      background:rgba(255,255,255,.85);
+      border:1px solid rgba(226,232,240,.96);
+      border-radius:999px;
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      margin-bottom:18px;
+      line-height:1;
+    }
+
+    .eyebrow::before{
+      content:"";
+      width:8px;
+      height:8px;
+      border-radius:999px;
+      background:var(--gradient-blue);
+      box-shadow:0 0 0 6px rgba(99,102,241,.12);
+    }
+
+    h1{
+      font-size:clamp(52px,7vw,76px);
+      line-height:.94;
+      letter-spacing:-.055em;
+      margin:0 0 18px;
+      max-width:780px;
+    }
+
+    .hero-line{
+      font-size:clamp(24px,3vw,32px);
+      line-height:1.15;
+      font-weight:900;
+      letter-spacing:-.03em;
+      margin:0 0 18px;
+    }
+
+    .lead{
+      font-size:20px;
+      color:var(--text-soft);
+      max-width:760px;
+      line-height:1.8;
+      margin:0 0 24px;
+    }
+
+    .hero-points{
+      display:flex;
+      gap:18px;
+      flex-wrap:wrap;
+      color:var(--text-soft);
+      font-size:14px;
+      margin:0 0 28px;
+    }
+
+    .hero-points span::before{
+      content:"• ";
+      color:#22c55e;
+      font-weight:900;
+    }
+
+    .card,.feature,.workflow,.testimonial,.checklist,.price-card,.quote-box{
+      background:var(--card-bg);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+
+    .workflow{
+      padding:22px;
+    }
+
+    .workflow-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      margin-bottom:16px;
+      flex-wrap:wrap;
+    }
+
+    .workflow-head strong{
+      font-size:18px;
+      line-height:1.2;
+    }
+
+    .pill{
+      padding:8px 10px;
+      border-radius:999px;
+      font-size:11px;
+      font-weight:800;
+      line-height:1;
+      white-space:nowrap;
+    }
+
+    .pill-blue{
+      background:#eef2ff;
+      color:#6366f1;
+      border:1px solid #c7d2fe;
+    }
+
+    .pill-orange{
+      background:#fff7ed;
+      color:#ea580c;
+      border:1px solid #fed7aa;
+    }
+
+    .pill-dark{
+      background:#f8fafc;
+      color:var(--text-soft);
+      border:1px solid var(--border);
+    }
+
+    .workflow-grid{
+      display:grid;
+      gap:12px;
+    }
+
+    .workflow-item{
+      display:grid;
+      grid-template-columns:auto 1fr auto;
+      gap:14px;
+      align-items:start;
+      padding:14px 16px;
+      border-radius:16px;
+      background:rgba(248,250,252,.82);
+      border:1px solid rgba(219,228,240,.92);
+    }
+
+    .num{
+      width:34px;
+      height:34px;
+      border-radius:999px;
+      background:var(--gradient-blue);
+      color:#fff;
+      display:grid;
+      place-items:center;
+      font-weight:900;
+      flex-shrink:0;
+    }
+
+    .workflow-title{
+      font-size:15px;
+      font-weight:800;
+      line-height:1.25;
+      margin-bottom:4px;
+    }
+
+    .workflow-text{
+      color:var(--text-soft);
+      font-size:13px;
+      line-height:1.5;
+    }
+
+    .section{
+      padding:84px 0;
+    }
+
+    .section-soft{
+      background:var(--bg-soft);
+    }
+
+    .section-title{
+      font-size:clamp(34px,5vw,46px);
+      letter-spacing:-.04em;
+      margin:0 0 14px;
+      line-height:1.05;
+    }
+
+    .section-intro{
+      max-width:800px;
+      color:var(--text-soft);
+      line-height:1.8;
+      font-size:18px;
+      margin:0 0 28px;
+    }
+
+    .grid-3{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:24px;
+    }
+
+    .grid-2{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:24px;
+    }
+
+    .feature,.testimonial,.price-card,.checklist,.quote-box{
+      padding:30px;
+      height:100%;
+      display:flex;
+      flex-direction:column;
+    }
+
+    .feature h3,.testimonial h3,.quote-box h3{
+      font-size:24px;
+      margin:0 0 10px;
+      line-height:1.1;
+      letter-spacing:-.03em;
+    }
+
+    .feature p,.testimonial p,.checklist p,.quote-box p{
+      margin:0;
+      color:var(--text-soft);
+      line-height:1.8;
+    }
+
+    .quote-box{
+      justify-content:center;
+      background:linear-gradient(135deg,rgba(99,102,241,.07) 0%, rgba(249,115,22,.05) 100%);
+    }
+
+    .checklist strong{
+      display:block;
+      font-size:26px;
+      line-height:1.1;
+      margin-bottom:8px;
+    }
+
+    .checklist ul{
+      margin:18px 0 0;
+      padding-left:18px;
+      line-height:2;
+      color:var(--text-soft);
+    }
+
+    .price-tag{
+      font-size:42px;
+      font-weight:900;
+      letter-spacing:-.05em;
+      margin:0 0 6px;
+    }
+
+    .muted{
+      color:var(--text-soft);
+    }
+
+    .testimonial-meta{
+      margin-top:16px;
+      font-weight:700;
+      font-size:13px;
+    }
+
+    .footer{
+      padding:28px 0 60px;
+      color:var(--text-soft);
+      font-size:14px;
+      text-align:center;
+    }
+
+    .footer-links{
+      display:flex;
+      gap:18px;
+      justify-content:center;
+      flex-wrap:wrap;
+      font-size:14px;
+      font-weight:600;
+    }
+
+    .footer-copy{
+      margin-top:12px;
+      font-size:13px;
+    }
+
+    @media (max-width:980px){
+      .hero-grid,.grid-3,.grid-2{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width:640px){
+      .nav{
+        align-items:flex-start;
+      }
+
+      .nav-links,.nav-actions{
+        width:100%;
+      }
+
+      .btn{
+        width:100%;
+      }
+
+      .hero,.section{
+        padding-top:64px;
+      }
+
+      .workflow-item{
+        grid-template-columns:1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="nav">
+      <a class="logo" href="index.html" aria-label="OfficeFlow"><svg viewBox="0 0 48 48" width="32" height="32" aria-hidden="true"><defs><linearGradient id="of-facturatie-mark" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F97316"/><stop offset="100%" stop-color="#FB923C"/></linearGradient></defs><rect width="48" height="48" rx="11" fill="url(#of-facturatie-mark)"/><circle cx="24" cy="24" r="11" fill="none" stroke="#fff" stroke-width="3.2"/><path d="M21.5 19.5 L28 24 L21.5 28.5" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Office<span>Flow</span></a>
+      <div class="nav-links">
+        <a href="#voordelen">Voordelen</a>
+        <a href="#werkt">Werkwijze</a>
+        <a href="#modules">Modules</a>
+        <a href="#prijs">Prijs</a>
+        <a href="mailto:mail@officeflowcompany.com">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <a class="btn btn-secondary" href="index.html">Terug</a>
+        <a class="btn btn-primary" href="/start">Start nu</a>
+      </div>
+    </nav>
+  </div>
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="eyebrow">BILLING • OPERATIONS • OVERZICHT</div>
+        <h1>Van werk naar factuur. Zonder chaos.</h1>
+        <div class="hero-line">Eén rustige workflow voor offertes, abonnementen, werk en facturatie.</div>
+        <p class="lead">
+          OfficeFlow is een moderne billing- en operations SaaS voor dienstverlenende bedrijven. Het brengt quotes, subscriptions, worklogs, billable events, facturen, provider-sync, reminders en follow-up samen in één logische flow.
+        </p>
+        <div class="hero-points">
+          <span>Alles in één doorlopende workflow</span>
+          <span>Slimme automatisering met controle</span>
+          <span>Duidelijke volgende stappen</span>
+        </div>
+        <div class="nav-actions">
+          <a class="btn btn-primary" href="/start">Activeer Facturen & Offertes</a>
+          <a class="btn btn-secondary" href="#prijs">Bekijk prijs</a>
+        </div>
+      </div>
+
+      <div class="workflow">
+        <div class="workflow-head">
+          <strong>Hoe de flow samenkomt</strong>
+          <span class="pill pill-blue">Operations + Billing</span>
+        </div>
+
+        <div class="workflow-grid">
+          <div class="workflow-item">
+            <div class="num">1</div>
+            <div>
+              <div class="workflow-title">Van operationele input naar factureerbare output</div>
+              <div class="workflow-text">Quotes, subscriptions, worklogs en manual charges worden samengebracht in billable events die logisch doorstromen naar facturen.</div>
+            </div>
+            <span class="pill pill-orange">Billable</span>
+          </div>
+
+          <div class="workflow-item">
+            <div class="num">2</div>
+            <div>
+              <div class="workflow-title">Van factuur naar provider, verzending en betaling</div>
+              <div class="workflow-text">Facturen doorlopen duidelijke statussen zoals draft, ready, sync pending, verzending, reminder en follow-up.</div>
+            </div>
+            <span class="pill pill-blue">Workflow</span>
+          </div>
+
+          <div class="workflow-item">
+            <div class="num">3</div>
+            <div>
+              <div class="workflow-title">Automatiseren waar het kan, controleren waar het moet</div>
+              <div class="workflow-text">Het systeem bewaakt totalen, btw, providerflow en vervolgstappen, en vraagt review waar dat logisch is.</div>
+            </div>
+            <span class="pill pill-dark">Controle</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="voordelen" class="section section-soft">
+    <div class="container">
+      <h2 class="section-title">Wat dit oplost</h2>
+      <p class="section-intro">
+        Geen losse tools, geen handmatig gedoe en geen onduidelijke statussen meer. OfficeFlow brengt rust, overzicht en controle in je volledige billing en operatie.
+      </p>
+
+      <div class="grid-3">
+        <div class="feature">
+          <h3>Alles in één flow</h3>
+          <p>Quotes, subscriptions, worklogs, billable events en facturen zijn niet langer losse onderdelen, maar één logisch proces van klantafspraak tot betaling.</p>
+        </div>
+
+        <div class="feature">
+          <h3>Minder handmatig werk</h3>
+          <p>Facturen, opvolging en operationele stappen worden automatisch voorbereid, zodat je minder hoeft te onthouden en minder fouten maakt.</p>
+        </div>
+
+        <div class="feature">
+          <h3>Altijd overzicht</h3>
+          <p>Je ziet direct wat de volgende stap is, waar actie nodig is en welke facturen, reminders of workflows aandacht vragen.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="werkt" class="section">
+    <div class="container">
+      <h2 class="section-title">Gebouwd voor de volledige lifecycle</h2>
+      <p class="section-intro">
+        Dit product is geen simpel factuurtooltje, maar een platform dat de volledige flow ondersteunt van commerciële afspraak tot financiële afhandeling.
+      </p>
+
+      <div class="grid-3">
+        <div class="quote-box">
+          <h3>Commerciële start</h3>
+          <p>Quotes, klanten en subscriptions vormen het begin van de flow. Wat je commercieel afspreekt, kan direct logisch doorstromen naar billing.</p>
+        </div>
+
+        <div class="quote-box">
+          <h3>Operationele uitvoering</h3>
+          <p>Worklogs, manual charges en andere factureerbare input worden vastgelegd en omgezet naar billable events.</p>
+        </div>
+
+        <div class="quote-box">
+          <h3>Financiële afhandeling</h3>
+          <p>Invoices, provider-sync, verzending, reminders en follow-up worden bewaakt in één rustige en controleerbare cockpit.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="modules" class="section section-soft">
+    <div class="container">
+      <h2 class="section-title">Wat je krijgt</h2>
+      <p class="section-intro">
+        Een professionele omgeving voor dienstverlenende bedrijven die terugkerend en projectmatig werk willen omzetten naar betrouwbare facturatie en opvolging.
+      </p>
+
+      <div class="grid-2">
+        <div class="card checklist">
+          <strong>Belangrijkste onderdelen</strong>
+          <ul>
+            <li>Klantenbeheer als vast ankerpunt</li>
+            <li>Quotes en commerciële voorbereiding</li>
+            <li>Subscriptions voor terugkerende billing</li>
+            <li>Worklogs voor uitgevoerd werk</li>
+            <li>Manual charges voor losse posten</li>
+            <li>Billable events als tussenlaag</li>
+            <li>Invoices met duidelijke lifecycle</li>
+            <li>Provider-sync en verzendflow</li>
+            <li>Reminder en follow-up logica</li>
+            <li>Automation en tenant settings</li>
+          </ul>
+        </div>
+
+        <div class="card checklist">
+          <strong>Waarom dit sterk is</strong>
+          <ul>
+            <li>Rustige, professionele interface</li>
+            <li>Slimme automatisering zonder controle te verliezen</li>
+            <li>Duidelijke operationele staten</li>
+            <li>Betrouwbare btw-, totaal- en exportlogica</li>
+            <li>Geen ruwe foutschermen voor normale businesssituaties</li>
+            <li>Gemaakt voor teams die hun operatie serieus willen professionaliseren</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="prijs" class="section">
+    <div class="container grid-2">
+      <div class="card checklist">
+        <strong>Voor wie dit past</strong>
+        <p>
+          Voor dienstverlenende bedrijven die werken met terugkerende diensten, abonnementen, losse werkzaamheden, worklogs en klantopvolging — en daar een rustige, betrouwbare en grotendeels geautomatiseerde workflow voor willen.
+        </p>
+        <ul>
+          <li>Bureaus</li>
+          <li>Consultancybedrijven</li>
+          <li>Marketingbureaus</li>
+          <li>Development teams</li>
+          <li>Operationele B2B-dienstverleners</li>
+          <li>Servicebedrijven met terugkerend klantwerk</li>
+        </ul>
+      </div>
+
+      <div class="card price-card">
+        <div class="muted" style="font-weight:800;margin-bottom:8px;">OfficeFlow Facturen &amp; Operations</div>
+        <div class="price-tag">€49</div>
+        <div class="muted">excl. btw</div>
+        <p class="section-intro" style="font-size:16px;margin-top:20px;margin-bottom:24px;">
+          Voor bedrijven die hun billing en operatie willen professionaliseren zonder controle te verliezen.
+        </p>
+        <a class="btn btn-primary" href="/start">Kies Facturen &amp; Offertes</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-soft">
+    <div class="container">
+      <h2 class="section-title">Wat gebruikers merken</h2>
+
+      <div class="grid-3">
+        <div class="testimonial">
+          <h3>"Eindelijk overzicht in alles."</h3>
+          <p>Voorheen werkten we met losse tools en handmatig werk. Nu loopt alles logisch door en missen we niets meer.</p>
+          <div class="testimonial-meta">Ondernemer</div>
+        </div>
+
+        <div class="testimonial">
+          <h3>"Veel minder handmatig werk."</h3>
+          <p>Facturen en opvolging staan klaar. Wij controleren alleen nog en houden veel beter grip op de operatie.</p>
+          <div class="testimonial-meta">Freelancer</div>
+        </div>
+
+        <div class="testimonial">
+          <h3>"Professioneler richting klant."</h3>
+          <p>Alles is consistenter, duidelijker en betrouwbaarder geworden. Dat merk je intern én extern.</p>
+          <div class="testimonial-meta">Dienstverlener</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container footer">
+    <div class="footer-links">
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="mailto:mail@officeflowcompany.com">Contact</a>
+    </div>
+    <div class="footer-copy">mail@officeflowcompany.com • OfficeFlow Company XXX</div>
+  </div>
+</body>
+</html>

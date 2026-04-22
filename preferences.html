@@ -54,7 +54,9 @@
     }
 
     .brand-logo {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
       text-decoration: none;
       font-size: 26px;
       font-weight: 700;
@@ -62,11 +64,15 @@
       color: var(--text-primary);
     }
 
+    .brand-logo svg { flex-shrink: 0; display: block; }
+    .brand-logo .logo-text { line-height: 1; }
+
     .brand-logo .flow {
       background: linear-gradient(90deg, #F97316, #FB923C);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      color: transparent;
     }
 
     .brand-pill {
@@ -518,7 +524,15 @@
 <body>
   <div class="page">
     <div class="brand-header">
-      <a href="/" class="brand-logo">Office<span class="flow">Flow</span></a>
+      <a href="/" class="brand-logo" aria-label="OfficeFlow">
+        <svg viewBox="0 0 48 48" width="34" height="34" aria-hidden="true">
+          <defs><linearGradient id="of-prefs-mark" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F97316"/><stop offset="100%" stop-color="#FB923C"/></linearGradient></defs>
+          <rect width="48" height="48" rx="11" fill="url(#of-prefs-mark)"/>
+          <circle cx="24" cy="24" r="11" fill="none" stroke="#fff" stroke-width="3.2"/>
+          <path d="M21.5 19.5 L28 24 L21.5 28.5" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="logo-text">Office<span class="flow">Flow</span></span>
+      </a>
       <div class="brand-pill">
         <span class="brand-pill-dot"></span>
         Laatste stap voor je eerste conceptantwoord
