@@ -662,6 +662,10 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg>
           Statistieken
         </a></li>
+        <li><a href="#radar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Follow-Up Radar
+        </a></li>
         <li><a href="#abonnement">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg>
           Abonnement
@@ -669,10 +673,6 @@
         <li><a href="#koppeling">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
           Gmail-koppeling
-        </a></li>
-        <li><a href="#radar">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          Follow-Up Radar
         </a></li>
         <li><a href="#account">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
@@ -799,45 +799,6 @@
             <div class="stat-label">Wachten op reply</div>
             <div class="stat-value"><span id="stat-waiting">—</span></div>
             <div class="stat-sub">Externe reactie wordt nog verwacht.</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ============ ABONNEMENT ============ -->
-      <section id="abonnement">
-        <div class="section-title">Abonnement</div>
-        <div class="card">
-          <div class="card-row">
-            <div>
-              <div class="card-label">Actief plan</div>
-              <div class="card-title" id="plan-title">Mailbox Manager</div>
-              <div class="card-meta" id="plan-meta">Laden…</div>
-            </div>
-            <button class="btn-danger" id="cancel-btn">Opzeggen</button>
-          </div>
-        </div>
-      </section>
-
-      <!-- ============ GMAIL ============ -->
-      <section id="koppeling">
-        <div class="section-title">Gmail-koppeling</div>
-        <div class="card">
-          <div class="card-row">
-            <div>
-              <div class="card-label">Status</div>
-              <div class="card-title" id="gmail-status">
-                <span class="status-dot"></span>Verbonden
-              </div>
-              <div class="card-meta" id="gmail-email">—</div>
-            </div>
-            <a class="btn-ghost" href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">Beheer bij Google</a>
-          </div>
-          <div class="gmail-only-notice" role="note">
-            <span class="gmail-only-icon" aria-hidden="true">!</span>
-            <div>
-              <strong>Werk in Gmail zelf.</strong>
-              Conceptantwoorden verschijnen direct in de Gmail-thread met een verzendknop. Open <a href="https://mail.google.com" target="_blank" rel="noopener">mail.google.com</a> of gebruik de officiële Gmail-app op je telefoon.
-            </div>
           </div>
         </div>
       </section>
@@ -985,6 +946,45 @@
             <div>
               <strong>Jij blijft de knop.</strong>
               Opvolg-concepten worden nooit automatisch verzonden. Ze verschijnen in de bestaande Gmail-thread en veranderen niks aan de status totdat jij verzendt.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ ABONNEMENT ============ -->
+      <section id="abonnement">
+        <div class="section-title">Abonnement</div>
+        <div class="card">
+          <div class="card-row">
+            <div>
+              <div class="card-label">Actief plan</div>
+              <div class="card-title" id="plan-title">Mailbox Manager</div>
+              <div class="card-meta" id="plan-meta">Laden…</div>
+            </div>
+            <button class="btn-danger" id="cancel-btn">Opzeggen</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ GMAIL ============ -->
+      <section id="koppeling">
+        <div class="section-title">Gmail-koppeling</div>
+        <div class="card">
+          <div class="card-row">
+            <div>
+              <div class="card-label">Status</div>
+              <div class="card-title" id="gmail-status">
+                <span class="status-dot"></span>Verbonden
+              </div>
+              <div class="card-meta" id="gmail-email">—</div>
+            </div>
+            <a class="btn-ghost" href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">Beheer bij Google</a>
+          </div>
+          <div class="gmail-only-notice" role="note">
+            <span class="gmail-only-icon" aria-hidden="true">!</span>
+            <div>
+              <strong>Werk in Gmail zelf.</strong>
+              Conceptantwoorden verschijnen direct in de Gmail-thread met een verzendknop. Open <a href="https://mail.google.com" target="_blank" rel="noopener">mail.google.com</a> of gebruik de officiële Gmail-app op je telefoon.
             </div>
           </div>
         </div>
