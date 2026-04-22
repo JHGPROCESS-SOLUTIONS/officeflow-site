@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 48" role="img" aria-label="OfficeFlow">
+  <defs>
+    <linearGradient id="of-mark-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F97316"/>
+      <stop offset="100%" stop-color="#FB923C"/>
+    </linearGradient>
+    <linearGradient id="of-flow-text" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#F97316"/>
+      <stop offset="100%" stop-color="#FB923C"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Mark -->
+  <g>
+    <rect x="0" y="0" width="48" height="48" rx="11" fill="url(#of-mark-bg)"/>
+    <circle cx="24" cy="24" r="11" fill="none" stroke="#FFFFFF" stroke-width="3.2"/>
+    <path d="M21.5 19.5 L28 24 L21.5 28.5" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Wordmark -->
+  <g font-family="'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="28" font-weight="800" letter-spacing="-0.5">
+    <text x="60" y="33" fill="#08142f">Office</text>
+    <text x="145" y="33" fill="url(#of-flow-text)">Flow</text>
+  </g>
+</svg>
