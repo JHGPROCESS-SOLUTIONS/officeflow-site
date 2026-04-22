@@ -184,6 +184,27 @@
       .eyebrow{font-size:11px;padding:6px 12px}
       .container{padding:0 16px}
     }
+    .mobile-tabs{display:none}
+    @media (max-width:720px){
+      html{scroll-padding-top:64px}
+      .mobile-tabs{
+        display:flex;position:sticky;top:0;z-index:50;
+        gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;
+        padding:10px 16px;background:rgba(255,255,255,.96);
+        backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+        border-bottom:1px solid var(--border);scrollbar-width:none;margin:0
+      }
+      .mobile-tabs::-webkit-scrollbar{display:none}
+      .mobile-tabs a{
+        flex:0 0 auto;padding:9px 14px;font-size:13px;font-weight:700;
+        color:var(--text-soft);border-radius:999px;border:1px solid var(--border);
+        background:#fff;white-space:nowrap;transition:all .2s;text-decoration:none
+      }
+      .mobile-tabs a.active{
+        color:#fff;background:var(--gradient-orange);border-color:transparent;
+        box-shadow:0 4px 12px rgba(249,115,22,.25)
+      }
+    }
   </style>
 </head>
 <body>
@@ -204,7 +225,14 @@
     </nav>
   </div>
 
-  <section class="hero">
+  <nav class="mobile-tabs" aria-label="Pagina secties">
+    <a href="#top">Overzicht</a>
+    <a href="#voordelen">Voordelen</a>
+    <a href="#werkt">Werkwijze</a>
+    <a href="#prijs">Prijs</a>
+  </nav>
+
+  <section class="hero" id="top">
     <div class="container hero-grid">
       <div>
         <div class="eyebrow">MAILBOX • GMAIL • CONTROLE</div>
@@ -354,6 +382,25 @@
           toggle.setAttribute('aria-label','Menu openen');
         });
       });
+    })();
+    (function(){
+      var tabs=document.querySelectorAll('.mobile-tabs a');
+      if(!tabs.length)return;
+      var map=[];
+      tabs.forEach(function(t){
+        var id=t.getAttribute('href').slice(1);
+        var el=document.getElementById(id);
+        if(el)map.push({tab:t,el:el});
+      });
+      function onScroll(){
+        var y=window.scrollY+100;
+        var current=map[0];
+        map.forEach(function(m){if(m.el.offsetTop<=y)current=m;});
+        tabs.forEach(function(t){t.classList.remove('active')});
+        if(current)current.tab.classList.add('active');
+      }
+      onScroll();
+      window.addEventListener('scroll',onScroll,{passive:true});
     })();
   </script>
 </body>
