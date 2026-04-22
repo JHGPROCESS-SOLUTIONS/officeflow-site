@@ -330,32 +330,53 @@
         padding: 14px;
       }
 
-      .hero,
+      .card { border-radius: 20px; }
+
+      .hero {
+        padding: 30px 20px 22px;
+      }
       .content {
-        padding-left: 20px;
-        padding-right: 20px;
+        padding: 22px 20px 28px;
       }
 
+      .logo .logo-text { font-size: 22px; }
+      .success-badge { font-size: 11px; padding: 6px 10px; margin-bottom: 14px; }
+
       h1 {
-        font-size: 32px;
+        font-size: 26px;
+        letter-spacing: -0.02em;
       }
 
       .subtitle {
-        font-size: 15px;
+        font-size: 14.5px;
+        line-height: 1.6;
       }
 
       .stats-grid {
         grid-template-columns: 1fr;
+        gap: 10px;
+        margin-bottom: 20px;
       }
+      .stat-card { padding: 16px 16px; border-radius: 16px; }
+      .stat-number { font-size: 28px; }
+
+      .highlight-box { padding: 18px 18px; border-radius: 16px; margin-bottom: 18px; }
+      .highlight-title { font-size: 18px; }
+
+      .gmail-only-notice { padding: 14px 14px; border-radius: 14px; margin-bottom: 18px; }
+      .gmail-only-notice-body { font-size: 13px; }
 
       .actions {
         flex-direction: column;
         align-items: stretch;
+        gap: 10px;
       }
 
       .button-primary,
       .button-secondary {
         width: 100%;
+        min-height: 50px;
+        font-size: 14.5px;
       }
     }
   </style>

@@ -412,12 +412,34 @@
       .sb-quick { margin-top: 4px; }
       .main-content { padding: 28px 24px 80px; }
     }
-    @media (max-width: 600px) {
-      h1 { font-size: 26px; }
+    @media (max-width: 640px) {
+      .nav-inner { padding: 0 16px; gap: 10px; }
+      .logo { font-size: 16px; }
+      .nav-user { gap: 8px; }
+      .nav-user .email-chip {
+        max-width: 140px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .btn-ghost { padding: 7px 10px; font-size: 12px; }
+      .sidebar { padding: 16px 16px 10px; }
+      .sb-nav { margin-bottom: 18px; display: flex; flex-wrap: wrap; gap: 4px; }
+      .sb-nav li { flex: 1 0 auto; }
+      .sb-nav li a { padding: 9px 10px; font-size: 13.5px; }
+      .main-content { padding: 20px 16px 60px; }
+      .page-head { gap: 10px; margin-bottom: 22px; }
+      h1 { font-size: 24px; margin-top: 8px; }
+      .page-desc { font-size: 14px; }
+      .section-title { margin: 26px 0 10px; }
       .stats-grid { grid-template-columns: 1fr; gap: 10px; }
-      .card, .activity-card { padding: 20px 18px; }
+      .card, .activity-card { padding: 18px 16px; border-radius: 14px; }
+      .stat-card { padding: 16px 16px 14px; border-radius: 14px; }
       .stat-value { font-size: 24px; }
       .chart-wrap { height: 100px; gap: 6px; }
+    }
+    @media (max-width: 380px) {
+      .nav-user .email-chip { display: none; }
     }
   </style>
 </head>

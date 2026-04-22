@@ -521,8 +521,24 @@
 
     @media (max-width: 720px) {
       .page { padding: 24px 14px 40px; }
-      .hero, .content { padding-left: 20px; padding-right: 20px; }
-      .hero h1 { font-size: 26px; }
+      .hero { padding: 24px 18px 18px; }
+      .content { padding: 20px 18px 26px; }
+      .hero h1 { font-size: 24px; line-height: 1.15; }
+      .hero p { font-size: 14.5px; }
+      .brand-logo { font-size: 22px; }
+      .email-box { padding: 12px 14px; gap: 10px; }
+      .email-text { font-size: 13px; }
+      form { gap: 16px; }
+      select, textarea, input[type="number"] { font-size: 16px; padding: 12px 14px; }
+      textarea { min-height: 90px; }
+      .button-primary, .button-secondary { padding: 14px 18px; font-size: 15px; width: 100%; }
+    }
+    @media (max-width: 480px) {
+      .brand-header { margin-bottom: 18px; gap: 10px; }
+      .brand-logo { font-size: 20px; }
+      .brand-pill { font-size: 12px; padding: 6px 10px; text-align: center; }
+      .hero-badge { font-size: 11px; padding: 6px 10px; }
+      .hero h1 { font-size: 22px; }
     }
   </style>
 </head>
