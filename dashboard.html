@@ -987,6 +987,47 @@
               Conceptantwoorden verschijnen direct in de Gmail-thread met een verzendknop. Open <a href="https://mail.google.com" target="_blank" rel="noopener">mail.google.com</a> of gebruik de officiële Gmail-app op je telefoon.
             </div>
           </div>
+
+          <!-- AUTO-ARCHIVE LOW-VALUE MAIL -->
+          <div class="archive-wrap" style="margin-top:18px;padding:16px 18px;background:#fffaf3;border:1px solid #fed7aa;border-radius:14px;">
+            <div class="rc-row">
+              <div>
+                <div class="k">Marketing &amp; ruis uit je Inbox halen</div>
+                <div class="s">Mails met label <strong>Marketing</strong>, <strong>Ignore</strong> of <strong>Unwanted</strong> verlaten je primaire Inbox en blijven vindbaar via hun label. Niets wordt verwijderd.</div>
+              </div>
+              <label class="switch" aria-label="Auto-archive low-value aan/uit">
+                <input id="tgl-auto-archive" type="checkbox">
+                <span class="slider"></span>
+              </label>
+            </div>
+            <div class="rc-row">
+              <div>
+                <div class="k">Ook Notification-mails automatisch archiveren</div>
+                <div class="s">Standaard <strong>uit</strong> — notificaties zijn soms transactioneel (bank, bezorging, 2FA, belastingdienst). Zet alleen aan als je zeker weet dat je die niet mist.</div>
+              </div>
+              <label class="switch" aria-label="Notification auto-archive aan/uit">
+                <input id="tgl-notification-archive" type="checkbox">
+                <span class="slider"></span>
+              </label>
+            </div>
+            <div class="rc-row" style="align-items:flex-start;background:#f0fdf4;margin:10px -10px;padding:10px 14px;border-radius:10px;border:1px solid #bbf7d0;">
+              <div>
+                <div class="k" style="color:#065f46;">Veiligheidsnet: bekende contacten worden nooit gearchiveerd</div>
+                <div class="s" style="color:#166534;">Heb je ooit naar iemand gereageerd of z'n mail als Priority / To Respond / Follow Up gelabeld? Dan blijven nieuwe mails van die afzender altijd in je Inbox, ook als de classifier ze als Marketing ziet.</div>
+              </div>
+            </div>
+            <div class="rc-row" style="align-items:flex-start;">
+              <div>
+                <div class="k">Eenmalige opruimactie</div>
+                <div class="s" id="archive-hint">Haalt alle bestaande low-value mails uit je Inbox. Bekende contacten worden overgeslagen.</div>
+              </div>
+              <button id="btn-archive-cleanup" class="btn-scan" type="button">
+                <span class="scan-dot" aria-hidden="true"></span>
+                <span>Maak Inbox schoon</span>
+              </button>
+            </div>
+            <div id="archive-toast" hidden></div>
+          </div>
         </div>
       </section>
 
@@ -1429,6 +1470,151 @@
       });
     }
 
+    // ============ AUTO-ARCHIVE ============
+    function showArchiveToast(msg, kind) {
+      const t = document.getElementById('archive-toast');
+      if (!t) return;
+      t.className = 'radar-toast' + (kind === 'error' ? ' error' : '');
+      t.textContent = msg;
+      t.hidden = false;
+      clearTimeout(t._hideTimer);
+      t._hideTimer = setTimeout(() => { t.hidden = true; }, 5000);
+    }
+
+    async function loadArchiveSettings(accessToken) {
+      try {
+        const res = await fetch(API_BASE + '/api/archive/settings', {
+          headers: { 'Authorization': 'Bearer ' + accessToken }
+        });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return await res.json();
+      } catch (_) {
+        return { auto_archive_low_value: true, total_in_inbox: null };
+      }
+    }
+
+    function renderArchive(data) {
+      const tgl = document.getElementById('tgl-auto-archive');
+      const tglNotif = document.getElementById('tgl-notification-archive');
+      const hint = document.getElementById('archive-hint');
+      if (tgl) tgl.checked = !!(data && data.auto_archive_low_value);
+      if (tglNotif) tglNotif.checked = !!(data && data.notification_auto_archive);
+      if (hint) {
+        const n = data && typeof data.total_in_inbox === 'number' ? data.total_in_inbox : null;
+        if (n === null) {
+          hint.textContent = 'Haalt alle bestaande low-value mails uit je Inbox. Bekende contacten worden overgeslagen.';
+        } else if (n === 0) {
+          hint.textContent = 'Je Inbox is al schoon — geen low-value mails gevonden die opgeruimd moeten worden.';
+        } else {
+          hint.textContent = n + ' ' + (n === 1 ? 'mail' : 'mails') + ' met low-value label staan nog in je Inbox. Bekende contacten worden overgeslagen.';
+        }
+      }
+    }
+
+    async function patchArchiveSettings(partial) {
+      const { data: { session } } = await sb.auth.getSession();
+      if (!session) throw new Error('Geen actieve sessie — log opnieuw in');
+      const res = await fetch(API_BASE + '/api/archive/settings', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + session.access_token
+        },
+        body: JSON.stringify(partial)
+      });
+      if (!res.ok) {
+        let detail = '';
+        try { const b = await res.json(); detail = b.detail || b.message || ''; } catch (_) {}
+        const err = new Error(detail || ('HTTP ' + res.status));
+        err.status = res.status;
+        throw err;
+      }
+      return await res.json();
+    }
+
+    async function refreshArchive() {
+      const { data: { session } } = await sb.auth.getSession();
+      if (!session) return;
+      const data = await loadArchiveSettings(session.access_token);
+      renderArchive(data);
+    }
+
+    function wireArchiveControls() {
+      const tgl = document.getElementById('tgl-auto-archive');
+      if (tgl) {
+        tgl.addEventListener('change', async (e) => {
+          const val = e.target.checked;
+          try {
+            await patchArchiveSettings({ auto_archive_low_value: val });
+            showArchiveToast(val ? 'Auto-archive aan — Marketing-ruis gaat vanaf nu uit je Inbox' : 'Auto-archive uit');
+          } catch (err) {
+            e.target.checked = !val;
+            showArchiveToast('Opslaan mislukt — ' + (err.message || 'probeer opnieuw'), 'error');
+          }
+        });
+      }
+
+      const tglNotif = document.getElementById('tgl-notification-archive');
+      if (tglNotif) {
+        tglNotif.addEventListener('change', async (e) => {
+          const val = e.target.checked;
+          try {
+            await patchArchiveSettings({ notification_auto_archive: val });
+            showArchiveToast(val
+              ? 'Notification-mails worden nu ook automatisch gearchiveerd (bekende contacten uitgezonderd)'
+              : 'Notification-mails blijven in je Inbox'
+            );
+            await refreshArchive();
+          } catch (err) {
+            e.target.checked = !val;
+            showArchiveToast('Opslaan mislukt — ' + (err.message || 'probeer opnieuw'), 'error');
+          }
+        });
+      }
+
+      const btn = document.getElementById('btn-archive-cleanup');
+      if (btn) {
+        btn.addEventListener('click', async () => {
+          const labelEl = btn.querySelector('span:last-child');
+          const prev = labelEl ? labelEl.textContent : '';
+          btn.disabled = true;
+          if (labelEl) labelEl.textContent = 'Opruimen…';
+          try {
+            const { data: { session } } = await sb.auth.getSession();
+            const res = await fetch(API_BASE + '/api/cleanup/low-value', {
+              method: 'POST',
+              headers: { 'Authorization': 'Bearer ' + session.access_token }
+            });
+            if (!res.ok) {
+              let detail = '';
+              try { const b = await res.json(); detail = b.detail || b.message || ''; } catch (_) {}
+              throw new Error(detail || ('HTTP ' + res.status));
+            }
+            const out = await res.json();
+            const total = Number(out.total_archived || 0);
+            const skipped = Number(out.total_skipped_trusted || 0);
+            if (total > 0) {
+              let msg = total + ' ' + (total === 1 ? 'mail' : 'mails') + ' uit je Inbox gehaald';
+              if (skipped > 0) {
+                msg += ' · ' + skipped + ' ' + (skipped === 1 ? 'mail' : 'mails') + ' van bekende contacten overgeslagen';
+              }
+              showArchiveToast(msg);
+            } else if (skipped > 0) {
+              showArchiveToast(skipped + ' ' + (skipped === 1 ? 'mail' : 'mails') + ' van bekende contacten — niets gearchiveerd');
+            } else {
+              showArchiveToast('Je Inbox was al schoon');
+            }
+            await refreshArchive();
+          } catch (err) {
+            showArchiveToast('Opruimen mislukt — ' + (err.message || 'probeer opnieuw'), 'error');
+          } finally {
+            if (labelEl) labelEl.textContent = prev || 'Maak Inbox schoon';
+            btn.disabled = false;
+          }
+        });
+      }
+    }
+
     // ============ SUBSCRIPTION LOADER ============
     async function loadSubscription(accessToken) {
       try {
@@ -1492,16 +1678,19 @@
       document.getElementById('welcome-title').textContent =
         firstName ? `Welkom terug, ${firstName}` : 'Welkom terug';
 
-      const [stats, subscription, radar] = await Promise.all([
+      const [stats, subscription, radar, archive] = await Promise.all([
         loadStats(session.access_token),
         loadSubscription(session.access_token),
-        loadRadarOverview(session.access_token)
+        loadRadarOverview(session.access_token),
+        loadArchiveSettings(session.access_token)
       ]);
 
       renderStats(stats);
       renderSubscription(subscription);
       renderRadar(radar);
+      renderArchive(archive);
       wireRadarControls();
+      wireArchiveControls();
 
       document.getElementById('loading').style.display = 'none';
       document.getElementById('page-content').style.display = 'flex';
