@@ -126,6 +126,13 @@
     nav { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,.94); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
     .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; gap: 20px; }
     .logo-img { height: 36px; width: auto; }
+    .logo-link { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-mark-svg { flex-shrink: 0; display: block; filter: drop-shadow(0 3px 8px rgba(249,115,22,.18)); }
+    .logo-wordmark { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 22px; font-weight: 800; letter-spacing: -.02em; color: var(--navy); line-height: 1; white-space: nowrap; }
+    .logo-wordmark .flow { color: var(--orange); }
+    .footer-logo { display: inline-flex; align-items: center; gap: 10px; }
+    .footer-logo-text { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 18px; font-weight: 800; letter-spacing: -.02em; color: rgba(255,255,255,.9); line-height: 1; }
+    .footer-logo-text .flow { color: #fb923c; }
     .nav-links { display: flex; gap: 2px; }
     .nav-links a { font-size: 14px; font-weight: 500; color: var(--text-2); padding: 8px 14px; border-radius: 8px; transition: color .2s, background .2s; }
     .nav-links a:hover, .nav-links a.active { color: var(--text); background: var(--bg); }
@@ -373,7 +380,15 @@
 
 <nav aria-label="Hoofdnavigatie">
   <div class="wrap nav-inner">
-    <a href="/"><img src="/OfficeFlow-logo.png" alt="OfficeFlow" class="logo-img"></a>
+    <a href="/" class="logo-link" aria-label="OfficeFlow">
+      <svg class="logo-mark-svg" viewBox="0 0 48 48" width="32" height="32" aria-hidden="true">
+        <defs><linearGradient id="of-facturen-nav-mark" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F97316"/><stop offset="100%" stop-color="#FB923C"/></linearGradient></defs>
+        <rect width="48" height="48" rx="11" fill="url(#of-facturen-nav-mark)"/>
+        <circle cx="24" cy="24" r="11" fill="none" stroke="#fff" stroke-width="3.2"/>
+        <path d="M21.5 19.5 L28 24 L21.5 28.5" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="logo-wordmark">Office<span class="flow">Flow</span></span>
+    </a>
     <div class="nav-links">
       <a href="/">Home</a>
       <a href="/#producten">Mailbox Manager</a>
@@ -860,7 +875,15 @@
 
 <footer>
   <div class="wrap footer-min">
-    <img src="/OfficeFlow-logo.png" alt="OfficeFlow" class="footer-logo-img">
+    <div class="footer-logo" aria-label="OfficeFlow">
+      <svg class="logo-mark-svg" viewBox="0 0 48 48" width="26" height="26" aria-hidden="true">
+        <defs><linearGradient id="of-facturen-footer-mark" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F97316"/><stop offset="100%" stop-color="#FB923C"/></linearGradient></defs>
+        <rect width="48" height="48" rx="11" fill="url(#of-facturen-footer-mark)"/>
+        <circle cx="24" cy="24" r="11" fill="none" stroke="#fff" stroke-width="3.2"/>
+        <path d="M21.5 19.5 L28 24 L21.5 28.5" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="footer-logo-text">Office<span class="flow">Flow</span></span>
+    </div>
     <nav class="footer-links-min" aria-label="Voettekst navigatie">
       <a href="/">Home</a>
       <a href="/#producten">Mailbox Manager</a>
