@@ -441,6 +441,191 @@
     @media (max-width: 380px) {
       .nav-user .email-chip { display: none; }
     }
+
+    /* ===== FOLLOW-UP RADAR — wow block ===== */
+    .radar-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 18px;
+      padding: 22px 24px;
+      background:
+        radial-gradient(1200px 280px at 10% -20%, rgba(249,115,22,.10), transparent 60%),
+        radial-gradient(900px 240px at 110% 0%, rgba(234,88,12,.08), transparent 55%),
+        linear-gradient(180deg, #fffdf9 0%, #ffffff 100%);
+      border: 1px solid #fed7aa;
+      box-shadow: 0 1px 2px rgba(17,24,39,.03), 0 10px 32px -12px rgba(234,88,12,.18);
+    }
+    .radar-card::before{
+      content:"";
+      position:absolute; inset:-1px;
+      border-radius:inherit;
+      background: conic-gradient(from 0deg, rgba(249,115,22,.28), transparent 30%, transparent 70%, rgba(249,115,22,.28));
+      filter: blur(24px);
+      opacity:.35;
+      pointer-events:none;
+      z-index:0;
+    }
+    .radar-card > * { position: relative; z-index:1; }
+
+    .radar-head {
+      display:flex; align-items:flex-start; justify-content:space-between;
+      gap:14px; flex-wrap:wrap;
+    }
+    .radar-head .title-block { min-width: 0; }
+    .radar-head h3 {
+      margin:0; font-size: 22px; font-weight: 800; letter-spacing:-.015em;
+      display:flex; align-items:center; gap:10px;
+    }
+    .radar-head .radar-icon {
+      width:36px; height:36px; border-radius:10px;
+      background: linear-gradient(135deg, var(--orange), var(--orange-2));
+      color:#fff; display:inline-flex; align-items:center; justify-content:center;
+      box-shadow: 0 6px 18px -6px rgba(249,115,22,.55);
+    }
+    .radar-head .sub {
+      font-size: 14px; color: var(--text-2); margin-top: 6px; line-height: 1.55;
+      max-width: 560px;
+    }
+    .radar-live {
+      display:inline-flex; align-items:center; gap:8px;
+      padding:6px 12px; border-radius: 999px;
+      background:#ecfdf5; color:#047857; border:1px solid #a7f3d0;
+      font-size:12px; font-weight: 800; letter-spacing:.03em;
+      text-transform:uppercase;
+    }
+    .radar-live.paused { background:#f3f4f6; color:#374151; border-color:#e5e7eb; }
+    .radar-live .pulse {
+      width:8px; height:8px; border-radius:50%;
+      background:#10b981; box-shadow:0 0 0 0 rgba(16,185,129,.6);
+      animation: radar-pulse 1.8s infinite;
+    }
+    .radar-live.paused .pulse { background:#9ca3af; animation:none; }
+    @keyframes radar-pulse {
+      0%   { box-shadow: 0 0 0 0 rgba(16,185,129,.55); }
+      70%  { box-shadow: 0 0 0 10px rgba(16,185,129,0); }
+      100% { box-shadow: 0 0 0 0 rgba(16,185,129,0); }
+    }
+
+    .radar-stats {
+      display:grid; grid-template-columns: repeat(4, 1fr); gap:12px;
+      margin-top:20px;
+    }
+    .radar-stat {
+      background:#ffffffcc; backdrop-filter: blur(6px);
+      border:1px solid #f1d2b5; border-radius:14px;
+      padding:14px 14px 12px;
+    }
+    .radar-stat .k { font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--text-3); font-weight:800; }
+    .radar-stat .v { font-size:28px; font-weight:800; letter-spacing:-.02em; margin-top:4px; color:#111827; }
+    .radar-stat .s { font-size:12px; color:var(--text-2); margin-top:2px; }
+    @media (max-width: 760px){ .radar-stats { grid-template-columns: repeat(2, 1fr); } }
+
+    .radar-modes {
+      display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap:14px; margin-top:18px;
+    }
+    .radar-mode {
+      background:#fff; border:1px solid #fee7d0; border-radius:14px;
+      padding:14px 16px; transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+    .radar-mode:hover { transform: translateY(-2px); border-color:#fed7aa; box-shadow:0 10px 24px -14px rgba(234,88,12,.25); }
+    .radar-mode .mh { display:flex; align-items:center; gap:8px; margin-bottom:6px; }
+    .radar-mode .mh strong { font-size:14px; color:#1f2937; }
+    .radar-mode .mh svg { color:var(--orange-2); }
+    .radar-mode p { font-size:13px; color:#4b5563; line-height:1.6; margin:0; }
+
+    .radar-controls {
+      margin-top:20px; padding-top:18px; border-top:1px dashed #fed7aa;
+      display:grid; grid-template-columns: 1fr auto; gap:16px; align-items:start;
+    }
+    @media (max-width: 720px){ .radar-controls { grid-template-columns: 1fr; } }
+    .rc-row {
+      display:flex; align-items:center; justify-content:space-between;
+      gap:14px; padding:10px 0;
+    }
+    .rc-row + .rc-row { border-top:1px solid #fff0df; }
+    .rc-row .k { font-size:13px; font-weight:600; color:#1f2937; }
+    .rc-row .s { font-size:12px; color:var(--text-3); display:block; margin-top:2px; font-weight:500; }
+
+    /* Toggle switch */
+    .switch { position:relative; display:inline-block; width:44px; height:24px; flex:none; }
+    .switch input { opacity:0; width:0; height:0; }
+    .switch .slider {
+      position:absolute; cursor:pointer; inset:0;
+      background:#e5e7eb; transition: .2s; border-radius:999px;
+    }
+    .switch .slider::before {
+      content:""; position:absolute; height:18px; width:18px; left:3px; top:3px;
+      background:#fff; border-radius:50%; transition: .2s; box-shadow:0 2px 4px rgba(0,0,0,.15);
+    }
+    .switch input:checked + .slider { background: linear-gradient(135deg, var(--orange), var(--orange-2)); }
+    .switch input:checked + .slider::before { transform: translateX(20px); }
+    .switch input:disabled + .slider { opacity:.5; cursor:not-allowed; }
+
+    /* Threshold chips */
+    .chip-group { display:inline-flex; gap:6px; flex-wrap:wrap; }
+    .chip {
+      border:1px solid #fed7aa; background:#fff; color:#9a3412;
+      padding:6px 10px; border-radius:999px; font-size:12px; font-weight:700;
+      cursor:pointer; transition: all .15s ease;
+    }
+    .chip:hover { background: var(--orange-soft); }
+    .chip.active { background: linear-gradient(135deg, var(--orange), var(--orange-2)); color:#fff; border-color: var(--orange-2); }
+
+    .radar-actions { display:flex; flex-direction:column; gap:10px; align-items:flex-end; }
+    .btn-scan {
+      background: linear-gradient(135deg, var(--orange), var(--orange-2)); color:#fff;
+      border:none; padding:10px 18px; border-radius:10px;
+      font-size:14px; font-weight:700; letter-spacing:.01em;
+      cursor:pointer; display:inline-flex; align-items:center; gap:8px;
+      box-shadow: 0 8px 22px -8px rgba(234,88,12,.55);
+      transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+    }
+    .btn-scan:hover { transform: translateY(-1px); box-shadow: 0 12px 28px -10px rgba(234,88,12,.7); }
+    .btn-scan:disabled { opacity:.6; cursor:not-allowed; transform:none; }
+    .btn-scan .scan-dot {
+      width:8px; height:8px; border-radius:50%; background:#fff;
+      animation: radar-pulse 1.4s infinite;
+    }
+    .scan-hint { font-size:12px; color:var(--text-3); }
+
+    .radar-activity { margin-top:20px; }
+    .radar-activity h4 {
+      font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+      color:var(--text-3); font-weight:800; margin:0 0 10px;
+    }
+    .ra-empty {
+      font-size:13px; color:var(--text-3);
+      background:#fffaf3; border:1px dashed #fed7aa; border-radius:12px;
+      padding:14px 16px;
+    }
+    .ra-list { display:flex; flex-direction:column; gap:8px; }
+    .ra-item {
+      display:flex; gap:12px; align-items:flex-start;
+      padding:12px 14px; border:1px solid #f3e6d4; border-radius:12px; background:#fff;
+    }
+    .ra-kind {
+      width:28px; height:28px; border-radius:8px; flex:none;
+      background:var(--orange-soft); color:var(--orange-2);
+      display:inline-flex; align-items:center; justify-content:center;
+    }
+    .ra-kind.silence { background:#eef2ff; color:#4338ca; }
+    .ra-body { min-width:0; flex:1; }
+    .ra-title { font-size:14px; font-weight:700; color:#111827; line-height:1.35; }
+    .ra-meta  { font-size:12px; color:var(--text-2); margin-top:2px; }
+    .ra-time  { font-size:11px; color:var(--text-3); font-weight:600; white-space:nowrap; }
+
+    .radar-toast {
+      margin-top:14px; padding:10px 14px; border-radius:10px;
+      font-size:13px; font-weight:600;
+      background:#ecfdf5; color:#065f46; border:1px solid #a7f3d0;
+      animation: radar-fadein .25s ease-out;
+    }
+    .radar-toast.error { background:#fef2f2; color:#991b1b; border-color:#fecaca; }
+    @keyframes radar-fadein {
+      from { opacity:0; transform: translateY(-4px); }
+      to   { opacity:1; transform: translateY(0); }
+    }
   </style>
 </head>
 <body>
@@ -660,40 +845,141 @@
       <!-- ============ FOLLOW-UP RADAR ============ -->
       <section id="radar">
         <div class="section-title">Follow-Up Radar</div>
-        <div class="card">
-          <div class="card-row">
+
+        <div class="radar-card" id="radar-card">
+          <!-- HEADER -->
+          <div class="radar-head">
+            <div class="title-block">
+              <h3>
+                <span class="radar-icon" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </span>
+                Follow-Up Radar
+              </h3>
+              <div class="sub">
+                OfficeFlow scant je inbox elke ochtend op <strong>open beloftes</strong> en <strong>stille threads</strong>. Als iets blijft liggen, verschijnt er een opvolg-concept in de bestaande Gmail-thread. Jij blijft de knop die verzendt.
+              </div>
+            </div>
+            <span class="radar-live" id="radar-live-badge">
+              <span class="pulse"></span>
+              <span id="radar-live-text">Live</span>
+            </span>
+          </div>
+
+          <!-- STATS STRIP -->
+          <div class="radar-stats" role="list">
+            <div class="radar-stat" role="listitem">
+              <div class="k">In beeld — beloftes</div>
+              <div class="v" id="rs-commitments">—</div>
+              <div class="s">Open beloftes die de radar bewaakt</div>
+            </div>
+            <div class="radar-stat" role="listitem">
+              <div class="k">In beeld — stille threads</div>
+              <div class="v" id="rs-waiting">—</div>
+              <div class="s">Waiting On Reply, klok loopt</div>
+            </div>
+            <div class="radar-stat" role="listitem">
+              <div class="k">Nudges deze week</div>
+              <div class="v" id="rs-week">—</div>
+              <div class="s">Opvolg-concepten gemaakt</div>
+            </div>
+            <div class="radar-stat" role="listitem">
+              <div class="k">Nudges totaal</div>
+              <div class="v" id="rs-total">—</div>
+              <div class="s">Sinds je account gekoppeld is</div>
+            </div>
+          </div>
+
+          <!-- MODE CARDS -->
+          <div class="radar-modes">
+            <div class="radar-mode">
+              <div class="mh">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <strong>Belofte-radar</strong>
+              </div>
+              <p>Beloof je iets ("ik stuur je morgen de offerte"), dan onthoudt OfficeFlow de deadline. Loopt die af zonder actie, dan escaleert de thread naar <strong>Priority</strong> en ligt er een opvolg-concept klaar in jouw stijl.</p>
+            </div>
+            <div class="radar-mode">
+              <div class="mh">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg>
+                <strong>Stilte-radar</strong>
+              </div>
+              <p>Wacht je al een tijd op een reactie (label <em>Waiting On Reply</em>), dan krijgt de thread na jouw drempel een vriendelijke bump-concept. Thread blijft bestaand, niks wordt automatisch verzonden.</p>
+            </div>
+          </div>
+
+          <!-- CONTROLS -->
+          <div class="radar-controls">
             <div>
-              <div class="card-label">Status</div>
-              <div class="card-title">
-                <span class="status-dot"></span>Actief
+              <div class="rc-row">
+                <div>
+                  <div class="k">Belofte-radar</div>
+                  <span class="s">Bewaakt beloftes uit verzonden mail en escaleert bij overschrijding.</span>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="tgl-radar-enabled">
+                  <span class="slider"></span>
+                </label>
               </div>
-              <div class="card-meta">Scan elke ochtend · opvolg-concepten verschijnen in je Gmail-thread, nooit auto-verzonden.</div>
+              <div class="rc-row">
+                <div>
+                  <div class="k">Grace-periode voor beloftes</div>
+                  <span class="s">Dagen na de deadline voordat er een opvolg-concept komt.</span>
+                </div>
+                <div class="chip-group" id="chips-grace" role="radiogroup" aria-label="Grace-periode">
+                  <button class="chip" type="button" data-val="0">0d</button>
+                  <button class="chip" type="button" data-val="1">1d</button>
+                  <button class="chip" type="button" data-val="2">2d</button>
+                  <button class="chip" type="button" data-val="3">3d</button>
+                  <button class="chip" type="button" data-val="7">7d</button>
+                </div>
+              </div>
+              <div class="rc-row">
+                <div>
+                  <div class="k">Stilte-radar</div>
+                  <span class="s">Bumpt threads die op jouw reactie wachten.</span>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="tgl-silence-enabled">
+                  <span class="slider"></span>
+                </label>
+              </div>
+              <div class="rc-row">
+                <div>
+                  <div class="k">Drempel stilte-radar</div>
+                  <span class="s">Dagen zonder reactie voordat er een bump-concept komt.</span>
+                </div>
+                <div class="chip-group" id="chips-silence" role="radiogroup" aria-label="Stilte-drempel">
+                  <button class="chip" type="button" data-val="3">3d</button>
+                  <button class="chip" type="button" data-val="5">5d</button>
+                  <button class="chip" type="button" data-val="7">7d</button>
+                  <button class="chip" type="button" data-val="10">10d</button>
+                  <button class="chip" type="button" data-val="14">14d</button>
+                </div>
+              </div>
             </div>
-            <span class="am-badge" style="background:#ecfdf5; color:#047857; border:1px solid #a7f3d0; padding:4px 10px; border-radius:999px; font-size:12px; font-weight:700;">Live</span>
+
+            <div class="radar-actions">
+              <button class="btn-scan" id="btn-radar-scan" type="button">
+                <span class="scan-dot" aria-hidden="true"></span>
+                <span id="btn-radar-scan-label">Scan nu</span>
+              </button>
+              <span class="scan-hint" id="radar-last-run">Automatisch elke ochtend om 07:00</span>
+            </div>
           </div>
 
-          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:14px; margin-top:18px;">
-            <div style="border:1px solid var(--border, #e5e7eb); border-radius:12px; padding:14px 16px; background:#fffdf9;">
-              <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ea580c" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                <strong style="font-size:14px; color:#1f2937;">Belofte-radar</strong>
-              </div>
-              <div style="font-size:13px; color:#4b5563; line-height:1.55;">
-                Beloof je iets in een verzonden mail ("ik stuur je morgen de offerte"), dan onthoudt OfficeFlow de deadline. Na afloop escaleert de thread naar <strong>Priority</strong> en staat er een opvolgconcept klaar.
-              </div>
-            </div>
+          <!-- TOAST -->
+          <div id="radar-toast" hidden></div>
 
-            <div style="border:1px solid var(--border, #e5e7eb); border-radius:12px; padding:14px 16px; background:#fffdf9;">
-              <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ea580c" stroke-width="2.2"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg>
-                <strong style="font-size:14px; color:#1f2937;">Stilte-radar</strong>
-              </div>
-              <div style="font-size:13px; color:#4b5563; line-height:1.55;">
-                Wacht je al <strong>5+ dagen</strong> op een reactie (label <em>Waiting On Reply</em>), dan escaleert de thread naar <strong>Priority</strong> en komt er automatisch een vriendelijke bump-concept in jouw stijl.
-              </div>
+          <!-- ACTIVITY FEED -->
+          <div class="radar-activity">
+            <h4>Laatste nudges</h4>
+            <div id="radar-activity-body">
+              <div class="ra-empty">Nog geen nudges — de radar staat scherp. Zodra er iets blijft liggen, zie je het hier verschijnen.</div>
             </div>
           </div>
 
+          <!-- Footer note -->
           <div class="gmail-only-notice" role="note" style="margin-top:18px;">
             <span class="gmail-only-icon" aria-hidden="true">!</span>
             <div>
@@ -880,6 +1166,247 @@
       }
     }
 
+    // ============ RADAR LOADER ============
+    async function loadRadarOverview(accessToken) {
+      try {
+        const res = await fetch(API_BASE + '/api/radar/overview', {
+          headers: { 'Authorization': 'Bearer ' + accessToken }
+        });
+        if (!res.ok) throw new Error('radar endpoint not ok');
+        return await res.json();
+      } catch (_) {
+        return {
+          settings: {
+            radar_enabled: true,
+            radar_grace_days: 0,
+            silence_radar_enabled: true,
+            silence_threshold_days: 5,
+            last_run_at: null
+          },
+          stats: {
+            watching_commitments: 0,
+            watching_awaiting_replies: 0,
+            nudges_this_week: 0,
+            nudges_total: 0
+          },
+          recent_activity: [],
+          _mailbox: false,
+          _fallback: true
+        };
+      }
+    }
+
+    function _fmtRelTime(iso) {
+      if (!iso) return '';
+      const d = new Date(iso);
+      if (isNaN(d)) return '';
+      const diffMs = Date.now() - d.getTime();
+      const mins = Math.round(diffMs / 60000);
+      if (mins < 1) return 'zojuist';
+      if (mins < 60) return mins + ' min geleden';
+      const hrs = Math.round(mins / 60);
+      if (hrs < 24) return hrs + ' uur geleden';
+      const days = Math.round(hrs / 24);
+      if (days < 7) return days + (days === 1 ? ' dag geleden' : ' dagen geleden');
+      return d.toLocaleDateString('nl-NL', { day: '2-digit', month: 'short' });
+    }
+
+    function renderRadar(data) {
+      const s = data.settings || {};
+      const st = data.stats || {};
+      const activity = data.recent_activity || [];
+
+      // Live badge state
+      const badge = document.getElementById('radar-live-badge');
+      const badgeText = document.getElementById('radar-live-text');
+      const anyOn = !!(s.radar_enabled || s.silence_radar_enabled);
+      if (anyOn) {
+        badge.classList.remove('paused');
+        badgeText.textContent = 'Live';
+      } else {
+        badge.classList.add('paused');
+        badgeText.textContent = 'Gepauzeerd';
+      }
+
+      // Stats
+      document.getElementById('rs-commitments').textContent = (st.watching_commitments ?? 0).toLocaleString('nl-NL');
+      document.getElementById('rs-waiting').textContent = (st.watching_awaiting_replies ?? 0).toLocaleString('nl-NL');
+      document.getElementById('rs-week').textContent = (st.nudges_this_week ?? 0).toLocaleString('nl-NL');
+      document.getElementById('rs-total').textContent = (st.nudges_total ?? 0).toLocaleString('nl-NL');
+
+      // Toggles
+      document.getElementById('tgl-radar-enabled').checked = !!s.radar_enabled;
+      document.getElementById('tgl-silence-enabled').checked = !!s.silence_radar_enabled;
+
+      // Chips — grace
+      const grace = Number(s.radar_grace_days ?? 0);
+      document.querySelectorAll('#chips-grace .chip').forEach(el => {
+        el.classList.toggle('active', Number(el.dataset.val) === grace);
+      });
+      // Chips — silence threshold
+      const sth = Number(s.silence_threshold_days ?? 5);
+      document.querySelectorAll('#chips-silence .chip').forEach(el => {
+        el.classList.toggle('active', Number(el.dataset.val) === sth);
+      });
+
+      // Last run hint
+      const hint = document.getElementById('radar-last-run');
+      if (s.last_run_at) {
+        hint.textContent = 'Laatste scan: ' + _fmtRelTime(s.last_run_at) + ' · automatisch elke ochtend 07:00';
+      } else {
+        hint.textContent = 'Automatisch elke ochtend om 07:00';
+      }
+
+      // Activity feed
+      const body = document.getElementById('radar-activity-body');
+      if (!activity.length) {
+        body.innerHTML = data._fallback
+          ? '<div class="ra-empty">Activiteit wordt geladen… zodra er nudges zijn, verschijnen ze hier.</div>'
+          : '<div class="ra-empty">Nog geen nudges — de radar staat scherp. Zodra er iets blijft liggen, zie je het hier verschijnen.</div>';
+      } else {
+        const items = activity.map(a => {
+          const isCommit = a.type === 'commitment';
+          const who = a.recipient_name || a.recipient_email || 'Onbekende ontvanger';
+          const subj = a.subject || '(geen onderwerp)';
+          const meta = isCommit
+            ? (a.days_overdue != null ? (a.days_overdue + ' dag' + (a.days_overdue === 1 ? '' : 'en') + ' over deadline') : 'Belofte opgevolgd')
+            : (a.days_silent != null ? (a.days_silent + ' dag' + (a.days_silent === 1 ? '' : 'en') + ' stilte') : 'Stille thread gebumped');
+          const kindClass = isCommit ? '' : 'silence';
+          const icon = isCommit
+            ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>'
+            : '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg>';
+          return `
+            <li class="ra-item">
+              <span class="ra-kind ${kindClass}" aria-hidden="true">${icon}</span>
+              <div class="ra-body">
+                <div class="ra-title">${escapeHtml(who)} — ${escapeHtml(subj)}</div>
+                <div class="ra-meta">${escapeHtml(meta)}</div>
+              </div>
+              <span class="ra-time">${_fmtRelTime(a.at)}</span>
+            </li>
+          `;
+        }).join('');
+        body.innerHTML = `<ul class="ra-list" style="list-style:none; padding:0; margin:0;">${items}</ul>`;
+      }
+    }
+
+    function escapeHtml(s) {
+      if (s == null) return '';
+      return String(s).replace(/[&<>"']/g, c => ({
+        '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+      }[c]));
+    }
+
+    function showRadarToast(msg, kind) {
+      const t = document.getElementById('radar-toast');
+      t.className = 'radar-toast' + (kind === 'error' ? ' error' : '');
+      t.textContent = msg;
+      t.hidden = false;
+      clearTimeout(t._hideTimer);
+      t._hideTimer = setTimeout(() => { t.hidden = true; }, 4000);
+    }
+
+    async function patchRadarSettings(partial) {
+      const { data: { session } } = await sb.auth.getSession();
+      if (!session) return null;
+      const res = await fetch(API_BASE + '/api/radar/settings', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + session.access_token
+        },
+        body: JSON.stringify(partial)
+      });
+      if (!res.ok) throw new Error('settings update failed');
+      return await res.json();
+    }
+
+    async function refreshRadar() {
+      const { data: { session } } = await sb.auth.getSession();
+      if (!session) return;
+      const data = await loadRadarOverview(session.access_token);
+      renderRadar(data);
+    }
+
+    function wireRadarControls() {
+      // Toggles
+      document.getElementById('tgl-radar-enabled').addEventListener('change', async (e) => {
+        const val = e.target.checked;
+        try {
+          await patchRadarSettings({ radar_enabled: val });
+          showRadarToast(val ? 'Belofte-radar aan' : 'Belofte-radar uit');
+          await refreshRadar();
+        } catch (_) {
+          e.target.checked = !val;
+          showRadarToast('Opslaan mislukt — probeer opnieuw', 'error');
+        }
+      });
+      document.getElementById('tgl-silence-enabled').addEventListener('change', async (e) => {
+        const val = e.target.checked;
+        try {
+          await patchRadarSettings({ silence_radar_enabled: val });
+          showRadarToast(val ? 'Stilte-radar aan' : 'Stilte-radar uit');
+          await refreshRadar();
+        } catch (_) {
+          e.target.checked = !val;
+          showRadarToast('Opslaan mislukt — probeer opnieuw', 'error');
+        }
+      });
+
+      // Chip groups
+      function wireChips(groupId, field, label) {
+        const group = document.getElementById(groupId);
+        group.addEventListener('click', async (e) => {
+          const btn = e.target.closest('.chip');
+          if (!btn) return;
+          const newVal = Number(btn.dataset.val);
+          const prevActive = group.querySelector('.chip.active');
+          group.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+          btn.classList.add('active');
+          try {
+            await patchRadarSettings({ [field]: newVal });
+            showRadarToast(label + ' ingesteld op ' + newVal + ' dagen');
+          } catch (_) {
+            group.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+            if (prevActive) prevActive.classList.add('active');
+            showRadarToast('Opslaan mislukt — probeer opnieuw', 'error');
+          }
+        });
+      }
+      wireChips('chips-grace', 'radar_grace_days', 'Grace-periode');
+      wireChips('chips-silence', 'silence_threshold_days', 'Stilte-drempel');
+
+      // Scan now
+      document.getElementById('btn-radar-scan').addEventListener('click', async () => {
+        const btn = document.getElementById('btn-radar-scan');
+        const label = document.getElementById('btn-radar-scan-label');
+        btn.disabled = true;
+        const prev = label.textContent;
+        label.textContent = 'Scannen…';
+        try {
+          const { data: { session } } = await sb.auth.getSession();
+          const res = await fetch(API_BASE + '/api/radar/run-now', {
+            method: 'POST',
+            headers: { 'Authorization': 'Bearer ' + session.access_token }
+          });
+          if (!res.ok) throw new Error('scan failed');
+          const out = await res.json();
+          const total = (out.commitment_nudges ?? 0) + (out.silence_nudges ?? 0);
+          if (total > 0) {
+            showRadarToast(total + ' nieuwe ' + (total === 1 ? 'opvolg-concept' : 'opvolg-concepten') + ' klaargezet');
+          } else {
+            showRadarToast('Alles is up-to-date — geen nudges nodig');
+          }
+          await refreshRadar();
+        } catch (_) {
+          showRadarToast('Scan mislukt — probeer over een minuut opnieuw', 'error');
+        } finally {
+          label.textContent = prev;
+          btn.disabled = false;
+        }
+      });
+    }
+
     // ============ SUBSCRIPTION LOADER ============
     async function loadSubscription(accessToken) {
       try {
@@ -943,13 +1470,16 @@
       document.getElementById('welcome-title').textContent =
         firstName ? `Welkom terug, ${firstName}` : 'Welkom terug';
 
-      const [stats, subscription] = await Promise.all([
+      const [stats, subscription, radar] = await Promise.all([
         loadStats(session.access_token),
-        loadSubscription(session.access_token)
+        loadSubscription(session.access_token),
+        loadRadarOverview(session.access_token)
       ]);
 
       renderStats(stats);
       renderSubscription(subscription);
+      renderRadar(radar);
+      wireRadarControls();
 
       document.getElementById('loading').style.display = 'none';
       document.getElementById('page-content').style.display = 'flex';
