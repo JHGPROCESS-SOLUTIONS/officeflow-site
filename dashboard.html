@@ -904,7 +904,7 @@
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg>
                 <strong>Stilte-radar</strong>
               </div>
-              <p>Wacht je al een tijd op een reactie (label <em>Waiting On Reply</em>), dan krijgt de thread na jouw drempel een vriendelijke bump-concept. Thread blijft bestaand, niks wordt automatisch verzonden.</p>
+              <p>Wacht je al een tijd op een reactie (label <em>Waiting On Reply</em>), dan verschijnt er na jouw drempel een vriendelijke herinnering als concept in dezelfde thread. Niks wordt automatisch verzonden.</p>
             </div>
           </div>
 
@@ -937,7 +937,7 @@
               <div class="rc-row">
                 <div>
                   <div class="k">Stilte-radar</div>
-                  <span class="s">Bumpt threads die op jouw reactie wachten.</span>
+                  <span class="s">Stuurt een vriendelijke herinnering voor threads waar je op reactie wacht.</span>
                 </div>
                 <label class="switch">
                   <input type="checkbox" id="tgl-silence-enabled">
@@ -1308,7 +1308,7 @@
 
     async function patchRadarSettings(partial) {
       const { data: { session } } = await sb.auth.getSession();
-      if (!session) return null;
+      if (!session) throw new Error('Geen actieve sessie — log opnieuw in');
       const res = await fetch(API_BASE + '/api/radar/settings', {
         method: 'PATCH',
         headers: {
@@ -1317,7 +1317,17 @@
         },
         body: JSON.stringify(partial)
       });
-      if (!res.ok) throw new Error('settings update failed');
+      if (!res.ok) {
+        let detail = '';
+        try {
+          const errBody = await res.json();
+          detail = errBody.detail || errBody.message || '';
+        } catch (_) { /* ignore */ }
+        const err = new Error(detail || ('HTTP ' + res.status));
+        err.status = res.status;
+        err.detail = detail;
+        throw err;
+      }
       return await res.json();
     }
 
@@ -1336,9 +1346,9 @@
           await patchRadarSettings({ radar_enabled: val });
           showRadarToast(val ? 'Belofte-radar aan' : 'Belofte-radar uit');
           await refreshRadar();
-        } catch (_) {
+        } catch (err) {
           e.target.checked = !val;
-          showRadarToast('Opslaan mislukt — probeer opnieuw', 'error');
+          showRadarToast('Opslaan mislukt — ' + (err.message || 'probeer opnieuw'), 'error');
         }
       });
       document.getElementById('tgl-silence-enabled').addEventListener('change', async (e) => {
@@ -1347,9 +1357,9 @@
           await patchRadarSettings({ silence_radar_enabled: val });
           showRadarToast(val ? 'Stilte-radar aan' : 'Stilte-radar uit');
           await refreshRadar();
-        } catch (_) {
+        } catch (err) {
           e.target.checked = !val;
-          showRadarToast('Opslaan mislukt — probeer opnieuw', 'error');
+          showRadarToast('Opslaan mislukt — ' + (err.message || 'probeer opnieuw'), 'error');
         }
       });
 
@@ -1366,10 +1376,10 @@
           try {
             await patchRadarSettings({ [field]: newVal });
             showRadarToast(label + ' ingesteld op ' + newVal + ' dagen');
-          } catch (_) {
+          } catch (err) {
             group.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
             if (prevActive) prevActive.classList.add('active');
-            showRadarToast('Opslaan mislukt — probeer opnieuw', 'error');
+            showRadarToast('Opslaan mislukt — ' + (err.message || 'probeer opnieuw'), 'error');
           }
         });
       }
@@ -1389,17 +1399,29 @@
             method: 'POST',
             headers: { 'Authorization': 'Bearer ' + session.access_token }
           });
-          if (!res.ok) throw new Error('scan failed');
+          if (!res.ok) {
+            let detail = '';
+            try {
+              const errBody = await res.json();
+              detail = errBody.detail || errBody.message || '';
+            } catch (_) {}
+            throw new Error(detail || ('HTTP ' + res.status));
+          }
           const out = await res.json();
-          const total = (out.commitment_nudges ?? 0) + (out.silence_nudges ?? 0);
+          // Backend returns {follow_up:{nudges_created:N}, silence:{nudges_created:N}, total_nudges_created:N}
+          const total = Number(
+            out.total_nudges_created
+            ?? ((out.follow_up?.nudges_created ?? 0) + (out.silence?.nudges_created ?? 0))
+            ?? 0
+          );
           if (total > 0) {
             showRadarToast(total + ' nieuwe ' + (total === 1 ? 'opvolg-concept' : 'opvolg-concepten') + ' klaargezet');
           } else {
             showRadarToast('Alles is up-to-date — geen nudges nodig');
           }
           await refreshRadar();
-        } catch (_) {
-          showRadarToast('Scan mislukt — probeer over een minuut opnieuw', 'error');
+        } catch (err) {
+          showRadarToast('Scan mislukt — ' + (err.message || 'probeer over een minuut opnieuw'), 'error');
         } finally {
           label.textContent = prev;
           btn.disabled = false;
