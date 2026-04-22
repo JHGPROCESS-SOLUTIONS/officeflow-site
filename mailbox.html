@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mailbox Manager — AI-inbox assistent voor Gmail | OfficeFlow</title>
+  <title>Mailbox Manager — Een rustige inbox zonder auto-send | OfficeFlow</title>
 
   <!-- SEO -->
-  <meta name="description" content="OfficeFlow Mailbox Manager: AI-assistent die je Gmail classificeert, concept-antwoorden voorbereidt en je inbox rustig houdt. Jij houdt controle, nooit auto-send. €24/maand.">
-  <meta name="keywords" content="AI inbox, Gmail AI, slimme mailbox, AI email assistent, concept antwoorden, inbox management, officeflow mailbox">
+  <meta name="description" content="OfficeFlow Mailbox Manager: AI sorteert je Gmail in 9 heldere labels en zet concept-antwoorden klaar in je thread. Jij drukt op verzenden. Vanaf €24/maand.">
+  <meta name="keywords" content="AI inbox, Gmail AI, slimme mailbox, AI email assistent, concept antwoorden, inbox management, officeflow mailbox, gmail labels">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <link rel="canonical" href="https://officeflowcompany.com/mailbox.html">
 
@@ -15,15 +15,15 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="OfficeFlow">
   <meta property="og:url" content="https://officeflowcompany.com/mailbox.html">
-  <meta property="og:title" content="Mailbox Manager — AI-inbox assistent voor Gmail">
-  <meta property="og:description" content="AI-assistent die je Gmail classificeert en concept-antwoorden voorbereidt. Jij houdt controle.">
+  <meta property="og:title" content="Mailbox Manager — Een rustige inbox zonder auto-send">
+  <meta property="og:description" content="AI sorteert je Gmail in 9 heldere labels en zet concepten klaar. Jij drukt op verzenden.">
   <meta property="og:image" content="https://officeflowcompany.com/og-image.png">
   <meta property="og:locale" content="nl_NL">
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="OfficeFlow Mailbox Manager — AI-inbox voor Gmail">
-  <meta name="twitter:description" content="AI-assistent die je inbox classificeert en concepten voorbereidt.">
+  <meta name="twitter:title" content="OfficeFlow Mailbox Manager — Een rustige inbox">
+  <meta name="twitter:description" content="AI die je inbox sorteert en concepten voorbereidt. Jij beslist altijd.">
   <meta name="twitter:image" content="https://officeflowcompany.com/og-image.png">
 
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -35,158 +35,283 @@
     :root{
       --text:#0f172a;
       --text-soft:#64748b;
-      --border:#dbe4f0;
+      --text-mute:#94a3b8;
+      --border:#e2e8f0;
+      --border-soft:#eef2f7;
       --orange:#f97316;
       --orange-dark:#ea580c;
+      --orange-soft:#fff7ed;
       --blue:#6366f1;
+      --blue-soft:#eef2ff;
+      --green:#16a34a;
+      --green-soft:#f0fdf4;
+      --purple:#a855f7;
+      --purple-soft:#faf5ff;
+      --yellow:#eab308;
+      --yellow-soft:#fefce8;
+      --red:#ef4444;
+      --red-soft:#fef2f2;
       --bg-soft:#f8fafc;
       --gradient-orange:linear-gradient(135deg,#f97316 0%,#fb923c 100%);
-      --gradient-hero:linear-gradient(135deg,#4b2e2e 0%,#f97316 48%,#8b5cf6 100%);
       --shadow:0 24px 60px rgba(15,23,42,.06);
-      --shadow-strong:0 30px 80px rgba(15,23,42,.08);
-      --radius:26px;
-      --card-bg:rgba(255,255,255,.82);
+      --shadow-strong:0 30px 80px rgba(15,23,42,.10);
+      --radius:22px;
     }
     *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
     body{
       margin:0;
-      font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      font-family:'Plus Jakarta Sans',Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
       color:var(--text);
-      background:linear-gradient(180deg,#ffffff 0%,#fffaf7 40%,#f8fbff 100%);
+      background:linear-gradient(180deg,#ffffff 0%,#fffaf7 50%,#f8fbff 100%);
+      -webkit-font-smoothing:antialiased;
     }
     a{text-decoration:none;color:inherit}
-    .container{max-width:1150px;margin:auto;padding:0 20px}
-    .nav{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:24px 0 0;flex-wrap:wrap}
-    .logo{display:inline-flex;align-items:center;gap:10px;font-size:28px;font-weight:900;letter-spacing:-.04em;line-height:1;text-decoration:none;color:inherit}
-    .logo svg{flex-shrink:0;display:block}
-    .logo span{background:var(--gradient-orange);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-    .nav-links,.nav-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-    .nav-links a{color:var(--text-soft);font-size:14px;font-weight:600}
-    .nav-toggle{display:none;background:transparent;border:1.5px solid var(--border);border-radius:10px;width:44px;height:44px;cursor:pointer;align-items:center;justify-content:center;padding:0}
-    .nav-toggle-bars{display:inline-block;width:18px;height:12px;position:relative}
-    .nav-toggle-bars span{position:absolute;left:0;right:0;height:2px;background:var(--text);border-radius:2px;transition:transform .2s,top .2s,opacity .2s}
-    .nav-toggle-bars span:nth-child(1){top:0}
-    .nav-toggle-bars span:nth-child(2){top:5px}
-    .nav-toggle-bars span:nth-child(3){top:10px}
-    .nav.is-open .nav-toggle-bars span:nth-child(1){top:5px;transform:rotate(45deg)}
-    .nav.is-open .nav-toggle-bars span:nth-child(2){opacity:0}
-    .nav.is-open .nav-toggle-bars span:nth-child(3){top:5px;transform:rotate(-45deg)}
+    .container{max-width:1180px;margin:auto;padding:0 24px}
+
+    /* NAV */
+    .nav{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:22px 0}
+    .logo{display:inline-flex;align-items:center;gap:10px;font-size:24px;font-weight:800;letter-spacing:-.025em;line-height:1;text-decoration:none;color:var(--text)}
+    .logo svg{flex-shrink:0;display:block;filter:drop-shadow(0 3px 8px rgba(249,115,22,.18))}
+    .logo .flow{color:var(--orange)}
+    .nav-actions{display:flex;align-items:center;gap:10px}
     .btn{
-      display:inline-flex;align-items:center;justify-content:center;padding:16px 26px;border-radius:16px;
-      font-weight:800;border:1px solid transparent;transition:.2s ease;white-space:nowrap
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      padding:12px 22px;border-radius:12px;
+      font-family:inherit;font-size:14px;font-weight:700;
+      border:1px solid transparent;transition:all .2s ease;white-space:nowrap;cursor:pointer;line-height:1
     }
-    .btn:hover{transform:translateY(-2px)}
-    .btn-primary{background:var(--gradient-orange);color:#fff;box-shadow:0 18px 40px rgba(249,115,22,.26)}
-    .btn-secondary{background:rgba(255,255,255,.72);border-color:var(--border);color:var(--text)}
-    .hero{padding:88px 0 70px;position:relative}
+    .btn:hover{transform:translateY(-1px)}
+    .btn-primary{background:var(--gradient-orange);color:#fff;box-shadow:0 10px 24px rgba(249,115,22,.26)}
+    .btn-primary:hover{box-shadow:0 14px 32px rgba(249,115,22,.35)}
+    .btn-secondary{background:#fff;border-color:var(--border);color:var(--text)}
+    .btn-secondary:hover{border-color:var(--text)}
+    .btn-lg{padding:15px 28px;font-size:15px;border-radius:14px}
+
+    /* HERO */
+    .hero{padding:64px 0 90px;position:relative;overflow:hidden}
     .hero::before{
-      content:"";position:absolute;inset:0;pointer-events:none;
+      content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
       background:
-        radial-gradient(circle at 10% 10%,rgba(249,115,22,.12),transparent 25%),
-        radial-gradient(circle at 85% 15%,rgba(99,102,241,.12),transparent 25%);
+        radial-gradient(circle at 10% 10%,rgba(249,115,22,.12),transparent 28%),
+        radial-gradient(circle at 90% 20%,rgba(99,102,241,.08),transparent 30%);
     }
-    .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:34px;align-items:start}
+    .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;position:relative;z-index:1}
     .eyebrow{
-      display:inline-flex;align-items:center;gap:10px;padding:8px 14px;background:rgba(255,255,255,.85);
-      border:1px solid rgba(226,232,240,.96);border-radius:999px;font-size:12px;font-weight:800;
-      letter-spacing:.08em;text-transform:uppercase;margin-bottom:18px;line-height:1
+      display:inline-flex;align-items:center;gap:8px;padding:6px 12px;
+      background:var(--orange-soft);border:1px solid #fed7aa;border-radius:999px;
+      font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+      color:var(--orange-dark);margin-bottom:20px;line-height:1
     }
     .eyebrow::before{
-      content:"";width:8px;height:8px;border-radius:999px;background:var(--gradient-orange);
-      box-shadow:0 0 0 6px rgba(249,115,22,.12)
+      content:"";width:6px;height:6px;border-radius:999px;background:var(--orange);
+      box-shadow:0 0 0 4px rgba(249,115,22,.14)
     }
-    h1{
-      font-size:clamp(52px,7vw,76px);line-height:.94;letter-spacing:-.055em;margin:0 0 18px;max-width:760px
+    h1{font-size:clamp(42px,5.4vw,60px);line-height:1.05;letter-spacing:-.035em;margin:0 0 18px;font-weight:800}
+    h1 .grad{background:var(--gradient-orange);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .lead{font-size:18px;color:var(--text-soft);line-height:1.7;margin:0 0 28px;max-width:520px}
+    .lead strong{color:var(--text);font-weight:600}
+    .hero-cta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:24px}
+    .hero-points{display:flex;gap:14px 24px;flex-wrap:wrap;color:var(--text-soft);font-size:13px;font-weight:500}
+    .hero-points span{display:inline-flex;align-items:center;gap:6px}
+    .hero-points svg{color:var(--green);flex-shrink:0}
+
+    /* GMAIL MOCK (hero visual) */
+    .gmail-mock{
+      background:#fff;border:1px solid var(--border);border-radius:18px;
+      overflow:hidden;box-shadow:var(--shadow-strong);
     }
-    .hero-line{
-      font-size:clamp(24px,3vw,32px);line-height:1.15;font-weight:900;letter-spacing:-.03em;margin:0 0 18px
+    .gm-bar{display:flex;align-items:center;gap:10px;padding:12px 16px;background:#f5f7fb;border-bottom:1px solid var(--border-soft)}
+    .gm-dots{display:flex;gap:5px}
+    .gm-dots span{width:9px;height:9px;border-radius:50%}
+    .gm-dots span:nth-child(1){background:#ff5f57}
+    .gm-dots span:nth-child(2){background:#febc2e}
+    .gm-dots span:nth-child(3){background:#28c840}
+    .gm-url{flex:1;background:#fff;border:1px solid var(--border);border-radius:8px;padding:5px 10px;font-size:11px;color:var(--text-mute);font-family:'SF Mono',monospace}
+    .gm-tabs{display:flex;padding:0 16px;border-bottom:1px solid var(--border-soft);background:#fff;gap:4px}
+    .gm-tab{padding:11px 14px;font-size:12px;font-weight:600;color:var(--text-mute);border-bottom:2px solid transparent}
+    .gm-tab.active{color:var(--blue);border-bottom-color:var(--blue)}
+    .gm-row{display:flex;align-items:center;gap:10px;padding:11px 16px;border-bottom:1px solid var(--border-soft);font-size:13px;transition:background .15s}
+    .gm-row:hover{background:#fafbfd}
+    .gm-row:last-child{border-bottom:0}
+    .gm-sender{width:110px;font-weight:600;color:var(--text);flex-shrink:0}
+    .gm-label{padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:.03em;flex-shrink:0}
+    .gm-sub{flex:1;color:var(--text-soft);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+    .gm-sub strong{color:var(--text);font-weight:600}
+    .gm-time{font-size:11px;color:var(--text-mute);flex-shrink:0}
+    .lbl-prio{background:#fff1f2;color:#be123c}
+    .lbl-resp{background:#eef2ff;color:#4338ca}
+    .lbl-wait{background:#fefce8;color:#a16207}
+    .lbl-follow{background:#fff7ed;color:#c2410c}
+    .lbl-done{background:#f0fdf4;color:#15803d}
+    .lbl-fyi{background:#f1f5f9;color:#475569}
+    .lbl-notif{background:#faf5ff;color:#7e22ce}
+    .lbl-mkt{background:#fdf2f8;color:#be185d}
+    .lbl-ign{background:#f1f5f9;color:#64748b}
+
+    /* SECTIONS */
+    .section{padding:96px 0;position:relative}
+    .section-soft{background:var(--bg-soft);border-top:1px solid var(--border-soft);border-bottom:1px solid var(--border-soft)}
+    .section-dark{background:#0b1220;color:#fff}
+    .section-head{max-width:720px;margin:0 auto 48px;text-align:center}
+    .section-head.left{margin:0 0 48px;text-align:left}
+    .section-eyebrow{
+      display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:800;
+      letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-bottom:12px
     }
-    .lead{font-size:20px;color:var(--text-soft);max-width:700px;line-height:1.8;margin:0 0 24px}
-    .hero-points{display:flex;gap:18px;flex-wrap:wrap;color:var(--text-soft);font-size:14px;margin:0 0 28px}
-    .hero-points span::before{content:"• ";color:#22c55e;font-weight:900}
-    .card,.feature,.testimonial,.manager{
-      background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)
+    .section-eyebrow::before{content:"";width:22px;height:2px;background:var(--gradient-orange);border-radius:1px}
+    .section-eyebrow.light{color:rgba(255,255,255,.5)}
+    .section-eyebrow.light::before{background:rgba(255,255,255,.25)}
+    .section-title{font-size:clamp(30px,4vw,44px);letter-spacing:-.03em;margin:0 0 14px;line-height:1.1;font-weight:800}
+    .section-sub{font-size:17px;color:var(--text-soft);line-height:1.7;margin:0}
+    .section-sub.light{color:rgba(255,255,255,.55)}
+
+    /* VOORDELEN */
+    .benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .benefit{
+      background:#fff;border:1px solid var(--border);border-radius:var(--radius);
+      padding:30px;transition:transform .2s,box-shadow .2s,border-color .2s
     }
-    .manager{padding:22px}
-    .manager-inner{
-      border:1px solid rgba(219,228,240,.95);border-radius:20px;background:rgba(255,255,255,.82);overflow:hidden
+    .benefit:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:#fed7aa}
+    .benefit-icon{
+      width:44px;height:44px;border-radius:12px;background:var(--orange-soft);
+      display:flex;align-items:center;justify-content:center;margin-bottom:18px
     }
-    .manager-top{
-      padding:16px 18px;border-bottom:1px solid rgba(219,228,240,.95);display:flex;justify-content:space-between;
-      align-items:center;gap:12px;background:rgba(248,250,252,.76)
+    .benefit-icon svg{color:var(--orange)}
+    .benefit h3{font-size:19px;font-weight:700;margin:0 0 10px;letter-spacing:-.015em}
+    .benefit p{font-size:14px;color:var(--text-soft);line-height:1.7;margin:0}
+
+    /* WERKWIJZE */
+    .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;counter-reset:step}
+    .step{position:relative;padding:28px 24px;background:#fff;border:1px solid var(--border);border-radius:var(--radius)}
+    .step::before{
+      counter-increment:step;content:counter(step);
+      position:absolute;top:-14px;left:22px;
+      width:32px;height:32px;border-radius:10px;background:var(--gradient-orange);
+      color:#fff;font-weight:800;font-size:14px;
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 6px 16px rgba(249,115,22,.3)
     }
-    .manager-top-title{font-size:18px;font-weight:900;line-height:1.2}
-    .manager-sub{margin-top:4px;font-size:13px;color:var(--text-soft);line-height:1.5}
-    .pill{padding:8px 10px;border-radius:999px;font-size:11px;font-weight:800;white-space:nowrap;line-height:1}
-    .pill-orange{background:#fff7ed;color:var(--orange-dark);border:1px solid #fed7aa}
-    .pill-blue{background:#eef2ff;color:var(--blue);border:1px solid #c7d2fe}
-    .pill-dark{background:#f8fafc;color:var(--text-soft);border:1px solid var(--border)}
-    .manager-body{padding:16px 18px 18px;display:grid;gap:12px}
-    .manager-row{
-      display:grid;grid-template-columns:1fr auto;gap:14px;align-items:start;padding:12px 14px;border-radius:16px;
-      background:rgba(248,250,252,.8);border:1px solid rgba(219,228,240,.92)
+    .step h4{font-size:16px;font-weight:700;margin:8px 0 8px;letter-spacing:-.01em}
+    .step p{font-size:13.5px;color:var(--text-soft);line-height:1.65;margin:0}
+
+    /* LABELS (afbeelding 3 inspired) */
+    .labels-wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:48px;align-items:start}
+    .labels-list{display:grid;grid-template-columns:1fr 1fr;gap:10px 16px}
+    .lbl-row{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;background:#fff;border:1px solid var(--border-soft);font-size:13.5px;font-weight:600}
+    .lbl-row-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+    .lbl-row-hint{font-size:12px;color:var(--text-mute);font-weight:500;margin-left:auto}
+    .dot-prio{background:#dc2626}
+    .dot-resp{background:#4f46e5}
+    .dot-wait{background:#ca8a04}
+    .dot-follow{background:#ea580c}
+    .dot-done{background:#16a34a}
+    .dot-fyi{background:#64748b}
+    .dot-notif{background:#9333ea}
+    .dot-mkt{background:#ec4899}
+    .dot-ign{background:#94a3b8}
+
+    /* DASHBOARD MOCK (afbeelding 2 inspired) */
+    .dash-mock{
+      background:#fffaf3;border:1px solid #fed7aa;border-radius:20px;padding:20px;
+      box-shadow:var(--shadow-strong)
     }
-    .manager-row-title{font-size:15px;font-weight:800;line-height:1.25;margin-bottom:4px}
-    .manager-row-text{color:var(--text-soft);font-size:13px;line-height:1.5}
-    .section{padding:84px 0}
-    .section-soft{background:var(--bg-soft)}
-    .section-title{font-size:clamp(34px,5vw,46px);letter-spacing:-.04em;margin:0 0 14px;line-height:1.05}
-    .section-intro{max-width:760px;color:var(--text-soft);line-height:1.8;font-size:18px;margin:0 0 28px}
-    .grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
-    .feature,.testimonial{padding:30px;height:100%;display:flex;flex-direction:column}
-    .feature h3,.testimonial h3{font-size:24px;margin:0 0 10px;line-height:1.1;letter-spacing:-.03em}
-    .feature p,.testimonial p{margin:0;color:var(--text-soft);line-height:1.8}
-    .compare{
-      display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:start
+    .dash-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding:0 4px}
+    .dash-title{font-size:13px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--text-soft)}
+    .dash-chip{font-size:10px;font-weight:800;color:var(--orange);background:#fff;border:1px solid #fed7aa;padding:4px 9px;border-radius:999px}
+    .dash-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+    .dash-tile{background:#fff;border-radius:12px;padding:14px;border:1px solid #fef3c7}
+    .dash-tile-icon{width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;margin-bottom:10px}
+    .ti-o{background:var(--orange-soft)} .ti-o svg{color:var(--orange)}
+    .ti-g{background:var(--green-soft)} .ti-g svg{color:var(--green)}
+    .ti-p{background:var(--purple-soft)} .ti-p svg{color:var(--purple)}
+    .ti-b{background:var(--blue-soft)} .ti-b svg{color:var(--blue)}
+    .dash-tile-label{font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--text-mute);margin-bottom:4px}
+    .dash-tile-v{font-size:22px;font-weight:800;letter-spacing:-.025em;line-height:1}
+    .dash-tile-s{font-size:10px;color:var(--text-soft);margin-top:4px;line-height:1.3}
+    .dash-chart{background:#fff;border-radius:12px;padding:14px;border:1px solid #fef3c7}
+    .dash-chart-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+    .dash-chart-t{font-size:12px;font-weight:700}
+    .dash-chart-l{font-size:10px;color:var(--text-mute)}
+    .dash-bars{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;align-items:end;height:60px}
+    .dash-bar{background:var(--gradient-orange);border-radius:4px 4px 2px 2px}
+    .dash-bars span{text-align:center;font-size:9px;color:var(--text-mute);font-weight:600;margin-top:4px}
+    .dash-days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:4px}
+
+    /* ACCOUNT MOCK (afbeelding 1 inspired) */
+    .account-wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+    .account-mock{
+      background:#fff;border:1px solid var(--border);border-radius:18px;
+      box-shadow:var(--shadow-strong);overflow:hidden
     }
-    .checklist{padding:30px}
-    .checklist ul{margin:18px 0 0;padding-left:18px;line-height:2;color:var(--text-soft)}
-    .checklist strong{display:block;font-size:26px;line-height:1.1}
-    .price-card{padding:30px}
-    .price-tag{font-size:42px;font-weight:900;letter-spacing:-.05em;margin:0 0 6px}
-    .muted{color:var(--text-soft)}
-    .testimonial-meta{margin-top:16px;font-weight:700;font-size:13px}
-    .footer{padding:28px 0 60px;color:var(--text-soft);font-size:14px;text-align:center}
-    .footer-links{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;font-size:14px;font-weight:600}
-    .footer-copy{margin-top:12px;font-size:13px}
-    @media (max-width:980px){
-      .hero-grid,.grid-3,.compare{grid-template-columns:1fr}
+    .am-head{padding:18px 22px;border-bottom:1px solid var(--border-soft);display:flex;align-items:center;justify-content:space-between}
+    .am-head-t{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--text-mute)}
+    .am-block{padding:18px 22px;border-bottom:1px solid var(--border-soft)}
+    .am-block:last-child{border-bottom:0}
+    .am-block-t{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--text-mute);margin-bottom:10px}
+    .am-card{background:var(--bg-soft);border-radius:12px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .am-card-t{font-size:14px;font-weight:700}
+    .am-card-s{font-size:12px;color:var(--text-soft);margin-top:2px}
+    .am-badge{font-size:11px;font-weight:700;color:var(--green);background:var(--green-soft);border:1px solid #bbf7d0;padding:4px 10px;border-radius:999px;display:inline-flex;align-items:center;gap:6px}
+    .am-badge::before{content:"";width:6px;height:6px;border-radius:999px;background:var(--green)}
+    .am-mini-btn{font-size:12px;font-weight:700;color:var(--orange);padding:6px 12px;border:1px solid #fed7aa;border-radius:8px;background:var(--orange-soft)}
+    .am-list{display:grid;gap:6px}
+    .am-list-row{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-radius:10px;background:var(--bg-soft);font-size:13px}
+    .am-list-row-k{font-weight:600}
+    .am-list-row-v{font-size:12px;font-weight:700;color:var(--orange)}
+
+    /* PRIJS */
+    .price-card{
+      max-width:520px;margin:0 auto;background:#fff;border:1px solid var(--border);
+      border-radius:24px;padding:40px;box-shadow:var(--shadow-strong);text-align:center
     }
-    @media (max-width:720px){
-      html,body{overflow-x:hidden}
-      .nav{padding-top:18px;gap:10px;align-items:center;flex-wrap:wrap}
-      .nav-toggle{display:inline-flex}
-      .nav > .nav-links,.nav > .nav-actions{display:none}
-      .nav.is-open > .nav-links,.nav.is-open > .nav-actions{display:flex;width:100%;flex-direction:column;align-items:stretch;gap:6px;order:99}
-      .nav.is-open > .nav-links{padding-top:12px;border-top:1px solid var(--border)}
-      .nav.is-open > .nav-links a{padding:10px 2px;font-size:15px}
-      .nav.is-open > .nav-actions{padding-top:6px;gap:8px}
-      .nav.is-open > .nav-actions .btn{width:100%;padding:13px 18px;font-size:14px;border-radius:12px}
-      .hero{padding:48px 0 40px}
-      .section{padding:56px 0}
-      .section-title{font-size:clamp(26px,6.5vw,34px)}
-      .section-intro{font-size:16px;margin-bottom:20px}
-      .lead{font-size:16px;line-height:1.7}
-      .hero-line{font-size:clamp(20px,5.5vw,26px)}
-      h1{font-size:clamp(36px,9vw,48px);margin-bottom:14px}
-      .hero-points{gap:6px 14px;font-size:13px;margin-bottom:22px}
-      .feature,.testimonial,.checklist,.price-card,.manager{padding:22px}
-      .feature h3,.testimonial h3{font-size:20px}
-      .price-tag{font-size:36px}
-      .btn{padding:14px 20px;font-size:14px}
-      .manager-row{grid-template-columns:1fr}
-      .hero .nav-actions{flex-direction:column;width:100%}
-      .hero .nav-actions .btn{width:100%}
-    }
-    @media (max-width:480px){
-      .logo{font-size:22px}
-      .logo svg{width:26px;height:26px}
-      .eyebrow{font-size:11px;padding:6px 12px}
-      .container{padding:0 16px}
-    }
+    .price-tag{font-size:56px;font-weight:800;letter-spacing:-.04em;line-height:1;margin:6px 0}
+    .price-per{font-size:14px;color:var(--text-soft);margin-bottom:6px}
+    .price-note{font-size:13px;color:var(--text-mute);margin-bottom:24px}
+    .price-feats{list-style:none;padding:0;margin:0 0 28px;display:grid;gap:10px;text-align:left}
+    .price-feats li{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--text);line-height:1.5}
+    .price-feats svg{color:var(--green);flex-shrink:0;margin-top:2px}
+
+    /* CTA BAR */
+    .cta{padding:60px 0;background:var(--gradient-orange);text-align:center;color:#fff}
+    .cta h2{font-size:clamp(28px,4vw,38px);margin:0 0 10px;font-weight:800;letter-spacing:-.02em}
+    .cta p{font-size:16px;opacity:.9;margin:0 0 24px}
+    .btn-white{background:#fff;color:var(--orange)}
+    .btn-white:hover{background:var(--orange-soft)}
+
+    /* FOOTER */
+    footer{padding:40px 0;background:#0b1220;color:rgba(255,255,255,.45);font-size:13px}
+    .ft-inner{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+    .ft-logo{display:inline-flex;align-items:center;gap:10px;color:rgba(255,255,255,.9);font-weight:800;font-size:18px}
+    .ft-logo .flow{color:#fb923c}
+    .ft-links{display:flex;gap:18px;flex-wrap:wrap}
+    .ft-links a{color:rgba(255,255,255,.45);transition:color .2s}
+    .ft-links a:hover{color:#fff}
+
+    /* REVEAL */
+    .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s ease}
+    .reveal.in{opacity:1;transform:translateY(0)}
+
+    /* MOBILE TABS */
     .mobile-tabs{display:none}
+    @media (max-width:900px){
+      .hero-grid,.labels-wrap,.account-wrap{grid-template-columns:1fr;gap:36px}
+      .benefits,.steps,.dash-tiles{grid-template-columns:1fr 1fr}
+      .labels-list{grid-template-columns:1fr 1fr}
+    }
     @media (max-width:720px){
       html{scroll-padding-top:64px}
+      .section{padding:60px 0}
+      .hero{padding:40px 0 60px}
+      h1{font-size:clamp(34px,8vw,44px)}
+      .lead{font-size:15.5px}
+      .benefits,.steps,.dash-tiles,.labels-list{grid-template-columns:1fr}
+      .hero-cta{flex-direction:column;align-items:stretch}
+      .hero-cta .btn{width:100%}
+      .nav-actions{gap:6px}
+      .btn{padding:10px 16px;font-size:13px}
+      .logo{font-size:20px}
+      .logo svg{width:28px;height:28px}
       .mobile-tabs{
         display:flex;position:sticky;top:0;z-index:50;
         gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;
@@ -206,195 +331,386 @@
       }
     }
   </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="container">
-    <nav class="nav">
-      <a class="logo" href="/" aria-label="OfficeFlow"><svg viewBox="0 0 48 48" width="32" height="32" aria-hidden="true"><defs><linearGradient id="of-mailbox-mark" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F97316"/><stop offset="100%" stop-color="#FB923C"/></linearGradient></defs><rect width="48" height="48" rx="11" fill="url(#of-mailbox-mark)"/><circle cx="24" cy="24" r="11" fill="none" stroke="#fff" stroke-width="3.2"/><path d="M21.5 19.5 L28 24 L21.5 28.5" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Office<span>Flow</span></a>
-      <div class="nav-actions">
-        <a class="btn btn-secondary" href="/">Terug</a>
-        <a class="btn btn-primary" href="/onboarding.html">Start nu →</a>
-      </div>
-    </nav>
-  </div>
 
-  <nav class="mobile-tabs" aria-label="Pagina secties">
-    <a href="#top">Overzicht</a>
-    <a href="#voordelen">Voordelen</a>
-    <a href="#werkt">Werkwijze</a>
-    <a href="#prijs">Prijs</a>
+<div class="container">
+  <nav class="nav">
+    <a class="logo" href="/" aria-label="OfficeFlow">
+      <svg viewBox="0 0 48 48" width="32" height="32" aria-hidden="true">
+        <defs><linearGradient id="of-mailbox-mark" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F97316"/><stop offset="100%" stop-color="#FB923C"/></linearGradient></defs>
+        <rect width="48" height="48" rx="11" fill="url(#of-mailbox-mark)"/>
+        <circle cx="24" cy="24" r="11" fill="none" stroke="#fff" stroke-width="3.2"/>
+        <path d="M21.5 19.5 L28 24 L21.5 28.5" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Office<span class="flow">Flow</span>
+    </a>
+    <div class="nav-actions">
+      <a class="btn btn-secondary" href="/">Terug</a>
+      <a class="btn btn-primary" href="/onboarding.html">Start nu →</a>
+    </div>
   </nav>
+</div>
 
-  <section class="hero" id="top">
-    <div class="container hero-grid">
+<nav class="mobile-tabs" aria-label="Pagina secties">
+  <a href="#top">Overzicht</a>
+  <a href="#labels">Labels</a>
+  <a href="#dashboard">Dashboard</a>
+  <a href="#werkt">Werkwijze</a>
+  <a href="#prijs">Prijs</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="container">
+    <div class="hero-grid">
       <div>
-        <div class="eyebrow">MAILBOX • GMAIL • CONTROLE</div>
-        <h1>Je inbox. Maar dan goed.</h1>
-        <div class="hero-line">Je email manager voor Gmail.</div>
-        <p class="lead">
-          OfficeFlow werkt direct in je bestaande inbox. Mails met actie krijgen een draft reply in je eigen toon en instellingen, spam wordt gemarkeerd en alles krijgt een duidelijk label.
-        </p>
+        <div class="eyebrow">Voor Gmail · Geen auto-send</div>
+        <h1>Een inbox die <span class="grad">zichzelf sorteert</span>. Jij houdt de knop.</h1>
+        <p class="lead">Mailbox Manager leest je Gmail, plakt <strong>9 heldere labels</strong> op alles wat binnenkomt en zet concept-antwoorden klaar in de thread. Jij bepaalt wat er verstuurd wordt — altijd.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary btn-lg" href="/onboarding.html">Start nu →</a>
+          <a class="btn btn-secondary btn-lg" href="#werkt">Zo werkt het</a>
+        </div>
         <div class="hero-points">
-          <span>Geen nieuwe inbox nodig</span>
-          <span>Draft replies in eigen tone</span>
-          <span>Duidelijke labels op elke mail</span>
-        </div>
-        <div class="nav-actions">
-          <a class="btn btn-primary" href="/start">Activeer Mailbox</a>
-          <a class="btn btn-secondary" href="#prijs">Bekijk prijs</a>
+          <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Nooit auto-send</span>
+          <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Werkt in Gmail zelf</span>
+          <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Maandelijks opzegbaar</span>
         </div>
       </div>
-
-      <div class="manager">
-        <div class="manager-inner">
-          <div class="manager-top">
-            <div>
-              <div class="manager-top-title">OfficeFlow Mailbox Manager</div>
-              <div class="manager-sub">Voor Gmail. Alles overzichtelijk, zonder extra tools.</div>
-            </div>
-            <span class="pill pill-orange">Actief</span>
+      <div class="reveal">
+        <div class="gmail-mock">
+          <div class="gm-bar">
+            <div class="gm-dots"><span></span><span></span><span></span></div>
+            <div class="gm-url">mail.google.com/u/0/#inbox</div>
           </div>
-          <div class="manager-body">
-            <div class="manager-row">
-              <div>
-                <div class="manager-row-title">Draft reply voor mails met actie</div>
-                <div class="manager-row-text">Voor emails waar actie voor nodig is wordt automatisch een draft reply aangemaakt in je eigen toon en instellingen.</div>
-              </div>
-              <span class="pill pill-blue">To Respond</span>
-            </div>
-            <div class="manager-row">
-              <div>
-                <div class="manager-row-title">Spam en niet-belangrijk gemarkeerd</div>
-                <div class="manager-row-text">Irrelevante mails worden direct verwerkt zodat je inbox rustig blijft.</div>
-              </div>
-              <span class="pill pill-dark">Ignore</span>
-            </div>
-            <div class="manager-row">
-              <div>
-                <div class="manager-row-title">Alles krijgt een label</div>
-                <div class="manager-row-text">Statussen zoals Done, Waiting On Reply, FYI en Priority maken direct duidelijk wat aandacht nodig heeft.</div>
-              </div>
-              <span class="pill pill-orange">Gelabeld</span>
-            </div>
+          <div class="gm-tabs">
+            <div class="gm-tab active">Primair</div>
+            <div class="gm-tab">Reclame</div>
+            <div class="gm-tab">Sociaal</div>
+            <div class="gm-tab">Updates</div>
+          </div>
+          <div class="gm-row"><div class="gm-sender">Klant ABC</div><div class="gm-label lbl-prio">Priority</div><div class="gm-sub"><strong>Kunnen we morgen bellen over het voorstel?</strong> — Hallo, ik heb je offerte bekeken en zou graag...</div><div class="gm-time">12:20</div></div>
+          <div class="gm-row"><div class="gm-sender">Linda Visser</div><div class="gm-label lbl-resp">To Respond</div><div class="gm-sub"><strong>Vraag over factuur #1042</strong> — Ik zie twee posten die ik niet helemaal begrijp...</div><div class="gm-time">11:47</div></div>
+          <div class="gm-row"><div class="gm-sender">Jan Bakker</div><div class="gm-label lbl-wait">Waiting On Reply</div><div class="gm-sub">Bedankt, ik laat het je weten zodra ik reactie heb van...</div><div class="gm-time">10:58</div></div>
+          <div class="gm-row"><div class="gm-sender">DPD Pakket</div><div class="gm-label lbl-notif">Notification</div><div class="gm-sub">Je pakket is bezorgd. Bezorgd Pakketnummer: 0516...</div><div class="gm-time">11:07</div></div>
+          <div class="gm-row"><div class="gm-sender">MediaMarkt</div><div class="gm-label lbl-mkt">Marketing</div><div class="gm-sub">We hebben jouw hulp nodig! Beste klant, je hebt onlangs bij...</div><div class="gm-time">09:41</div></div>
+          <div class="gm-row"><div class="gm-sender">Boekhouder</div><div class="gm-label lbl-follow">Follow Up</div><div class="gm-sub">Stuur je de BTW-gegevens nog van vorig kwartaal? Ik had je...</div><div class="gm-time">08:30</div></div>
+          <div class="gm-row"><div class="gm-sender">TPR Padel</div><div class="gm-label lbl-done">Done</div><div class="gm-sub">Bevestiging reservering (70167754) op Padel 2 / Trend...</div><div class="gm-time">Gisteren</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VOORDELEN -->
+<section class="section section-soft" id="voordelen">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-eyebrow">Waarom OfficeFlow</div>
+      <h2 class="section-title">Minder ruis, meer grip op wat echt telt.</h2>
+      <p class="section-sub">Drie concrete winsten die je direct voelt vanaf dag één — zonder dat je iets hoeft te veranderen aan hoe je Gmail gebruikt.</p>
+    </div>
+    <div class="benefits">
+      <div class="benefit reveal">
+        <div class="benefit-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2v4"/><path d="M12 18v4"/><path d="M4.93 4.93l2.83 2.83"/><path d="M16.24 16.24l2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><circle cx="12" cy="12" r="4"/></svg>
+        </div>
+        <h3>Je ziet meteen wat belangrijk is</h3>
+        <p>Klantvragen, offertes en dringende zaken krijgen een <strong>Priority</strong> label. Nieuwsbrieven, bevestigingen en reclame verdwijnen naar hun eigen hoek. Je opent Gmail en weet in 5 seconden waar je moet beginnen.</p>
+      </div>
+      <div class="benefit reveal">
+        <div class="benefit-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>
+        </div>
+        <h3>Concepten staan klaar als jij inlogt</h3>
+        <p>Voor mails die een reactie nodig hebben schrijft OfficeFlow alvast een concept — in <strong>jouw toon</strong>, geleerd van je eerdere verzonden mails. Je opent het bericht en drukt op verzenden. Of je past het aan. Wat jij wil.</p>
+      </div>
+      <div class="benefit reveal">
+        <div class="benefit-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <h3>Jij drukt op verzenden. Altijd.</h3>
+        <p>Geen automatische antwoorden, geen auto-archive. OfficeFlow <strong>suggereert</strong>, jij beslist. Zet het morgen uit? Geen probleem, alles blijft zoals het was.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LABELS -->
+<section class="section" id="labels">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-eyebrow">Wat je krijgt</div>
+      <h2 class="section-title">9 labels die direct in Gmail staan.</h2>
+      <p class="section-sub">Geen aparte app, geen nieuw tabblad. OfficeFlow werkt gewoon in je Gmail — op web, telefoon, of elke Gmail-client die je gebruikt.</p>
+    </div>
+    <div class="labels-wrap">
+      <div>
+        <div class="labels-list">
+          <div class="lbl-row"><span class="lbl-row-dot dot-prio"></span>Priority<span class="lbl-row-hint">belangrijk</span></div>
+          <div class="lbl-row"><span class="lbl-row-dot dot-resp"></span>To Respond<span class="lbl-row-hint">wacht op jou</span></div>
+          <div class="lbl-row"><span class="lbl-row-dot dot-wait"></span>Waiting On Reply<span class="lbl-row-hint">wacht extern</span></div>
+          <div class="lbl-row"><span class="lbl-row-dot dot-follow"></span>Follow Up<span class="lbl-row-hint">jij belt terug</span></div>
+          <div class="lbl-row"><span class="lbl-row-dot dot-done"></span>Done<span class="lbl-row-hint">afgerond</span></div>
+          <div class="lbl-row"><span class="lbl-row-dot dot-fyi"></span>FYI<span class="lbl-row-hint">ter info</span></div>
+          <div class="lbl-row"><span class="lbl-row-dot dot-notif"></span>Notification<span class="lbl-row-hint">systeem</span></div>
+          <div class="lbl-row"><span class="lbl-row-dot dot-mkt"></span>Marketing<span class="lbl-row-hint">nieuwsbrief</span></div>
+          <div class="lbl-row"><span class="lbl-row-dot dot-ign"></span>Ignore<span class="lbl-row-hint">spam</span></div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="gmail-mock">
+          <div class="gm-bar"><div class="gm-dots"><span></span><span></span><span></span></div><div class="gm-url">Labels — Gmail zijbalk</div></div>
+          <div class="gm-row"><div class="gm-sender" style="width:140px"><span class="lbl-row-dot dot-prio" style="display:inline-block;margin-right:8px;vertical-align:middle"></span>Priority</div><div class="gm-sub">Klantvragen, offertes in behandeling, urgente zaken.</div></div>
+          <div class="gm-row"><div class="gm-sender" style="width:140px"><span class="lbl-row-dot dot-resp" style="display:inline-block;margin-right:8px;vertical-align:middle"></span>To Respond</div><div class="gm-sub">Mails die expliciet vragen om een antwoord van jou.</div></div>
+          <div class="gm-row"><div class="gm-sender" style="width:140px"><span class="lbl-row-dot dot-wait" style="display:inline-block;margin-right:8px;vertical-align:middle"></span>Waiting On Reply</div><div class="gm-sub">Je hebt gereageerd, wacht nu op iemand anders.</div></div>
+          <div class="gm-row"><div class="gm-sender" style="width:140px"><span class="lbl-row-dot dot-follow" style="display:inline-block;margin-right:8px;vertical-align:middle"></span>Follow Up</div><div class="gm-sub">Jij beloofde terug te komen — niet vergeten.</div></div>
+          <div class="gm-row"><div class="gm-sender" style="width:140px"><span class="lbl-row-dot dot-done" style="display:inline-block;margin-right:8px;vertical-align:middle"></span>Done</div><div class="gm-sub">Thread is klaar, hoeft geen actie meer.</div></div>
+          <div class="gm-row"><div class="gm-sender" style="width:140px"><span class="lbl-row-dot dot-notif" style="display:inline-block;margin-right:8px;vertical-align:middle"></span>Notification</div><div class="gm-sub">Bezorgingen, boekingen, systeemmeldingen.</div></div>
+          <div class="gm-row"><div class="gm-sender" style="width:140px"><span class="lbl-row-dot dot-mkt" style="display:inline-block;margin-right:8px;vertical-align:middle"></span>Marketing</div><div class="gm-sub">Nieuwsbrieven, aanbiedingen, verkoopmails.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DASHBOARD -->
+<section class="section section-soft" id="dashboard">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-eyebrow">Jouw overzicht</div>
+      <h2 class="section-title">Een klein dashboard. Grote duidelijkheid.</h2>
+      <p class="section-sub">Zie in één oogopslag hoeveel tijd OfficeFlow je bespaart, hoeveel concepten klaarstaan, en wat er nog wacht op een reactie. Geen dashboard-verslaving — gewoon wat je nodig hebt.</p>
+    </div>
+    <div style="max-width:880px;margin:0 auto" class="reveal">
+      <div class="dash-mock">
+        <div class="dash-head">
+          <div class="dash-title">Jouw impact deze week</div>
+          <div class="dash-chip">Live</div>
+        </div>
+        <div class="dash-tiles">
+          <div class="dash-tile">
+            <div class="dash-tile-icon ti-o"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+            <div class="dash-tile-label">Tijd terug</div>
+            <div class="dash-tile-v">4u 12m</div>
+            <div class="dash-tile-s">Bespaard door sorteren + concepten.</div>
+          </div>
+          <div class="dash-tile">
+            <div class="dash-tile-icon ti-g"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+            <div class="dash-tile-label">Concepten klaar</div>
+            <div class="dash-tile-v">23</div>
+            <div class="dash-tile-s">Wachtend in je Gmail-threads.</div>
+          </div>
+          <div class="dash-tile">
+            <div class="dash-tile-icon ti-p"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></div>
+            <div class="dash-tile-label">Mails gelabeld</div>
+            <div class="dash-tile-v">287</div>
+            <div class="dash-tile-s">Automatisch in de juiste hoek.</div>
+          </div>
+          <div class="dash-tile">
+            <div class="dash-tile-icon ti-b"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <div class="dash-tile-label">Priority bereikt</div>
+            <div class="dash-tile-v">100%</div>
+            <div class="dash-tile-s">Belangrijke mails binnen 5 min.</div>
+          </div>
+        </div>
+        <div class="dash-chart">
+          <div class="dash-chart-head">
+            <div class="dash-chart-t">Verwerkte mails · laatste 7 dagen</div>
+            <div class="dash-chart-l">312 totaal</div>
+          </div>
+          <div class="dash-bars">
+            <div class="dash-bar" style="height:42%"></div>
+            <div class="dash-bar" style="height:68%"></div>
+            <div class="dash-bar" style="height:54%"></div>
+            <div class="dash-bar" style="height:82%"></div>
+            <div class="dash-bar" style="height:71%"></div>
+            <div class="dash-bar" style="height:24%"></div>
+            <div class="dash-bar" style="height:18%"></div>
+          </div>
+          <div class="dash-days">
+            <span>M</span><span>D</span><span>W</span><span>D</span><span>V</span><span>Z</span><span>Z</span>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section id="voordelen" class="section section-soft">
-    <div class="container">
-      <h2 class="section-title">Wat je direct merkt</h2>
-      <p class="section-intro">Minder chaos, sneller reageren en veel meer overzicht in je bestaande Gmail inbox.</p>
-      <div class="grid-3">
-        <div class="feature">
-          <h3>Minder ruis</h3>
-          <p>Spam en niet-belangrijke mails worden direct gemarkeerd zodat jij alleen ziet wat telt.</p>
-        </div>
-        <div class="feature">
-          <h3>Sneller reageren</h3>
-          <p>Mails met actie krijgen alvast een draft reply in jouw eigen toon, klaar om te controleren en te versturen.</p>
-        </div>
-        <div class="feature">
-          <h3>Altijd status zichtbaar</h3>
-          <p>Met labels zoals To Respond, Waiting On Reply en Done houd je direct overzicht op je workflow.</p>
-        </div>
+<!-- WERKWIJZE -->
+<section class="section" id="werkt">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-eyebrow">Hoe het werkt</div>
+      <h2 class="section-title">Van inbox-chaos naar rust in 4 stappen.</h2>
+      <p class="section-sub">Eenmalig opzetten, daarna draait het op de achtergrond. Alles gebeurt veilig via Google OAuth — geen wachtwoorden, geen omweg.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <h4>Koppel je Gmail</h4>
+        <p>Eenmalig inloggen via Google. We vragen alleen toestemming om te lezen en concepten aan te maken — niet om te verzenden.</p>
+      </div>
+      <div class="step reveal">
+        <h4>Wij leren jouw stijl</h4>
+        <p>OfficeFlow scant je verzonden mails (alleen als voorbeeld) en leert jouw toon, aanhef en afsluiting.</p>
+      </div>
+      <div class="step reveal">
+        <h4>Labels + concepten</h4>
+        <p>Elke nieuwe mail krijgt automatisch een label. Mails die een reactie nodig hebben krijgen een concept in de thread.</p>
+      </div>
+      <div class="step reveal">
+        <h4>Jij beslist</h4>
+        <p>Open je Gmail, bekijk wat relevant is, pas concepten aan als je wilt, en druk op verzenden. Niets gebeurt zonder jou.</p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section id="werkt" class="section">
-    <div class="container compare">
-      <div class="card checklist">
-        <strong>Wat je krijgt</strong>
-        <ul>
-          <li>Werkt direct in Gmail</li>
-          <li>Draft replies gegenereerd in eigen voice of tone</li>
-          <li>Prioriteiten en labels op elke mail</li>
-          <li>Geen nieuwe systemen</li>
-          <li>Controle blijft altijd bij jou</li>
+<!-- ACCOUNT / INSTELLINGEN -->
+<section class="section section-soft">
+  <div class="container">
+    <div class="account-wrap">
+      <div>
+        <div class="section-eyebrow">Instellingen</div>
+        <h2 class="section-title">Alles op één plek — zonder rommel.</h2>
+        <p class="section-sub">Je abonnement, Gmail-koppeling en account in één simpel dashboard. Opzeggen in één klik, net zo makkelijk als starten. Geen verborgen toggles of instellingen-puzzels.</p>
+        <ul class="price-feats" style="margin-top:22px">
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Maandelijks opzegbaar, direct uit Gmail losgekoppeld.</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Google-verbinding heeft alleen de rechten die nodig zijn.</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Alle data in Europa, geen verkoop aan derden.</li>
         </ul>
       </div>
-      <div id="prijs" class="card price-card">
-        <div class="muted" style="font-weight:800;margin-bottom:8px;">OfficeFlow Mailbox</div>
-        <div class="price-tag">€24</div>
-        <div class="muted">excl. btw</div>
-        <p class="section-intro" style="font-size:16px;margin-top:20px;margin-bottom:24px;">
-          Voor ondernemers en teams die Gmail overzichtelijk willen houden zonder gedoe.
-        </p>
-        <a class="btn btn-primary" href="/start">Kies Mailbox</a>
+      <div class="reveal">
+        <div class="account-mock">
+          <div class="am-head">
+            <div class="am-head-t">Mijn OfficeFlow</div>
+            <div class="am-badge">Actief</div>
+          </div>
+          <div class="am-block">
+            <div class="am-block-t">Abonnement</div>
+            <div class="am-card">
+              <div>
+                <div class="am-card-t">Mailbox Manager</div>
+                <div class="am-card-s">€24/mnd · Maandelijks opzegbaar</div>
+              </div>
+              <div class="am-mini-btn">Beheer</div>
+            </div>
+          </div>
+          <div class="am-block">
+            <div class="am-block-t">Gmail-koppeling</div>
+            <div class="am-card">
+              <div>
+                <div class="am-card-t">jouwnaam@gmail.com</div>
+                <div class="am-card-s">Verbonden · labels + concepten actief</div>
+              </div>
+              <div class="am-badge">Live</div>
+            </div>
+          </div>
+          <div class="am-block">
+            <div class="am-block-t">Account</div>
+            <div class="am-list">
+              <div class="am-list-row"><span class="am-list-row-k">Wachtwoord wijzigen</span><span class="am-list-row-v">Wijzig →</span></div>
+              <div class="am-list-row"><span class="am-list-row-k">Privacybeleid</span><span class="am-list-row-v">Bekijk →</span></div>
+              <div class="am-list-row"><span class="am-list-row-k">Support</span><span class="am-list-row-v">Mail →</span></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </section>
-
-  <section class="section section-soft">
-    <div class="container">
-      <h2 class="section-title">Wat gebruikers merken</h2>
-      <div class="grid-3">
-        <div class="testimonial">
-          <h3>"Mijn inbox voelt eindelijk beheersbaar."</h3>
-          <p>Ik zie direct wat aandacht nodig heeft en wat kan wachten. Dat scheelt me elke week uren.</p>
-          <div class="testimonial-meta">Ondernemer</div>
-        </div>
-        <div class="testimonial">
-          <h3>"Ik hoef minder zelf na te denken."</h3>
-          <p>Antwoorden staan klaar en labels geven meteen richting. Mijn workflow is veel rustiger.</p>
-          <div class="testimonial-meta">Freelancer</div>
-        </div>
-        <div class="testimonial">
-          <h3>"Geen automatische risico's."</h3>
-          <p>Ik houd de controle, maar ben wel veel minder tijd kwijt aan email management.</p>
-          <div class="testimonial-meta">Dienstverlener</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="container footer">
-    <div class="footer-links">
-      <a href="privacy.html">Privacy</a>
-      <a href="terms.html">Terms</a>
-      <a href="mailto:mail@officeflowcompany.com">Contact</a>
-    </div>
-    <div class="footer-copy">mail@officeflowcompany.com • OfficeFlow Company XXX</div>
   </div>
-  <script>
-    (function(){
-      var nav=document.querySelector('nav.nav');
-      var toggle=nav&&nav.querySelector('.nav-toggle');
-      if(!nav||!toggle)return;
-      toggle.addEventListener('click',function(){
-        var isOpen=nav.classList.toggle('is-open');
-        toggle.setAttribute('aria-expanded',isOpen?'true':'false');
-        toggle.setAttribute('aria-label',isOpen?'Menu sluiten':'Menu openen');
+</section>
+
+<!-- PRIJS -->
+<section class="section" id="prijs">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-eyebrow">Prijs</div>
+      <h2 class="section-title">Eén plan. Geen trucs.</h2>
+      <p class="section-sub">Alles inbegrepen. Geen gedoe met credits of usage caps.</p>
+    </div>
+    <div class="price-card reveal">
+      <div style="font-size:14px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--orange)">Mailbox Manager</div>
+      <div class="price-tag">€24<span style="font-size:20px;color:var(--text-soft);font-weight:600">/mnd</span></div>
+      <div class="price-per">Excl. btw · maandelijks opzegbaar</div>
+      <div class="price-note">Start wanneer je wilt. Stop wanneer je wilt.</div>
+      <ul class="price-feats">
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>9 automatische labels in Gmail</li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Concept-antwoorden in jouw stijl</li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Thread-bewust — drafts verstoren geen status</li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Nooit auto-send, nooit auto-archive</li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Dashboard met weekoverzicht</li>
+        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Support via mail, antwoord binnen 1 werkdag</li>
+      </ul>
+      <a class="btn btn-primary btn-lg" href="/onboarding.html" style="width:100%">Start nu →</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="container">
+    <h2>Klaar om je inbox over te geven?</h2>
+    <p>(Maar niet echt, want jij houdt altijd de knop.)</p>
+    <a class="btn btn-white btn-lg" href="/onboarding.html">Start Mailbox Manager →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container ft-inner">
+    <a class="ft-logo" href="/">
+      <svg viewBox="0 0 48 48" width="24" height="24" aria-hidden="true">
+        <defs><linearGradient id="of-mb-ft" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F97316"/><stop offset="100%" stop-color="#FB923C"/></linearGradient></defs>
+        <rect width="48" height="48" rx="11" fill="url(#of-mb-ft)"/>
+        <circle cx="24" cy="24" r="11" fill="none" stroke="#fff" stroke-width="3.2"/>
+        <path d="M21.5 19.5 L28 24 L21.5 28.5" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Office<span class="flow">Flow</span>
+    </a>
+    <nav class="ft-links" aria-label="Voettekst navigatie">
+      <a href="/">Home</a>
+      <a href="/facturen/">Facturen &amp; Offertes</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Voorwaarden</a>
+      <a href="mailto:mail@officeflowcompany.com">Contact</a>
+    </nav>
+    <div class="footer-copy">© 2026 OfficeFlow</div>
+  </div>
+</footer>
+
+<script>
+  // Reveal on scroll
+  (function(){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
       });
-      nav.querySelectorAll('.nav-links a, .nav-actions a').forEach(function(a){
-        a.addEventListener('click',function(){
-          nav.classList.remove('is-open');
-          toggle.setAttribute('aria-expanded','false');
-          toggle.setAttribute('aria-label','Menu openen');
-        });
-      });
-    })();
-    (function(){
-      var tabs=document.querySelectorAll('.mobile-tabs a');
-      if(!tabs.length)return;
-      var map=[];
-      tabs.forEach(function(t){
-        var id=t.getAttribute('href').slice(1);
-        var el=document.getElementById(id);
-        if(el)map.push({tab:t,el:el});
-      });
-      function onScroll(){
-        var y=window.scrollY+100;
-        var current=map[0];
-        map.forEach(function(m){if(m.el.offsetTop<=y)current=m;});
-        tabs.forEach(function(t){t.classList.remove('active')});
-        if(current)current.tab.classList.add('active');
-      }
-      onScroll();
-      window.addEventListener('scroll',onScroll,{passive:true});
-    })();
-  </script>
+    }, { threshold: .12 });
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  })();
+
+  // Mobile tabs active-state
+  (function(){
+    var tabs = document.querySelectorAll('.mobile-tabs a');
+    if(!tabs.length) return;
+    var sections = Array.from(tabs).map(function(a){
+      var id = a.getAttribute('href').replace('#','');
+      return document.getElementById(id);
+    });
+    function update(){
+      var y = window.scrollY + 120;
+      var activeIdx = 0;
+      sections.forEach(function(s, i){ if(s && s.offsetTop <= y) activeIdx = i; });
+      tabs.forEach(function(a, i){ a.classList.toggle('active', i === activeIdx); });
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  })();
+</script>
+
 </body>
 </html>
