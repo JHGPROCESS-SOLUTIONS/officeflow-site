@@ -62,6 +62,15 @@
     .logo span{background:var(--gradient-orange);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
     .nav-links,.nav-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
     .nav-links a{color:var(--text-soft);font-size:14px;font-weight:600}
+    .nav-toggle{display:none;background:transparent;border:1.5px solid var(--border);border-radius:10px;width:44px;height:44px;cursor:pointer;align-items:center;justify-content:center;padding:0}
+    .nav-toggle-bars{display:inline-block;width:18px;height:12px;position:relative}
+    .nav-toggle-bars span{position:absolute;left:0;right:0;height:2px;background:var(--text);border-radius:2px;transition:transform .2s,top .2s,opacity .2s}
+    .nav-toggle-bars span:nth-child(1){top:0}
+    .nav-toggle-bars span:nth-child(2){top:5px}
+    .nav-toggle-bars span:nth-child(3){top:10px}
+    .nav.is-open .nav-toggle-bars span:nth-child(1){top:5px;transform:rotate(45deg)}
+    .nav.is-open .nav-toggle-bars span:nth-child(2){opacity:0}
+    .nav.is-open .nav-toggle-bars span:nth-child(3){top:5px;transform:rotate(-45deg)}
     .btn{
       display:inline-flex;align-items:center;justify-content:center;padding:16px 26px;border-radius:16px;
       font-weight:800;border:1px solid transparent;transition:.2s ease;white-space:nowrap
@@ -143,12 +152,37 @@
     @media (max-width:980px){
       .hero-grid,.grid-3,.compare{grid-template-columns:1fr}
     }
-    @media (max-width:640px){
-      .nav{align-items:flex-start}
-      .nav-links,.nav-actions{width:100%}
-      .btn{width:100%}
-      .hero,.section{padding-top:64px}
+    @media (max-width:720px){
+      html,body{overflow-x:hidden}
+      .nav{padding-top:18px;gap:10px;align-items:center;flex-wrap:wrap}
+      .nav-toggle{display:inline-flex}
+      .nav > .nav-links,.nav > .nav-actions{display:none}
+      .nav.is-open > .nav-links,.nav.is-open > .nav-actions{display:flex;width:100%;flex-direction:column;align-items:stretch;gap:6px;order:99}
+      .nav.is-open > .nav-links{padding-top:12px;border-top:1px solid var(--border)}
+      .nav.is-open > .nav-links a{padding:10px 2px;font-size:15px}
+      .nav.is-open > .nav-actions{padding-top:6px;gap:8px}
+      .nav.is-open > .nav-actions .btn{width:100%;padding:13px 18px;font-size:14px;border-radius:12px}
+      .hero{padding:48px 0 40px}
+      .section{padding:56px 0}
+      .section-title{font-size:clamp(26px,6.5vw,34px)}
+      .section-intro{font-size:16px;margin-bottom:20px}
+      .lead{font-size:16px;line-height:1.7}
+      .hero-line{font-size:clamp(20px,5.5vw,26px)}
+      h1{font-size:clamp(36px,9vw,48px);margin-bottom:14px}
+      .hero-points{gap:6px 14px;font-size:13px;margin-bottom:22px}
+      .feature,.testimonial,.checklist,.price-card,.manager{padding:22px}
+      .feature h3,.testimonial h3{font-size:20px}
+      .price-tag{font-size:36px}
+      .btn{padding:14px 20px;font-size:14px}
       .manager-row{grid-template-columns:1fr}
+      .hero .nav-actions{flex-direction:column;width:100%}
+      .hero .nav-actions .btn{width:100%}
+    }
+    @media (max-width:480px){
+      .logo{font-size:22px}
+      .logo svg{width:26px;height:26px}
+      .eyebrow{font-size:11px;padding:6px 12px}
+      .container{padding:0 16px}
     }
   </style>
 </head>
@@ -156,6 +190,7 @@
   <div class="container">
     <nav class="nav">
       <a class="logo" href="officeflow_updated_v5_product_cta.html" aria-label="OfficeFlow"><svg viewBox="0 0 48 48" width="32" height="32" aria-hidden="true"><defs><linearGradient id="of-mailbox-mark" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F97316"/><stop offset="100%" stop-color="#FB923C"/></linearGradient></defs><rect width="48" height="48" rx="11" fill="url(#of-mailbox-mark)"/><circle cx="24" cy="24" r="11" fill="none" stroke="#fff" stroke-width="3.2"/><path d="M21.5 19.5 L28 24 L21.5 28.5" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>Office<span>Flow</span></a>
+      <button class="nav-toggle" type="button" aria-label="Menu openen" aria-expanded="false"><span class="nav-toggle-bars" aria-hidden="true"><span></span><span></span><span></span></span></button>
       <div class="nav-links">
         <a href="#voordelen">Voordelen</a>
         <a href="#werkt">Werkwijze</a>
@@ -302,5 +337,24 @@
     </div>
     <div class="footer-copy">mail@officeflowcompany.com • OfficeFlow Company XXX</div>
   </div>
+  <script>
+    (function(){
+      var nav=document.querySelector('nav.nav');
+      var toggle=nav&&nav.querySelector('.nav-toggle');
+      if(!nav||!toggle)return;
+      toggle.addEventListener('click',function(){
+        var isOpen=nav.classList.toggle('is-open');
+        toggle.setAttribute('aria-expanded',isOpen?'true':'false');
+        toggle.setAttribute('aria-label',isOpen?'Menu sluiten':'Menu openen');
+      });
+      nav.querySelectorAll('.nav-links a, .nav-actions a').forEach(function(a){
+        a.addEventListener('click',function(){
+          nav.classList.remove('is-open');
+          toggle.setAttribute('aria-expanded','false');
+          toggle.setAttribute('aria-label','Menu openen');
+        });
+      });
+    })();
+  </script>
 </body>
 </html>

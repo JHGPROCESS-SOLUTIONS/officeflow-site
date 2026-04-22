@@ -54,7 +54,17 @@
     .nav-links { display: flex; gap: 2px; }
     .nav-links a { font-size: 14px; font-weight: 500; color: var(--text-2); padding: 8px 14px; border-radius: 8px; transition: color .2s, background .2s; }
     .nav-links a:hover, .nav-links a.active { color: var(--text); background: var(--bg); }
-    .nav-right { display: flex; gap: 10px; }
+    .nav-right { display: flex; gap: 10px; align-items: center; }
+    .nav-toggle { display: none; background: transparent; border: 1.5px solid var(--border); border-radius: 10px; width: 44px; height: 44px; cursor: pointer; align-items: center; justify-content: center; padding: 0; }
+    .nav-toggle-bars { display: inline-block; width: 18px; height: 12px; position: relative; }
+    .nav-toggle-bars span { position: absolute; left: 0; right: 0; height: 2px; background: var(--text); border-radius: 2px; transition: transform .2s, top .2s, opacity .2s; }
+    .nav-toggle-bars span:nth-child(1) { top: 0; }
+    .nav-toggle-bars span:nth-child(2) { top: 5px; }
+    .nav-toggle-bars span:nth-child(3) { top: 10px; }
+    .nav-open .nav-toggle-bars span:nth-child(1) { top: 5px; transform: rotate(45deg); }
+    .nav-open .nav-toggle-bars span:nth-child(2) { opacity: 0; }
+    .nav-open .nav-toggle-bars span:nth-child(3) { top: 5px; transform: rotate(-45deg); }
+    .mobile-drawer { display: none; }
     .btn { display: inline-flex; align-items: center; gap: 8px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 600; padding: 11px 22px; border-radius: 10px; transition: all .2s; cursor: pointer; border: none; white-space: nowrap; line-height: 1; }
     .btn:hover { transform: translateY(-1px); }
     .btn-ghost { background: transparent; color: var(--text-2); border: 1.5px solid var(--border); }
@@ -200,10 +210,12 @@
       .cockpit { display: none; }
     }
     @media (max-width: 640px) {
+      html, body { overflow-x: hidden; }
       .wrap { padding: 0 18px; }
       .nav-links { display: none; }
       .nav-right { gap: 6px; }
-      .nav-right .btn-ghost { display: none; }
+      .nav-right > .btn { display: none; }
+      .nav-toggle { display: inline-flex; }
       .btn { padding: 10px 16px; font-size: 13px; }
       .btn-lg { padding: 14px 22px; font-size: 14px; }
       .logo-wordmark { font-size: 20px; }
@@ -217,6 +229,13 @@
       .cta-bar { padding: 48px 0; }
       .cta-bar p { font-size: 14.5px; margin-bottom: 22px; }
       .footer-min { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .mobile-drawer { display: none; padding: 10px 0 16px; border-top: 1px solid var(--border); background: #fff; }
+      .mobile-drawer.open { display: block; }
+      .mobile-drawer .drawer-links { display: flex; flex-direction: column; gap: 2px; padding: 8px 0; }
+      .mobile-drawer .drawer-links a { font-size: 15px; font-weight: 500; color: var(--text); padding: 12px 4px; border-radius: 8px; }
+      .mobile-drawer .drawer-links a:hover { color: var(--blue); }
+      .mobile-drawer .drawer-ctas { display: flex; flex-direction: column; gap: 8px; padding-top: 10px; border-top: 1px solid var(--border); margin-top: 4px; }
+      .mobile-drawer .drawer-ctas .btn { width: 100%; justify-content: center; }
     }
   </style>
 </head>
@@ -241,6 +260,21 @@
     <div class="nav-right">
       <a class="btn btn-ghost" href="mailto:mail@officeflowcompany.com?subject=Inloggen%20Facturen%20%26%20Offertes">Inloggen</a>
       <a class="btn btn-blue" href="#prijzen">Start gratis →</a>
+      <button class="nav-toggle" type="button" aria-label="Menu openen" aria-expanded="false" aria-controls="mobile-drawer"><span class="nav-toggle-bars" aria-hidden="true"><span></span><span></span><span></span></span></button>
+    </div>
+  </div>
+  <div class="mobile-drawer" id="mobile-drawer">
+    <div class="wrap">
+      <div class="drawer-links">
+        <a href="/">Home</a>
+        <a href="/#producten">Mailbox Manager</a>
+        <a href="/facturen/">Facturen &amp; Offertes</a>
+        <a href="/#faq">FAQ</a>
+      </div>
+      <div class="drawer-ctas">
+        <a class="btn btn-ghost" href="mailto:mail@officeflowcompany.com?subject=Inloggen%20Facturen%20%26%20Offertes">Inloggen</a>
+        <a class="btn btn-blue" href="#prijzen">Start gratis →</a>
+      </div>
     </div>
   </div>
 </nav>
@@ -459,6 +493,28 @@
 <script>
   const obs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } }), { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+<script>
+  (function(){
+    var toggle = document.querySelector('.nav-toggle');
+    var drawer = document.getElementById('mobile-drawer');
+    var nav = document.querySelector('nav');
+    if (!toggle || !drawer || !nav) return;
+    toggle.addEventListener('click', function(){
+      var isOpen = drawer.classList.toggle('open');
+      nav.classList.toggle('nav-open', isOpen);
+      toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      toggle.setAttribute('aria-label', isOpen ? 'Menu sluiten' : 'Menu openen');
+    });
+    drawer.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){
+        drawer.classList.remove('open');
+        nav.classList.remove('nav-open');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Menu openen');
+      });
+    });
+  })();
 </script>
 </body>
 </html>
