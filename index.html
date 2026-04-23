@@ -381,10 +381,40 @@
 
     /* FAQ */
     .faq-bg { background: linear-gradient(180deg, #fef8ef 0%, #fdfaf5 100%); }
-    .faq-wrap { max-width: 760px; margin: 0 auto; }
-    .faq-head { text-align: center; margin-bottom: 48px; }
+    .faq-wrap { max-width: 1080px; margin: 0 auto; }
+    .faq-head { text-align: center; margin-bottom: 40px; }
     .faq-head .eyebrow { justify-content: center; }
     .faq-list { display: flex; flex-direction: column; gap: 12px; }
+
+    /* Split layout: Algemeen (full width) + 2-col Mailbox / Facturen */
+    .faq-algemeen { max-width: 760px; margin: 0 auto 36px auto; }
+    .faq-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 28px;
+      align-items: start;
+    }
+    .faq-col-head {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 10.5px; font-weight: 800; letter-spacing: .1em;
+      color: var(--text); text-transform: uppercase;
+      padding: 0 6px 14px 6px;
+      border-bottom: 1px solid rgba(15,23,42,.08);
+      margin-bottom: 16px;
+    }
+    .faq-col-head .faq-col-dot {
+      width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0;
+    }
+    .faq-col-orange .faq-col-dot { background: var(--orange); }
+    .faq-col-blue .faq-col-dot { background: var(--blue); }
+    .faq-col-title-main { color: var(--text); }
+    .faq-algemeen-head {
+      text-align: center; font-size: 10.5px; font-weight: 800; letter-spacing: .1em;
+      color: var(--text-2); text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    @media (max-width: 820px) {
+      .faq-grid { grid-template-columns: 1fr; gap: 32px; }
+      .faq-algemeen { margin-bottom: 28px; }
+    }
     .faq-item {
       background: var(--white);
       border: 1.5px solid var(--border);
@@ -1725,109 +1755,199 @@
         <h2>Nog twijfel? Hier zijn de antwoorden.</h2>
       </div>
 
-      <div class="faq-list">
+      <!-- Algemene vragen bovenaan (geldt voor beide producten) -->
+      <div class="faq-algemeen">
+        <div class="faq-algemeen-head">Algemeen</div>
+        <div class="faq-list">
+          <details class="faq-item reveal">
+            <summary>
+              <span>Kan ik maandelijks opzeggen?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </summary>
+            <div class="faq-answer">
+              Ja. Beide producten zijn maandelijks opzegbaar, zonder opzegtermijn of verborgen kosten.
+              Je betaalt de lopende maand af en daarna stopt het abonnement automatisch.
+            </div>
+          </details>
 
-        <details class="faq-item reveal">
-          <summary>
-            <span>Kan ik maandelijks opzeggen?</span>
-            <span class="faq-icon" aria-hidden="true">+</span>
-          </summary>
-          <div class="faq-answer">
-            Ja. Beide producten zijn maandelijks opzegbaar, zonder opzegtermijn of verborgen kosten.
-            Je betaalt de lopende maand af en daarna stopt het abonnement automatisch.
-          </div>
-        </details>
+          <details class="faq-item reveal">
+            <summary>
+              <span>Heb ik beide producten nodig?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </summary>
+            <div class="faq-answer">
+              Nee. Mailbox Manager en Facturen &amp; Offertes zijn volledig losse producten.
+              Ze delen geen data en je kunt er één afnemen zonder de ander. Kies wat jouw bedrijf nu het meeste oplevert.
+            </div>
+          </details>
 
-        <details class="faq-item reveal">
-          <summary>
-            <span>Verstuurt OfficeFlow automatisch mails?</span>
-            <span class="faq-icon" aria-hidden="true">+</span>
-          </summary>
-          <div class="faq-answer">
-            Nee — en dat is expres. Mailbox Manager maakt <strong>alleen concepten</strong> aan in je Gmail.
-            Jij bepaalt altijd zelf of en wanneer een bericht verstuurd wordt. Geen auto-send, geen auto-archive.
-          </div>
-        </details>
+          <details class="faq-item reveal">
+            <summary>
+              <span>Zijn de prijzen inclusief btw?</span>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </summary>
+            <div class="faq-answer">
+              Nee, de genoemde prijzen zijn <strong>excl. btw</strong>. Mailbox Manager is €24/mnd.
+              Facturen &amp; Offertes start vanaf €19/mnd en loopt op tot €89/mnd afhankelijk van je volume. Betaling loopt via Stripe; btw wordt automatisch bovenop de prijs berekend.
+            </div>
+          </details>
+        </div>
+      </div>
 
-        <details class="faq-item reveal">
-          <summary>
-            <span>Werkt het ook met Outlook of Microsoft 365?</span>
-            <span class="faq-icon" aria-hidden="true">+</span>
-          </summary>
-          <div class="faq-answer">
-            Op dit moment ondersteunt Mailbox Manager alleen <strong>Gmail</strong>.
-            Outlook / Microsoft 365-ondersteuning staat op de roadmap en volgt zodra de Gmail-flow volledig stabiel is.
-            Facturen &amp; Offertes werkt los van je mailprovider.
-          </div>
-        </details>
+      <!-- Per-product kolommen -->
+      <div class="faq-grid">
 
-        <details class="faq-item reveal">
-          <summary>
-            <span>Waar moet ik OfficeFlow gebruiken?</span>
-            <span class="faq-icon" aria-hidden="true">+</span>
-          </summary>
-          <div class="faq-answer">
-            Gebruik <strong>Gmail zelf</strong>: <a href="https://mail.google.com" target="_blank" rel="noopener">mail.google.com</a> op je computer of de officiële Gmail-app op je telefoon.
-            OfficeFlow plaatst conceptantwoorden direct in de Gmail-thread, zodat je ze met één klik op <em>Verzenden</em> kunt versturen.
+        <!-- Mailbox Manager -->
+        <div class="faq-col faq-col-orange">
+          <div class="faq-col-head">
+            <span class="faq-col-dot"></span>
+            <span class="faq-col-title-main">Mailbox Manager</span>
           </div>
-        </details>
+          <div class="faq-list">
+            <details class="faq-item reveal">
+              <summary>
+                <span>Verstuurt OfficeFlow automatisch mails?</span>
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </summary>
+              <div class="faq-answer">
+                Nee — en dat is expres. Mailbox Manager maakt <strong>alleen concepten</strong> aan in je Gmail.
+                Jij bepaalt altijd zelf of en wanneer een bericht verstuurd wordt. Geen auto-send, geen auto-archive.
+              </div>
+            </details>
 
-        <details class="faq-item reveal">
-          <summary>
-            <span>Wat gebeurt er met mijn data?</span>
-            <span class="faq-icon" aria-hidden="true">+</span>
-          </summary>
-          <div class="faq-answer">
-            Je Gmail-data wordt alleen gebruikt om mails te classificeren en concepten in jouw stijl te genereren.
-            We verkopen niets, trainen geen generieke modellen op jouw data en houden ons aan het Google API Services User Data Policy.
-            Zie het <a href="privacy.html">privacybeleid</a> voor de volledige uitleg.
-          </div>
-        </details>
+            <details class="faq-item reveal">
+              <summary>
+                <span>Werkt het ook met Outlook of Microsoft 365?</span>
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </summary>
+              <div class="faq-answer">
+                Op dit moment ondersteunt Mailbox Manager alleen <strong>Gmail</strong>.
+                Outlook / Microsoft 365-ondersteuning staat op de roadmap en volgt zodra de Gmail-flow volledig stabiel is.
+              </div>
+            </details>
 
-        <details class="faq-item reveal">
-          <summary>
-            <span>Heb ik beide producten nodig?</span>
-            <span class="faq-icon" aria-hidden="true">+</span>
-          </summary>
-          <div class="faq-answer">
-            Nee. Mailbox Manager en Facturen &amp; Offertes zijn volledig losse producten.
-            Ze delen geen data en je kunt er één afnemen zonder de ander. Kies wat jouw bedrijf nu het meeste oplevert.
-          </div>
-        </details>
+            <details class="faq-item reveal">
+              <summary>
+                <span>Waar zie ik de conceptantwoorden?</span>
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </summary>
+              <div class="faq-answer">
+                Direct in <a href="https://mail.google.com" target="_blank" rel="noopener">Gmail zelf</a> — op je computer of de officiële Gmail-app.
+                OfficeFlow plaatst het concept in de bestaande thread, zodat je met één klik op <em>Verzenden</em> kunt reageren.
+              </div>
+            </details>
 
-        <details class="faq-item reveal">
-          <summary>
-            <span>Zijn de prijzen inclusief btw?</span>
-            <span class="faq-icon" aria-hidden="true">+</span>
-          </summary>
-          <div class="faq-answer">
-            Nee, de genoemde prijzen zijn <strong>excl. btw</strong>. Mailbox Manager is €24/mnd.
-            Facturen &amp; Offertes start vanaf €19/mnd en loopt op tot €89/mnd afhankelijk van je volume. Betaling loopt via Stripe.
-          </div>
-        </details>
+            <details class="faq-item reveal">
+              <summary>
+                <span>Wat gebeurt er met mijn Gmail-data?</span>
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </summary>
+              <div class="faq-answer">
+                Je Gmail-data wordt alleen gebruikt om mails te classificeren en concepten in jouw stijl te genereren.
+                We verkopen niets, trainen geen generieke modellen op jouw data en houden ons aan het Google API Services User Data Policy.
+                Zie het <a href="/privacy.html">privacybeleid</a> voor de volledige uitleg.
+              </div>
+            </details>
 
-        <details class="faq-item reveal">
-          <summary>
-            <span>Hoe lang duurt de setup?</span>
-            <span class="faq-icon" aria-hidden="true">+</span>
-          </summary>
-          <div class="faq-answer">
-            Mailbox Manager koppel je in zo'n 2 minuten via Google OAuth. Daarna loopt de classificatie en draft-generatie op de achtergrond.
-            Facturen &amp; Offertes zet je op via onboarding met je bedrijfsgegevens en optionele Moneybird-koppeling.
-          </div>
-        </details>
+            <details class="faq-item reveal">
+              <summary>
+                <span>Hoe snel ben ik gekoppeld?</span>
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </summary>
+              <div class="faq-answer">
+                Zo'n 2 minuten. Je koppelt je mailbox via Google OAuth, zet je schrijfstijl in en klaar.
+                Classificatie en draft-generatie lopen daarna volledig op de achtergrond.
+              </div>
+            </details>
 
-        <details class="faq-item reveal">
-          <summary>
-            <span>Waarom is Mailbox Manager nu beperkt beschikbaar?</span>
-            <span class="faq-icon" aria-hidden="true">+</span>
-          </summary>
-          <div class="faq-answer">
-            Omdat Mailbox Manager met Gmail-data werkt, loopt er op dit moment een <strong>Google-verificatie</strong>.
-            Gedurende die periode is toegang tijdelijk beperkt tot goedgekeurde testers.
-            Meld je gerust aan — zodra de verificatie rond is ontvang je bericht.
+            <details class="faq-item reveal">
+              <summary>
+                <span>Waarom is Mailbox Manager nu beperkt beschikbaar?</span>
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </summary>
+              <div class="faq-answer">
+                Omdat Mailbox Manager met Gmail-data werkt, loopt er op dit moment een <strong>Google-verificatie</strong>.
+                Gedurende die periode is toegang tijdelijk beperkt tot goedgekeurde testers.
+                Meld je gerust aan — zodra de verificatie rond is ontvang je bericht.
+              </div>
+            </details>
           </div>
-        </details>
+        </div>
+
+        <!-- Facturen & Offertes -->
+        <div class="faq-col faq-col-blue">
+          <div class="faq-col-head">
+            <span class="faq-col-dot"></span>
+            <span class="faq-col-title-main">Facturen &amp; Offertes</span>
+          </div>
+          <div class="faq-list">
+            <details class="faq-item reveal">
+              <summary>
+                <span>Werkt het met Moneybird?</span>
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </summary>
+              <div class="faq-answer">
+                Ja. Facturen &amp; Offertes synchroniseert klanten, facturen en betalingen met <strong>Moneybird</strong>.
+                Je blijft in één workflow werken; je boekhouder pakt alles op in zijn eigen omgeving.
+              </div>
+            </details>
+
+            <details class="faq-item reveal">
+              <summary>
+                <span>Kan ik met mijn eigen huisstijl factureren?</span>
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </summary>
+              <div class="faq-answer">
+                Ja. Je uploadt je logo en kiest een huisstijlkleur. Facturen en offertes zien er professioneel en consistent uit,
+                zonder dat je elk document apart moet opmaken.
+              </div>
+            </details>
+
+            <details class="faq-item reveal">
+              <summary>
+                <span>Kan ik abonnementen automatisch factureren?</span>
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </summary>
+              <div class="faq-answer">
+                Ja. Je zet abonnementen en terugkerende facturen eenmalig in en laat ze maandelijks, per kwartaal of jaarlijks automatisch genereren.
+                De factuur wordt aangemaakt en (optioneel) direct verstuurd naar de klant.
+              </div>
+            </details>
+
+            <details class="faq-item reveal">
+              <summary>
+                <span>Registreert het ook gewerkte uren?</span>
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </summary>
+              <div class="faq-answer">
+                Ja. Werkregistratie per klant of project zit ingebouwd. Uren stromen automatisch mee naar de eerstvolgende factuur,
+                zodat je nooit meer handmatig hoeft bij te houden wat je waar aan gedaan hebt.
+              </div>
+            </details>
+
+            <details class="faq-item reveal">
+              <summary>
+                <span>Krijgen klanten automatisch betalingsherinneringen?</span>
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </summary>
+              <div class="faq-answer">
+                Ja. Openstaande facturen worden automatisch opgevolgd met vriendelijke herinneringen in jouw toon.
+                Jij kiest de intervallen; OfficeFlow zorgt dat je niet meer achter je geld aan hoeft.
+              </div>
+            </details>
+
+            <details class="faq-item reveal">
+              <summary>
+                <span>Werkt Facturen &amp; Offertes los van mijn mailprovider?</span>
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </summary>
+              <div class="faq-answer">
+                Ja. Dit product werkt volledig op zichzelf — onafhankelijk van Gmail, Outlook of een andere mailbox.
+                Gebruik het als standalone facturatieplatform of combineer met Mailbox Manager.
+              </div>
+            </details>
+          </div>
+        </div>
 
       </div>
     </div>
