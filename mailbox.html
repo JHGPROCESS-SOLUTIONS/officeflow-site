@@ -630,6 +630,54 @@
     }
     .demo-draft-badge svg{flex-shrink:0}
 
+    /* Gmail mark in top bar */
+    .demo-gmail-mark{
+      display:inline-flex;align-items:center;gap:6px;
+      font-size:11px;font-weight:700;color:#5f6368;letter-spacing:.01em;
+      margin-right:auto;
+    }
+    .demo-gmail-mark svg{flex-shrink:0}
+
+    /* OfficeFlow corner branding */
+    .demo-brand-corner{
+      position:absolute;bottom:12px;right:12px;z-index:5;
+      display:inline-flex;align-items:center;gap:7px;
+      padding:6px 11px 6px 9px;border-radius:999px;
+      background:rgba(255,255,255,.94);
+      color:var(--text);
+      font-size:10.5px;font-weight:700;letter-spacing:.02em;
+      box-shadow:0 6px 16px rgba(15,23,42,.12);
+      border:1px solid var(--border-soft);
+      backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    }
+    .demo-brand-mark{
+      width:14px;height:14px;border-radius:4px;
+      background:var(--gradient-orange);
+      display:flex;align-items:center;justify-content:center;
+      color:#fff;font-size:8px;font-weight:800;letter-spacing:0;
+      box-shadow:0 2px 6px rgba(249,115,22,.35);
+    }
+
+    /* Daily Brief row (Goedemorgen mail) */
+    .lbl-brief{
+      background:linear-gradient(135deg,rgba(249,115,22,.18) 0%,rgba(249,115,22,.08) 100%);
+      color:var(--orange);
+      border:1px solid rgba(249,115,22,.3);
+    }
+    .demo-row-brief{
+      background:linear-gradient(90deg,rgba(255,247,237,.55) 0%,rgba(255,247,237,.15) 80%);
+      position:relative;
+    }
+    .demo-row-brief::before{
+      content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
+      background:var(--orange);opacity:.55;
+    }
+    .demo-row-brief .gm-sender{
+      font-weight:700;color:var(--orange);
+      display:inline-flex;align-items:center;gap:5px;
+    }
+    .demo-row-brief .gm-sender svg{flex-shrink:0}
+
     /* Live indicator pill */
     .demo-live-pill{
       position:absolute;top:14px;right:14px;z-index:4;
@@ -1160,6 +1208,10 @@
             <div class="gmail-mock demo-mock">
               <div class="gm-bar">
                 <div class="gm-dots"><span></span><span></span><span></span></div>
+                <span class="demo-gmail-mark" aria-hidden="true">
+                  <svg width="18" height="13" viewBox="0 0 32 22"><rect width="32" height="22" rx="2.5" fill="#EA4335"/><path fill="#fff" d="M5.5 5.5v11h2.2v-7.3L16 15l8.3-5.8v7.3h2.2v-11L16 12.8z"/></svg>
+                  Gmail
+                </span>
                 <div class="gm-url">mail.google.com/u/0/#inbox</div>
               </div>
               <div class="gm-tabs">
@@ -1198,6 +1250,16 @@
                 </div>
                 <div class="gm-sub">Stuur je de BTW-gegevens nog van vorig kwartaal? Ik had je…</div>
                 <div class="gm-time">08:30</div>
+              </div>
+              <!-- Daily Brief — OfficeFlow ochtendmail met takenlijst -->
+              <div class="gm-row demo-row-brief">
+                <div class="gm-sender">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.09 6.26L20 9l-4.91 3.74L16 19l-4-3-4 3 .91-6.26L4 9l5.91-.74L12 2z"/></svg>
+                  OfficeFlow
+                </div>
+                <div class="gm-label lbl-brief">Daily Brief</div>
+                <div class="gm-sub"><strong>Goedemorgen Jesse — je dag in 3 punten:</strong> 1) Factuur #1042 afronden (Linda) · 2) Terugbellen Klant ABC over voorstel · 3) BTW-gegevens naar boekhouder</div>
+                <div class="gm-time">07:30</div>
               </div>
               <!-- Row 5: TPR Padel (Done) — pop laat -->
               <div class="gm-row demo-row-5">
@@ -1256,6 +1318,10 @@
             </div>
           </div>
 
+          <span class="demo-brand-corner" aria-hidden="true">
+            <span class="demo-brand-mark">O</span>
+            OfficeFlow
+          </span>
         </div>
         <div class="demo-draft-badge" aria-hidden="true">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 1 1 3 3L7 19l-4 1 1-4Z"/></svg>
