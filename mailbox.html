@@ -452,7 +452,7 @@
     }
     .video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 
-    /* ==== ANIMATED DEMO (fallback totdat Loom klaar is) ==== */
+    /* ==== ANIMATED DEMO (18s verhaal: inbox → labels → thread openen → AI-concept → terug → meer labels) ==== */
     .video-frame.video-demo{
       background:#eef2f7;
       cursor:default;
@@ -460,43 +460,47 @@
       display:flex;align-items:center;justify-content:center;
     }
     .video-frame.video-demo:hover{transform:none;box-shadow:var(--shadow-strong)}
-    .demo-mock{
-      width:100%;max-height:100%;
-      background:#fff;border:1px solid var(--border);border-radius:14px;
-      overflow:hidden;box-shadow:0 20px 50px rgba(15,23,42,.12);
-      display:flex;flex-direction:column;
+
+    /* Stage — twee views gestapeld, thread slidet in van rechts */
+    .demo-stage{
       position:relative;
+      width:100%;height:100%;
+      border-radius:14px;overflow:hidden;
+      background:#fff;border:1px solid var(--border);
+      box-shadow:0 20px 50px rgba(15,23,42,.12);
     }
-    .demo-mock .gm-bar{padding:9px 14px}
-    .demo-mock .gm-row{padding:10px 14px;font-size:12.5px}
+    .demo-view{
+      position:absolute;inset:0;
+      display:flex;flex-direction:column;
+      background:#fff;
+    }
+    .demo-view-inbox{z-index:1}
+    .demo-view-thread{
+      z-index:2;
+      transform:translateX(100%);
+      animation:demoThreadSlide 18s cubic-bezier(.65,.04,.25,1) infinite;
+    }
+
+    /* Inbox mock */
+    .demo-mock{background:#fff;display:flex;flex-direction:column;height:100%}
+    .demo-mock .gm-bar{padding:9px 14px;flex-shrink:0}
+    .demo-mock .gm-tabs{flex-shrink:0}
+    .demo-mock .gm-row{padding:9px 14px;font-size:12.5px;position:relative;transition:background .2s}
     .demo-mock .gm-sender{width:96px;font-size:12.5px}
     .demo-mock .gm-label{font-size:9.5px;padding:2px 7px}
     .demo-mock .gm-time{font-size:10.5px}
 
-    /* Incoming mail row */
-    .demo-incoming{
-      position:relative;
-      background:linear-gradient(90deg,rgba(255,247,237,.55) 0%,#fff 70%);
-      opacity:0;transform:translateY(-8px);
-      animation:demoIncomingIn 15s ease-in-out infinite;
-    }
-    .demo-incoming .gm-sender{font-weight:700}
-    .demo-incoming::before{
-      content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
-      background:var(--orange);opacity:0;
-      animation:demoBarFade 15s ease-in-out infinite;
-    }
+    /* Row label stage (analyseert → label pop) */
     .demo-label-stage{
       position:relative;flex-shrink:0;
-      min-width:92px;height:18px;
+      min-width:100px;height:18px;
     }
     .demo-analyzing{
       position:absolute;top:0;left:0;display:inline-flex;align-items:center;gap:5px;
       padding:2px 8px;border-radius:4px;
       font-size:9.5px;font-weight:700;letter-spacing:.02em;
       color:var(--text-soft);background:#f1f5f9;border:1px solid var(--border-soft);
-      opacity:0;animation:demoAnalyzingShow 15s ease-in-out infinite;
-      white-space:nowrap;
+      opacity:0;white-space:nowrap;
     }
     .demo-spinner{
       width:8px;height:8px;border-radius:50%;
@@ -506,10 +510,113 @@
     .demo-label-pop{
       position:absolute;top:0;left:0;
       opacity:0;transform:scale(.6);transform-origin:left center;
-      animation:demoLabelPop 15s ease-in-out infinite;
     }
 
-    /* Draft badge (floating) */
+    /* Row 1 — Klant ABC (Priority) — komt binnen, analyseert, label pops */
+    .demo-row-1{
+      background:linear-gradient(90deg,rgba(255,247,237,.55) 0%,#fff 70%);
+      opacity:0;transform:translateY(-8px);
+      animation:demoRow1In 18s ease-in-out infinite;
+    }
+    .demo-row-1 .gm-sender{font-weight:700}
+    .demo-row-1::before{
+      content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
+      background:var(--orange);opacity:0;
+      animation:demoRow1Bar 18s ease-in-out infinite;
+    }
+    .demo-row-1 .demo-analyzing{animation:demoRow1Analyzing 18s ease-in-out infinite}
+    .demo-row-1 .demo-label-pop{animation:demoRow1Pop 18s ease-in-out infinite}
+
+    /* Row 2 — Linda Visser (To Respond) — analyseert, label pops, dan "geklikt" */
+    .demo-row-2{animation:demoRow2Click 18s ease-in-out infinite}
+    .demo-row-2 .demo-analyzing{animation:demoRow2Analyzing 18s ease-in-out infinite}
+    .demo-row-2 .demo-label-pop{animation:demoRow2Pop 18s ease-in-out infinite}
+
+    /* Row 3 — Jan Bakker (Waiting On Reply) — altijd zichtbaar */
+
+    /* Row 4 — Boekhouder (Follow Up) — pops laat in cycle */
+    .demo-row-4 .demo-label-pop{animation:demoRow4Pop 18s ease-in-out infinite}
+
+    /* Row 5 — TPR Padel (Done) — pops laat in cycle */
+    .demo-row-5 .demo-label-pop{animation:demoRow5Pop 18s ease-in-out infinite}
+
+    /* ==== Thread view ==== */
+    .demo-thread-bar{
+      display:flex;align-items:center;gap:10px;
+      padding:10px 14px;border-bottom:1px solid var(--border-soft);
+      background:#f5f7fb;flex-shrink:0;
+    }
+    .demo-thread-back{
+      width:22px;height:22px;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      color:var(--text-soft);background:#fff;border:1px solid var(--border-soft);
+    }
+    .demo-thread-back svg{width:12px;height:12px}
+    .demo-thread-title{font-size:12.5px;font-weight:700;color:var(--text);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .demo-thread-bar .gm-label{flex-shrink:0}
+
+    .demo-thread-body{
+      padding:12px 14px;flex:1;display:flex;flex-direction:column;gap:10px;
+      overflow:hidden;background:#fafbfd;
+    }
+
+    .demo-msg{
+      display:flex;gap:10px;
+      padding:10px 12px;
+      background:#fff;border-radius:10px;border:1px solid var(--border-soft);
+    }
+    .demo-msg-avatar{
+      width:28px;height:28px;border-radius:50%;flex-shrink:0;
+      background:#e2e8f0;color:#475569;
+      display:flex;align-items:center;justify-content:center;
+      font-size:10.5px;font-weight:700;letter-spacing:.04em;
+    }
+    .demo-msg-content{flex:1;min-width:0}
+    .demo-msg-meta{display:flex;align-items:baseline;gap:8px;margin-bottom:3px}
+    .demo-msg-from{font-size:11.5px;font-weight:700;color:var(--text)}
+    .demo-msg-time{font-size:10px;color:var(--text-mute)}
+    .demo-msg-text{font-size:11.5px;color:var(--text-soft);line-height:1.5}
+
+    /* Draft compose card */
+    .demo-draft-card{
+      border:1.5px solid rgba(249,115,22,.4);
+      border-radius:12px;
+      background:linear-gradient(180deg,rgba(255,247,237,.7) 0%,#fff 100%);
+      padding:11px 14px;
+      position:relative;
+      opacity:0;transform:translateY(8px);
+      animation:demoDraftCardIn 18s ease-in-out infinite;
+      box-shadow:0 6px 18px rgba(249,115,22,.08);
+    }
+    .demo-draft-tag{
+      display:inline-flex;align-items:center;gap:5px;
+      font-size:9.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+      color:var(--orange);margin-bottom:7px;
+    }
+    .demo-draft-tag svg{flex-shrink:0}
+    .demo-draft-body{
+      font-size:11.5px;color:var(--text);line-height:1.55;
+    }
+    .demo-draft-body p{margin:0 0 5px 0;opacity:0;transform:translateY(4px)}
+    .demo-draft-body p:last-child{margin-bottom:0}
+    .demo-draft-body p:nth-child(1){animation:demoDraftLine1 18s ease-in-out infinite}
+    .demo-draft-body p:nth-child(2){animation:demoDraftLine2 18s ease-in-out infinite}
+    .demo-draft-body p:nth-child(3){animation:demoDraftLine3 18s ease-in-out infinite}
+    .demo-draft-body p:nth-child(4){animation:demoDraftLine4 18s ease-in-out infinite}
+    .demo-draft-actions{
+      display:flex;gap:8px;margin-top:10px;padding-top:8px;
+      border-top:1px dashed rgba(249,115,22,.25);
+      opacity:0;
+      animation:demoDraftActions 18s ease-in-out infinite;
+    }
+    .demo-draft-btn{
+      font-size:10.5px;font-weight:700;padding:5px 11px;border-radius:6px;
+      display:inline-flex;align-items:center;gap:5px;
+    }
+    .demo-draft-btn.primary{background:var(--gradient-orange);color:#fff;box-shadow:0 4px 12px rgba(249,115,22,.25)}
+    .demo-draft-btn.ghost{background:transparent;color:var(--text-soft);border:1px solid var(--border)}
+
+    /* Floating "Concept klaar" badge */
     .demo-draft-badge{
       position:absolute;bottom:18px;left:50%;
       transform:translateX(-50%) translateY(14px);
@@ -517,15 +624,15 @@
       padding:9px 16px;border-radius:999px;
       background:var(--gradient-orange);color:#fff;
       font-size:12px;font-weight:700;letter-spacing:.01em;
-      box-shadow:0 12px 28px rgba(249,115,22,.35);
-      opacity:0;pointer-events:none;
-      animation:demoDraftBadge 15s ease-in-out infinite;
+      box-shadow:0 12px 28px rgba(249,115,22,.4);
+      opacity:0;pointer-events:none;z-index:3;
+      animation:demoDraftBadge 18s ease-in-out infinite;
     }
     .demo-draft-badge svg{flex-shrink:0}
 
     /* Live indicator pill */
     .demo-live-pill{
-      position:absolute;top:14px;right:14px;z-index:2;
+      position:absolute;top:14px;right:14px;z-index:4;
       display:inline-flex;align-items:center;gap:6px;
       padding:4px 10px;border-radius:999px;
       background:rgba(15,23,42,.85);color:#fff;
@@ -538,60 +645,166 @@
       animation:demoLivePulse 1.6s ease-out infinite;
     }
 
+    /* ============ keyframes (18s totale cycle) ============ */
+    /* Timeline:
+       0-0.5s  inbox static
+       0.5-2s  row 1 komt binnen, analyseert → Priority pop
+       2-3.5s  row 2 analyseert → To Respond pop
+       3.5-4s  row 2 flash (geklikt)
+       4-5s    thread slidet in van rechts
+       5-7s    draft card fade in + regels vloeien erin (regel 1-4)
+       7-9s    actieknoppen verschijnen, "Concept klaar" badge floats up
+       9-11s   hold op thread
+       11-12s  thread slidet terug naar rechts
+       12-13s  row 4 Follow Up pops
+       13-14s  row 5 Done pops
+       14-17s  hold
+       17-18s  fade + reset voor next loop
+    */
+
     @keyframes demoSpin{to{transform:rotate(360deg)}}
     @keyframes demoLivePulse{
       0%{box-shadow:0 0 0 0 rgba(34,197,94,.75)}
       70%{box-shadow:0 0 0 8px rgba(34,197,94,0)}
       100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}
     }
-    @keyframes demoIncomingIn{
-      0%,6%{opacity:0;transform:translateY(-8px)}
-      10%,92%{opacity:1;transform:translateY(0)}
-      96%,100%{opacity:0;transform:translateY(-8px)}
+
+    /* Thread slides in 4s-5s (22%-28%), out 11s-12s (61%-67%) */
+    @keyframes demoThreadSlide{
+      0%,22%{transform:translateX(100%)}
+      28%,61%{transform:translateX(0)}
+      67%,100%{transform:translateX(100%)}
     }
-    @keyframes demoBarFade{
-      0%,9%{opacity:0}
-      13%,88%{opacity:1}
+
+    /* Row 1 (Klant ABC → Priority): binnen 3%, bar fade 4%, analyze 5-9%, pop 10% */
+    @keyframes demoRow1In{
+      0%,2%{opacity:0;transform:translateY(-8px)}
+      4%,97%{opacity:1;transform:translateY(0)}
+      100%{opacity:1;transform:translateY(0)}
+    }
+    @keyframes demoRow1Bar{
+      0%,3%{opacity:0}
+      5%,90%{opacity:1}
       94%,100%{opacity:0}
     }
-    @keyframes demoAnalyzingShow{
+    @keyframes demoRow1Analyzing{
+      0%,4%{opacity:0}
+      6%,9%{opacity:1}
+      11%,100%{opacity:0}
+    }
+    @keyframes demoRow1Pop{
+      0%,9%{opacity:0;transform:scale(.6)}
+      11%{opacity:1;transform:scale(1.22)}
+      13%,100%{opacity:1;transform:scale(1)}
+    }
+
+    /* Row 2 (Linda → To Respond): analyze 12-16%, pop 17%, flash click 19-21% */
+    @keyframes demoRow2Analyzing{
       0%,11%{opacity:0}
-      15%,33%{opacity:1}
-      38%,100%{opacity:0}
+      13%,16%{opacity:1}
+      18%,100%{opacity:0}
     }
-    @keyframes demoLabelPop{
-      0%,36%{opacity:0;transform:scale(.6)}
-      40%{opacity:1;transform:scale(1.18)}
-      46%,92%{opacity:1;transform:scale(1)}
-      96%,100%{opacity:0;transform:scale(1)}
+    @keyframes demoRow2Pop{
+      0%,16%{opacity:0;transform:scale(.6)}
+      18%{opacity:1;transform:scale(1.22)}
+      20%,100%{opacity:1;transform:scale(1)}
     }
+    @keyframes demoRow2Click{
+      0%,18%{background:transparent}
+      20%,22%{background:#eff6ff}
+      24%,100%{background:transparent}
+    }
+
+    /* Draft card fade in 28-33% (~5-6s) */
+    @keyframes demoDraftCardIn{
+      0%,27%{opacity:0;transform:translateY(8px)}
+      32%,58%{opacity:1;transform:translateY(0)}
+      63%,100%{opacity:0;transform:translateY(8px)}
+    }
+
+    /* Draft lines stagger 33-42% */
+    @keyframes demoDraftLine1{
+      0%,32%{opacity:0;transform:translateY(4px)}
+      35%,58%{opacity:1;transform:translateY(0)}
+      63%,100%{opacity:0;transform:translateY(4px)}
+    }
+    @keyframes demoDraftLine2{
+      0%,35%{opacity:0;transform:translateY(4px)}
+      38%,58%{opacity:1;transform:translateY(0)}
+      63%,100%{opacity:0;transform:translateY(4px)}
+    }
+    @keyframes demoDraftLine3{
+      0%,38%{opacity:0;transform:translateY(4px)}
+      41%,58%{opacity:1;transform:translateY(0)}
+      63%,100%{opacity:0;transform:translateY(4px)}
+    }
+    @keyframes demoDraftLine4{
+      0%,41%{opacity:0;transform:translateY(4px)}
+      44%,58%{opacity:1;transform:translateY(0)}
+      63%,100%{opacity:0;transform:translateY(4px)}
+    }
+
+    /* Actieknoppen 44-60% */
+    @keyframes demoDraftActions{
+      0%,43%{opacity:0}
+      47%,58%{opacity:1}
+      63%,100%{opacity:0}
+    }
+
+    /* Draft-klaar badge 40-60% (hangt over thread heen) */
     @keyframes demoDraftBadge{
-      0%,54%{opacity:0;transform:translateX(-50%) translateY(14px)}
-      58%{opacity:1;transform:translateX(-50%) translateY(0)}
-      62%,90%{opacity:1;transform:translateX(-50%) translateY(0)}
-      94%,100%{opacity:0;transform:translateX(-50%) translateY(14px)}
+      0%,39%{opacity:0;transform:translateX(-50%) translateY(14px)}
+      43%,58%{opacity:1;transform:translateX(-50%) translateY(0)}
+      62%,100%{opacity:0;transform:translateX(-50%) translateY(14px)}
+    }
+
+    /* Row 4 (Boekhouder → Follow Up) pops 69% */
+    @keyframes demoRow4Pop{
+      0%,68%{opacity:0;transform:scale(.6)}
+      71%{opacity:1;transform:scale(1.22)}
+      73%,100%{opacity:1;transform:scale(1)}
+    }
+
+    /* Row 5 (TPR → Done) pops 75% */
+    @keyframes demoRow5Pop{
+      0%,74%{opacity:0;transform:scale(.6)}
+      77%{opacity:1;transform:scale(1.22)}
+      79%,100%{opacity:1;transform:scale(1)}
     }
 
     @media (prefers-reduced-motion:reduce){
-      .demo-incoming,.demo-incoming::before,
-      .demo-analyzing,.demo-label-pop,.demo-draft-badge,
-      .demo-live-dot,.demo-spinner{
+      .demo-view-thread,
+      .demo-row-1,.demo-row-1::before,
+      .demo-row-2,.demo-row-4 .demo-label-pop,.demo-row-5 .demo-label-pop,
+      .demo-analyzing,.demo-label-pop,
+      .demo-draft-card,.demo-draft-body p,.demo-draft-actions,
+      .demo-draft-badge,.demo-live-dot,.demo-spinner{
         animation:none !important;
       }
-      .demo-incoming{opacity:1;transform:none}
-      .demo-incoming::before{opacity:1}
+      .demo-view-thread{transform:translateX(100%)}
+      .demo-row-1{opacity:1;transform:none}
+      .demo-row-1::before{opacity:1}
       .demo-analyzing{display:none}
       .demo-label-pop{opacity:1;transform:scale(1)}
-      .demo-draft-badge{opacity:1;transform:translateX(-50%) translateY(0)}
+      .demo-draft-card{opacity:1;transform:none}
+      .demo-draft-body p{opacity:1;transform:none}
+      .demo-draft-actions{opacity:1}
+      .demo-draft-badge{display:none}
     }
+
     @media (max-width:768px){
-      .video-frame.video-demo{padding:12px}
-      .demo-mock .gm-sender{width:80px;font-size:11.5px}
-      .demo-mock .gm-row{padding:9px 12px;font-size:11.5px}
+      .video-frame.video-demo{padding:12px;aspect-ratio:4/5}
+      .demo-mock .gm-sender{width:78px;font-size:11.5px}
+      .demo-mock .gm-row{padding:8px 12px;font-size:11.5px}
       .demo-mock .gm-label{font-size:9px}
       .demo-mock .gm-time{display:none}
-      .demo-label-stage{min-width:80px}
+      .demo-label-stage{min-width:86px}
       .demo-draft-badge{font-size:11px;padding:8px 14px;bottom:14px}
+      .demo-msg-text,.demo-draft-body{font-size:10.5px}
+      .demo-msg-avatar{width:24px;height:24px;font-size:9.5px}
+      .demo-thread-title{font-size:11.5px}
+      .demo-draft-btn{font-size:10px;padding:4px 9px}
+      .demo-draft-actions .demo-draft-btn:last-child{display:none}
     }
 
     /* STICKY CTA (floating, verschijnt bij scroll) */
@@ -935,42 +1148,118 @@
           <iframe src="https://www.loom.com/embed/JOUW_LOOM_ID" frameborder="0" allowfullscreen title="OfficeFlow Mailbox Manager demo"></iframe>
         </div>
       -->
-      <div class="video-frame video-demo" aria-label="Live demo: OfficeFlow labelt binnenkomende mail en zet een concept klaar">
+      <div class="video-frame video-demo" aria-label="Live demo: OfficeFlow labelt binnenkomende mail, opent een thread en zet een concept klaar in jouw stijl">
         <span class="demo-live-pill" aria-hidden="true">
           <span class="demo-live-dot"></span>
           Live demo
         </span>
-        <div class="gmail-mock demo-mock">
-          <div class="gm-bar">
-            <div class="gm-dots"><span></span><span></span><span></span></div>
-            <div class="gm-url">mail.google.com/u/0/#inbox</div>
-          </div>
-          <div class="gm-tabs">
-            <div class="gm-tab active">Primair</div>
-            <div class="gm-tab">Reclame</div>
-            <div class="gm-tab">Sociaal</div>
-            <div class="gm-tab">Updates</div>
-          </div>
-          <div class="gm-row demo-incoming">
-            <div class="gm-sender">Klant ABC</div>
-            <div class="demo-label-stage">
-              <span class="demo-analyzing" aria-hidden="true">
-                <span class="demo-spinner"></span>
-                AI analyseert…
-              </span>
-              <span class="gm-label lbl-prio demo-label-pop">Priority</span>
+        <div class="demo-stage">
+
+          <!-- VIEW 1: Inbox — mails komen binnen en worden gelabeld -->
+          <div class="demo-view demo-view-inbox">
+            <div class="gmail-mock demo-mock">
+              <div class="gm-bar">
+                <div class="gm-dots"><span></span><span></span><span></span></div>
+                <div class="gm-url">mail.google.com/u/0/#inbox</div>
+              </div>
+              <div class="gm-tabs">
+                <div class="gm-tab active">Primair</div>
+                <div class="gm-tab">Reclame</div>
+                <div class="gm-tab">Sociaal</div>
+                <div class="gm-tab">Updates</div>
+              </div>
+              <!-- Row 1: Klant ABC (Priority) — slidet binnen + analyseert + pop -->
+              <div class="gm-row demo-row-1">
+                <div class="gm-sender">Klant ABC</div>
+                <div class="demo-label-stage">
+                  <span class="demo-analyzing" aria-hidden="true"><span class="demo-spinner"></span>AI analyseert…</span>
+                  <span class="gm-label lbl-prio demo-label-pop">Priority</span>
+                </div>
+                <div class="gm-sub"><strong>Kunnen we morgen bellen over het voorstel?</strong> — Hallo, ik heb je offerte bekeken en zou graag…</div>
+                <div class="gm-time">nu</div>
+              </div>
+              <!-- Row 2: Linda Visser (To Respond) — analyseert, pop, flash geklikt -->
+              <div class="gm-row demo-row-2">
+                <div class="gm-sender">Linda Visser</div>
+                <div class="demo-label-stage">
+                  <span class="demo-analyzing" aria-hidden="true"><span class="demo-spinner"></span>AI analyseert…</span>
+                  <span class="gm-label lbl-resp demo-label-pop">To Respond</span>
+                </div>
+                <div class="gm-sub"><strong>Vraag over factuur #1042</strong> — Ik zie twee posten die ik niet helemaal begrijp…</div>
+                <div class="gm-time">11:47</div>
+              </div>
+              <!-- Row 3: Jan Bakker (Waiting) — altijd al gelabeld -->
+              <div class="gm-row demo-row-3"><div class="gm-sender">Jan Bakker</div><div class="gm-label lbl-wait">Waiting On Reply</div><div class="gm-sub">Bedankt, ik laat het je weten zodra ik reactie heb van…</div><div class="gm-time">10:58</div></div>
+              <!-- Row 4: Boekhouder (Follow Up) — pop laat -->
+              <div class="gm-row demo-row-4">
+                <div class="gm-sender">Boekhouder</div>
+                <div class="demo-label-stage">
+                  <span class="gm-label lbl-follow demo-label-pop">Follow Up</span>
+                </div>
+                <div class="gm-sub">Stuur je de BTW-gegevens nog van vorig kwartaal? Ik had je…</div>
+                <div class="gm-time">08:30</div>
+              </div>
+              <!-- Row 5: TPR Padel (Done) — pop laat -->
+              <div class="gm-row demo-row-5">
+                <div class="gm-sender">TPR Padel</div>
+                <div class="demo-label-stage">
+                  <span class="gm-label lbl-done demo-label-pop">Done</span>
+                </div>
+                <div class="gm-sub">Bevestiging reservering (70167754) op Padel 2 / Trend…</div>
+                <div class="gm-time">Gisteren</div>
+              </div>
             </div>
-            <div class="gm-sub"><strong>Kunnen we morgen bellen over het voorstel?</strong> — Hallo, ik heb je offerte bekeken en zou graag…</div>
-            <div class="gm-time">nu</div>
           </div>
-          <div class="gm-row"><div class="gm-sender">Linda Visser</div><div class="gm-label lbl-resp">To Respond</div><div class="gm-sub"><strong>Vraag over factuur #1042</strong> — Ik zie twee posten die ik niet helemaal begrijp…</div><div class="gm-time">11:47</div></div>
-          <div class="gm-row"><div class="gm-sender">Jan Bakker</div><div class="gm-label lbl-wait">Waiting On Reply</div><div class="gm-sub">Bedankt, ik laat het je weten zodra ik reactie heb van…</div><div class="gm-time">10:58</div></div>
-          <div class="gm-row"><div class="gm-sender">Boekhouder</div><div class="gm-label lbl-follow">Follow Up</div><div class="gm-sub">Stuur je de BTW-gegevens nog van vorig kwartaal? Ik had je…</div><div class="gm-time">08:30</div></div>
-          <div class="gm-row"><div class="gm-sender">TPR Padel</div><div class="gm-label lbl-done">Done</div><div class="gm-sub">Bevestiging reservering (70167754) op Padel 2 / Trend…</div><div class="gm-time">Gisteren</div></div>
+
+          <!-- VIEW 2: Thread — Linda's mail opent, AI-concept verschijnt -->
+          <div class="demo-view demo-view-thread" aria-hidden="true">
+            <div class="demo-thread-bar">
+              <span class="demo-thread-back" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+              </span>
+              <span class="demo-thread-title">Vraag over factuur #1042</span>
+              <span class="gm-label lbl-resp">To Respond</span>
+            </div>
+            <div class="demo-thread-body">
+              <!-- Originele mail van Linda -->
+              <div class="demo-msg">
+                <div class="demo-msg-avatar">LV</div>
+                <div class="demo-msg-content">
+                  <div class="demo-msg-meta">
+                    <span class="demo-msg-from">Linda Visser</span>
+                    <span class="demo-msg-time">11:47</span>
+                  </div>
+                  <div class="demo-msg-text">Hoi, ik zie twee posten op factuur #1042 die ik niet helemaal begrijp. Zou je me kort kunnen doorlopen waar regel 3 en 4 op slaan? Dan kan ik 'm daarna direct goedkeuren.</div>
+                </div>
+              </div>
+              <!-- AI-draft compose card -->
+              <div class="demo-draft-card">
+                <div class="demo-draft-tag">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.09 6.26L20 9l-4.91 3.74L16 19l-4-3-4 3 .91-6.26L4 9l5.91-.74L12 2z"/></svg>
+                  Door OfficeFlow opgesteld · in jouw stijl
+                </div>
+                <div class="demo-draft-body">
+                  <p>Hoi Linda,</p>
+                  <p>Goed dat je ernaar vraagt — ik loop ze even met je door.</p>
+                  <p>Regel 3 is de maandlicentie (prorata jan–feb), regel 4 is het extra uur supportwerk van 8 feb. Beide staan op de specificatie in de bijlage.</p>
+                  <p>Laat maar weten als iets nog onduidelijk is, dan pas ik 'm aan.</p>
+                </div>
+                <div class="demo-draft-actions">
+                  <span class="demo-draft-btn primary">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="m22 2-7 20-4-9-9-4 20-7z"/></svg>
+                    Verstuur
+                  </span>
+                  <span class="demo-draft-btn ghost">Bewerken</span>
+                  <span class="demo-draft-btn ghost">Verwijder</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
         <div class="demo-draft-badge" aria-hidden="true">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 1 1 3 3L7 19l-4 1 1-4Z"/></svg>
-          Concept klaargezet in thread
+          Concept klaar in jouw stijl
         </div>
       </div>
     </div>
