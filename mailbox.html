@@ -452,6 +452,148 @@
     }
     .video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 
+    /* ==== ANIMATED DEMO (fallback totdat Loom klaar is) ==== */
+    .video-frame.video-demo{
+      background:#eef2f7;
+      cursor:default;
+      padding:22px;
+      display:flex;align-items:center;justify-content:center;
+    }
+    .video-frame.video-demo:hover{transform:none;box-shadow:var(--shadow-strong)}
+    .demo-mock{
+      width:100%;max-height:100%;
+      background:#fff;border:1px solid var(--border);border-radius:14px;
+      overflow:hidden;box-shadow:0 20px 50px rgba(15,23,42,.12);
+      display:flex;flex-direction:column;
+      position:relative;
+    }
+    .demo-mock .gm-bar{padding:9px 14px}
+    .demo-mock .gm-row{padding:10px 14px;font-size:12.5px}
+    .demo-mock .gm-sender{width:96px;font-size:12.5px}
+    .demo-mock .gm-label{font-size:9.5px;padding:2px 7px}
+    .demo-mock .gm-time{font-size:10.5px}
+
+    /* Incoming mail row */
+    .demo-incoming{
+      position:relative;
+      background:linear-gradient(90deg,rgba(255,247,237,.55) 0%,#fff 70%);
+      opacity:0;transform:translateY(-8px);
+      animation:demoIncomingIn 15s ease-in-out infinite;
+    }
+    .demo-incoming .gm-sender{font-weight:700}
+    .demo-incoming::before{
+      content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
+      background:var(--orange);opacity:0;
+      animation:demoBarFade 15s ease-in-out infinite;
+    }
+    .demo-label-stage{
+      position:relative;flex-shrink:0;
+      min-width:92px;height:18px;
+    }
+    .demo-analyzing{
+      position:absolute;top:0;left:0;display:inline-flex;align-items:center;gap:5px;
+      padding:2px 8px;border-radius:4px;
+      font-size:9.5px;font-weight:700;letter-spacing:.02em;
+      color:var(--text-soft);background:#f1f5f9;border:1px solid var(--border-soft);
+      opacity:0;animation:demoAnalyzingShow 15s ease-in-out infinite;
+      white-space:nowrap;
+    }
+    .demo-spinner{
+      width:8px;height:8px;border-radius:50%;
+      border:1.6px solid #cbd5e1;border-top-color:var(--orange);
+      animation:demoSpin 1s linear infinite;
+    }
+    .demo-label-pop{
+      position:absolute;top:0;left:0;
+      opacity:0;transform:scale(.6);transform-origin:left center;
+      animation:demoLabelPop 15s ease-in-out infinite;
+    }
+
+    /* Draft badge (floating) */
+    .demo-draft-badge{
+      position:absolute;bottom:18px;left:50%;
+      transform:translateX(-50%) translateY(14px);
+      display:inline-flex;align-items:center;gap:8px;
+      padding:9px 16px;border-radius:999px;
+      background:var(--gradient-orange);color:#fff;
+      font-size:12px;font-weight:700;letter-spacing:.01em;
+      box-shadow:0 12px 28px rgba(249,115,22,.35);
+      opacity:0;pointer-events:none;
+      animation:demoDraftBadge 15s ease-in-out infinite;
+    }
+    .demo-draft-badge svg{flex-shrink:0}
+
+    /* Live indicator pill */
+    .demo-live-pill{
+      position:absolute;top:14px;right:14px;z-index:2;
+      display:inline-flex;align-items:center;gap:6px;
+      padding:4px 10px;border-radius:999px;
+      background:rgba(15,23,42,.85);color:#fff;
+      font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+      backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+    }
+    .demo-live-dot{
+      width:6px;height:6px;border-radius:50%;background:#22c55e;
+      box-shadow:0 0 0 0 rgba(34,197,94,.75);
+      animation:demoLivePulse 1.6s ease-out infinite;
+    }
+
+    @keyframes demoSpin{to{transform:rotate(360deg)}}
+    @keyframes demoLivePulse{
+      0%{box-shadow:0 0 0 0 rgba(34,197,94,.75)}
+      70%{box-shadow:0 0 0 8px rgba(34,197,94,0)}
+      100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}
+    }
+    @keyframes demoIncomingIn{
+      0%,6%{opacity:0;transform:translateY(-8px)}
+      10%,92%{opacity:1;transform:translateY(0)}
+      96%,100%{opacity:0;transform:translateY(-8px)}
+    }
+    @keyframes demoBarFade{
+      0%,9%{opacity:0}
+      13%,88%{opacity:1}
+      94%,100%{opacity:0}
+    }
+    @keyframes demoAnalyzingShow{
+      0%,11%{opacity:0}
+      15%,33%{opacity:1}
+      38%,100%{opacity:0}
+    }
+    @keyframes demoLabelPop{
+      0%,36%{opacity:0;transform:scale(.6)}
+      40%{opacity:1;transform:scale(1.18)}
+      46%,92%{opacity:1;transform:scale(1)}
+      96%,100%{opacity:0;transform:scale(1)}
+    }
+    @keyframes demoDraftBadge{
+      0%,54%{opacity:0;transform:translateX(-50%) translateY(14px)}
+      58%{opacity:1;transform:translateX(-50%) translateY(0)}
+      62%,90%{opacity:1;transform:translateX(-50%) translateY(0)}
+      94%,100%{opacity:0;transform:translateX(-50%) translateY(14px)}
+    }
+
+    @media (prefers-reduced-motion:reduce){
+      .demo-incoming,.demo-incoming::before,
+      .demo-analyzing,.demo-label-pop,.demo-draft-badge,
+      .demo-live-dot,.demo-spinner{
+        animation:none !important;
+      }
+      .demo-incoming{opacity:1;transform:none}
+      .demo-incoming::before{opacity:1}
+      .demo-analyzing{display:none}
+      .demo-label-pop{opacity:1;transform:scale(1)}
+      .demo-draft-badge{opacity:1;transform:translateX(-50%) translateY(0)}
+    }
+    @media (max-width:768px){
+      .video-frame.video-demo{padding:12px}
+      .demo-mock .gm-sender{width:80px;font-size:11.5px}
+      .demo-mock .gm-row{padding:9px 12px;font-size:11.5px}
+      .demo-mock .gm-label{font-size:9px}
+      .demo-mock .gm-time{display:none}
+      .demo-label-stage{min-width:80px}
+      .demo-draft-badge{font-size:11px;padding:8px 14px;bottom:14px}
+    }
+
     /* STICKY CTA (floating, verschijnt bij scroll) */
     .sticky-cta{
       position:fixed;right:20px;bottom:20px;z-index:90;
@@ -786,19 +928,50 @@
     </div>
     <div class="video-wrap reveal">
       <!--
-        Vervang het <div class="video-frame"> blok hieronder met een Loom/YouTube/Vimeo iframe zodra de demo-video klaar staat:
+        Dit is een animated fallback-demo. Zodra je een Loom/YouTube/Vimeo video hebt,
+        vervang het hele <div class="video-frame video-demo"> ... </div> blok hieronder met:
 
         <div class="video-frame">
           <iframe src="https://www.loom.com/embed/JOUW_LOOM_ID" frameborder="0" allowfullscreen title="OfficeFlow Mailbox Manager demo"></iframe>
         </div>
       -->
-      <div class="video-frame" aria-label="Demo video komt binnenkort beschikbaar">
-        <div class="video-poster">
-          <div class="video-play" aria-hidden="true">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      <div class="video-frame video-demo" aria-label="Live demo: OfficeFlow labelt binnenkomende mail en zet een concept klaar">
+        <span class="demo-live-pill" aria-hidden="true">
+          <span class="demo-live-dot"></span>
+          Live demo
+        </span>
+        <div class="gmail-mock demo-mock">
+          <div class="gm-bar">
+            <div class="gm-dots"><span></span><span></span><span></span></div>
+            <div class="gm-url">mail.google.com/u/0/#inbox</div>
           </div>
+          <div class="gm-tabs">
+            <div class="gm-tab active">Primair</div>
+            <div class="gm-tab">Reclame</div>
+            <div class="gm-tab">Sociaal</div>
+            <div class="gm-tab">Updates</div>
+          </div>
+          <div class="gm-row demo-incoming">
+            <div class="gm-sender">Klant ABC</div>
+            <div class="demo-label-stage">
+              <span class="demo-analyzing" aria-hidden="true">
+                <span class="demo-spinner"></span>
+                AI analyseert…
+              </span>
+              <span class="gm-label lbl-prio demo-label-pop">Priority</span>
+            </div>
+            <div class="gm-sub"><strong>Kunnen we morgen bellen over het voorstel?</strong> — Hallo, ik heb je offerte bekeken en zou graag…</div>
+            <div class="gm-time">nu</div>
+          </div>
+          <div class="gm-row"><div class="gm-sender">Linda Visser</div><div class="gm-label lbl-resp">To Respond</div><div class="gm-sub"><strong>Vraag over factuur #1042</strong> — Ik zie twee posten die ik niet helemaal begrijp…</div><div class="gm-time">11:47</div></div>
+          <div class="gm-row"><div class="gm-sender">Jan Bakker</div><div class="gm-label lbl-wait">Waiting On Reply</div><div class="gm-sub">Bedankt, ik laat het je weten zodra ik reactie heb van…</div><div class="gm-time">10:58</div></div>
+          <div class="gm-row"><div class="gm-sender">Boekhouder</div><div class="gm-label lbl-follow">Follow Up</div><div class="gm-sub">Stuur je de BTW-gegevens nog van vorig kwartaal? Ik had je…</div><div class="gm-time">08:30</div></div>
+          <div class="gm-row"><div class="gm-sender">TPR Padel</div><div class="gm-label lbl-done">Done</div><div class="gm-sub">Bevestiging reservering (70167754) op Padel 2 / Trend…</div><div class="gm-time">Gisteren</div></div>
         </div>
-        <div class="video-caption">Demo video · ~60 seconden</div>
+        <div class="demo-draft-badge" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 1 1 3 3L7 19l-4 1 1-4Z"/></svg>
+          Concept klaargezet in thread
+        </div>
       </div>
     </div>
   </div>
