@@ -4,6 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>OfficeFlow — Stel je schrijfstijl in</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <meta name="theme-color" content="#F97316">
 
   <style>
     :root {
@@ -17,6 +22,7 @@
       --light-accent: #FED7AA;
       --gradient-primary: linear-gradient(135deg, #F97316 0%, #FB923C 100%);
       --border-light: #E2E8F0;
+      --border-softer: #EEF2F7;
       --success: #22C55E;
       --error: #EF4444;
       --shadow-soft: 0 16px 50px rgba(15, 23, 42, 0.06);
@@ -26,9 +32,7 @@
       --radius-button: 14px;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     html, body {
       margin: 0;
@@ -38,12 +42,10 @@
       font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
     }
 
-    body {
-      min-height: 100vh;
-    }
+    body { min-height: 100vh; }
 
     .page {
-      max-width: 960px;
+      max-width: 820px;
       margin: 0 auto;
       padding: 44px 20px 64px;
     }
@@ -52,22 +54,37 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
       margin-bottom: 26px;
     }
 
     .brand-logo {
-      width: 180px;
-      max-width: 70%;
-      height: auto;
-      display: block;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+    }
+
+    .brand-logo svg { flex-shrink: 0; display: block; }
+    .brand-logo .logo-text { line-height: 1; }
+
+    .brand-logo .flow {
+      background: linear-gradient(90deg, #F97316, #FB923C);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
     }
 
     .brand-pill {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 8px 12px;
+      padding: 7px 12px;
       border-radius: 999px;
       background: rgba(255,255,255,0.72);
       border: 1px solid var(--border-light);
@@ -77,8 +94,7 @@
     }
 
     .brand-pill-dot {
-      width: 8px;
-      height: 8px;
+      width: 8px; height: 8px;
       border-radius: 999px;
       background: var(--primary-orange);
       display: inline-block;
@@ -93,17 +109,17 @@
     }
 
     .hero {
-      padding: 34px 36px 26px;
+      padding: 32px 34px 22px;
       background:
         radial-gradient(circle at top right, rgba(249, 115, 22, 0.08), transparent 28%),
         linear-gradient(180deg, #FFFFFF 0%, #FFFDFB 100%);
-      border-bottom: 1px solid var(--border-light);
+      border-bottom: 1px solid var(--border-softer);
     }
 
     .hero-badge {
       display: inline-block;
-      margin-bottom: 16px;
-      padding: 8px 12px;
+      margin-bottom: 14px;
+      padding: 7px 12px;
       background: #FFF7ED;
       color: var(--primary-orange-hover);
       border: 1px solid var(--light-accent);
@@ -115,150 +131,86 @@
     }
 
     .hero h1 {
-      margin: 0 0 10px;
-      font-size: 40px;
-      line-height: 1.08;
-      letter-spacing: -0.03em;
-      color: var(--text-primary);
+      margin: 0 0 8px;
+      font-size: 34px;
+      line-height: 1.12;
+      letter-spacing: -0.02em;
     }
 
     .hero p {
       margin: 0;
-      max-width: 720px;
+      max-width: 640px;
       color: var(--text-secondary);
-      font-size: 16px;
+      font-size: 15.5px;
       line-height: 1.65;
     }
 
-    .content {
-      padding: 30px 36px 36px;
-    }
+    .content { padding: 26px 34px 30px; }
 
     .email-box {
       display: flex;
-      gap: 14px;
-      align-items: flex-start;
-      margin-bottom: 24px;
-      padding: 16px 18px;
-      border: 1px solid var(--border-light);
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 22px;
+      padding: 14px 16px;
+      border: 1px solid var(--border-softer);
       background: var(--bg-subtle);
-      border-radius: 16px;
+      border-radius: 14px;
     }
 
     .email-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 12px;
+      width: 32px; height: 32px;
+      border-radius: 10px;
       background: #FFFFFF;
-      border: 1px solid var(--border-light);
+      border: 1px solid var(--border-softer);
       color: var(--primary-orange);
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 800;
       flex-shrink: 0;
+      font-size: 14px;
     }
 
     .email-text {
       font-size: 14px;
       color: var(--text-secondary);
-      line-height: 1.6;
+      line-height: 1.5;
     }
 
-    .email-text strong {
+    .email-text strong { color: var(--text-primary); }
+
+    form { display: grid; gap: 20px; }
+
+    .section-h {
+      margin: 0 0 4px;
+      font-size: 15px;
+      font-weight: 700;
       color: var(--text-primary);
+      letter-spacing: -0.005em;
     }
 
-    form {
-      display: grid;
-      gap: 22px;
-    }
-
-    .section {
-      border: 1px solid var(--border-light);
-      border-radius: 20px;
-      padding: 22px;
-      background: #FFFFFF;
-    }
-
-    .section-title {
-      margin: 0 0 6px;
-      font-size: 22px;
-      line-height: 1.2;
-      color: var(--text-primary);
-    }
-
-    .section-subtitle {
-      margin: 0 0 18px;
+    .section-s {
+      margin: 0 0 12px;
       color: var(--text-secondary);
-      font-size: 14px;
-      line-height: 1.6;
+      font-size: 13.5px;
+      line-height: 1.55;
     }
 
-    .grid {
+    .quick-setup {
       display: grid;
-      grid-template-columns: 1fr 1fr;
       gap: 18px;
     }
 
-    .field {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .field.full {
-      grid-column: 1 / -1;
-    }
-
-    .field label {
-      font-size: 14px;
-      font-weight: 700;
-      margin-bottom: 8px;
-      color: var(--text-primary);
-    }
-
-    .field small {
-      margin-top: 8px;
-      font-size: 12px;
-      line-height: 1.5;
-      color: var(--text-secondary);
-    }
-
-    select,
-    textarea,
-    input[type="number"] {
-      width: 100%;
-      border: 1px solid var(--border-light);
-      border-radius: var(--radius-input);
-      background: #FFFFFF;
-      color: var(--text-primary);
-      font-size: 15px;
-      padding: 14px 14px;
-      outline: none;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    select:focus,
-    textarea:focus,
-    input[type="number"]:focus {
-      border-color: var(--primary-orange);
-      box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.12);
-    }
-
-    textarea {
-      min-height: 108px;
-      resize: vertical;
-    }
+    .field { display: flex; flex-direction: column; }
 
     .chip-group {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 8px;
     }
 
-    .chip {
-      position: relative;
-    }
+    .chip { position: relative; }
 
     .chip input {
       position: absolute;
@@ -270,8 +222,8 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 42px;
-      padding: 10px 14px;
+      min-height: 38px;
+      padding: 8px 14px;
       border: 1px solid var(--border-light);
       border-radius: 999px;
       background: #FFFFFF;
@@ -290,105 +242,240 @@
       box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.10);
     }
 
-    .chip-help {
+    .chip input:disabled + span {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .segmented {
+      display: inline-grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 1fr;
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      background: #FFFFFF;
+      overflow: hidden;
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .segmented label {
+      position: relative;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .segmented input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .segmented span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 14px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      border-right: 1px solid var(--border-softer);
+      transition: background 0.18s ease, color 0.18s ease;
+    }
+
+    .segmented label:last-child span { border-right: none; }
+
+    .segmented input:checked + span {
+      background: var(--gradient-primary);
+      color: #FFFFFF;
+    }
+
+    /* Preview card */
+    .preview {
       margin-top: 8px;
+      padding: 16px 18px;
+      background: var(--bg-subtle);
+      border: 1px dashed var(--light-accent);
+      border-radius: 16px;
+    }
+
+    .preview-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
       font-size: 12px;
+      font-weight: 700;
+      color: var(--primary-orange-hover);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .preview-label::before {
+      content: "";
+      width: 6px; height: 6px;
+      border-radius: 999px;
+      background: var(--primary-orange);
+    }
+
+    .preview-body {
+      font-size: 14.5px;
+      line-height: 1.65;
+      color: var(--text-primary);
+      white-space: pre-wrap;
+    }
+
+    /* Advanced collapsible */
+    .advanced-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      border: 1px solid var(--border-light);
+      background: #FFFFFF;
+      border-radius: 14px;
+      cursor: pointer;
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--text-primary);
+      transition: background 0.15s ease;
+    }
+
+    .advanced-toggle:hover { background: var(--bg-subtle); }
+
+    .advanced-toggle .chevron {
+      width: 18px; height: 18px;
+      transition: transform 0.2s ease;
       color: var(--text-secondary);
     }
 
-    .checkbox-grid {
+    .advanced-toggle.open .chevron { transform: rotate(180deg); }
+
+    .advanced-panel {
+      display: none;
+      margin-top: 10px;
+      padding: 20px;
+      border: 1px solid var(--border-light);
+      border-radius: 16px;
+      background: #FFFFFF;
       display: grid;
-      gap: 14px;
+      gap: 18px;
     }
 
-    .checkbox-card {
+    .advanced-panel.hidden { display: none; }
+    .advanced-panel:not(.hidden) { display: grid; }
+
+    .field label.row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .field small {
+      margin-top: 6px;
+      font-size: 12.5px;
+      line-height: 1.5;
+      color: var(--text-secondary);
+    }
+
+    select, textarea, input[type="number"] {
+      width: 100%;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-input);
+      background: #FFFFFF;
+      color: var(--text-primary);
+      font-size: 15px;
+      padding: 12px 14px;
+      outline: none;
+      font-family: inherit;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    select:focus, textarea:focus, input[type="number"]:focus {
+      border-color: var(--primary-orange);
+      box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.12);
+    }
+
+    textarea {
+      min-height: 88px;
+      resize: vertical;
+    }
+
+    .toggle-card {
       display: flex;
       gap: 12px;
       align-items: flex-start;
-      padding: 16px;
-      border: 1px solid var(--border-light);
-      border-radius: 16px;
+      padding: 14px 16px;
+      border: 1px solid var(--border-softer);
+      border-radius: 14px;
       background: var(--bg-subtle);
     }
 
-    .checkbox-card input[type="checkbox"] {
+    .toggle-card input[type="checkbox"] {
       margin-top: 3px;
       transform: scale(1.1);
       accent-color: var(--primary-orange);
     }
 
-    .checkbox-content-title {
+    .toggle-title {
       font-size: 14px;
       font-weight: 700;
-      margin-bottom: 4px;
+      margin-bottom: 3px;
     }
 
-    .checkbox-content-copy {
+    .toggle-copy {
       font-size: 13px;
       line-height: 1.5;
       color: var(--text-secondary);
     }
 
-    .helper-box {
-      margin-top: 10px;
-      padding: 12px 14px;
-      border-radius: 14px;
-      background: #FFF7ED;
-      border: 1px solid var(--light-accent);
-      color: #9A3412;
-      font-size: 13px;
-      line-height: 1.55;
-    }
-
     .footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 18px;
-      flex-wrap: wrap;
-      margin-top: 4px;
+      display: grid;
+      gap: 10px;
+      margin-top: 6px;
     }
 
-    .footer-note {
-      max-width: 520px;
-      font-size: 13px;
-      line-height: 1.6;
-      color: var(--text-secondary);
-    }
-
-    .actions {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 12px;
-      min-width: 280px;
-    }
-
-    .button-primary {
+    .button-primary, .button-secondary {
       width: 100%;
       border: none;
       border-radius: var(--radius-button);
-      background: var(--gradient-primary);
-      color: white;
       font-size: 15px;
       font-weight: 700;
-      padding: 16px 20px;
+      padding: 15px 20px;
       cursor: pointer;
-      box-shadow: var(--shadow-button);
-      transition: transform 0.15s ease, opacity 0.15s ease;
+      font-family: inherit;
+      transition: transform 0.15s ease, opacity 0.15s ease, background 0.15s ease;
     }
 
-    .button-primary:hover {
-      transform: translateY(-1px);
-      opacity: 0.98;
+    .button-primary {
+      background: var(--gradient-primary);
+      color: white;
+      box-shadow: var(--shadow-button);
     }
+
+    .button-primary:hover { transform: translateY(-1px); opacity: 0.98; }
 
     .button-primary:disabled {
-      opacity: 0.7;
-      cursor: not-allowed;
-      transform: none;
-      box-shadow: none;
+      opacity: 0.7; cursor: not-allowed;
+      transform: none; box-shadow: none;
     }
+
+    .button-secondary {
+      background: #FFFFFF;
+      color: var(--text-secondary);
+      border: 1px solid var(--border-light);
+      font-weight: 600;
+    }
+
+    .button-secondary:hover {
+      background: var(--bg-subtle);
+      color: var(--text-primary);
+    }
+
+    .button-secondary:disabled { opacity: 0.5; cursor: not-allowed; }
 
     .status {
       width: 100%;
@@ -401,9 +488,7 @@
       white-space: pre-wrap;
     }
 
-    .status.show {
-      display: block;
-    }
+    .status.show { display: block; }
 
     .status.success {
       display: block;
@@ -426,49 +511,62 @@
       border: 1px solid rgba(249, 115, 22, 0.20);
     }
 
-    @media (max-width: 760px) {
-      .page {
-        padding: 26px 14px 40px;
-      }
+    .footer-note {
+      margin-top: 4px;
+      font-size: 12.5px;
+      line-height: 1.55;
+      color: var(--text-secondary);
+      text-align: center;
+    }
 
-      .hero,
-      .content {
-        padding-left: 20px;
-        padding-right: 20px;
-      }
-
-      .hero h1 {
-        font-size: 30px;
-      }
-
-      .grid {
-        grid-template-columns: 1fr;
-      }
-
-      .actions {
-        width: 100%;
-        align-items: stretch;
-      }
+    @media (max-width: 720px) {
+      .page { padding: 24px 14px 40px; }
+      .hero { padding: 24px 18px 18px; }
+      .content { padding: 20px 18px 26px; }
+      .hero h1 { font-size: 24px; line-height: 1.15; }
+      .hero p { font-size: 14.5px; }
+      .brand-logo { font-size: 22px; }
+      .email-box { padding: 12px 14px; gap: 10px; }
+      .email-text { font-size: 13px; }
+      form { gap: 16px; }
+      select, textarea, input[type="number"] { font-size: 16px; padding: 12px 14px; }
+      textarea { min-height: 90px; }
+      .button-primary, .button-secondary { padding: 14px 18px; font-size: 15px; width: 100%; }
+    }
+    @media (max-width: 480px) {
+      .brand-header { margin-bottom: 18px; gap: 10px; }
+      .brand-logo { font-size: 20px; }
+      .brand-pill { font-size: 12px; padding: 6px 10px; text-align: center; }
+      .hero-badge { font-size: 11px; padding: 6px 10px; }
+      .hero h1 { font-size: 22px; }
     }
   </style>
 </head>
 <body>
   <div class="page">
     <div class="brand-header">
-      <img class="brand-logo" src="/OfficeFlow-logo.png" alt="OfficeFlow logo" />
+      <a href="/" class="brand-logo" aria-label="OfficeFlow">
+        <svg viewBox="0 0 48 48" width="34" height="34" aria-hidden="true">
+          <defs><linearGradient id="of-prefs-mark" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F97316"/><stop offset="100%" stop-color="#FB923C"/></linearGradient></defs>
+          <rect width="48" height="48" rx="11" fill="url(#of-prefs-mark)"/>
+          <circle cx="24" cy="24" r="11" fill="none" stroke="#fff" stroke-width="3.2"/>
+          <path d="M21.5 19.5 L28 24 L21.5 28.5" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="logo-text">Office<span class="flow">Flow</span></span>
+      </a>
       <div class="brand-pill">
         <span class="brand-pill-dot"></span>
-        Persoonlijke onboarding voor OfficeFlow
+        Laatste stap voor je eerste conceptantwoord
       </div>
     </div>
 
     <div class="card">
       <div class="hero">
-        <div class="hero-badge">Reply Preferences</div>
-        <h1>Laat OfficeFlow schrijven zoals jij dat wilt</h1>
+        <div class="hero-badge">Schrijfstijl</div>
+        <h1>Hoe moeten je conceptantwoorden klinken?</h1>
         <p>
-          Stel hieronder jouw voorkeuren in voor toon, lengte, formaliteit en schrijfstijl.
-          Zo zijn je eerste AI-drafts direct bruikbaar en voelen ze meteen als jouw eigen mails.
+          Drie snelle keuzes en OfficeFlow schrijft drafts die lezen alsof jij ze zelf hebt getypt.
+          Geen zorgen — je kunt dit altijd aanpassen in je dashboard.
         </p>
       </div>
 
@@ -479,186 +577,130 @@
         </div>
 
         <form id="preferencesForm">
-          <div class="section">
-            <h2 class="section-title">Algemene stijl</h2>
-            <p class="section-subtitle">
-              Kies hoe OfficeFlow standaard je replies moet formuleren.
-            </p>
+          <div class="quick-setup">
 
-            <div class="grid">
-              <div class="field">
-                <label>Taal</label>
-                <div class="chip-group" id="preferred_language_group">
-                  <label class="chip"><input type="checkbox" value="nl"><span>Nederlands</span></label>
-                  <label class="chip"><input type="checkbox" value="en"><span>Engels</span></label>
-                  <label class="chip"><input type="checkbox" value="de"><span>Duits</span></label>
-                  <label class="chip"><input type="checkbox" value="fr"><span>Frans</span></label>
-                  <label class="chip"><input type="checkbox" value="es"><span>Spaans</span></label>
-                  <label class="chip"><input type="checkbox" value="it"><span>Italiaans</span></label>
-                </div>
-                <div class="chip-help">Je kunt meerdere talen aanklikken.</div>
-                <small>Welke talen gebruik je in je replies?</small>
+            <!-- 1. Taal -->
+            <div class="field">
+              <h3 class="section-h">1. Taal</h3>
+              <p class="section-s">In welke talen antwoord je? Je kunt meerdere kiezen.</p>
+              <div class="chip-group" id="language_group">
+                <label class="chip"><input type="checkbox" value="nl" checked><span>Nederlands</span></label>
+                <label class="chip"><input type="checkbox" value="en" checked><span>Engels</span></label>
+                <label class="chip"><input type="checkbox" value="de"><span>Duits</span></label>
+                <label class="chip"><input type="checkbox" value="fr"><span>Frans</span></label>
+                <label class="chip"><input type="checkbox" value="es"><span>Spaans</span></label>
+                <label class="chip"><input type="checkbox" value="it"><span>Italiaans</span></label>
               </div>
+            </div>
 
-              <div class="field">
-                <label>Toon</label>
-                <div class="chip-group" id="tone_preference_group">
-                  <label class="chip"><input type="checkbox" value="direct"><span>Direct</span></label>
-                  <label class="chip"><input type="checkbox" value="vriendelijk"><span>Vriendelijk</span></label>
-                  <label class="chip"><input type="checkbox" value="formeel"><span>Formeel</span></label>
-                  <label class="chip"><input type="checkbox" value="professioneel"><span>Professioneel</span></label>
-                  <label class="chip"><input type="checkbox" value="enthousiast"><span>Enthousiast</span></label>
-                  <label class="chip"><input type="checkbox" value="rustig"><span>Rustig</span></label>
-                  <label class="chip"><input type="checkbox" value="kort_en_bondig"><span>Kort en bondig</span></label>
-                </div>
-                <div class="chip-help">Je kunt meerdere tonen aanklikken.</div>
-                <small>Hoe wil je overkomen in je communicatie?</small>
+            <!-- 2. Toon -->
+            <div class="field">
+              <h3 class="section-h">2. Toon</h3>
+              <p class="section-s">Kies één toon die het beste bij jouw stijl past.</p>
+              <div class="chip-group" id="tone_group">
+                <label class="chip"><input type="radio" name="tone" value="vriendelijk"><span>Vriendelijk</span></label>
+                <label class="chip"><input type="radio" name="tone" value="professioneel" checked><span>Professioneel</span></label>
+                <label class="chip"><input type="radio" name="tone" value="direct"><span>Direct</span></label>
+                <label class="chip"><input type="radio" name="tone" value="enthousiast"><span>Enthousiast</span></label>
               </div>
+            </div>
 
-              <div class="field">
-                <label for="formality">Formaliteit</label>
-                <select id="formality">
-                  <option value="informeel">Informeel</option>
-                  <option value="neutraal">Neutraal</option>
-                  <option value="formeel">Formeel</option>
-                </select>
-                <small>Hoe zakelijk of los je formuleringen mogen zijn.</small>
+            <!-- 3. Lengte -->
+            <div class="field">
+              <h3 class="section-h">3. Lengte</h3>
+              <p class="section-s">Hoe uitgebreid mogen je standaard drafts zijn?</p>
+              <div class="segmented" id="length_group">
+                <label><input type="radio" name="length" value="kort"><span>Kort</span></label>
+                <label><input type="radio" name="length" value="gemiddeld" checked><span>Normaal</span></label>
+                <label><input type="radio" name="length" value="uitgebreid"><span>Uitgebreid</span></label>
               </div>
+            </div>
 
-              <div class="field">
-                <label for="length_preference">Lengte</label>
-                <select id="length_preference">
-                  <option value="kort">Kort</option>
-                  <option value="gemiddeld">Gemiddeld</option>
-                  <option value="uitgebreid">Uitgebreid</option>
-                </select>
-                <small>Hoe lang je standaard replies ongeveer mogen zijn.</small>
-              </div>
-
-              <div class="field full">
-                <label for="cta_preference">Afsluiting / call-to-action</label>
-                <select id="cta_preference">
-                  <option value="only_when_relevant">Alleen wanneer relevant</option>
-                  <option value="always_soft">Altijd zacht afsluiten</option>
-                  <option value="minimal">Zo minimaal mogelijk</option>
-                </select>
-                <small>Of OfficeFlow je reply actief moet afsluiten met een uitnodiging tot reactie.</small>
-              </div>
+            <!-- Live preview -->
+            <div class="preview">
+              <div class="preview-label">Zo gaat je draft er ongeveer uitzien</div>
+              <div class="preview-body" id="previewBody"></div>
             </div>
           </div>
 
-          <div class="section">
-            <h2 class="section-title">Jouw manier van schrijven</h2>
-            <p class="section-subtitle">
-              Geef OfficeFlow voorbeelden en regels zodat drafts beter passen bij jouw stijl.
-            </p>
+          <!-- Advanced toggle -->
+          <button type="button" class="advanced-toggle" id="advancedToggle">
+            <span>Meer instellingen (optioneel)</span>
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
 
-            <div class="grid">
-              <div class="field full">
-                <label for="preferred_phrases">Wat wil je juist wél terugzien?</label>
-                <textarea
-                  id="preferred_phrases"
-                  placeholder="Bijv:
-Gebruik altijd mijn naam in de afsluiting.
-Houd het kort.
-Kom snel tot de kern."
-                ></textarea>
-                <small>Schrijf hier kort wat OfficeFlow juist vaker moet doen of gebruiken.</small>
-              </div>
+          <div class="advanced-panel hidden" id="advancedPanel">
 
-              <div class="field full">
-                <label for="forbidden_phrases">Wat wil je juist níet gebruiken?</label>
-                <textarea
-                  id="forbidden_phrases"
-                  placeholder="Bijv:
-Dank voor je bericht.
-Neem gerust contact op."
-                ></textarea>
-                <small>Schrijf hier woorden of zinnen die OfficeFlow moet vermijden.</small>
-              </div>
-
-              <div class="field full">
-                <label for="custom_instructions">Extra instructies</label>
-                <textarea
-                  id="custom_instructions"
-                  placeholder="Bijv:
-Openingstijden 09:00–17:00
-Antwoord binnen 1 werkdag
-Verwijs naar website bij prijzen"
-                ></textarea>
-                <small>Korte extra regels die belangrijk zijn voor je replies.</small>
-                <div class="helper-box">
-                  Tip: zet hier alleen vaste regels neer die vaak terugkomen. Kort en concreet werkt het best.
-                </div>
-              </div>
-
-              <div class="field full">
-                <label for="signature_text">Handtekening</label>
-                <textarea
-                  id="signature_text"
-                  placeholder="Bijv:
-
-Met vriendelijke groet,"
-                ></textarea>
-                <small>De standaard handtekening die onder je drafts mag komen.</small>
-              </div>
-            </div>
-          </div>
-
-          <div class="section">
-            <h2 class="section-title">Extra instellingen</h2>
-            <p class="section-subtitle">
-              Kies hoe actief OfficeFlow je moet ondersteunen.
-            </p>
-
-            <div class="checkbox-grid">
-              <label class="checkbox-card">
-                <input type="checkbox" id="emoji_preference" />
-                <div>
-                  <div class="checkbox-content-title">Emoji toestaan</div>
-                  <div class="checkbox-content-copy">
-                    Laat OfficeFlow soms emoji gebruiken als dat past bij jouw stijl.
-                  </div>
-                </div>
-              </label>
-
-              <label class="checkbox-card">
-                <input type="checkbox" id="style_learning_enabled" />
-                <div>
-                  <div class="checkbox-content-title">Style learning inschakelen</div>
-                  <div class="checkbox-content-copy">
-                    Laat OfficeFlow leren van eerder verzonden mails om je schrijfstijl beter te volgen.
-                  </div>
-                </div>
-              </label>
+            <!-- Formaliteit -->
+            <div class="field">
+              <label class="row" for="formality">Formaliteit</label>
+              <select id="formality">
+                <option value="informeel">Informeel (bv. "Hi", "groetjes")</option>
+                <option value="neutraal" selected>Neutraal</option>
+                <option value="formeel">Formeel (bv. "Geachte", "Met vriendelijke groet")</option>
+              </select>
             </div>
 
-            <div class="grid" style="margin-top: 18px;">
-              <div class="field">
-                <label for="style_learning_source_limit">Aantal mails voor style learning</label>
-                <input
-                  type="number"
-                  id="style_learning_source_limit"
-                  min="1"
-                  max="20"
-                  value="20"
-                />
-                <small>Hoeveel eerdere verzonden mails OfficeFlow maximaal mag gebruiken.</small>
+            <!-- Emoji -->
+            <label class="toggle-card">
+              <input type="checkbox" id="emoji_preference" />
+              <div>
+                <div class="toggle-title">Emoji toegestaan</div>
+                <div class="toggle-copy">Soms een emoji gebruiken als dat natuurlijk past bij de conversatie.</div>
               </div>
+            </label>
+
+            <!-- Style learning -->
+            <label class="toggle-card">
+              <input type="checkbox" id="style_learning_enabled" checked />
+              <div>
+                <div class="toggle-title">Leren van mijn verzonden mails (aanbevolen)</div>
+                <div class="toggle-copy">OfficeFlow analyseert je laatste ~20 verzonden mails zodat je drafts lezen alsof jij ze zelf schreef.</div>
+              </div>
+            </label>
+
+            <!-- Preferred phrases -->
+            <div class="field">
+              <label class="row" for="preferred_phrases">Gebruik wél vaker</label>
+              <textarea id="preferred_phrases" placeholder="Bijv:&#10;Gebruik mijn voornaam in de afsluiting.&#10;Kom snel tot de kern."></textarea>
+              <small>Kleine regels waar OfficeFlow rekening mee houdt bij het schrijven.</small>
             </div>
+
+            <!-- Forbidden phrases -->
+            <div class="field">
+              <label class="row" for="forbidden_phrases">Vermijd juist</label>
+              <textarea id="forbidden_phrases" placeholder="Bijv:&#10;Geen &quot;Dank voor je bericht&quot;.&#10;Geen &quot;Neem gerust contact op&quot;."></textarea>
+              <small>Woorden of zinnen die je nooit in je drafts wil zien.</small>
+            </div>
+
+            <!-- Custom instructions -->
+            <div class="field">
+              <label class="row" for="custom_instructions">Vaste regels voor je replies</label>
+              <textarea id="custom_instructions" placeholder="Bijv:&#10;Openingstijden 09:00–17:00&#10;Antwoord binnen 1 werkdag&#10;Verwijs naar website bij prijzen"></textarea>
+              <small>Kort en concreet werkt het best — alleen dingen die echt vaak terugkomen.</small>
+            </div>
+
+            <!-- Signature -->
+            <div class="field">
+              <label class="row" for="signature_text">Handtekening</label>
+              <textarea id="signature_text" placeholder="Laat leeg om je Gmail-handtekening automatisch te gebruiken.&#10;&#10;Of typ hier je eigen:&#10;Met vriendelijke groet,&#10;Jesse"></textarea>
+              <small>Blijft leeg? Dan pakt OfficeFlow automatisch je bestaande Gmail-handtekening.</small>
+            </div>
+
           </div>
 
           <div class="footer">
+            <button id="saveBtn" class="button-primary" type="submit">
+              Voorkeuren opslaan en start OfficeFlow
+            </button>
+            <button id="skipBtn" class="button-secondary" type="button">
+              Sla over — gebruik slimme standaardinstellingen
+            </button>
+            <div id="status" class="status"></div>
             <div class="footer-note">
-              Je mailbox wordt pas echt geactiveerd zodra deze voorkeuren zijn opgeslagen.
-              Je kunt deze instellingen later altijd aanpassen.
-            </div>
-
-            <div class="actions">
-              <button id="saveBtn" class="button-primary" type="submit">
-                Voorkeuren opslaan
-              </button>
-              <div id="status" class="status"></div>
+              Je conceptantwoorden zijn altijd suggesties — OfficeFlow verstuurt nooit automatisch.
             </div>
           </div>
         </form>
@@ -675,48 +717,122 @@ Met vriendelijke groet,"
     const statusEl = document.getElementById("status");
     const formEl = document.getElementById("preferencesForm");
     const saveBtn = document.getElementById("saveBtn");
+    const skipBtn = document.getElementById("skipBtn");
+    const advancedToggle = document.getElementById("advancedToggle");
+    const advancedPanel = document.getElementById("advancedPanel");
+    const previewBody = document.getElementById("previewBody");
 
     emailText.innerHTML = email
       ? `Gekoppeld e-mailadres: <strong>${email}</strong>`
       : `Geen e-mailadres gevonden in de URL.`;
 
+    // --- Advanced toggle ---
+    advancedToggle.addEventListener("click", () => {
+      const open = advancedPanel.classList.toggle("hidden") === false;
+      advancedToggle.classList.toggle("open", open);
+    });
+
+    // --- Live preview ---
+    const PREVIEW_TEMPLATES = {
+      vriendelijk: {
+        kort: "Hoi {naam},\n\nBedankt voor je bericht! Ik pak dit meteen op en laat je snel weten wat we kunnen doen.\n\nGroetjes,",
+        gemiddeld: "Hoi {naam},\n\nLeuk dat je contact opneemt! Ik heb je vraag goed begrepen en kijk er graag even naar. Ik stuur je binnen een werkdag een volledig antwoord — als er iets niet klopt aan wat ik hierboven heb begrepen, laat het vooral weten.\n\nGroetjes,",
+        uitgebreid: "Hoi {naam},\n\nFijn dat je de tijd hebt genomen om dit op te sturen. Ik heb alles goed doorgelezen en wil er even rustig naar kijken voordat ik met een volledig antwoord kom.\n\nIk laat je uiterlijk morgen weten hoe we dit het beste kunnen aanpakken, zodat je er verder mee kunt. Als er in de tussentijd nog iets is, hoor ik het graag.\n\nGroetjes,"
+      },
+      professioneel: {
+        kort: "Beste {naam},\n\nDank voor je bericht. Ik kijk ernaar en kom binnen een werkdag bij je terug met een voorstel.\n\nMet vriendelijke groet,",
+        gemiddeld: "Beste {naam},\n\nDank voor je bericht. Ik heb je vraag doorgenomen en wil er zorgvuldig naar kijken. Ik reageer uiterlijk morgen met een compleet antwoord en de vervolgstappen zoals ik die zie.\n\nMet vriendelijke groet,",
+        uitgebreid: "Beste {naam},\n\nDank voor je uitgebreide bericht. Ik heb alles doorgenomen en wil er graag zorgvuldig op reageren voordat ik een compleet voorstel doe.\n\nIk kom uiterlijk morgen bij je terug met een helder antwoord en de concrete vervolgstappen. Mocht er in de tussentijd iets zijn dat niet kan wachten, laat het dan vooral weten.\n\nMet vriendelijke groet,"
+      },
+      direct: {
+        kort: "Hoi {naam},\n\nDank. Ik kom morgen bij je terug.\n\nGroet,",
+        gemiddeld: "Hoi {naam},\n\nDank voor je mail. Ik kijk er vandaag naar en kom morgen bij je terug met een duidelijk antwoord.\n\nGroet,",
+        uitgebreid: "Hoi {naam},\n\nDank voor je bericht. Ik heb het doorgenomen en werk nu uit wat de beste aanpak is. Morgen stuur ik je het volledige antwoord met de vervolgstappen.\n\nGroet,"
+      },
+      enthousiast: {
+        kort: "Hoi {naam},\n\nWat leuk, dank! Ik duik er meteen in en kom snel bij je terug.\n\nGroetjes,",
+        gemiddeld: "Hoi {naam},\n\nSuper dat je dit hebt opgestuurd! Ik ga er direct mee aan de slag en stuur je morgen een volledig antwoord met hoe we dit kunnen oppakken.\n\nGroetjes,",
+        uitgebreid: "Hoi {naam},\n\nWat fijn dat je dit deelt! Ik heb je bericht helemaal gelezen en heb er meteen een paar ideeën bij — ik werk ze vanavond uit en stuur je morgen een uitgebreid antwoord met een concreet voorstel.\n\nLaat gerust weten als er iets is dat ik moet weten voordat ik dat doe.\n\nGroetjes,"
+      }
+    };
+
+    function updatePreview() {
+      const tone = (document.querySelector('input[name="tone"]:checked') || {}).value || "professioneel";
+      const length = (document.querySelector('input[name="length"]:checked') || {}).value || "gemiddeld";
+      const lengthKey = length === "uitgebreid" ? "uitgebreid" : (length === "kort" ? "kort" : "gemiddeld");
+      const template = (PREVIEW_TEMPLATES[tone] && PREVIEW_TEMPLATES[tone][lengthKey])
+        || PREVIEW_TEMPLATES.professioneel.gemiddeld;
+      previewBody.textContent = template.replace("{naam}", "Mark");
+    }
+
+    document.querySelectorAll('input[name="tone"], input[name="length"]').forEach(el => {
+      el.addEventListener("change", updatePreview);
+    });
+    updatePreview();
+
+    // --- Helpers ---
+    function getCheckedValues(groupId) {
+      return Array.from(document.querySelectorAll(`#${groupId} input:checked`)).map(i => i.value);
+    }
+
+    function buildPayload({ useDefaults = false } = {}) {
+      if (useDefaults) {
+        return {
+          email,
+          preferred_language: "nl, en",
+          tone_preference: "professioneel",
+          formality: "neutraal",
+          length_preference: "gemiddeld",
+          emoji_preference: false,
+          cta_preference: "only_when_relevant",
+          forbidden_phrases: "",
+          preferred_phrases: "",
+          custom_instructions: "",
+          signature_text: "",
+          style_learning_enabled: true,
+          style_learning_source_limit: 20
+        };
+      }
+
+      const languages = getCheckedValues("language_group");
+      const tone = (document.querySelector('input[name="tone"]:checked') || {}).value || "professioneel";
+      const length = (document.querySelector('input[name="length"]:checked') || {}).value || "gemiddeld";
+
+      return {
+        email,
+        preferred_language: languages.length ? languages.join(", ") : "nl",
+        tone_preference: tone,
+        formality: document.getElementById("formality").value || "neutraal",
+        length_preference: length,
+        emoji_preference: document.getElementById("emoji_preference").checked,
+        cta_preference: "only_when_relevant",
+        forbidden_phrases: document.getElementById("forbidden_phrases").value || "",
+        preferred_phrases: document.getElementById("preferred_phrases").value || "",
+        custom_instructions: (document.getElementById("custom_instructions").value || "").trim(),
+        signature_text: (document.getElementById("signature_text").value || "").trim(),
+        style_learning_enabled: document.getElementById("style_learning_enabled").checked,
+        style_learning_source_limit: 20
+      };
+    }
+
     function setStatus(message, type = "") {
       statusEl.textContent = message;
       statusEl.className = "status show";
-      if (type) {
-        statusEl.classList.add(type);
-      }
-    }
-
-    function getCheckedValues(groupId) {
-      return Array.from(document.querySelectorAll(`#${groupId} input:checked`)).map(input => input.value);
-    }
-
-    function getCheckedValuesAsString(groupId) {
-      return getCheckedValues(groupId).join(", ");
+      if (type) statusEl.classList.add(type);
     }
 
     async function parseResponse(response) {
       const text = await response.text();
-      try {
-        return text ? JSON.parse(text) : {};
-      } catch {
-        return { raw: text };
-      }
+      try { return text ? JSON.parse(text) : {}; }
+      catch { return { raw: text }; }
     }
 
     function formatErrorDetail(detail) {
       if (!detail) return "Onbekende fout";
       if (typeof detail === "string") return detail;
-
       if (Array.isArray(detail)) {
-        return detail.map(item => {
-          if (typeof item === "string") return item;
-          if (item.msg) return item.msg;
-          return JSON.stringify(item);
-        }).join(" | ");
+        return detail.map(i => typeof i === "string" ? i : (i.msg || JSON.stringify(i))).join(" | ");
       }
-
       if (detail.message) return detail.message;
       return JSON.stringify(detail);
     }
@@ -724,42 +840,32 @@ Met vriendelijke groet,"
     async function savePromptSettings(payload) {
       const response = await fetch(`${API_BASE}/settings/prompt`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
       });
-
       const data = await parseResponse(response);
-
       if (!response.ok) {
         throw new Error(formatErrorDetail(data?.detail) || data?.error || data?.message || JSON.stringify(data));
       }
-
       return data;
     }
 
     async function completeOnboarding(email) {
       const response = await fetch(`${API_BASE}/onboarding/complete`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email })
       });
-
       const data = await parseResponse(response);
-
       if (!response.ok) {
         throw new Error(formatErrorDetail(data?.detail) || data?.error || data?.message || JSON.stringify(data));
       }
-
       return data;
     }
 
     function countDraftsFromMessages(messages) {
       if (!Array.isArray(messages)) return 0;
-      return messages.reduce((total, message) => total + (message && message.draft_created === true ? 1 : 0), 0);
+      return messages.reduce((total, m) => total + (m && m.draft_created === true ? 1 : 0), 0);
     }
 
     function buildSuccessUrl(email, onboardingResult) {
@@ -772,76 +878,60 @@ Met vriendelijke groet,"
         const labelsCount = Number(onboardingResult.labels_created_count || 0);
         const draftsCount = countDraftsFromMessages(onboardingResult.messages);
         const firstDraft = onboardingResult.first_draft_generated === true ? "1" : "0";
-
         urlParams.set("processed", String(processedCount));
         urlParams.set("drafts", String(draftsCount));
         urlParams.set("labels", String(labelsCount));
         urlParams.set("first_draft", firstDraft);
       }
-
       const query = urlParams.toString();
       return query ? `${base}?${query}` : base;
     }
 
-    formEl.addEventListener("submit", async function (e) {
-      e.preventDefault();
-
+    async function submitFlow(payload) {
       if (!email) {
         setStatus("Geen e-mailadres gevonden in URL.", "error");
         return;
       }
 
-      const sourceLimit = parseInt(
-        document.getElementById("style_learning_source_limit").value || "20",
-        10
-      );
-
-      const payload = {
-        email: email,
-        preferred_language: getCheckedValuesAsString("preferred_language_group"),
-        tone_preference: getCheckedValuesAsString("tone_preference_group"),
-        formality: document.getElementById("formality").value,
-        length_preference: document.getElementById("length_preference").value,
-        emoji_preference: document.getElementById("emoji_preference").checked,
-        cta_preference: document.getElementById("cta_preference").value,
-        forbidden_phrases: document.getElementById("forbidden_phrases").value,
-        preferred_phrases: document.getElementById("preferred_phrases").value,
-        custom_instructions: document.getElementById("custom_instructions").value.trim(),
-        signature_text: document.getElementById("signature_text").value.trim(),
-        style_learning_enabled: document.getElementById("style_learning_enabled").checked,
-        style_learning_source_limit: isNaN(sourceLimit) ? 20 : Math.min(sourceLimit, 20)
-      };
-
       saveBtn.disabled = true;
+      skipBtn.disabled = true;
       saveBtn.textContent = "Bezig...";
 
       try {
-        setStatus("1/4 Voorkeuren opslaan...", "loading");
+        setStatus("1/2 Voorkeuren opslaan...", "loading");
         await savePromptSettings(payload);
 
-        setStatus("2/4 Voorkeuren opgeslagen.\n3/4 Labels aanmaken en inbox scannen...\nDit duurt meestal 20–60 seconden.", "loading");
-
+        setStatus("2/2 Labels aanmaken en je inbox scannen...\nDit duurt meestal 20–60 seconden.", "loading");
         const onboardingResult = await completeOnboarding(email);
 
         const draftsCount = countDraftsFromMessages(onboardingResult && onboardingResult.messages);
         const processedCount = Number((onboardingResult && onboardingResult.processed_count) || 0);
 
         setStatus(
-          `4/4 Klaar.\n${processedCount} mails verwerkt, ${draftsCount} drafts staan klaar in Gmail.`,
+          `Klaar! ${processedCount} mails verwerkt, ${draftsCount} conceptantwoorden staan klaar in Gmail.`,
           "success"
         );
 
-        const successUrl = buildSuccessUrl(email, onboardingResult);
         setTimeout(() => {
-          window.location.href = successUrl;
-        }, 1400);
+          window.location.href = buildSuccessUrl(email, onboardingResult);
+        }, 1300);
 
       } catch (error) {
         setStatus("Opslaan mislukt: " + error.message, "error");
         console.log("Onboarding error:", error);
         saveBtn.disabled = false;
-        saveBtn.textContent = "Voorkeuren opslaan";
+        skipBtn.disabled = false;
+        saveBtn.textContent = "Voorkeuren opslaan en start OfficeFlow";
       }
+    }
+
+    formEl.addEventListener("submit", (e) => {
+      e.preventDefault();
+      submitFlow(buildPayload({ useDefaults: false }));
+    });
+
+    skipBtn.addEventListener("click", () => {
+      submitFlow(buildPayload({ useDefaults: true }));
     });
   </script>
 </body>
