@@ -641,6 +641,42 @@
     .tag-wai { background: rgba(168,85,247,.12); color: #9333ea; }
     .tag-don { background: rgba(34,197,94,.12); color: #16a34a; }
 
+    /* ==== Mailbox Manager widget — vibe matched met animated demo (scoped aan .dash-card-orange) ==== */
+    .dash-card-orange .tag-pri { background: #fee2e2; color: #b91c1c; }
+    .dash-card-orange .tag-res { background: #dbeafe; color: #1d4ed8; }
+    .dash-card-orange .tag-fol { background: #e5e7eb; color: #1f2937; }
+    .dash-card-orange .tag-wai { background: #f3e8ff; color: #7e22ce; }
+    .dash-card-orange .tag-don { background: #d1fae5; color: #065f46; }
+    .dash-card-orange .tag-brief {
+      background: linear-gradient(135deg,rgba(249,115,22,.18) 0%,rgba(249,115,22,.08) 100%);
+      color: var(--orange-dark);
+      border: 1px solid rgba(249,115,22,.3);
+    }
+
+    /* Incoming-vibe — eerste mail krijgt oranje tint + 3px bar links, zoals demo-row-1 */
+    .dash-card-orange .mail-item-incoming {
+      background: linear-gradient(90deg,rgba(255,247,237,.6) 0%,#fff 70%);
+    }
+    .dash-card-orange .mail-item-incoming::after {
+      content: ""; position: absolute; left: 0; top: 5px; bottom: 5px; width: 3px;
+      background: var(--orange); border-radius: 2px;
+    }
+    .dash-card-orange .mail-item-incoming .mail-sender { font-weight: 700; }
+
+    /* Daily Brief row — OfficeFlow ochtendmail bovenaan, zoals demo-row-brief */
+    .dash-card-orange .mail-item-brief {
+      background: linear-gradient(90deg,rgba(255,247,237,.55) 0%,rgba(255,247,237,.1) 85%);
+    }
+    .dash-card-orange .mail-item-brief::after {
+      content: ""; position: absolute; left: 0; top: 5px; bottom: 5px; width: 3px;
+      background: var(--orange); opacity: .6; border-radius: 2px;
+    }
+    .dash-card-orange .mail-item-brief .mail-sender {
+      color: var(--orange-dark); font-weight: 700;
+      display: inline-flex; align-items: center; gap: 5px;
+    }
+    .dash-card-orange .mail-item-brief .mail-sender svg { flex-shrink: 0; }
+
     /* Invoice/offer item — flat row, no boxing */
     .inv-item {
       padding: 9px 8px;
@@ -856,7 +892,16 @@
             </div>
             <div class="dash-summary"><span class="sum-o">12</span> mails geordend &middot; <span class="sum-o">4</span> conceptantwoorden klaar</div>
             <div class="dash-scroll">
-              <div class="mail-item">
+              <div class="mail-item mail-item-brief">
+                <div class="mail-body">
+                  <div class="mail-sender"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.09 6.26L20 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l5.91-1.01L12 2z"></path></svg>OfficeFlow</div>
+                  <div class="mail-subject">Goedemorgen — je dag in 3 punten</div>
+                </div>
+                <div class="mail-right">
+                  <span class="mail-tag tag-brief">DAILY BRIEF</span>
+                </div>
+              </div>
+              <div class="mail-item mail-item-incoming">
                 <div class="mail-body">
                   <div class="mail-sender">Karin Brouwer</div>
                   <div class="mail-subject">Offerte voor renovatie keuken</div>
