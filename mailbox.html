@@ -205,7 +205,9 @@
     .step p{font-size:13.5px;color:var(--text-soft);line-height:1.65;margin:0}
 
     /* LABELS (afbeelding 3 inspired) */
-    .labels-wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:start}
+    .labels-wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:center}
+    .labels-wrap .video-wrap{max-width:none;margin:0;width:100%}
+    .labels-wrap .video-frame.video-demo{aspect-ratio:1/1;padding:18px}
     .labels-list{display:flex;flex-direction:column;gap:8px}
     .lbl-row{display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:12px;background:#fff;border:1px solid var(--border-soft);font-size:14px;font-weight:600}
     .lbl-row-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0}
@@ -1314,26 +1316,15 @@
   </div>
 </section>
 
-<!-- DEMO VIDEO -->
-<section class="section" id="demo">
+<!-- DEMO VIDEO — losse sectie verwijderd, animated demo is nu gecombineerd met LABELS-sectie hieronder -->
+<section class="section" id="demo-placeholder" style="display:none" aria-hidden="true">
   <div class="container">
-    <div class="section-head">
-      <div class="section-eyebrow">Zie het in actie</div>
-      <h2 class="section-title">In 60 seconden: OfficeFlow in je Gmail.</h2>
-      <p class="section-sub">Van binnenkomende mail tot klaar-gezet concept in jouw stijl — zonder Gmail te verlaten.</p>
-    </div>
-    <div class="video-wrap reveal">
-      <!--
-        Dit is een animated fallback-demo. Zodra je een Loom/YouTube/Vimeo video hebt,
-        vervang het hele <div class="video-frame video-demo"> ... </div> blok hieronder met:
-
-        <div class="video-frame">
-          <iframe src="https://www.loom.com/embed/JOUW_LOOM_ID" frameborder="0" allowfullscreen title="OfficeFlow Mailbox Manager demo"></iframe>
-        </div>
-      -->
-      <div class="video-frame video-demo" aria-label="Live demo: OfficeFlow labelt binnenkomende mail, opent een thread en zet een concept klaar in jouw stijl">
-        <span class="demo-live-pill" aria-hidden="true">
-          <span class="demo-live-dot"></span>
+    <!-- Deze sectie is leeg; demo staat nu in #labels. Kan later volledig weg. -->
+    <!-- START OUDE DEMO (UITGESCHAKELD) -->
+    <template data-note="oude-demo-wrapper">
+      <div>
+        <span class="_demo-live-pill" aria-hidden="true">
+          <span class="_demo-live-dot"></span>
           Live demo
         </span>
         <div class="demo-stage">
@@ -1516,7 +1507,8 @@
           Concept klaar in jouw stijl
         </div>
       </div>
-    </div>
+    </template>
+    <!-- EINDE OUDE DEMO (UITGESCHAKELD) -->
   </div>
 </section>
 
@@ -1681,41 +1673,178 @@
           <div class="lbl-row"><span class="lbl-row-dot dot-unw"></span>Unwanted<span class="lbl-row-hint">ongewenst</span></div>
         </div>
       </div>
-      <div class="reveal">
-        <div class="thread-mock">
-          <div class="th-top">
-            <div>
-              <div class="th-subject">Vraag over factuur #1042</div>
-              <div class="th-meta">
-                <span class="gm-label lbl-resp">To Respond</span>
-                <span class="th-meta-chip">· Linda Visser · 11:47</span>
+      <div class="video-wrap reveal">
+        <div class="video-frame video-demo" aria-label="Live demo: OfficeFlow labelt binnenkomende mail, opent een thread en zet een concept klaar in jouw stijl">
+          <span class="demo-live-pill" aria-hidden="true">
+            <span class="demo-live-dot"></span>
+            Live demo
+          </span>
+          <div class="demo-stage">
+
+            <!-- VIEW 1: Inbox — mails komen binnen en worden gelabeld -->
+            <div class="demo-view demo-view-inbox">
+              <div class="gmail-mock demo-mock">
+                <div class="gm-bar">
+                  <div class="gm-dots"><span></span><span></span><span></span></div>
+                  <span class="demo-gmail-mark" aria-hidden="true">
+                    <svg width="18" height="13" viewBox="0 0 32 22"><rect width="32" height="22" rx="2.5" fill="#EA4335"/><path fill="#fff" d="M5.5 5.5v11h2.2v-7.3L16 15l8.3-5.8v7.3h2.2v-11L16 12.8z"/></svg>
+                    Gmail
+                  </span>
+                  <div class="gm-url">mail.google.com/u/0/#inbox</div>
+                </div>
+                <div class="gm-tabs">
+                  <div class="gm-tab active">Primair</div>
+                  <div class="gm-tab">Reclame</div>
+                  <div class="gm-tab">Sociaal</div>
+                  <div class="gm-tab">Updates</div>
+                </div>
+                <div class="gm-row demo-row-brief">
+                  <div class="gm-sender">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.09 6.26L20 9l-4.91 3.74L16 19l-4-3-4 3 .91-6.26L4 9l5.91-.74L12 2z"/></svg>
+                    OfficeFlow
+                  </div>
+                  <div class="gm-label lbl-brief">Daily Brief</div>
+                  <div class="gm-sub"><strong>Goedemorgen — je dag in 3 punten:</strong> 1) Factuur #1042 afronden (Linda) · 2) Terugbellen Klant ABC over voorstel · 3) BTW-gegevens naar boekhouder</div>
+                  <div class="gm-time">07:30</div>
+                </div>
+                <div class="gm-row demo-row-1">
+                  <div class="gm-sender">Klant ABC</div>
+                  <div class="demo-label-stage">
+                    <span class="demo-analyzing" aria-hidden="true"><span class="demo-spinner"></span>AI analyseert…</span>
+                    <span class="gm-label lbl-prio demo-label-pop">Priority</span>
+                  </div>
+                  <div class="gm-sub"><strong>Kunnen we morgen bellen over het voorstel?</strong> — Hallo, ik heb je offerte bekeken en zou graag…</div>
+                  <div class="gm-time">nu</div>
+                </div>
+                <div class="gm-row demo-row-2">
+                  <div class="gm-sender">Linda Visser</div>
+                  <div class="demo-label-stage">
+                    <span class="demo-analyzing" aria-hidden="true"><span class="demo-spinner"></span>AI analyseert…</span>
+                    <span class="gm-label lbl-resp demo-label-pop">To Respond</span>
+                  </div>
+                  <div class="gm-sub"><strong>Vraag over factuur #1042</strong> — Ik zie twee posten die ik niet helemaal begrijp…</div>
+                  <div class="gm-time">11:47</div>
+                </div>
+                <div class="gm-row demo-row-3"><div class="gm-sender">Jan Bakker</div><div class="gm-label lbl-wait">Waiting On Reply</div><div class="gm-sub">Bedankt, ik laat het je weten zodra ik reactie heb van…</div><div class="gm-time">10:58</div></div>
+                <div class="gm-row demo-row-4">
+                  <div class="gm-sender">Boekhouder</div>
+                  <div class="demo-label-stage">
+                    <span class="gm-label lbl-follow demo-label-pop">Follow Up</span>
+                  </div>
+                  <div class="gm-sub">Stuur je de BTW-gegevens nog van vorig kwartaal? Ik had je…</div>
+                  <div class="gm-time">08:30</div>
+                </div>
+                <div class="gm-row demo-row-5">
+                  <div class="gm-sender">TPR Padel</div>
+                  <div class="demo-label-stage">
+                    <span class="gm-label lbl-done demo-label-pop">Done</span>
+                  </div>
+                  <div class="gm-sub">Bevestiging reservering (70167754) op Padel 2 / Trend…</div>
+                  <div class="gm-time">Gisteren</div>
+                </div>
               </div>
             </div>
+
+            <!-- VIEW 2: Daily Brief geopend -->
+            <div class="demo-view demo-view-briefing" aria-hidden="true">
+              <div class="demo-brief-header">
+                <div class="demo-brief-eyebrow">OFFICEFLOW · BRIEFING</div>
+                <h3 class="demo-brief-title">Goedemorgen.</h3>
+                <div class="demo-brief-date">Donderdag 23 april 2026</div>
+              </div>
+              <div class="demo-brief-body">
+                <div class="demo-brief-hero">
+                  <div class="demo-brief-card-eyebrow">TERWIJL JIJ WEG WAS</div>
+                  <div class="demo-brief-card-title">Drukke nacht — alles netjes verwerkt.</div>
+                  <div class="demo-brief-card-sub">6 drafts klaar · 18 mails geordend · 3 beloftes opgevangen.</div>
+                  <div class="demo-brief-stats">
+                    <div class="demo-brief-stat"><div class="demo-brief-stat-val">6</div><div class="demo-brief-stat-lbl">AI DRAFTS</div></div>
+                    <div class="demo-brief-stat"><div class="demo-brief-stat-val">18</div><div class="demo-brief-stat-lbl">GEORDEND</div></div>
+                    <div class="demo-brief-stat"><div class="demo-brief-stat-val">3</div><div class="demo-brief-stat-lbl">BELOFTES</div></div>
+                  </div>
+                </div>
+                <div class="demo-brief-section-title">WAT LIGT ER OP JE BORD?</div>
+                <div class="demo-brief-bord">
+                  <div class="demo-brief-bord-card demo-bord-prio"><div class="demo-bord-num">2</div><div class="demo-bord-lbl">PRIORITY</div></div>
+                  <div class="demo-brief-bord-card demo-bord-resp"><div class="demo-bord-num">5</div><div class="demo-bord-lbl">TO RESPOND</div></div>
+                  <div class="demo-brief-bord-card demo-bord-follow"><div class="demo-bord-num">4</div><div class="demo-bord-lbl">FOLLOW UP</div></div>
+                </div>
+                <div class="demo-brief-section-title">TOP 3 VANDAAG</div>
+                <div class="demo-brief-top3">
+                  <div class="demo-brief-top-item">
+                    <span class="gm-label lbl-prio">Priority</span>
+                    <div class="demo-brief-top-subject">Kunnen we morgen bellen over het voorstel?</div>
+                    <div class="demo-brief-top-from">Klant ABC · concept klaar in jouw stijl</div>
+                  </div>
+                  <div class="demo-brief-top-item">
+                    <span class="gm-label lbl-resp">To Respond</span>
+                    <div class="demo-brief-top-subject">Vraag over factuur #1042</div>
+                    <div class="demo-brief-top-from">Linda Visser · concept klaar in jouw stijl</div>
+                  </div>
+                  <div class="demo-brief-top-item">
+                    <span class="gm-label lbl-follow">Follow Up</span>
+                    <div class="demo-brief-top-subject">BTW-gegevens vorig kwartaal</div>
+                    <div class="demo-brief-top-from">Boekhouder · deadline vrijdag</div>
+                  </div>
+                </div>
+              </div>
+              <div class="demo-brief-week">
+                <div class="demo-brief-week-eyebrow">DEZE WEEK</div>
+                <div class="demo-brief-week-text">24 drafts · 8 beloftes · <span class="demo-brief-save">3u 40min bespaard</span></div>
+              </div>
+            </div>
+
+            <!-- VIEW 3: Thread — Linda's mail opent, AI-concept verschijnt -->
+            <div class="demo-view demo-view-thread" aria-hidden="true">
+              <div class="demo-thread-bar">
+                <span class="demo-thread-back" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                </span>
+                <span class="demo-thread-title">Vraag over factuur #1042</span>
+                <span class="gm-label lbl-resp">To Respond</span>
+              </div>
+              <div class="demo-thread-body">
+                <div class="demo-msg">
+                  <div class="demo-msg-avatar">LV</div>
+                  <div class="demo-msg-content">
+                    <div class="demo-msg-meta">
+                      <span class="demo-msg-from">Linda Visser</span>
+                      <span class="demo-msg-time">11:47</span>
+                    </div>
+                    <div class="demo-msg-text">Hoi, ik zie twee posten op factuur #1042 die ik niet helemaal begrijp. Zou je me kort kunnen doorlopen waar regel 3 en 4 op slaan? Dan kan ik 'm daarna direct goedkeuren.</div>
+                  </div>
+                </div>
+                <div class="demo-draft-card">
+                  <div class="demo-draft-tag">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.09 6.26L20 9l-4.91 3.74L16 19l-4-3-4 3 .91-6.26L4 9l5.91-.74L12 2z"/></svg>
+                    Door OfficeFlow opgesteld · in jouw stijl
+                  </div>
+                  <div class="demo-draft-body">
+                    <p>Hoi Linda,</p>
+                    <p>Goed dat je ernaar vraagt — ik loop ze even met je door.</p>
+                    <p>Regel 3 is de maandlicentie (prorata jan–feb), regel 4 is het extra uur supportwerk van 8 feb. Beide staan op de specificatie in de bijlage.</p>
+                    <p>Laat maar weten als iets nog onduidelijk is, dan pas ik 'm aan.</p>
+                  </div>
+                  <div class="demo-draft-actions">
+                    <span class="demo-draft-btn primary">
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="m22 2-7 20-4-9-9-4 20-7z"/></svg>
+                      Verstuur
+                    </span>
+                    <span class="demo-draft-btn ghost">Bewerken</span>
+                    <span class="demo-draft-btn ghost">Verwijder</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <span class="demo-brand-corner" aria-hidden="true">
+              <span class="demo-brand-mark">O</span>
+              OfficeFlow
+            </span>
           </div>
-          <div class="th-msg">
-            <div class="th-msg-head">
-              <div class="th-avatar">LV</div>
-              <div class="th-msg-name">Linda Visser</div>
-              <div class="th-msg-time">11:47</div>
-            </div>
-            <div class="th-msg-body">Hi, ik kreeg zojuist factuur #1042 binnen. Ik zie twee posten die ik niet helemaal begrijp — kun je me uitleggen waar "advies uren" en "projectopslag" precies voor staan? Alvast bedankt!</div>
-          </div>
-          <div class="th-draft">
-            <div class="th-draft-head">
-              <span class="th-draft-tag">Concept klaar</span>
-              <span class="th-draft-hint">Geschreven in jouw stijl · wacht op jou</span>
-            </div>
-            <div class="th-draft-box">
-              <p>Hoi Linda,</p>
-              <p>Goede vraag — "advies uren" zijn de uren die ik besteed heb aan het sparren over de campagne-strategie (8u in maart). "Projectopslag" is een vaste 10% opslag voor coördinatie en administratieve afhandeling.</p>
-              <p>Ik stuur de urenspecificatie zo per mail na zodat het compleet is. Laat het gerust weten als er nog iets onduidelijk is.</p>
-              <p>Vriendelijke groet</p>
-            </div>
-            <div class="th-draft-foot">
-              <span class="th-btn th-btn-send">Verzenden</span>
-              <span class="th-btn th-btn-edit">Bewerken</span>
-              <span class="th-btn th-btn-discard">Verwerpen</span>
-            </div>
+          <div class="demo-draft-badge" aria-hidden="true">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 1 1 3 3L7 19l-4 1 1-4Z"/></svg>
+            Concept klaar in jouw stijl
           </div>
         </div>
       </div>
