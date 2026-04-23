@@ -597,9 +597,29 @@
     .demo-mock .gm-bar{padding:9px 14px;flex-shrink:0}
     .demo-mock .gm-tabs{flex-shrink:0}
     .demo-mock .gm-row{padding:9px 14px;font-size:12.5px;position:relative;transition:background .2s}
-    .demo-mock .gm-sender{width:96px;font-size:12.5px}
+    .demo-mock .gm-sender{width:88px;font-size:12.5px}
     .demo-mock .gm-label{font-size:9.5px;padding:2px 7px}
     .demo-mock .gm-time{font-size:10.5px}
+    /* Gmail-style body: sidebar + main */
+    .demo-mock .gm-body{display:flex;flex:1;min-height:0;background:#fff}
+    .demo-mock .gm-main{flex:1;display:flex;flex-direction:column;min-width:0}
+    .demo-mock .gm-sidebar{
+      width:146px;flex-shrink:0;
+      background:#f6f8fc;border-right:1px solid var(--border-soft);
+      padding:10px 0;overflow:hidden;display:flex;flex-direction:column;gap:1px;
+    }
+    .demo-mock .gm-side-item{
+      display:flex;align-items:center;gap:9px;
+      padding:5px 10px 5px 14px;
+      font-size:11.5px;color:var(--text);line-height:1.2;
+      border-radius:0 999px 999px 0;margin-right:6px;
+    }
+    .demo-mock .gm-side-item.active{background:#fde2cf;color:var(--text);font-weight:700}
+    .demo-mock .gm-side-dot{
+      width:9px;height:9px;border-radius:2px;flex-shrink:0;
+    }
+    .demo-mock .gm-side-label{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .demo-mock .gm-side-count{font-size:10.5px;color:var(--text-mute);font-weight:700;margin-left:4px}
 
     /* Row label stage (analyseert → label pop) */
     .demo-label-stage{
@@ -964,10 +984,14 @@
 
     @media (max-width:768px){
       .video-frame.video-demo{padding:12px;aspect-ratio:4/5}
-      .demo-mock .gm-sender{width:78px;font-size:11.5px}
+      .demo-mock .gm-sender{width:68px;font-size:11.5px}
       .demo-mock .gm-row{padding:8px 12px;font-size:11.5px}
       .demo-mock .gm-label{font-size:9px}
       .demo-mock .gm-time{display:none}
+      .demo-mock .gm-sidebar{width:108px;padding:8px 0}
+      .demo-mock .gm-side-item{font-size:10.5px;padding:4px 8px 4px 10px;gap:7px}
+      .demo-mock .gm-side-dot{width:8px;height:8px}
+      .demo-mock .gm-side-count{font-size:9.5px}
       .demo-label-stage{min-width:86px}
       .demo-draft-badge{font-size:11px;padding:8px 14px;bottom:14px}
       .demo-msg-text,.demo-draft-body{font-size:10.5px}
@@ -1317,8 +1341,6 @@
   </div>
 </section>
 
-<\!-- (oude losse demo-sectie: volledig verwijderd) -->
-
 <!-- HOE HET WERKT -->
 <section class="section" id="werkt">
   <div class="container">
@@ -1386,12 +1408,26 @@
                 </span>
                 <div class="gm-url">mail.google.com/u/0/#inbox</div>
               </div>
-              <div class="gm-tabs">
-                <div class="gm-tab active">Primair</div>
-                <div class="gm-tab">Reclame</div>
-                <div class="gm-tab">Sociaal</div>
-                <div class="gm-tab">Updates</div>
-              </div>
+              <div class="gm-body">
+                <aside class="gm-sidebar" aria-hidden="true">
+                  <div class="gm-side-item"><span class="gm-side-dot dot-done"></span><span class="gm-side-label">Done</span></div>
+                  <div class="gm-side-item"><span class="gm-side-dot dot-follow"></span><span class="gm-side-label">Follow Up</span></div>
+                  <div class="gm-side-item"><span class="gm-side-dot dot-fyi"></span><span class="gm-side-label">FYI</span></div>
+                  <div class="gm-side-item"><span class="gm-side-dot dot-ign"></span><span class="gm-side-label">Ignore</span></div>
+                  <div class="gm-side-item"><span class="gm-side-dot dot-mkt"></span><span class="gm-side-label">Marketing</span><span class="gm-side-count">2</span></div>
+                  <div class="gm-side-item"><span class="gm-side-dot dot-notif"></span><span class="gm-side-label">Notification</span><span class="gm-side-count">4</span></div>
+                  <div class="gm-side-item active"><span class="gm-side-dot dot-prio"></span><span class="gm-side-label">Priority</span><span class="gm-side-count">2</span></div>
+                  <div class="gm-side-item"><span class="gm-side-dot dot-resp"></span><span class="gm-side-label">To Respond</span><span class="gm-side-count">3</span></div>
+                  <div class="gm-side-item"><span class="gm-side-dot dot-unw"></span><span class="gm-side-label">Unwanted</span></div>
+                  <div class="gm-side-item"><span class="gm-side-dot dot-wait"></span><span class="gm-side-label">Waiting On Reply</span></div>
+                </aside>
+                <div class="gm-main">
+                  <div class="gm-tabs">
+                    <div class="gm-tab active">Primair</div>
+                    <div class="gm-tab">Reclame</div>
+                    <div class="gm-tab">Sociaal</div>
+                    <div class="gm-tab">Updates</div>
+                  </div>
               <div class="gm-row demo-row-brief">
                 <div class="gm-sender">
                   <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.09 6.26L20 9l-4.91 3.74L16 19l-4-3-4 3 .91-6.26L4 9l5.91-.74L12 2z"/></svg>
@@ -1435,6 +1471,8 @@
                 </div>
                 <div class="gm-sub">Bevestiging reservering (70167754) op Padel 2 / Trend…</div>
                 <div class="gm-time">Gisteren</div>
+              </div>
+                </div>
               </div>
             </div>
           </div>
