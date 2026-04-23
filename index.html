@@ -878,26 +878,31 @@
     </div>
 
     <div class="hero-visual">
-      <!-- Dual-product live overview dashboard — ANIMATED hero scene (CSS-only loop, ~18s) -->
+      <!-- Dual-product live overview dashboard — ANIMATED hero scene (CSS-only loop, 18s) -->
       <style>
-        /* === Hero animated scene — all keyframes scoped with .hv- prefix === */
-        /* Incoming mail animation: slides in, shows AI processing, gets label, shows draft-ready */
+        /* === Hero animated scene — scoped with .hv- prefix === */
+
+        /* Stack all slides in the same grid cell — container sizes to tallest child, no overflow/absolute hacks */
         .hv-anim .hv-hero-row {
-          position: relative; height: 46px;
-          overflow: hidden;
+          display: grid !important;
+          grid-template-columns: 1fr;
+          grid-template-rows: 1fr;
           padding: 0 !important;
           background: transparent !important;
+          overflow: visible;
         }
         .hv-anim .hv-hero-row::before,
-        .hv-anim .hv-hero-row::after { display:none !important; }
+        .hv-anim .hv-hero-row::after { display: none !important; }
+
         .hv-anim .hv-hero-slide {
-          position: absolute; inset: 0;
-          padding: 9px 8px;
+          grid-column: 1; grid-row: 1;
+          position: relative;
+          padding: 9px 12px 9px 14px;
           display: flex; align-items: center; gap: 10px;
-          background: linear-gradient(90deg,rgba(255,247,237,.6) 0%,#fff 70%);
+          background: linear-gradient(90deg, rgba(255,247,237,.65) 0%, #fff 75%);
           border-radius: 7px;
           opacity: 0;
-          animation: hvSlide 18s ease-in-out infinite;
+          animation: hvSlideFade 18s linear infinite;
         }
         .hv-anim .hv-hero-slide::before {
           content: ""; position: absolute; left: 0; top: 5px; bottom: 5px; width: 3px;
@@ -906,16 +911,29 @@
         .hv-anim .hv-hero-slide.s1 { animation-delay: 0s; }
         .hv-anim .hv-hero-slide.s2 { animation-delay: -12s; }
         .hv-anim .hv-hero-slide.s3 { animation-delay: -6s; }
-        @keyframes hvSlide {
-          0%       { opacity: 0; transform: translateY(-10px); }
-          3%, 30%  { opacity: 1; transform: translateY(0); }
-          33%, 100%{ opacity: 0; transform: translateY(6px); }
+
+        /* Three-step crossfade: each slide visible for 33% of the 18s cycle, with brief overlap for smoothness */
+        @keyframes hvSlideFade {
+          0%   { opacity: 0; transform: translateY(-3px); }
+          3%   { opacity: 1; transform: translateY(0); }
+          30%  { opacity: 1; transform: translateY(0); }
+          34%  { opacity: 0; transform: translateY(3px); }
+          100% { opacity: 0; transform: translateY(3px); }
         }
 
-        /* AI status chip that cycles  "..." → LABEL → ✓ concept  */
-        .hv-anim .hv-stage { position: relative; min-width: 86px; height: 18px; flex-shrink: 0; }
+        /* AI status chip area — sized in place, 3 stacked chips that rotate via opacity */
+        .hv-anim .hv-stage {
+          position: relative;
+          display: inline-grid;
+          grid-template-columns: 1fr;
+          grid-template-rows: 1fr;
+          align-items: center;
+          justify-items: end;
+          min-width: 94px;
+          flex-shrink: 0;
+        }
         .hv-anim .hv-stage > * {
-          position: absolute; right: 0; top: 0;
+          grid-column: 1; grid-row: 1;
           display: inline-flex; align-items: center; gap: 4px;
           font-size: 8.5px; font-weight: 800; letter-spacing: .06em;
           padding: 3px 7px; border-radius: 4px;
@@ -924,92 +942,124 @@
         }
         .hv-anim .hv-stage-proc {
           background: rgba(148,163,184,.16); color: #475569;
-          animation: hvStageProc 6s ease-in-out infinite;
+          animation: hvStageProc 6s linear infinite;
         }
-        .hv-anim .hv-stage-label { animation: hvStageLabel 6s ease-in-out infinite; }
+        .hv-anim .hv-stage-label { animation: hvStageLabel 6s linear infinite; }
         .hv-anim .hv-stage-done {
           background: rgba(34,197,94,.14); color: #15803d;
-          animation: hvStageDone 6s ease-in-out infinite;
+          animation: hvStageDone 6s linear infinite;
         }
+        /* Three stages inside a 6s slice: processing (0-33%), label (34-68%), done (69-100%) */
         @keyframes hvStageProc {
-          0%, 3%   { opacity: 0; transform: scale(.92); }
-          8%, 28%  { opacity: 1; transform: scale(1); }
-          32%, 100%{ opacity: 0; transform: scale(.95); }
+          0%   { opacity: 0; }
+          5%   { opacity: 1; }
+          30%  { opacity: 1; }
+          34%  { opacity: 0; }
+          100% { opacity: 0; }
         }
         @keyframes hvStageLabel {
-          0%, 30%  { opacity: 0; transform: scale(.85); }
-          34%, 68% { opacity: 1; transform: scale(1); }
-          72%, 100%{ opacity: 0; transform: scale(.95); }
+          0%   { opacity: 0; }
+          34%  { opacity: 0; }
+          38%  { opacity: 1; }
+          64%  { opacity: 1; }
+          68%  { opacity: 0; }
+          100% { opacity: 0; }
         }
         @keyframes hvStageDone {
-          0%, 70%  { opacity: 0; transform: scale(.85); }
-          75%, 96% { opacity: 1; transform: scale(1); }
-          100%     { opacity: 0; }
+          0%   { opacity: 0; }
+          68%  { opacity: 0; }
+          72%  { opacity: 1; }
+          96%  { opacity: 1; }
+          100% { opacity: 0; }
         }
 
-        /* Three processing-dots inside the "..." chip */
+        /* Processing dots */
         .hv-anim .hv-dots span {
           display: inline-block; width: 3px; height: 3px; border-radius: 50%;
-          background: currentColor; margin-right: 2px; opacity: .4;
+          background: currentColor; margin-right: 2px; opacity: .35;
           animation: hvDots 1.2s ease-in-out infinite;
         }
         .hv-anim .hv-dots span:nth-child(2) { animation-delay: .2s; }
         .hv-anim .hv-dots span:nth-child(3) { animation-delay: .4s; margin-right: 0; }
-        @keyframes hvDots { 0%,100%{opacity:.25;transform:translateY(0);} 50%{opacity:1;transform:translateY(-1px);} }
+        @keyframes hvDots { 0%,100%{opacity:.3;} 50%{opacity:1;} }
 
-        /* Live dot: stronger breathing pulse */
+        /* Live dot */
         .hv-anim .dash-live { animation: hvLive 2.4s ease-in-out infinite; }
         @keyframes hvLive {
-          0%,100% { box-shadow: 0 0 0 3px rgba(34,197,94,.2); opacity: 1; }
+          0%,100% { box-shadow: 0 0 0 3px rgba(34,197,94,.22); opacity: 1; }
           50%     { box-shadow: 0 0 0 7px rgba(34,197,94,0); opacity: .55; }
         }
 
-        /* Counters: rotate between 3 values in sync with the scene */
-        .hv-anim .hv-count { display: inline-block; position: relative; min-width: 14px; text-align: center; }
-        .hv-anim .hv-count > span { position: absolute; left: 0; right: 0; opacity: 0; animation: hvCount 18s steps(1,end) infinite; }
-        .hv-anim .hv-count .c1 { position: static; animation-delay: 0s; }
+        /* Counters: 3 stacked values crossfade in sync with slides */
+        .hv-anim .hv-count {
+          display: inline-grid;
+          grid-template-columns: 1fr;
+          grid-template-rows: 1fr;
+          justify-items: center;
+          vertical-align: baseline;
+        }
+        .hv-anim .hv-count > span {
+          grid-column: 1; grid-row: 1;
+          opacity: 0;
+          animation: hvCountFade 18s linear infinite;
+        }
+        .hv-anim .hv-count .c1 { animation-delay: 0s; }
         .hv-anim .hv-count .c2 { animation-delay: -12s; }
         .hv-anim .hv-count .c3 { animation-delay: -6s; }
-        @keyframes hvCount { 0%, 33% { opacity: 1; } 34%, 100% { opacity: 0; } }
+        @keyframes hvCountFade {
+          0%   { opacity: 0; }
+          3%   { opacity: 1; }
+          30%  { opacity: 1; }
+          34%  { opacity: 0; }
+          100% { opacity: 0; }
+        }
 
         /* Right card: hero invoice badge cycles CONCEPT → VERSTUURD → BETAALD */
-        .hv-anim .hv-inv-badge { position: relative; min-width: 72px; height: 16px; display: inline-block; flex-shrink: 0; }
+        .hv-anim .hv-inv-badge {
+          display: inline-grid;
+          grid-template-columns: 1fr;
+          grid-template-rows: 1fr;
+          justify-items: end;
+          min-width: 76px;
+          flex-shrink: 0;
+        }
         .hv-anim .hv-inv-badge > * {
-          position: absolute; right: 0; top: 0;
+          grid-column: 1; grid-row: 1;
           font-size: 8.5px; font-weight: 800; letter-spacing: .06em;
           padding: 2px 6px; border-radius: 4px;
           white-space: nowrap; opacity: 0;
-          animation: hvBadgeCycle 18s ease-in-out infinite;
+          animation: hvBadgeFade 18s linear infinite;
         }
         .hv-anim .hv-badge-conc { background: rgba(245,158,11,.14); color: #b45309; animation-delay: 0s; }
         .hv-anim .hv-badge-sent { background: rgba(99,102,241,.12); color: #4f46e5; animation-delay: -12s; }
         .hv-anim .hv-badge-paid { background: rgba(34,197,94,.14); color: #15803d; animation-delay: -6s; }
-        @keyframes hvBadgeCycle {
-          0%, 3%   { opacity: 0; transform: scale(.9); }
-          6%, 30%  { opacity: 1; transform: scale(1); }
-          33%, 100%{ opacity: 0; transform: scale(.95); }
+        @keyframes hvBadgeFade {
+          0%   { opacity: 0; }
+          3%   { opacity: 1; }
+          30%  { opacity: 1; }
+          34%  { opacity: 0; }
+          100% { opacity: 0; }
         }
 
-        /* Right card: subtle green sweep on paid row (triggers when BETAALD shows) */
-        .hv-anim .hv-paid-flash { position: relative; overflow: hidden; }
+        /* Subtle green sweep over paid row — fully contained, triggers once per cycle */
+        .hv-anim .hv-paid-flash { position: relative; isolation: isolate; }
         .hv-anim .hv-paid-flash::after {
           content: ""; position: absolute; inset: 0;
-          background: linear-gradient(90deg, transparent 0%, rgba(34,197,94,.16) 50%, transparent 100%);
+          background: linear-gradient(90deg, transparent 0%, rgba(34,197,94,.18) 50%, transparent 100%);
           transform: translateX(-120%);
-          animation: hvFlash 18s ease-in-out infinite;
+          animation: hvFlash 18s linear infinite;
           animation-delay: -7s;
           pointer-events: none;
+          border-radius: 7px;
+          z-index: 0;
+          clip-path: inset(0 round 7px);
         }
+        .hv-anim .hv-paid-flash > * { position: relative; z-index: 1; }
         @keyframes hvFlash {
-          0%, 30%  { transform: translateX(-120%); }
-          36%, 40% { transform: translateX(120%); }
-          41%, 100%{ transform: translateX(120%); }
-        }
-
-        @media (max-width: 720px) {
-          .hv-anim .hv-hero-row { height: 42px; }
-          .hv-anim .hv-stage { min-width: 78px; }
-          .hv-anim .hv-inv-badge { min-width: 64px; }
+          0%   { transform: translateX(-120%); }
+          28%  { transform: translateX(-120%); }
+          35%  { transform: translateX(120%); }
+          100% { transform: translateX(120%); }
         }
       </style>
 
