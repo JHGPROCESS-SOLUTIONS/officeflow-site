@@ -147,7 +147,7 @@
     .btn-lg { padding: 15px 30px; font-size: 15px; border-radius: 12px; }
 
     /* HERO */
-    .hero { padding: 80px 0 72px; background: linear-gradient(160deg, #ffffff 50%, var(--blue-bg) 100%); border-bottom: 1px solid var(--border); position: relative; overflow: hidden; }
+    .hero { padding: 80px 0 72px; background: var(--bg-cool); border-bottom: 1px solid var(--border); position: relative; overflow: hidden; }
     .hero::before { content: ''; position: absolute; top: -100px; right: -100px; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(79,70,229,.07) 0%, transparent 65%); pointer-events: none; }
     .hero-breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-2); margin-bottom: 36px; }
     .hero-breadcrumb a { color: var(--text-2); } .hero-breadcrumb a:hover { color: var(--text); }
@@ -243,7 +243,14 @@
     .mcard-soon { position: absolute; top: 14px; right: 14px; font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; background: var(--orange-bg); color: var(--orange); border: 1px solid var(--orange-soft); padding: 3px 9px; border-radius: 5px; }
 
     /* MONEYBIRD SECTION */
-    .mb-section { background: var(--white); }
+    .mb-section { background: var(--navy); }
+    .mb-section h2 { color: #fff; }
+    .mb-section .sub { color: rgba(255,255,255,.6); }
+    .mb-section .mb-step:not(:last-child)::before { background: rgba(255,255,255,.1); }
+    .mb-section .mb-step-dot { background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.1); }
+    .mb-section .mb-step-dot svg { color: rgba(255,255,255,.5); }
+    .mb-section .mb-step-content h4 { color: #fff; }
+    .mb-section .mb-step-content p { color: rgba(255,255,255,.55); }
     .mb-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; margin-top: 56px; }
     .mb-steps { display: flex; flex-direction: column; gap: 0; }
     .mb-step { display: flex; gap: 16px; padding: 0 0 28px 0; position: relative; }
@@ -293,28 +300,39 @@
     .pb-list { list-style: none; display: flex; flex-direction: column; gap: 9px; }
     .pb-list li { display: flex; align-items: flex-start; gap: 9px; font-size: 13px; color: var(--text-2); line-height: 1.5; }
     .pb-list li svg { color: var(--blue); flex-shrink: 0; margin-top: 2px; }
+    /* Portal dark overrides */
+    .portal-dark { background: var(--navy); }
+    .portal-dark h2 { color: #fff; }
+    .portal-dark .sub { color: rgba(255,255,255,.6); }
+    .portal-dark .pb-card { background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.08); }
+    .portal-dark .pb-card h3 { color: #fff; }
+    .portal-dark .pb-card p { color: rgba(255,255,255,.6); }
+    .portal-dark .pb-list li { color: rgba(255,255,255,.55); }
+    .portal-dark .pb-list li svg { color: rgba(255,255,255,.35); }
+    .portal-dark .pb-card-icon { background: rgba(255,255,255,.06); }
+    .portal-dark .pb-card-icon svg { color: rgba(255,255,255,.45); }
 
     /* BANK SECTION */
-    .bank-bg { background: var(--navy); }
+    .bank-bg { background: var(--bg-cool); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
     .bank-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-    .bank-label { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 6px 13px; border-radius: 8px; background: rgba(249,115,22,.15); color: var(--orange); margin-bottom: 20px; border: 1px solid rgba(249,115,22,.2); }
-    .bank-inner h2 { color: #fff; margin-bottom: 16px; }
-    .bank-inner .sub { color: rgba(255,255,255,.5); max-width: 440px; }
+    .bank-label { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 6px 13px; border-radius: 8px; background: var(--orange-bg); color: var(--orange); margin-bottom: 20px; border: 1px solid var(--orange-soft); }
+    .bank-inner h2 { color: var(--text); margin-bottom: 16px; }
+    .bank-inner .sub { color: var(--text-2); max-width: 440px; }
     .bank-feats { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-top: 28px; }
-    .bank-feats li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: rgba(255,255,255,.55); line-height: 1.55; }
+    .bank-feats li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--text-2); line-height: 1.55; }
     .bank-feats li svg { color: var(--orange); flex-shrink: 0; margin-top: 2px; }
-    .bank-visual { background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.07); border-radius: 16px; padding: 32px; }
-    .bank-v-title { font-size: 13px; font-weight: 700; color: rgba(255,255,255,.4); letter-spacing: .04em; text-transform: uppercase; margin-bottom: 20px; }
-    .bank-v-row { display: flex; align-items: center; gap: 14px; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,.05); }
+    .bank-visual { background: #fff; border: 1.5px solid var(--border); border-radius: 16px; padding: 32px; }
+    .bank-v-title { font-size: 13px; font-weight: 700; color: var(--text-2); letter-spacing: .04em; text-transform: uppercase; margin-bottom: 20px; }
+    .bank-v-row { display: flex; align-items: center; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--border); }
     .bank-v-row:last-child { border-bottom: none; }
-    .bank-v-icon { width: 36px; height: 36px; border-radius: 9px; background: rgba(249,115,22,.12); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .bank-v-icon { width: 36px; height: 36px; border-radius: 9px; background: var(--orange-bg); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .bank-v-icon svg { color: var(--orange); }
-    .bank-v-name { font-size: 13px; color: rgba(255,255,255,.6); font-weight: 500; }
-    .bank-v-sub { font-size: 11px; color: rgba(255,255,255,.25); margin-top: 2px; }
-    .bank-v-tag { margin-left: auto; font-size: 10px; font-weight: 700; color: var(--orange); background: rgba(249,115,22,.12); border: 1px solid rgba(249,115,22,.2); padding: 3px 9px; border-radius: 4px; white-space: nowrap; }
+    .bank-v-name { font-size: 13px; color: var(--text); font-weight: 500; }
+    .bank-v-sub { font-size: 11px; color: var(--text-2); margin-top: 2px; }
+    .bank-v-tag { margin-left: auto; font-size: 10px; font-weight: 700; color: var(--orange); background: var(--orange-bg); border: 1px solid var(--orange-soft); padding: 3px 9px; border-radius: 4px; white-space: nowrap; }
 
     /* PRICING */
-    .pricing-bg { background: var(--bg); border-top: 1px solid var(--border); }
+    .pricing-bg { background: var(--bg-cool); border-top: 1px solid var(--border); }
     .pricing-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 48px; }
     .pbox { background: var(--navy); border-radius: 16px; padding: 28px 22px; color: #fff; border: 1px solid rgba(255,255,255,.07); display: flex; flex-direction: column; }
     .pbox.featured { border-color: rgba(99,102,241,.4); position: relative; }
@@ -336,11 +354,12 @@
     .pricing-note { text-align: center; margin-top: 24px; font-size: 13px; color: var(--text-2); }
 
     /* FAQ */
-    .faq-bg { background: var(--white); border-top: 1px solid var(--border); }
+    .faq-bg { background: var(--navy); border-top: 1px solid rgba(255,255,255,.06); }
+    .faq-bg h2 { color: #fff; }
     .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 48px; }
-    .faq-item { background: var(--bg-cool); border: 1.5px solid var(--border); border-radius: 14px; padding: 24px 26px; }
-    .faq-item h4 { font-size: 15px; font-weight: 700; margin-bottom: 10px; line-height: 1.4; }
-    .faq-item p { font-size: 13px; color: var(--text-2); line-height: 1.7; }
+    .faq-item { background: rgba(255,255,255,.04); border: 1.5px solid rgba(255,255,255,.08); border-radius: 14px; padding: 24px 26px; }
+    .faq-item h4 { font-size: 15px; font-weight: 700; margin-bottom: 10px; line-height: 1.4; color: #fff; }
+    .faq-item p { font-size: 13px; color: rgba(255,255,255,.55); line-height: 1.7; }
 
     /* CTA BAR */
     .cta-bar { background: var(--blue); padding: 56px 0; text-align: center; }
@@ -717,7 +736,7 @@
 
 <section class="mb-section" aria-labelledby="moneybird-heading">
   <div class="wrap">
-    <div class="eyebrow ey-b reveal">Moneybird integratie</div>
+    <div class="eyebrow ey-light reveal">Moneybird integratie</div>
     <h2 id="moneybird-heading" class="reveal">Geen dubbel invoeren.<br><span style="color:var(--blue);">Altijd in sync.</span></h2>
     <div class="mb-grid">
       <div>
@@ -808,9 +827,9 @@
   </div>
 </section>
 
-<section aria-labelledby="portal-branding-heading">
+<section class="portal-dark" aria-labelledby="portal-branding-heading">
   <div class="wrap">
-    <div class="eyebrow ey-b reveal">Klantbeleving</div>
+    <div class="eyebrow ey-light reveal">Klantbeleving</div>
     <h2 id="portal-branding-heading" class="reveal">Professioneel naar buiten.<br>Rustig van binnen.</h2>
     <p class="sub reveal" style="max-width:540px;">De klant ervaart een consistente, merkgebonden uitstraling — of het nu een offerte, factuur of herinneringse-mail is. Jij beheert alles vanuit één rustig dashboard.</p>
     <div class="pb-grid">
@@ -848,7 +867,7 @@
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
           Binnenkort beschikbaar
         </div>
-        <h2 id="bank-heading" class="reveal">Bankkoppeling —<br><span style="color:#818cf8;">automatisch afstemmen.</span></h2>
+        <h2 id="bank-heading" class="reveal">Bankkoppeling —<br><span style="color:var(--blue);">automatisch afstemmen.</span></h2>
         <p class="sub reveal">Koppel je zakelijke bankrekening aan OfficeFlow. Betalingen worden automatisch herkend en gematcht met uitstaande facturen. Geen handmatig uitzoeken meer.</p>
         <ul class="bank-feats reveal">
           <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>Automatisch betaling matchen aan factuur</li>
@@ -874,8 +893,8 @@
           <div><div class="bank-v-name">Status bijwerken</div><div class="bank-v-sub">Automatisch markeren als betaald</div></div>
           <span class="bank-v-tag">BINNENKORT</span>
         </div>
-        <div style="padding:16px 0 4px;border-top:1px solid rgba(255,255,255,.06);margin-top:6px;">
-          <p style="font-size:12px;color:rgba(255,255,255,.3);line-height:1.6;">Ben je benieuwd wanneer de bankkoppeling beschikbaar komt? Schrijf je in via de gratis proefperiode — je ontvangt automatisch een melding bij lancering.</p>
+        <div style="padding:16px 0 4px;border-top:1px solid var(--border);margin-top:6px;">
+          <p style="font-size:12px;color:var(--text-2);line-height:1.6;">Ben je benieuwd wanneer de bankkoppeling beschikbaar komt? Schrijf je in via de gratis proefperiode — je ontvangt automatisch een melding bij lancering.</p>
         </div>
       </div>
     </div>
@@ -884,7 +903,7 @@
 
 <section class="faq-bg" aria-labelledby="faq-heading">
   <div class="wrap">
-    <div class="eyebrow ey-b reveal">Veelgestelde vragen</div>
+    <div class="eyebrow ey-light reveal">Veelgestelde vragen</div>
     <h2 id="faq-heading" class="reveal">Alles wat je wil weten.</h2>
     <div class="faq-grid">
       <div class="faq-item reveal rd1">
