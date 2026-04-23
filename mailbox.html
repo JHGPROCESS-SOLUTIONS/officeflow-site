@@ -1266,7 +1266,6 @@
   <a href="#top">Overzicht</a>
   <a href="#werkt">Werkwijze</a>
   <a href="#prijs">Prijs</a>
-  <a href="#labels">Labels</a>
   <a href="#dashboard">Dashboard</a>
   <a href="#faq">FAQ</a>
 </nav>
@@ -1681,33 +1680,6 @@
   </div>
 </section>
 
-<!-- LABELS -->
-<section class="section" id="labels">
-  <div class="container">
-    <div class="section-head">
-      <div class="section-eyebrow">Wat je krijgt</div>
-      <h2 class="section-title">10 labels die direct in Gmail staan.</h2>
-      <p class="section-sub">Geen aparte app, geen nieuw tabblad. OfficeFlow werkt gewoon in je Gmail — op web, telefoon, of elke Gmail-client die je gebruikt.</p>
-    </div>
-    <div class="labels-wrap labels-wrap-solo">
-      <div>
-        <div class="labels-list">
-          <div class="lbl-row"><span class="lbl-row-dot dot-prio"></span>Priority<span class="lbl-row-hint">belangrijk</span></div>
-          <div class="lbl-row"><span class="lbl-row-dot dot-resp"></span>To Respond<span class="lbl-row-hint">wacht op jou</span></div>
-          <div class="lbl-row"><span class="lbl-row-dot dot-wait"></span>Waiting On Reply<span class="lbl-row-hint">wacht extern</span></div>
-          <div class="lbl-row"><span class="lbl-row-dot dot-follow"></span>Follow Up<span class="lbl-row-hint">jij belt terug</span></div>
-          <div class="lbl-row"><span class="lbl-row-dot dot-done"></span>Done<span class="lbl-row-hint">afgerond</span></div>
-          <div class="lbl-row"><span class="lbl-row-dot dot-fyi"></span>FYI<span class="lbl-row-hint">ter info</span></div>
-          <div class="lbl-row"><span class="lbl-row-dot dot-notif"></span>Notification<span class="lbl-row-hint">systeem</span></div>
-          <div class="lbl-row"><span class="lbl-row-dot dot-mkt"></span>Marketing<span class="lbl-row-hint">nieuwsbrief</span></div>
-          <div class="lbl-row"><span class="lbl-row-dot dot-ign"></span>Ignore<span class="lbl-row-hint">spam</span></div>
-          <div class="lbl-row"><span class="lbl-row-dot dot-unw"></span>Unwanted<span class="lbl-row-hint">ongewenst</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- DASHBOARD -->
 <section class="section section-soft" id="dashboard">
   <div class="container">
@@ -1988,18 +1960,6 @@
       });
     }, { threshold: .35 });
     dio.observe(mock);
-  })();
-
-  // Wow: labels cascade reveal
-  (function(){
-    var list = document.querySelector('.labels-list');
-    if(!list) return;
-    var lio = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if(e.isIntersecting){ list.classList.add('in'); lio.unobserve(list); }
-      });
-    }, { threshold: .25 });
-    lio.observe(list);
   })();
 
   // Mobile tabs active-state
