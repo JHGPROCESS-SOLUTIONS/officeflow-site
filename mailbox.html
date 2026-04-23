@@ -475,11 +475,119 @@
       background:#fff;
     }
     .demo-view-inbox{z-index:1}
+    .demo-view-briefing{
+      z-index:2;
+      transform:translateX(100%);
+      animation:demoBriefingSlide 18s cubic-bezier(.65,.04,.25,1) infinite;
+      display:flex;flex-direction:column;overflow:hidden;
+    }
     .demo-view-thread{
       z-index:2;
       transform:translateX(100%);
       animation:demoThreadSlide 18s cubic-bezier(.65,.04,.25,1) infinite;
     }
+
+    /* ==== Briefing view (Daily Brief opened) ==== */
+    .demo-brief-header{
+      padding:13px 16px 11px;
+      border-bottom:1px solid var(--border-soft);
+      flex-shrink:0;background:#fff;
+    }
+    .demo-brief-eyebrow{
+      font-size:9.5px;font-weight:800;letter-spacing:.12em;
+      color:var(--orange);margin-bottom:4px;
+    }
+    .demo-brief-title{
+      font-size:15.5px;font-weight:800;color:var(--text);
+      margin:0 0 2px;letter-spacing:-.01em;line-height:1.2;
+    }
+    .demo-brief-date{
+      font-size:10.5px;color:var(--text-mute);
+    }
+    .demo-brief-body{
+      flex:1;overflow:hidden;padding:11px 13px;
+      display:flex;flex-direction:column;gap:9px;
+      background:#fafbfd;
+    }
+
+    /* Terwijl jij weg was — dark hero card */
+    .demo-brief-hero{
+      background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);
+      color:#fff;border-radius:10px;
+      padding:11px 13px 12px;
+    }
+    .demo-brief-card-eyebrow{
+      font-size:8.5px;font-weight:800;letter-spacing:.1em;
+      color:var(--orange);margin-bottom:5px;
+    }
+    .demo-brief-card-title{
+      font-size:13px;font-weight:800;margin-bottom:3px;letter-spacing:-.005em;line-height:1.25;
+    }
+    .demo-brief-card-sub{
+      font-size:10px;color:rgba(255,255,255,.7);margin-bottom:9px;
+    }
+    .demo-brief-stats{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:5px;
+    }
+    .demo-brief-stat{
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:7px;padding:7px 4px;text-align:center;
+    }
+    .demo-brief-stat-val{
+      font-size:17px;font-weight:800;color:#fff;line-height:1;margin-bottom:3px;
+    }
+    .demo-brief-stat-lbl{
+      font-size:7.5px;font-weight:700;letter-spacing:.08em;
+      color:rgba(255,255,255,.55);
+    }
+
+    /* Section title */
+    .demo-brief-section-title{
+      font-size:9px;font-weight:800;letter-spacing:.1em;
+      color:var(--text-soft);margin:2px 0 -2px;
+    }
+
+    /* Bord cards */
+    .demo-brief-bord{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:5px;
+    }
+    .demo-brief-bord-card{
+      border-radius:8px;padding:9px 5px;text-align:center;
+      border:1px solid var(--border-soft);
+    }
+    .demo-bord-prio{background:rgba(254,226,226,.55);border-color:rgba(239,68,68,.2)}
+    .demo-bord-resp{background:rgba(219,234,254,.55);border-color:rgba(59,130,246,.2)}
+    .demo-bord-follow{background:rgba(255,247,237,.7);border-color:rgba(249,115,22,.22)}
+    .demo-bord-num{font-size:16px;font-weight:800;line-height:1;margin-bottom:3px}
+    .demo-bord-prio .demo-bord-num{color:#b91c1c}
+    .demo-bord-resp .demo-bord-num{color:#1d4ed8}
+    .demo-bord-follow .demo-bord-num{color:var(--orange)}
+    .demo-bord-lbl{font-size:7.5px;font-weight:700;letter-spacing:.08em;color:var(--text-mute)}
+
+    /* Top 3 items */
+    .demo-brief-top3{display:flex;flex-direction:column;gap:4px}
+    .demo-brief-top-item{
+      background:#fff;border:1px solid var(--border-soft);
+      border-radius:8px;padding:6px 9px;
+    }
+    .demo-brief-top-item .gm-label{font-size:8.5px;margin-bottom:2px;display:inline-block;padding:1px 6px}
+    .demo-brief-top-subject{font-size:10.5px;font-weight:700;color:var(--text);margin-bottom:1px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .demo-brief-top-from{font-size:9px;color:var(--text-mute);line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+    /* Deze week footer */
+    .demo-brief-week{
+      border-top:1px solid var(--border-soft);
+      background:#fff;
+      padding:10px 14px;
+      flex-shrink:0;
+    }
+    .demo-brief-week-eyebrow{
+      font-size:8.5px;font-weight:800;letter-spacing:.1em;
+      color:var(--text-soft);margin-bottom:3px;
+    }
+    .demo-brief-week-text{font-size:10.5px;color:var(--text-soft)}
+    .demo-brief-save{color:#059669;font-weight:800}
 
     /* Inbox mock */
     .demo-mock{background:#fff;display:flex;flex-direction:column;height:100%}
@@ -695,19 +803,22 @@
 
     /* ============ keyframes (18s totale cycle) ============ */
     /* Timeline:
-       0-0.5s  inbox static
-       0.5-2s  row 1 komt binnen, analyseert → Priority pop
-       2-3.5s  row 2 analyseert → To Respond pop
-       3.5-4s  row 2 flash (geklikt)
-       4-5s    thread slidet in van rechts
-       5-7s    draft card fade in + regels vloeien erin (regel 1-4)
-       7-9s    actieknoppen verschijnen, "Concept klaar" badge floats up
-       9-11s   hold op thread
-       11-12s  thread slidet terug naar rechts
-       12-13s  row 4 Follow Up pops
-       13-14s  row 5 Done pops
-       14-17s  hold
-       17-18s  fade + reset voor next loop
+       0-1s    inbox zichtbaar met Daily Brief bovenaan
+       1-1.4s  briefing view slidet binnen (van Daily Brief)
+       1.4-7s  briefing zichtbaar — stats, bord, top 3, deze week
+       7-7.6s  briefing slidet terug
+       7.9-8.5s Klant ABC slidet binnen in inbox + orange bar
+       8.5-9.5s Klant: analyseert → Priority pops
+       9.7-10.5s Linda: analyseert → To Respond pops
+       10.5-11s Linda flash (geklikt)
+       11-11.5s thread slidet binnen
+       11.5-13s draft card + regels fade in
+       13-14.5s actieknoppen + "Concept klaar" badge
+       14.5-15s hold
+       15-15.6s thread slidet terug
+       15.7-16.3s Boekhouder Follow Up pops
+       16.3-16.9s TPR Done pops
+       16.9-18s hold + reset
     */
 
     @keyframes demoSpin{to{transform:rotate(360deg)}}
@@ -717,111 +828,118 @@
       100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}
     }
 
-    /* Thread slides in 4s-5s (22%-28%), out 11s-12s (61%-67%) */
-    @keyframes demoThreadSlide{
-      0%,22%{transform:translateX(100%)}
-      28%,61%{transform:translateX(0)}
-      67%,100%{transform:translateX(100%)}
+    /* Briefing slides in 5-8%, out 38-42% */
+    @keyframes demoBriefingSlide{
+      0%,5%{transform:translateX(100%)}
+      8%,38%{transform:translateX(0)}
+      42%,100%{transform:translateX(100%)}
     }
 
-    /* Row 1 (Klant ABC → Priority): binnen 3%, bar fade 4%, analyze 5-9%, pop 10% */
+    /* Row 1 (Klant ABC → Priority): binnen 44-47%, analyze 48-52%, pop 53% */
     @keyframes demoRow1In{
-      0%,2%{opacity:0;transform:translateY(-8px)}
-      4%,97%{opacity:1;transform:translateY(0)}
+      0%,43%{opacity:0;transform:translateY(-8px)}
+      47%,97%{opacity:1;transform:translateY(0)}
       100%{opacity:1;transform:translateY(0)}
     }
     @keyframes demoRow1Bar{
-      0%,3%{opacity:0}
-      5%,90%{opacity:1}
-      94%,100%{opacity:0}
+      0%,45%{opacity:0}
+      48%,92%{opacity:1}
+      96%,100%{opacity:0}
     }
     @keyframes demoRow1Analyzing{
-      0%,4%{opacity:0}
-      6%,9%{opacity:1}
-      11%,100%{opacity:0}
+      0%,47%{opacity:0}
+      49%,52%{opacity:1}
+      54%,100%{opacity:0}
     }
     @keyframes demoRow1Pop{
-      0%,9%{opacity:0;transform:scale(.6)}
-      11%{opacity:1;transform:scale(1.22)}
-      13%,100%{opacity:1;transform:scale(1)}
+      0%,52%{opacity:0;transform:scale(.6)}
+      54%{opacity:1;transform:scale(1.22)}
+      56%,100%{opacity:1;transform:scale(1)}
     }
 
-    /* Row 2 (Linda → To Respond): analyze 12-16%, pop 17%, flash click 19-21% */
+    /* Row 2 (Linda → To Respond): analyze 54-58%, pop 58%, click 60-63% */
     @keyframes demoRow2Analyzing{
-      0%,11%{opacity:0}
-      13%,16%{opacity:1}
-      18%,100%{opacity:0}
+      0%,53%{opacity:0}
+      55%,58%{opacity:1}
+      60%,100%{opacity:0}
     }
     @keyframes demoRow2Pop{
-      0%,16%{opacity:0;transform:scale(.6)}
-      18%{opacity:1;transform:scale(1.22)}
-      20%,100%{opacity:1;transform:scale(1)}
+      0%,58%{opacity:0;transform:scale(.6)}
+      60%{opacity:1;transform:scale(1.22)}
+      62%,100%{opacity:1;transform:scale(1)}
     }
     @keyframes demoRow2Click{
-      0%,18%{background:transparent}
-      20%,22%{background:#eff6ff}
-      24%,100%{background:transparent}
+      0%,60%{background:transparent}
+      62%,64%{background:#eff6ff}
+      66%,100%{background:transparent}
     }
 
-    /* Draft card fade in 28-33% (~5-6s) */
+    /* Thread slides in 63-66%, out 83-86% */
+    @keyframes demoThreadSlide{
+      0%,63%{transform:translateX(100%)}
+      66%,83%{transform:translateX(0)}
+      86%,100%{transform:translateX(100%)}
+    }
+
+    /* Draft card fade in 67-72% */
     @keyframes demoDraftCardIn{
-      0%,27%{opacity:0;transform:translateY(8px)}
-      32%,58%{opacity:1;transform:translateY(0)}
-      63%,100%{opacity:0;transform:translateY(8px)}
+      0%,66%{opacity:0;transform:translateY(8px)}
+      70%,81%{opacity:1;transform:translateY(0)}
+      84%,100%{opacity:0;transform:translateY(8px)}
     }
 
-    /* Draft lines stagger 33-42% */
+    /* Draft lines stagger 70-76% */
     @keyframes demoDraftLine1{
-      0%,32%{opacity:0;transform:translateY(4px)}
-      35%,58%{opacity:1;transform:translateY(0)}
-      63%,100%{opacity:0;transform:translateY(4px)}
+      0%,69%{opacity:0;transform:translateY(4px)}
+      72%,81%{opacity:1;transform:translateY(0)}
+      84%,100%{opacity:0;transform:translateY(4px)}
     }
     @keyframes demoDraftLine2{
-      0%,35%{opacity:0;transform:translateY(4px)}
-      38%,58%{opacity:1;transform:translateY(0)}
-      63%,100%{opacity:0;transform:translateY(4px)}
+      0%,71%{opacity:0;transform:translateY(4px)}
+      74%,81%{opacity:1;transform:translateY(0)}
+      84%,100%{opacity:0;transform:translateY(4px)}
     }
     @keyframes demoDraftLine3{
-      0%,38%{opacity:0;transform:translateY(4px)}
-      41%,58%{opacity:1;transform:translateY(0)}
-      63%,100%{opacity:0;transform:translateY(4px)}
+      0%,73%{opacity:0;transform:translateY(4px)}
+      76%,81%{opacity:1;transform:translateY(0)}
+      84%,100%{opacity:0;transform:translateY(4px)}
     }
     @keyframes demoDraftLine4{
-      0%,41%{opacity:0;transform:translateY(4px)}
-      44%,58%{opacity:1;transform:translateY(0)}
-      63%,100%{opacity:0;transform:translateY(4px)}
+      0%,75%{opacity:0;transform:translateY(4px)}
+      78%,81%{opacity:1;transform:translateY(0)}
+      84%,100%{opacity:0;transform:translateY(4px)}
     }
 
-    /* Actieknoppen 44-60% */
+    /* Actieknoppen 78-82% */
     @keyframes demoDraftActions{
-      0%,43%{opacity:0}
-      47%,58%{opacity:1}
-      63%,100%{opacity:0}
+      0%,77%{opacity:0}
+      80%,81%{opacity:1}
+      84%,100%{opacity:0}
     }
 
-    /* Draft-klaar badge 40-60% (hangt over thread heen) */
+    /* Draft-klaar badge 73-82% */
     @keyframes demoDraftBadge{
-      0%,39%{opacity:0;transform:translateX(-50%) translateY(14px)}
-      43%,58%{opacity:1;transform:translateX(-50%) translateY(0)}
-      62%,100%{opacity:0;transform:translateX(-50%) translateY(14px)}
+      0%,72%{opacity:0;transform:translateX(-50%) translateY(14px)}
+      75%,81%{opacity:1;transform:translateX(-50%) translateY(0)}
+      84%,100%{opacity:0;transform:translateX(-50%) translateY(14px)}
     }
 
-    /* Row 4 (Boekhouder → Follow Up) pops 69% */
+    /* Row 4 (Boekhouder → Follow Up) pops 88% */
     @keyframes demoRow4Pop{
-      0%,68%{opacity:0;transform:scale(.6)}
-      71%{opacity:1;transform:scale(1.22)}
-      73%,100%{opacity:1;transform:scale(1)}
+      0%,87%{opacity:0;transform:scale(.6)}
+      89%{opacity:1;transform:scale(1.22)}
+      91%,100%{opacity:1;transform:scale(1)}
     }
 
-    /* Row 5 (TPR → Done) pops 75% */
+    /* Row 5 (TPR → Done) pops 92% */
     @keyframes demoRow5Pop{
-      0%,74%{opacity:0;transform:scale(.6)}
-      77%{opacity:1;transform:scale(1.22)}
-      79%,100%{opacity:1;transform:scale(1)}
+      0%,91%{opacity:0;transform:scale(.6)}
+      93%{opacity:1;transform:scale(1.22)}
+      95%,100%{opacity:1;transform:scale(1)}
     }
 
     @media (prefers-reduced-motion:reduce){
-      .demo-view-thread,
+      .demo-view-thread,.demo-view-briefing,
       .demo-row-1,.demo-row-1::before,
       .demo-row-2,.demo-row-4 .demo-label-pop,.demo-row-5 .demo-label-pop,
       .demo-analyzing,.demo-label-pop,
@@ -830,6 +948,7 @@
         animation:none !important;
       }
       .demo-view-thread{transform:translateX(100%)}
+      .demo-view-briefing{transform:translateX(0)} /* toon de briefing als statische default */
       .demo-row-1{opacity:1;transform:none}
       .demo-row-1::before{opacity:1}
       .demo-analyzing{display:none}
@@ -853,6 +972,22 @@
       .demo-thread-title{font-size:11.5px}
       .demo-draft-btn{font-size:10px;padding:4px 9px}
       .demo-draft-actions .demo-draft-btn:last-child{display:none}
+      /* Briefing condenseren op mobiel */
+      .demo-brief-header{padding:11px 13px 9px}
+      .demo-brief-title{font-size:14px}
+      .demo-brief-date{font-size:10px}
+      .demo-brief-body{padding:9px 11px;gap:7px}
+      .demo-brief-hero{padding:9px 11px 10px}
+      .demo-brief-card-title{font-size:12px}
+      .demo-brief-card-sub{font-size:9.5px;margin-bottom:7px}
+      .demo-brief-stat-val{font-size:15px}
+      .demo-brief-stat-lbl{font-size:7px}
+      .demo-brief-top-item{padding:6px 9px}
+      .demo-brief-top-subject{font-size:10.5px}
+      .demo-brief-top-from{font-size:9px}
+      .demo-brief-top3 .demo-brief-top-item:nth-child(3){display:none} /* top 2 op mobiel */
+      .demo-brief-week{padding:8px 12px}
+      .demo-brief-week-text{font-size:10px}
     }
 
     /* STICKY CTA (floating, verschijnt bij scroll) */
@@ -1220,6 +1355,16 @@
                 <div class="gm-tab">Sociaal</div>
                 <div class="gm-tab">Updates</div>
               </div>
+              <!-- Daily Brief bovenaan — OfficeFlow ochtendmail met takenlijst (opent briefing view) -->
+              <div class="gm-row demo-row-brief">
+                <div class="gm-sender">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.09 6.26L20 9l-4.91 3.74L16 19l-4-3-4 3 .91-6.26L4 9l5.91-.74L12 2z"/></svg>
+                  OfficeFlow
+                </div>
+                <div class="gm-label lbl-brief">Daily Brief</div>
+                <div class="gm-sub"><strong>Goedemorgen Jesse — je dag in 3 punten:</strong> 1) Factuur #1042 afronden (Linda) · 2) Terugbellen Klant ABC over voorstel · 3) BTW-gegevens naar boekhouder</div>
+                <div class="gm-time">07:30</div>
+              </div>
               <!-- Row 1: Klant ABC (Priority) — slidet binnen + analyseert + pop -->
               <div class="gm-row demo-row-1">
                 <div class="gm-sender">Klant ABC</div>
@@ -1251,16 +1396,6 @@
                 <div class="gm-sub">Stuur je de BTW-gegevens nog van vorig kwartaal? Ik had je…</div>
                 <div class="gm-time">08:30</div>
               </div>
-              <!-- Daily Brief — OfficeFlow ochtendmail met takenlijst -->
-              <div class="gm-row demo-row-brief">
-                <div class="gm-sender">
-                  <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.09 6.26L20 9l-4.91 3.74L16 19l-4-3-4 3 .91-6.26L4 9l5.91-.74L12 2z"/></svg>
-                  OfficeFlow
-                </div>
-                <div class="gm-label lbl-brief">Daily Brief</div>
-                <div class="gm-sub"><strong>Goedemorgen Jesse — je dag in 3 punten:</strong> 1) Factuur #1042 afronden (Linda) · 2) Terugbellen Klant ABC over voorstel · 3) BTW-gegevens naar boekhouder</div>
-                <div class="gm-time">07:30</div>
-              </div>
               <!-- Row 5: TPR Padel (Done) — pop laat -->
               <div class="gm-row demo-row-5">
                 <div class="gm-sender">TPR Padel</div>
@@ -1273,7 +1408,60 @@
             </div>
           </div>
 
-          <!-- VIEW 2: Thread — Linda's mail opent, AI-concept verschijnt -->
+          <!-- VIEW 2: Daily Brief geopend — luxe ochtendbriefing met taken en stats -->
+          <div class="demo-view demo-view-briefing" aria-hidden="true">
+            <div class="demo-brief-header">
+              <div class="demo-brief-eyebrow">OFFICEFLOW · BRIEFING</div>
+              <h3 class="demo-brief-title">Goedemorgen, Jesse.</h3>
+              <div class="demo-brief-date">Donderdag 23 april 2026</div>
+            </div>
+            <div class="demo-brief-body">
+              <!-- Terwijl jij weg was — dark hero card met stats -->
+              <div class="demo-brief-hero">
+                <div class="demo-brief-card-eyebrow">TERWIJL JIJ WEG WAS</div>
+                <div class="demo-brief-card-title">Drukke nacht — alles netjes verwerkt.</div>
+                <div class="demo-brief-card-sub">6 drafts klaar · 18 mails geordend · 3 beloftes opgevangen.</div>
+                <div class="demo-brief-stats">
+                  <div class="demo-brief-stat"><div class="demo-brief-stat-val">6</div><div class="demo-brief-stat-lbl">AI DRAFTS</div></div>
+                  <div class="demo-brief-stat"><div class="demo-brief-stat-val">18</div><div class="demo-brief-stat-lbl">GEORDEND</div></div>
+                  <div class="demo-brief-stat"><div class="demo-brief-stat-val">3</div><div class="demo-brief-stat-lbl">BELOFTES</div></div>
+                </div>
+              </div>
+              <!-- Wat ligt er op je bord -->
+              <div class="demo-brief-section-title">WAT LIGT ER OP JE BORD?</div>
+              <div class="demo-brief-bord">
+                <div class="demo-brief-bord-card demo-bord-prio"><div class="demo-bord-num">2</div><div class="demo-bord-lbl">PRIORITY</div></div>
+                <div class="demo-brief-bord-card demo-bord-resp"><div class="demo-bord-num">5</div><div class="demo-bord-lbl">TO RESPOND</div></div>
+                <div class="demo-brief-bord-card demo-bord-follow"><div class="demo-bord-num">4</div><div class="demo-bord-lbl">FOLLOW UP</div></div>
+              </div>
+              <!-- Top 3 vandaag -->
+              <div class="demo-brief-section-title">TOP 3 VANDAAG</div>
+              <div class="demo-brief-top3">
+                <div class="demo-brief-top-item">
+                  <span class="gm-label lbl-prio">Priority</span>
+                  <div class="demo-brief-top-subject">Kunnen we morgen bellen over het voorstel?</div>
+                  <div class="demo-brief-top-from">Klant ABC · concept klaar in jouw stijl</div>
+                </div>
+                <div class="demo-brief-top-item">
+                  <span class="gm-label lbl-resp">To Respond</span>
+                  <div class="demo-brief-top-subject">Vraag over factuur #1042</div>
+                  <div class="demo-brief-top-from">Linda Visser · concept klaar in jouw stijl</div>
+                </div>
+                <div class="demo-brief-top-item">
+                  <span class="gm-label lbl-follow">Follow Up</span>
+                  <div class="demo-brief-top-subject">BTW-gegevens vorig kwartaal</div>
+                  <div class="demo-brief-top-from">Boekhouder · deadline vrijdag</div>
+                </div>
+              </div>
+            </div>
+            <!-- Deze week footer -->
+            <div class="demo-brief-week">
+              <div class="demo-brief-week-eyebrow">DEZE WEEK</div>
+              <div class="demo-brief-week-text">24 drafts · 8 beloftes · <span class="demo-brief-save">3u 40min bespaard</span></div>
+            </div>
+          </div>
+
+          <!-- VIEW 3: Thread — Linda's mail opent, AI-concept verschijnt -->
           <div class="demo-view demo-view-thread" aria-hidden="true">
             <div class="demo-thread-bar">
               <span class="demo-thread-back" aria-hidden="true">
