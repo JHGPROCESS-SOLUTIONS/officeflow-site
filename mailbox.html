@@ -409,6 +409,49 @@
     .faq-body{padding:0 24px 22px;font-size:14.5px;color:var(--text-soft);line-height:1.7}
     .faq-body strong{color:var(--text);font-weight:600}
 
+    /* TRUST STRIP (onder hero) */
+    .trust-strip{padding:28px 0;background:#fff;border-top:1px solid var(--border-soft);border-bottom:1px solid var(--border-soft)}
+    .trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;max-width:960px;margin:0 auto}
+    .trust-stat{text-align:center;padding:8px 14px;position:relative}
+    .trust-stat + .trust-stat::before{content:"";position:absolute;left:0;top:20%;bottom:20%;width:1px;background:var(--border-soft)}
+    .trust-value{font-size:28px;font-weight:800;letter-spacing:-.03em;color:var(--orange);line-height:1;font-variant-numeric:tabular-nums}
+    .trust-unit{font-size:15px;color:var(--text-soft);font-weight:600;margin-left:2px}
+    .trust-label{font-size:12.5px;color:var(--text-soft);margin-top:8px;line-height:1.45;font-weight:500}
+    .trust-caption{text-align:center;font-size:12px;color:var(--text-mute);margin-top:18px;letter-spacing:.02em}
+    .trust-caption strong{color:var(--orange);font-weight:700}
+
+    /* DEMO VIDEO */
+    .video-wrap{max-width:880px;margin:0 auto;position:relative}
+    .video-frame{
+      position:relative;aspect-ratio:16/9;border-radius:20px;overflow:hidden;
+      background:linear-gradient(135deg,#0f172a 0%,#1e293b 100%);
+      border:1px solid var(--border);box-shadow:var(--shadow-strong);
+      cursor:pointer;transition:transform .2s ease,box-shadow .2s ease;
+    }
+    .video-frame:hover{transform:translateY(-3px);box-shadow:0 30px 80px rgba(15,23,42,.14)}
+    .video-poster{
+      position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+      background:
+        radial-gradient(circle at 30% 30%,rgba(249,115,22,.35),transparent 55%),
+        radial-gradient(circle at 75% 70%,rgba(99,102,241,.30),transparent 55%),
+        linear-gradient(135deg,#0f172a 0%,#1e293b 100%);
+    }
+    .video-play{
+      width:86px;height:86px;border-radius:50%;background:rgba(255,255,255,.95);
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 20px 50px rgba(15,23,42,.35);
+      transition:transform .25s ease;
+    }
+    .video-frame:hover .video-play{transform:scale(1.08)}
+    .video-play svg{color:var(--orange);margin-left:4px}
+    .video-caption{
+      position:absolute;bottom:22px;left:50%;transform:translateX(-50%);
+      font-size:13px;color:#fff;font-weight:600;letter-spacing:.02em;
+      background:rgba(15,23,42,.55);padding:6px 14px;border-radius:999px;
+      backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    }
+    .video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+
     /* STICKY CTA (floating, verschijnt bij scroll) */
     .sticky-cta{
       position:fixed;right:20px;bottom:20px;z-index:90;
@@ -433,6 +476,12 @@
       .faq-body{padding:0 18px 18px;font-size:14px}
       .sticky-cta{right:12px;bottom:12px;padding:8px 10px 8px 14px}
       .sticky-cta-text{display:none}
+      .trust-grid{grid-template-columns:repeat(2,1fr);gap:14px}
+      .trust-stat + .trust-stat::before{display:none}
+      .trust-value{font-size:24px}
+      .video-frame{border-radius:16px}
+      .video-play{width:66px;height:66px}
+      .video-caption{font-size:12px;bottom:14px;padding:5px 12px}
     }
 
     /* ============ WOW LAYER ============ */
@@ -702,6 +751,59 @@
   </div>
 </section>
 
+<!-- TRUST STRIP -->
+<section class="trust-strip" aria-label="Vertrouwen en resultaten">
+  <div class="container">
+    <div class="trust-grid">
+      <div class="trust-stat reveal">
+        <div class="trust-value">15–30<span class="trust-unit">min</span></div>
+        <div class="trust-label">gemiddeld bespaard per dag</div>
+      </div>
+      <div class="trust-stat reveal">
+        <div class="trust-value">0</div>
+        <div class="trust-label">mails automatisch verzonden</div>
+      </div>
+      <div class="trust-stat reveal">
+        <div class="trust-value">10</div>
+        <div class="trust-label">Gmail-labels automatisch</div>
+      </div>
+      <div class="trust-stat reveal">
+        <div class="trust-value">EU</div>
+        <div class="trust-label">hosting · AVG-conform</div>
+      </div>
+    </div>
+    <div class="trust-caption">Eerste mailboxes <strong>draaien nu live</strong> · Google OAuth-geverifieerd · Betaling via Stripe</div>
+  </div>
+</section>
+
+<!-- DEMO VIDEO -->
+<section class="section" id="demo">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-eyebrow">Zie het in actie</div>
+      <h2 class="section-title">In 60 seconden: OfficeFlow in je Gmail.</h2>
+      <p class="section-sub">Van binnenkomende mail tot klaar-gezet concept in jouw stijl — zonder Gmail te verlaten.</p>
+    </div>
+    <div class="video-wrap reveal">
+      <!--
+        Vervang het <div class="video-frame"> blok hieronder met een Loom/YouTube/Vimeo iframe zodra de demo-video klaar staat:
+
+        <div class="video-frame">
+          <iframe src="https://www.loom.com/embed/JOUW_LOOM_ID" frameborder="0" allowfullscreen title="OfficeFlow Mailbox Manager demo"></iframe>
+        </div>
+      -->
+      <div class="video-frame" aria-label="Demo video komt binnenkort beschikbaar">
+        <div class="video-poster">
+          <div class="video-play" aria-hidden="true">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </div>
+        <div class="video-caption">Demo video · ~60 seconden</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- HOE HET WERKT -->
 <section class="section" id="werkt">
   <div class="container">
@@ -762,8 +864,8 @@
         <div class="benefit-icon">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>
         </div>
-        <h3>Concepten staan klaar als jij inlogt</h3>
-        <p>Voor mails die een reactie nodig hebben schrijft OfficeFlow alvast een concept — in <strong>jouw toon</strong>, geleerd van je eerdere verzonden mails. Je opent het bericht en drukt op verzenden. Of je past het aan. Wat jij wil.</p>
+        <h3>Antwoorden die klinken als jij</h3>
+        <p>OfficeFlow leert je stijl uit je verzonden mails: formeel of losjes, kort of uitgebreid, met of zonder "groet". Concepten lezen als wat je <strong>zelf zou typen</strong> — geen generiek AI-proza, geen rare formules die klanten niet van jou verwachten.</p>
       </div>
       <div class="benefit reveal">
         <div class="benefit-icon">
@@ -777,20 +879,12 @@
 </section>
 
 <!-- PRIJS -->
-<section class="section section-soft" id="prijs">
+<section class="section" id="prijs">
   <div class="container">
     <div class="section-head">
       <div class="section-eyebrow">Prijs</div>
       <h2 class="section-title">Kies wat bij je past.</h2>
       <p class="section-sub">Zelfde product, zelfde functies — kies maandelijks of jaarlijks met 2 maanden gratis.</p>
-    </div>
-
-    <div class="unavail-banner" role="status">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-      <div>
-        <strong>Tijdelijk niet beschikbaar</strong>
-        <span>We wachten op Google OAuth-verificatie. Aanmelden kan zodra dit is goedgekeurd.</span>
-      </div>
     </div>
 
     <div class="price-grid">
@@ -822,13 +916,10 @@
         <div class="price-per">= €20/mnd · excl. btw</div>
         <div class="price-save">Bespaar €48 per jaar</div>
         <ul class="price-feats">
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Alles van het maandabonnement</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><strong>Alles</strong> van het maandabonnement</li>
           <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>2 maanden gratis — effectief €20/mnd</li>
           <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Eén factuur per jaar — minder administratie</li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Zelfde functies, zelfde support</li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Nooit auto-send, nooit auto-archive</li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Dashboard met weekoverzicht</li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Support via mail, antwoord binnen 1 werkdag</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Prioriteit bij nieuwe features &amp; support</li>
         </ul>
         <a class="btn btn-primary btn-lg" href="/onboarding.html?plan=yearly" style="width:100%">Start jaarlijks →</a>
       </div>
@@ -1068,7 +1159,7 @@
 </section>
 
 <!-- FAQ -->
-<section class="section section-soft" id="faq">
+<section class="section" id="faq">
   <div class="container">
     <div class="section-head">
       <div class="section-eyebrow">Veelgestelde vragen</div>
@@ -1077,6 +1168,10 @@
     </div>
 
     <div class="faq-list">
+      <details class="faq-item reveal">
+        <summary>Hoeveel tijd ga ik hiermee besparen?</summary>
+        <div class="faq-body">Gemiddeld <strong>15–30 minuten per dag</strong> bij een normale inbox (50–200 mails/dag). De winst zit in drie dingen: niet meer handmatig sorteren wat belangrijk is, sneller kunnen beginnen met antwoorden (concept ligt er al), en niets meer vergeten op te volgen. Voor veel gebruikers is <em>minder mentale ruis</em> het grootste voordeel — moeilijker te meten, maar net zo waardevol.</div>
+      </details>
       <details class="faq-item reveal">
         <summary>Gaat OfficeFlow zelf mails versturen?</summary>
         <div class="faq-body">Nee. <strong>Nooit.</strong> We schrijven alleen Gmail-concepten in de bestaande thread. Niks verlaat je mailbox zonder dat jij op verzenden drukt. Geen auto-send, geen auto-archive, geen automatische CC.</div>
@@ -1108,9 +1203,9 @@
 <!-- CTA -->
 <section class="cta">
   <div class="container">
-    <h2>Klaar om je inbox over te geven?</h2>
-    <p>(Maar niet echt, want jij houdt altijd de knop.)</p>
-    <a class="btn btn-white btn-lg" href="/onboarding.html">Start Mailbox Manager →</a>
+    <h2>Koppel Gmail. Bekijk eerste concepten. Beslis.</h2>
+    <p>In 3 minuten ingericht · Maandelijks opzegbaar · Nooit auto-send.</p>
+    <a class="btn btn-white btn-lg" href="/onboarding.html">Start in 3 minuten →</a>
   </div>
 </section>
 
@@ -1131,6 +1226,7 @@
       <a href="/facturen/">Facturen &amp; Offertes</a>
       <a href="/privacy.html">Privacy</a>
       <a href="/terms.html">Voorwaarden</a>
+      <a href="mailto:mail@officeflowcompany.com">Support</a>
       <a href="mailto:mail@officeflowcompany.com">Contact</a>
     </nav>
     <div class="footer-copy">© 2026 OfficeFlow · KVK 42041799</div>
