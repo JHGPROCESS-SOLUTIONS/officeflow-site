@@ -249,10 +249,16 @@
     .pcard h3 { font-size: 28px; font-weight: 800; letter-spacing: -.02em; margin-bottom: 12px; line-height: 1.15; }
     .pcard-desc { font-size: 15px; color: var(--text-2); line-height: 1.75; margin-bottom: 24px; }
     .pcard-price { display: flex; align-items: baseline; gap: 6px; }
+    .pcard-price[hidden] { display: none; }
     .price-num { font-size: 44px; font-weight: 800; letter-spacing: -.03em; line-height: 1; }
     .price-orange { color: var(--orange); }
     .price-blue { color: var(--blue); }
     .price-sub { font-size: 14px; color: var(--text-2); }
+    .pcard-toggle { display: inline-flex; background: #f1f5f9; border: 1px solid var(--border); border-radius: 999px; padding: 4px; margin-bottom: 14px; gap: 2px; }
+    .pcard-toggle-btn { appearance: none; background: transparent; border: 0; cursor: pointer; padding: 8px 16px; font-size: 13px; font-weight: 600; color: var(--text-2); border-radius: 999px; transition: background .18s, color .18s, box-shadow .18s; font-family: inherit; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+    .pcard-toggle-btn:hover { color: var(--text); }
+    .pcard-toggle-btn.is-active { background: var(--white); color: var(--text); box-shadow: 0 1px 3px rgba(15,23,42,.08); }
+    .pcard-toggle-save { font-size: 11px; font-weight: 700; letter-spacing: .03em; color: var(--orange); background: var(--orange-bg); padding: 2px 7px; border-radius: 999px; }
     .pcard-divider { height: 1px; background: var(--border); margin: 0 36px; }
     .pcard-body { padding: 28px 36px 36px; }
     .feat-list { list-style: none; display: grid; gap: 11px; margin-bottom: 28px; }
@@ -1035,7 +1041,12 @@
           <div class="ptag ptag-orange"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 2H3v16h5l3 3 3-3h7V2z"></path></svg>E-mail automatisering</div>
           <h3>Mailbox Manager</h3>
           <p class="pcard-desc">AI die je Gmail-inbox begrijpt. Elke mail krijgt een status, mails die een reactie nodig hebben krijgen een conceptantwoord in jouw toon. Jij blijft in Gmail — OfficeFlow werkt op de achtergrond.</p>
-          <div class="pcard-price"><span class="price-num price-orange">€24</span><span class="price-sub">per maand<br>excl. btw</span></div>
+          <div class="pcard-toggle" role="tablist" aria-label="Kies abonnement" data-mm-toggle>
+            <button type="button" class="pcard-toggle-btn is-active" data-mm-plan="monthly" role="tab" aria-selected="true">Maandelijks</button>
+            <button type="button" class="pcard-toggle-btn" data-mm-plan="yearly" role="tab" aria-selected="false">Jaarlijks <span class="pcard-toggle-save">2 mnd gratis</span></button>
+          </div>
+          <div class="pcard-price" data-mm-price="monthly"><span class="price-num price-orange">€24</span><span class="price-sub">per maand<br>excl. btw</span></div>
+          <div class="pcard-price" data-mm-price="yearly" hidden><span class="price-num price-orange">€240</span><span class="price-sub">per jaar<br>excl. btw · 2 maanden gratis</span></div>
         </div>
         <div class="pcard-divider"></div>
         <div class="pcard-body">
@@ -1057,7 +1068,7 @@
             Gebruik <a href="https://mail.google.com" target="_blank" rel="noopener" style="color:#B45309; font-weight:600;">mail.google.com</a> of de officiële Gmail-app. Je conceptantwoorden verschijnen direct in de Gmail-thread met een verzendknop.
           </div>
           <div class="pcard-actions">
-            <a class="btn btn-orange" href="/mailbox.html">Start Mailbox →</a>
+            <a class="btn btn-orange" href="/mailbox.html#prijs" data-mm-cta>Start Mailbox →</a>
             <a class="card-link" href="/mailbox.html">Meer details</a>
           </div>
         </div>
@@ -1684,6 +1695,36 @@
     });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
     window.addEventListener('resize', () => { if (window.innerWidth > 900) close(); });
+  })();
+
+  // Mailbox Manager pricing toggle (monthly/yearly)
+  (function(){
+    const toggle = document.querySelector('[data-mm-toggle]');
+    if (!toggle) return;
+    const buttons = toggle.querySelectorAll('[data-mm-plan]');
+    const prices = document.querySelectorAll('[data-mm-price]');
+    const cta = document.querySelector('[data-mm-cta]');
+    const baseHref = cta ? cta.getAttribute('href').split('?')[0] : '/mailbox.html#prijs';
+
+    function setPlan(plan) {
+      buttons.forEach(btn => {
+        const active = btn.getAttribute('data-mm-plan') === plan;
+        btn.classList.toggle('is-active', active);
+        btn.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+      prices.forEach(el => {
+        el.hidden = el.getAttribute('data-mm-price') !== plan;
+      });
+      if (cta) {
+        const sep = baseHref.includes('#') ? baseHref.split('#') : [baseHref, ''];
+        cta.setAttribute('href', sep[0] + '?plan=' + plan + (sep[1] ? '#' + sep[1] : ''));
+      }
+    }
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => setPlan(btn.getAttribute('data-mm-plan')));
+    });
+    setPlan('monthly');
   })();
 </script>
 </body>

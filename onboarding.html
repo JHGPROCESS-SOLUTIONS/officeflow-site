@@ -514,8 +514,14 @@
       startBtn.disabled = true;
       startBtn.textContent = "Even geduld...";
 
+      const urlParams = new URLSearchParams(window.location.search);
+      const requestedPlan = (urlParams.get("plan") || "").toLowerCase();
+      const plan = requestedPlan === "yearly" ? "yearly" : "monthly";
+
       const url =
-        "https://api.officeflowcompany.com/billing/start-checkout?plan=starter&email=" +
+        "https://api.officeflowcompany.com/billing/start-checkout?plan=" +
+        plan +
+        "&email=" +
         encodeURIComponent(email);
 
       window.location.href = url;

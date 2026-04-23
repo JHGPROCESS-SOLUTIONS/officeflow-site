@@ -296,20 +296,31 @@
     .am-list-row-v{font-size:12px;font-weight:700;color:var(--orange)}
 
     /* PRIJS */
-    .price-card{
-      max-width:520px;margin:0 auto;background:#fff;border:1px solid var(--border);
-      border-radius:24px;padding:40px;box-shadow:var(--shadow-strong);text-align:center
+    .price-grid{
+      display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:900px;margin:0 auto;
+      align-items:stretch
     }
-    .price-tag{font-size:56px;font-weight:800;letter-spacing:-.04em;line-height:1;margin:6px 0}
-    .price-per{font-size:14px;color:var(--text-soft);margin-bottom:6px}
-    .price-note{font-size:13px;color:var(--text-mute);margin-bottom:24px}
-    .price-feats{list-style:none;padding:0;margin:0 0 28px;display:grid;gap:10px;text-align:left}
-    .price-feats li{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--text);line-height:1.5}
+    .price-card{
+      background:#fff;border:1px solid var(--border);border-radius:24px;padding:34px 30px;
+      box-shadow:var(--shadow-strong);text-align:left;position:relative;display:flex;flex-direction:column
+    }
+    .price-card--featured{border-color:var(--orange);box-shadow:0 20px 45px rgba(249,115,22,.18)}
+    .price-card-eyebrow{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-bottom:8px}
+    .price-card-title{font-size:20px;font-weight:800;letter-spacing:-.01em;margin:0 0 4px;color:var(--text)}
+    .price-card-sub{font-size:13px;color:var(--text-soft);margin:0 0 18px}
+    .price-card-badge{position:absolute;top:-12px;right:20px;background:var(--orange);color:#fff;font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:6px 12px;border-radius:999px;box-shadow:0 6px 14px rgba(249,115,22,.3)}
+    .price-tag{font-size:48px;font-weight:800;letter-spacing:-.04em;line-height:1;margin:4px 0;color:var(--text)}
+    .price-tag-unit{font-size:18px;color:var(--text-soft);font-weight:600}
+    .price-per{font-size:13px;color:var(--text-soft);margin-bottom:6px}
+    .price-note{font-size:13px;color:var(--text-mute);margin-bottom:20px}
+    .price-save{display:inline-block;font-size:12px;font-weight:700;color:var(--orange);background:#fff7ed;border:1px solid #fed7aa;padding:4px 10px;border-radius:999px;margin-bottom:16px}
+    .price-feats{list-style:none;padding:0;margin:14px 0 20px;display:grid;gap:8px;text-align:left;flex:1}
+    .price-feats li{display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:var(--text);line-height:1.5}
     .price-feats svg{color:var(--green);flex-shrink:0;margin-top:2px}
     .unavail-banner{
       display:flex;align-items:flex-start;gap:12px;text-align:left;
       background:#FFF7ED;border:1px solid #FED7AA;color:#9A3412;
-      border-radius:14px;padding:14px 16px;margin:0 0 18px;font-size:13.5px;line-height:1.5
+      border-radius:14px;padding:14px 16px;margin:0 auto 22px;max-width:900px;font-size:13.5px;line-height:1.5
     }
     .unavail-banner svg{flex-shrink:0;margin-top:2px;color:#C2410C}
     .unavail-banner strong{display:block;font-size:14px;color:#7C2D12;margin-bottom:2px}
@@ -493,6 +504,12 @@
       .benefits, .steps, .dash-tiles, .labels-list { grid-template-columns: 1fr; gap: 14px; }
       .benefit, .step, .dash-tile { padding: 22px 20px; }
       .labels-list .lbl-row { padding: 14px 16px; }
+
+      /* Prijs — 2 cards stacken onder elkaar */
+      .price-grid { grid-template-columns: 1fr; gap: 24px; }
+      .price-card { padding: 28px 22px; }
+      .price-tag { font-size: 40px; }
+      .price-card-badge { top: -10px; right: 16px; font-size: 10px; padding: 5px 10px; }
 
       /* Account wrap */
       .account-wrap { grid-template-columns: 1fr; gap: 28px; }
@@ -879,31 +896,57 @@
   <div class="container">
     <div class="section-head">
       <div class="section-eyebrow">Prijs</div>
-      <h2 class="section-title">Eén plan. Geen trucs.</h2>
-      <p class="section-sub">Alles inbegrepen. Geen gedoe met credits of usage caps.</p>
+      <h2 class="section-title">Kies wat bij je past.</h2>
+      <p class="section-sub">Zelfde product, zelfde functies — kies maandelijks of jaarlijks met 2 maanden gratis.</p>
     </div>
-    <div class="price-card reveal">
-      <div style="font-size:14px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--orange)">Mailbox Manager</div>
-      <div class="price-tag">€24<span style="font-size:20px;color:var(--text-soft);font-weight:600">/mnd</span></div>
-      <div class="price-per">Excl. btw · maandelijks opzegbaar</div>
-      <div class="price-note">Start wanneer je wilt. Stop wanneer je wilt.</div>
-      <ul class="price-feats">
-        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>10 automatische labels in Gmail</li>
-        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Concept-antwoorden in jouw stijl</li>
-        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Thread-bewust — drafts verstoren geen status</li>
-        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Follow-Up Radar — opvolg-concepten voor beloftes &amp; stille threads</li>
-        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Nooit auto-send, nooit auto-archive</li>
-        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Dashboard met weekoverzicht</li>
-        <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Support via mail, antwoord binnen 1 werkdag</li>
-      </ul>
-      <div class="unavail-banner" role="status">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        <div>
-          <strong>Tijdelijk niet beschikbaar</strong>
-          <span>We wachten op Google OAuth-verificatie. Aanmelden kan zodra dit is goedgekeurd.</span>
-        </div>
+
+    <div class="unavail-banner" role="status">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <div>
+        <strong>Tijdelijk niet beschikbaar</strong>
+        <span>We wachten op Google OAuth-verificatie. Aanmelden kan zodra dit is goedgekeurd.</span>
       </div>
-      <a class="btn btn-primary btn-lg" href="/onboarding.html" style="width:100%">Start nu →</a>
+    </div>
+
+    <div class="price-grid">
+      <div class="price-card reveal">
+        <div class="price-card-eyebrow">Maandelijks</div>
+        <div class="price-card-title">Mailbox Manager</div>
+        <div class="price-card-sub">Maandelijks opzegbaar</div>
+        <div class="price-tag">€24<span class="price-tag-unit">/mnd</span></div>
+        <div class="price-per">Excl. btw · maandelijks opzegbaar</div>
+        <div class="price-note">Start wanneer je wilt. Stop wanneer je wilt.</div>
+        <ul class="price-feats">
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>10 automatische labels in Gmail</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Concept-antwoorden in jouw stijl</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Thread-bewust — drafts verstoren geen status</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Follow-Up Radar — opvolg-concepten voor beloftes &amp; stille threads</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Nooit auto-send, nooit auto-archive</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Dashboard met weekoverzicht</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Support via mail, antwoord binnen 1 werkdag</li>
+        </ul>
+        <a class="btn btn-primary btn-lg" href="/onboarding.html?plan=monthly" style="width:100%">Start maandelijks →</a>
+      </div>
+
+      <div class="price-card price-card--featured reveal">
+        <div class="price-card-badge">Beste deal</div>
+        <div class="price-card-eyebrow">Jaarlijks</div>
+        <div class="price-card-title">Mailbox Manager</div>
+        <div class="price-card-sub">Eén keer per jaar — 2 maanden gratis</div>
+        <div class="price-tag">€240<span class="price-tag-unit">/jr</span></div>
+        <div class="price-per">= €20/mnd · excl. btw</div>
+        <div class="price-save">Bespaar €48 per jaar</div>
+        <ul class="price-feats">
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Alles van het maandabonnement</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>2 maanden gratis — effectief €20/mnd</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Eén factuur per jaar — minder administratie</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Zelfde functies, zelfde support</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Nooit auto-send, nooit auto-archive</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Dashboard met weekoverzicht</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Support via mail, antwoord binnen 1 werkdag</li>
+        </ul>
+        <a class="btn btn-primary btn-lg" href="/onboarding.html?plan=yearly" style="width:100%">Start jaarlijks →</a>
+      </div>
     </div>
   </div>
 </section>
