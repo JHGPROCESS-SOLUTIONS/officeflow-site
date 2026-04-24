@@ -328,11 +328,21 @@
 
     /* WHY */
     .why-bg { background: linear-gradient(180deg, #fbf5ec 0%, #fdfaf5 100%); }
-    .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 52px; }
+    .why-split { display: flex; flex-direction: column; gap: 36px; margin-top: 52px; }
+    .why-product-label { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 18px; }
+    .why-product-label::before { content: ''; display: inline-block; width: 8px; height: 8px; border-radius: 50%; }
+    .why-product-label-orange { color: var(--orange); }
+    .why-product-label-orange::before { background: var(--orange); }
+    .why-product-label-blue { color: var(--blue); }
+    .why-product-label-blue::before { background: var(--blue); }
+    .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
     .why-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 16px; padding: 30px; transition: border-color .2s, transform .2s, box-shadow .2s; }
     .why-card:hover { border-color: var(--orange-soft); transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+    .why-card-blue:hover { border-color: rgba(59,130,246,.35); }
     .why-icon { width: 44px; height: 44px; border-radius: 12px; background: var(--orange-bg); display: flex; align-items: center; justify-content: center; margin-bottom: 18px; }
     .why-icon svg { color: var(--orange); }
+    .why-icon-blue { background: rgba(59,130,246,.1); }
+    .why-icon-blue svg { color: var(--blue); }
     .why-title { font-size: 17px; font-weight: 700; margin-bottom: 8px; letter-spacing: -.01em; }
     .why-body { font-size: 14px; color: var(--text-2); line-height: 1.75; }
 
@@ -1460,23 +1470,53 @@
 <section id="waarom" class="why-bg">
   <div class="wrap">
     <div class="eyebrow ey-orange reveal">Onze aanpak</div>
-    <h2 class="reveal">Automatisering die<br>je vertrouwen geeft.</h2>
-    <div class="why-grid">
-      <div class="why-card reveal rd1">
-        <div class="why-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"></path></svg></div>
-        <div class="why-title">Nooit automatisch verstuurd</div>
-        <div class="why-body">AI bereidt voor. Jij besluit. Geen enkele reply of factuur gaat de deur uit zonder jouw goedkeuring.</div>
+    <h2 class="reveal">Gebouwd om op te vertrouwen.</h2>
+    <div class="why-split">
+
+      <!-- Mailbox Manager -->
+      <div class="why-product">
+        <div class="why-product-label why-product-label-orange reveal">Mailbox Manager</div>
+        <div class="why-grid">
+          <div class="why-card reveal rd1">
+            <div class="why-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"></path></svg></div>
+            <div class="why-title">Nooit automatisch verstuurd</div>
+            <div class="why-body">AI bereidt voor. Jij besluit. Geen enkele reply of factuur gaat de deur uit zonder jouw goedkeuring.</div>
+          </div>
+          <div class="why-card reveal rd2">
+            <div class="why-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></div>
+            <div class="why-title">Altijd duidelijke volgende stap</div>
+            <div class="why-body">Het systeem vertelt je wat nu de logische actie is. Geen gissen, geen vergeten opvolgstap.</div>
+          </div>
+          <div class="why-card reveal rd3">
+            <div class="why-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg></div>
+            <div class="why-title">Rustige, overzichtelijke interface</div>
+            <div class="why-body">Geen rommelig dashboard. Een heldere werkruimte die rust geeft in plaats van stress.</div>
+          </div>
+        </div>
       </div>
-      <div class="why-card reveal rd2">
-        <div class="why-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></div>
-        <div class="why-title">Altijd duidelijke volgende stap</div>
-        <div class="why-body">Het systeem vertelt je wat nu de logische actie is. Geen gissen, geen vergeten opvolgstap.</div>
+
+      <!-- Facturen & Offertes -->
+      <div class="why-product">
+        <div class="why-product-label why-product-label-blue reveal">Facturen &amp; Offertes</div>
+        <div class="why-grid">
+          <div class="why-card why-card-blue reveal rd1">
+            <div class="why-icon why-icon-blue"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
+            <div class="why-title">Betaalstatus altijd up-to-date</div>
+            <div class="why-body">Via Moneybird detecteert OfficeFlow automatisch wanneer een factuur betaald is. Je dashboard en boekhouding kloppen altijd.</div>
+          </div>
+          <div class="why-card why-card-blue reveal rd2">
+            <div class="why-icon why-icon-blue"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg></div>
+            <div class="why-title">Van offerte naar factuur in één klik</div>
+            <div class="why-body">Offerte geaccepteerd? Zet hem direct om naar factuur. Geen gekopieer, geen dubbel werk. De klant ontvangt alles netjes op zijn portaal.</div>
+          </div>
+          <div class="why-card why-card-blue reveal rd3">
+            <div class="why-icon why-icon-blue"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg></div>
+            <div class="why-title">Herinneringen zonder gedoe</div>
+            <div class="why-body">Stel eenmalig in wanneer er een herinnering verstuurd wordt. OfficeFlow volgt openstaande facturen automatisch op — jij hoeft er niet meer aan te denken.</div>
+          </div>
+        </div>
       </div>
-      <div class="why-card reveal rd3">
-        <div class="why-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg></div>
-        <div class="why-title">Rustige, overzichtelijke interface</div>
-        <div class="why-body">Geen rommelig dashboard. Een heldere werkruimte die rust geeft in plaats van stress.</div>
-      </div>
+
     </div>
   </div>
 </section>
@@ -1883,67 +1923,61 @@
           <div class="faq-list">
             <details class="faq-item reveal">
               <summary>
-                <span>Werkt het met Moneybird?</span>
+                <span>Hoe werkt de koppeling met Moneybird?</span>
                 <span class="faq-icon" aria-hidden="true">+</span>
               </summary>
               <div class="faq-answer">
-                Ja. Facturen &amp; Offertes synchroniseert klanten, facturen en betalingen met <strong>Moneybird</strong>.
-                Je blijft in één workflow werken; je boekhouder pakt alles op in zijn eigen omgeving.
+                OfficeFlow synchroniseert je facturen en offertes automatisch naar <strong>Moneybird</strong>. Je boekhouder werkt gewoon in zijn eigen Moneybird-omgeving; jij werkt in OfficeFlow. Alles wordt automatisch gesynchroniseerd — je hoeft niets handmatig over te zetten.
               </div>
             </details>
 
             <details class="faq-item reveal">
               <summary>
-                <span>Kan ik met mijn eigen huisstijl factureren?</span>
+                <span>Hoe weet OfficeFlow wanneer een factuur betaald is?</span>
                 <span class="faq-icon" aria-hidden="true">+</span>
               </summary>
               <div class="faq-answer">
-                Ja. Je uploadt je logo en kiest een huisstijlkleur. Facturen en offertes zien er professioneel en consistent uit,
-                zonder dat je elk document apart moet opmaken.
+                Via Moneybird. Zodra je klant betaalt en Moneybird de betaling herkent en koppelt, pikt OfficeFlow dat automatisch op — elke vijf minuten wordt de betaalstatus gecontroleerd. Je dashboard wordt direct bijgewerkt en je ontvangt een melding in je sidebar.
               </div>
             </details>
 
             <details class="faq-item reveal">
               <summary>
-                <span>Kan ik abonnementen automatisch factureren?</span>
+                <span>Kan ik offertes sturen en laten accorderen?</span>
                 <span class="faq-icon" aria-hidden="true">+</span>
               </summary>
               <div class="faq-answer">
-                Ja. Je zet abonnementen en terugkerende facturen eenmalig in en laat ze maandelijks, per kwartaal of jaarlijks automatisch genereren.
-                De factuur wordt aangemaakt en (optioneel) direct verstuurd naar de klant.
+                Ja. Offertes verstuur je direct vanuit OfficeFlow. De klant ontvangt een professionele klantlink en kan de offerte online bekijken en accorderen. Na akkoord zet je de offerte in één klik om naar een factuur — zonder dubbel werk.
               </div>
             </details>
 
             <details class="faq-item reveal">
               <summary>
-                <span>Registreert het ook gewerkte uren?</span>
+                <span>Stuurt OfficeFlow automatisch herinneringen voor openstaande facturen?</span>
                 <span class="faq-icon" aria-hidden="true">+</span>
               </summary>
               <div class="faq-answer">
-                Ja. Werkregistratie per klant of project zit ingebouwd. Uren stromen automatisch mee naar de eerstvolgende factuur,
-                zodat je nooit meer handmatig hoeft bij te houden wat je waar aan gedaan hebt.
+                Ja. Je stelt eenmalig in wanneer en hoe vaak er een herinnering verstuurd wordt. OfficeFlow volgt openstaande facturen daarna automatisch op. Jij hoeft er niet meer aan te denken — en je blijft altijd zelf in controle over de inhoud.
               </div>
             </details>
 
             <details class="faq-item reveal">
               <summary>
-                <span>Krijgen klanten automatisch betalingsherinneringen?</span>
+                <span>Kan ik ook werken op mijn telefoon?</span>
                 <span class="faq-icon" aria-hidden="true">+</span>
               </summary>
               <div class="faq-answer">
-                Ja. Openstaande facturen worden automatisch opgevolgd met vriendelijke herinneringen in jouw toon.
-                Jij kiest de intervallen; OfficeFlow zorgt dat je niet meer achter je geld aan hoeft.
+                Ja. Het dashboard werkt op mobiel. Je kunt offertes checken, factuurstatussen bekijken en meldingen ontvangen — ook als je onderweg bent. Alles wat je nodig hebt is beschikbaar via de browser op je telefoon, zonder aparte app.
               </div>
             </details>
 
             <details class="faq-item reveal">
               <summary>
-                <span>Werkt Facturen &amp; Offertes los van mijn mailprovider?</span>
+                <span>Werkt Facturen &amp; Offertes los van Mailbox Manager?</span>
                 <span class="faq-icon" aria-hidden="true">+</span>
               </summary>
               <div class="faq-answer">
-                Ja. Dit product werkt volledig op zichzelf — onafhankelijk van Gmail, Outlook of een andere mailbox.
-                Gebruik het als standalone facturatieplatform of combineer met Mailbox Manager.
+                Ja, volledig. Je hebt geen Mailbox Manager nodig om Facturen &amp; Offertes te gebruiken. Het is een zelfstandig product met eigen login, eigen dashboard en eigen workflow. Je kunt beide producten combineren, maar dat is niet verplicht.
               </div>
             </details>
           </div>
