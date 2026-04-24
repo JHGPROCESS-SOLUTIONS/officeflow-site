@@ -21,105 +21,118 @@
 
     /* Nav */
     nav{background:#fff;border-bottom:1px solid var(--border);padding:14px 0}
-    .nav-inner{max-width:1100px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .nav-inner{max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
     .logo{display:flex;align-items:center;gap:10px;font-size:18px;font-weight:800;color:var(--text);letter-spacing:-.01em}
     .logo-mark{width:28px;height:28px;background:var(--orange);border-radius:7px;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:14px;line-height:1}
     .logo .flow{color:var(--orange)}
     .nav-right{display:flex;gap:10px;align-items:center}
-    .btn{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:10px;font-size:13.5px;font-weight:600;cursor:pointer;border:0;font-family:inherit;text-decoration:none;transition:transform .1s,box-shadow .1s}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:10px;font-size:13.5px;font-weight:600;cursor:pointer;border:0;font-family:inherit;text-decoration:none;transition:transform .1s}
     .btn:hover{transform:translateY(-1px)}
     .btn-orange{background:var(--orange);color:#fff;box-shadow:0 2px 6px rgba(249,115,22,.25)}
     .btn-ghost{background:transparent;color:var(--text-2);border:1px solid var(--border)}
-    .btn-ghost:hover{background:#f1f5f9}
+    .btn-ghost:hover{background:#f1f5f9;text-decoration:none}
 
-    /* Layout */
-    .wrap{max-width:1000px;margin:0 auto;padding:32px 24px}
-    h1{font-size:28px;font-weight:800;letter-spacing:-.02em;margin:0 0 8px}
-    .subtitle{color:var(--text-2);font-size:15px;margin:0 0 28px}
+    /* Layout met sidebar */
+    .layout{max-width:1200px;margin:0 auto;padding:24px;display:grid;grid-template-columns:240px 1fr;gap:24px;align-items:start}
+    @media (max-width:900px){.layout{grid-template-columns:1fr;gap:16px}}
 
-    /* Loading / empty states */
+    /* Sidebar */
+    .sidebar{background:#fff;border:1px solid var(--border);border-radius:14px;padding:14px;position:sticky;top:16px}
+    @media (max-width:900px){.sidebar{position:static}}
+    .side-section{margin-bottom:14px}
+    .side-section:last-child{margin-bottom:0}
+    .side-label{font-size:10.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--text-mute);padding:6px 10px 6px}
+    .side-item{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:8px;font-size:13.5px;font-weight:500;color:var(--text-2);cursor:pointer;border:0;background:transparent;width:100%;font-family:inherit;text-align:left;margin-bottom:1px;transition:background .15s,color .15s}
+    .side-item:hover{background:#f1f5f9;color:var(--text)}
+    .side-item.is-active{background:var(--orange-soft);color:var(--orange-dark);font-weight:600}
+    .side-item-icon{width:16px;height:16px;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center}
+    .side-item-icon svg{width:16px;height:16px}
+    .side-item-label{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .side-item-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-left:auto}
+    .side-dot-green{background:var(--green)}
+    .side-dot-grey{background:var(--text-mute)}
+    .side-divider{height:1px;background:var(--border);margin:8px 0}
+
+    /* Main content */
+    .main h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:0 0 4px}
+    .main .sub{color:var(--text-2);font-size:14px;margin:0 0 22px}
+
+    /* States */
     .state-box{background:#fff;border:1px solid var(--border);border-radius:14px;padding:32px;text-align:center;color:var(--text-2);font-size:14px}
 
     /* Cards */
     .card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:22px;margin-bottom:18px;box-shadow:0 1px 2px rgba(15,23,42,.03)}
     .card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:12px;flex-wrap:wrap}
     .card-title{font-size:15px;font-weight:700;color:var(--text);letter-spacing:-.005em}
-    .card-sub{font-size:12.5px;color:var(--text-mute)}
+    .card-sub{font-size:12.5px;color:var(--text-mute);margin-top:2px}
 
-    /* Team header */
-    .team-hero{background:#fff;border:1px solid var(--border);border-radius:16px;padding:28px;margin-bottom:22px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:start}
-    .team-name{font-size:22px;font-weight:800;letter-spacing:-.01em;margin:0 0 8px}
-    .team-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
-    .chip{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:.04em;padding:4px 9px;border-radius:999px;text-transform:uppercase}
+    /* Team hero */
+    .team-hero{background:#fff;border:1px solid var(--border);border-radius:14px;padding:22px;margin-bottom:18px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:start}
+    .team-name{font-size:20px;font-weight:800;letter-spacing:-.01em;margin:0 0 8px}
+    .team-meta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+    .chip{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:700;letter-spacing:.04em;padding:3px 8px;border-radius:999px;text-transform:uppercase}
     .chip-orange{background:var(--orange-soft);color:var(--orange-dark)}
     .chip-green{background:#d1fae5;color:#065f46}
     .chip-red{background:#fee2e2;color:#991b1b}
     .chip-grey{background:#e2e8f0;color:var(--text-2)}
-    .seats-box{text-align:right}
-    .seats-num{font-size:28px;font-weight:800;letter-spacing:-.02em;color:var(--text);line-height:1}
+    .chip-blue{background:#dbeafe;color:#1e40af}
+    .seats-num{font-size:24px;font-weight:800;letter-spacing:-.02em;color:var(--text);line-height:1}
     .seats-num .total{color:var(--text-mute);font-weight:600}
-    .seats-label{font-size:12px;color:var(--text-mute);margin-top:4px}
-    .seats-bar{width:120px;height:6px;background:var(--bg);border-radius:3px;margin-top:10px;overflow:hidden}
+    .seats-label{font-size:11.5px;color:var(--text-mute);margin-top:4px;text-align:right}
+    .seats-bar{width:120px;height:5px;background:var(--bg);border-radius:3px;margin-top:8px;overflow:hidden}
     .seats-bar-fill{height:100%;background:var(--orange);border-radius:3px;transition:width .3s}
 
     /* Members list */
-    .members{display:flex;flex-direction:column;gap:10px}
-    .member{display:grid;grid-template-columns:38px 1fr auto auto;gap:12px;align-items:center;padding:12px;background:var(--bg);border-radius:10px;border:1px solid transparent}
-    .avatar{width:38px;height:38px;border-radius:50%;background:var(--orange);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;line-height:1}
-    .member-name{font-size:14px;font-weight:600;color:var(--text);line-height:1.3}
-    .member-sub{font-size:12px;color:var(--text-mute);margin-top:2px}
-
-    /* Mailboxes */
-    .mailboxes{display:flex;flex-direction:column;gap:8px}
-    .mailbox-row{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--bg);border-radius:10px;font-size:13.5px}
-    .mailbox-email{font-weight:600;color:var(--text)}
+    .members{display:flex;flex-direction:column;gap:8px}
+    .member{display:grid;grid-template-columns:34px 1fr auto auto;gap:10px;align-items:center;padding:10px 12px;background:var(--bg);border-radius:10px}
+    .avatar{width:34px;height:34px;border-radius:50%;background:var(--orange);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12.5px;line-height:1}
+    .member-name{font-size:13.5px;font-weight:600;color:var(--text);line-height:1.3}
+    .member-sub{font-size:11.5px;color:var(--text-mute);margin-top:2px}
 
     /* Invite form */
     .invite-form{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-    .invite-form input{flex:1;min-width:200px;padding:10px 14px;border:1px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;color:var(--text);background:#fff}
-    .invite-form input:focus{outline:none;border-color:var(--orange);box-shadow:0 0 0 3px rgba(249,115,22,.15)}
-    .invite-form select{padding:10px 12px;border:1px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;background:#fff;color:var(--text)}
-    .form-msg{font-size:13px;margin-top:10px;padding:10px 12px;border-radius:8px;display:none}
+    .invite-form input,.invite-form select{flex:1;min-width:160px;padding:9px 12px;border:1px solid var(--border);border-radius:8px;font-size:13.5px;font-family:inherit;color:var(--text);background:#fff}
+    .invite-form input:focus,.invite-form select:focus{outline:none;border-color:var(--orange);box-shadow:0 0 0 3px rgba(249,115,22,.15)}
+    .invite-form select{flex:0 0 auto;min-width:110px}
+    .form-msg{font-size:12.5px;margin-top:10px;padding:9px 12px;border-radius:8px;display:none}
     .form-msg.ok{display:block;background:#d1fae5;color:#065f46}
     .form-msg.err{display:block;background:#fee2e2;color:#991b1b}
 
-    /* Welcome banner (post-checkout) */
-    .welcome-banner{background:linear-gradient(135deg,#fff7ed 0%,#ffedd5 100%);border:1px solid #fed7aa;border-radius:14px;padding:20px 24px;margin-bottom:22px;display:flex;align-items:flex-start;gap:16px}
+    /* Welcome + error banners */
+    .welcome-banner{background:linear-gradient(135deg,#fff7ed 0%,#ffedd5 100%);border:1px solid #fed7aa;border-radius:12px;padding:18px 20px;margin-bottom:18px;display:flex;align-items:flex-start;gap:14px}
     .welcome-banner.hidden{display:none}
-    .welcome-icon{width:44px;height:44px;background:var(--orange);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:22px}
-    .welcome-body h3{margin:0 0 6px;font-size:16px;font-weight:700;color:#7c2d12}
-    .welcome-body p{margin:0 0 10px;font-size:13.5px;color:#9a3412;line-height:1.5}
-    .wizard-steps{display:flex;gap:14px;margin-top:10px;flex-wrap:wrap}
-    .wizard-step{display:flex;align-items:center;gap:8px;font-size:12.5px;color:#7c2d12;background:#ffffff80;padding:7px 12px;border-radius:999px;border:1px solid #fdba74}
+    .welcome-icon{width:38px;height:38px;background:var(--orange);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px}
+    .welcome-body h3{margin:0 0 4px;font-size:15px;font-weight:700;color:#7c2d12}
+    .welcome-body p{margin:0 0 10px;font-size:13px;color:#9a3412;line-height:1.5}
+    .wizard-steps{display:flex;gap:8px;flex-wrap:wrap}
+    .wizard-step{display:flex;align-items:center;gap:6px;font-size:11.5px;color:#7c2d12;background:#fff;padding:5px 10px;border-radius:999px;border:1px solid #fdba74}
     .wizard-step.done{background:#d1fae5;color:#065f46;border-color:#86efac}
-    .wizard-step-num{width:20px;height:20px;border-radius:50%;background:var(--orange);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+    .wizard-step-num{width:16px;height:16px;border-radius:50%;background:var(--orange);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0}
     .wizard-step.done .wizard-step-num{background:var(--green)}
-
-    /* Error banner */
-    .error-banner{background:#fee2e2;border:1px solid #fca5a5;border-radius:12px;padding:14px 18px;margin-bottom:18px;display:flex;align-items:center;gap:12px;color:#991b1b;font-size:13.5px}
+    .error-banner{background:#fee2e2;border:1px solid #fca5a5;border-radius:10px;padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;gap:10px;color:#991b1b;font-size:13px}
     .error-banner.hidden{display:none}
 
-    /* Action buttons small */
-    .btn-xs{padding:5px 10px;font-size:11.5px;font-weight:600;background:transparent;border:1px solid var(--border);border-radius:7px;color:var(--text-2);cursor:pointer;font-family:inherit;transition:background .15s}
+    /* Buttons small */
+    .btn-xs{padding:5px 10px;font-size:11px;font-weight:600;background:transparent;border:1px solid var(--border);border-radius:6px;color:var(--text-2);cursor:pointer;font-family:inherit}
     .btn-xs:hover{background:var(--bg)}
     .btn-xs.btn-danger{color:var(--red);border-color:#fca5a5}
     .btn-xs.btn-danger:hover{background:#fee2e2}
 
-    /* Stats tiles */
-    .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px}
+    /* Stats */
+    .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
     .stat-tile{background:var(--bg);border-radius:10px;padding:14px;text-align:center}
-    .stat-num{font-size:24px;font-weight:800;color:var(--text);letter-spacing:-.02em;line-height:1}
-    .stat-label{font-size:11px;font-weight:700;letter-spacing:.06em;color:var(--text-mute);text-transform:uppercase;margin-top:6px}
+    .stat-num{font-size:22px;font-weight:800;color:var(--text);letter-spacing:-.02em;line-height:1}
+    .stat-label{font-size:10.5px;font-weight:700;letter-spacing:.06em;color:var(--text-mute);text-transform:uppercase;margin-top:6px}
     @media(max-width:520px){.stats-row{grid-template-columns:1fr 1fr}}
 
-    /* Responsive */
-    @media (max-width:720px){
-      .team-hero{grid-template-columns:1fr}
-      .seats-box{text-align:left}
-      .seats-bar{width:100%}
-      .member{grid-template-columns:38px 1fr}
-      .member > :nth-child(3),.member > :nth-child(4){grid-column:2}
-    }
+    /* Read-only indicator voor members */
+    .readonly-pill{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;color:var(--text-mute);background:var(--bg);padding:4px 10px;border-radius:999px;margin-left:8px}
+
+    /* Mailbox detail */
+    .mb-head{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+    .mb-head-icon{width:44px;height:44px;background:var(--orange-soft);color:var(--orange-dark);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:20px}
+    .mb-head-info h2{margin:0 0 4px;font-size:18px;font-weight:800;letter-spacing:-.01em}
+    .mb-head-info .meta{font-size:12.5px;color:var(--text-mute)}
   </style>
 </head>
 <body>
@@ -137,41 +150,41 @@
   </div>
 </nav>
 
-<div class="wrap">
-  <!-- Welcome banner — shown only when ?welcome=1 URL param -->
-  <div class="welcome-banner hidden" id="welcomeBanner">
-    <div class="welcome-icon">🎉</div>
-    <div class="welcome-body" id="welcomeBody">
-      <h3>Welkom bij OfficeFlow Teams</h3>
-      <p>Je team is aangemaakt. Doorloop de 3 stappen om je team live te krijgen:</p>
-      <div class="wizard-steps" id="wizardSteps">
-        <div class="wizard-step" id="step-gmail"><span class="wizard-step-num">1</span>Koppel je eigen Gmail</div>
-        <div class="wizard-step" id="step-invite"><span class="wizard-step-num">2</span>Nodig team-leden uit</div>
-        <div class="wizard-step" id="step-done"><span class="wizard-step-num">3</span>Leden koppelen hun Gmail</div>
+<div class="layout">
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="side-section">
+      <div class="side-label">Loading…</div>
+    </div>
+  </aside>
+
+  <!-- Main content -->
+  <main class="main">
+    <!-- Welcome banner (bij ?welcome=1) -->
+    <div class="welcome-banner hidden" id="welcomeBanner">
+      <div class="welcome-icon">🎉</div>
+      <div class="welcome-body">
+        <h3>Welkom bij OfficeFlow Teams</h3>
+        <p>Je team is aangemaakt. Doorloop de 3 stappen om je team live te krijgen:</p>
+        <div class="wizard-steps" id="wizardSteps">
+          <div class="wizard-step" id="step-gmail"><span class="wizard-step-num">1</span>Koppel je eigen Gmail</div>
+          <div class="wizard-step" id="step-invite"><span class="wizard-step-num">2</span>Nodig team-leden uit</div>
+          <div class="wizard-step" id="step-done"><span class="wizard-step-num">3</span>Leden koppelen hun Gmail</div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Error banner (bv. seat-limit bereikt) -->
-  <div class="error-banner hidden" id="errorBanner">
-    <strong>⚠</strong>
-    <span id="errorBannerText"></span>
-  </div>
+    <!-- Error banner -->
+    <div class="error-banner hidden" id="errorBanner">
+      <strong>⚠</strong>
+      <span id="errorBannerText"></span>
+    </div>
 
-  <h1>Team</h1>
-  <p class="subtitle">Beheer je team-abonnement, mailboxen en leden.</p>
-
-  <!-- Loading state -->
-  <div class="state-box" id="loadingState">Laden...</div>
-
-  <!-- No team state -->
-  <div class="state-box" id="noTeamState" style="display:none">
-    <p>Je bent nog geen lid van een team.</p>
-    <p style="margin-top:12px"><a class="btn btn-orange" href="/#producten">Start een team-abonnement →</a></p>
-  </div>
-
-  <!-- Team content (filled dynamically) -->
-  <div id="teamContent" style="display:none"></div>
+    <!-- Dynamic content (wordt gevuld door renderView) -->
+    <div id="mainContent">
+      <div class="state-box">Laden…</div>
+    </div>
+  </main>
 </div>
 
 <script>
@@ -180,69 +193,163 @@
   const API_BASE = 'https://api.officeflowcompany.com';
   const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-  const TIER_LABELS = {
-    team_s: 'Team Starter',
-    team_pro: 'Team Pro',
-    business: 'Business',
+  const TIER_LABELS = { team_s: 'Team Starter', team_pro: 'Team Pro', business: 'Business' };
+
+  // Globale state
+  let STATE = {
+    teams: [],
+    currentTeam: null,
+    currentUserId: null,
+    currentUserEmail: null,
+    isAdmin: false,
+    statsCache: {},
+    view: 'overview',       // 'overview' | 'members' | 'mailbox:<id>' | 'billing'
   };
 
   function escapeHtml(s) {
     return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);
   }
-
   function initials(email) {
     if (!email) return '?';
-    const name = email.split('@')[0];
-    return name.slice(0, 2).toUpperCase();
+    return email.split('@')[0].slice(0, 2).toUpperCase();
   }
 
-  async function fetchTeams() {
+  async function apiGet(path) {
     const { data: { session } } = await sb.auth.getSession();
-    if (!session) {
-      window.location.href = '/login.html?next=/team.html';
-      return null;
-    }
-    const res = await fetch(API_BASE + '/api/teams/me', {
+    if (!session) { window.location.href = '/login.html?next=/team.html'; return null; }
+    const res = await fetch(API_BASE + path, {
       headers: { 'Authorization': 'Bearer ' + session.access_token }
     });
     if (!res.ok) throw new Error('HTTP ' + res.status);
-    return await res.json();
+    return res.json();
   }
 
-  function renderTeam(teamData, currentUserId, currentUserEmail) {
-    const t = teamData.team;
-    const role = teamData.role;
-    const isAdmin = role === 'admin';
-    const ownerId = t.owner_user_id;
+  async function apiPost(path, body) {
+    const { data: { session } } = await sb.auth.getSession();
+    if (!session) return null;
+    const res = await fetch(API_BASE + path, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + session.access_token },
+      body: JSON.stringify(body || {})
+    });
+    return { ok: res.ok, status: res.status, data: await res.json().catch(() => ({})) };
+  }
+
+  async function apiDelete(path) {
+    const { data: { session } } = await sb.auth.getSession();
+    if (!session) return null;
+    const res = await fetch(API_BASE + path, {
+      method: 'DELETE',
+      headers: { 'Authorization': 'Bearer ' + session.access_token }
+    });
+    return { ok: res.ok, status: res.status, data: await res.json().catch(() => ({})) };
+  }
+
+  async function apiPatch(path, body) {
+    const { data: { session } } = await sb.auth.getSession();
+    if (!session) return null;
+    const res = await fetch(API_BASE + path, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + session.access_token },
+      body: JSON.stringify(body || {})
+    });
+    return { ok: res.ok, status: res.status, data: await res.json().catch(() => ({})) };
+  }
+
+  // ---------- SIDEBAR ----------
+  function renderSidebar() {
+    const t = STATE.currentTeam;
+    if (!t) {
+      document.getElementById('sidebar').innerHTML = '<div class="side-label">Geen team</div>';
+      return;
+    }
+    const isAdmin = STATE.isAdmin;
+    const mailboxes = t.mailboxes || [];
+
+    const itemBtn = (key, label, iconSvg, extra = '') => {
+      const active = STATE.view === key ? 'is-active' : '';
+      return `<button class="side-item ${active}" data-view="${escapeHtml(key)}">
+        <span class="side-item-icon">${iconSvg}</span>
+        <span class="side-item-label">${escapeHtml(label)}</span>
+        ${extra}
+      </button>`;
+    };
+
+    let html = `
+      <div class="side-section">
+        <div class="side-label">${escapeHtml(t.team.name)}</div>
+        ${itemBtn('overview', 'Team overzicht',
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>'
+        )}
+        ${itemBtn('members', 'Team-leden',
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>'
+        )}
+        ${isAdmin ? itemBtn('billing', 'Billing',
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>'
+        ) : ''}
+      </div>
+      <div class="side-divider"></div>
+      <div class="side-section">
+        <div class="side-label">Mailboxen (${mailboxes.length})</div>
+        ${mailboxes.length === 0 ? '<div style="font-size:12px;color:var(--text-mute);padding:6px 10px">Nog geen mailboxen gekoppeld.</div>' : mailboxes.map(mb => {
+          const active = STATE.view === ('mailbox:' + mb.id) ? 'is-active' : '';
+          const dot = mb.status === 'connected' ? 'side-dot-green' : 'side-dot-grey';
+          return `<button class="side-item ${active}" data-view="mailbox:${escapeHtml(mb.id)}">
+            <span class="side-item-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
+            </span>
+            <span class="side-item-label">${escapeHtml(mb.email_address || '(leeg)')}</span>
+            <span class="side-item-dot ${dot}"></span>
+          </button>`;
+        }).join('')}
+      </div>
+    `;
+    document.getElementById('sidebar').innerHTML = html;
+
+    // Click handlers
+    document.querySelectorAll('[data-view]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const view = btn.getAttribute('data-view');
+        if (view === 'billing') { handleBillingPortal(); return; }
+        STATE.view = view;
+        location.hash = '#' + view;
+        renderSidebar();
+        renderMainContent();
+      });
+    });
+  }
+
+  // ---------- MAIN CONTENT VIEWS ----------
+  function renderOverview() {
+    const td = STATE.currentTeam;
+    const t = td.team;
     const tierLabel = TIER_LABELS[t.tier] || t.tier;
-    const seatsPct = Math.min(100, Math.round((teamData.seats_used / Math.max(1, teamData.seats_total)) * 100));
+    const seatsPct = Math.min(100, Math.round((td.seats_used / Math.max(1, td.seats_total)) * 100));
     const statusChip = t.access_allowed
       ? `<span class="chip chip-green">● ACTIEF</span>`
       : `<span class="chip chip-red">● INACTIEF</span>`;
 
-    // Hero
     let html = `
+      <h1>Team overzicht</h1>
+      <p class="sub">Alle cijfers van je team in één oogopslag.</p>
+
       <div class="team-hero">
         <div>
           <h2 class="team-name">${escapeHtml(t.name)}</h2>
           <div class="team-meta">
             <span class="chip chip-orange">${escapeHtml(tierLabel)}</span>
             ${statusChip}
-            <span class="chip chip-grey">${escapeHtml(t.billing_period === 'yearly' ? 'Jaarlijks' : 'Maandelijks')}</span>
-            <span class="chip chip-grey">Rol: ${escapeHtml(role)}</span>
+            <span class="chip chip-grey">${t.billing_period === 'yearly' ? 'Jaarlijks' : 'Maandelijks'}</span>
+            <span class="chip chip-grey">Rol: ${escapeHtml(td.role)}</span>
           </div>
-          ${isAdmin ? `<button class="btn btn-ghost" style="margin-top:10px" data-billing-portal="${escapeHtml(t.id)}">💳 Billing beheren</button>` : ''}
         </div>
-        <div class="seats-box">
-          <div class="seats-num">${teamData.seats_used}<span class="total"> / ${teamData.seats_total}</span></div>
+        <div>
+          <div class="seats-num">${td.seats_used}<span class="total"> / ${td.seats_total}</span></div>
           <div class="seats-label">mailboxen gebruikt</div>
           <div class="seats-bar"><div class="seats-bar-fill" style="width:${seatsPct}%"></div></div>
         </div>
       </div>
-    `;
 
-    // Stats placeholder (laden asynchroon)
-    html += `
       <div class="card" id="stats-card-${escapeHtml(t.id)}">
         <div class="card-head">
           <div>
@@ -256,200 +363,242 @@
           <div class="stat-tile"><div class="stat-num">—</div><div class="stat-label">Mailboxen actief</div></div>
         </div>
       </div>
-    `;
 
-    // Members
-    html += `
       <div class="card">
         <div class="card-head">
           <div>
-            <div class="card-title">Team-leden (${teamData.members.length})</div>
-            <div class="card-sub">Admin beheert billing. Members koppelen hun eigen Gmail.</div>
+            <div class="card-title">Gekoppelde mailboxen (${td.mailboxes.length} / ${td.seats_total})</div>
+            <div class="card-sub">Klik op een mailbox in de sidebar voor details.</div>
+          </div>
+          ${STATE.isAdmin && td.seats_used < td.seats_total
+            ? `<a class="btn btn-orange" href="${API_BASE}/auth/google/start">+ Koppel Gmail</a>`
+            : td.seats_used >= td.seats_total ? `<span class="chip chip-red">Seat-limit bereikt</span>` : ''}
+        </div>
+        ${td.mailboxes.length === 0
+          ? `<div class="state-box" style="padding:18px">Nog geen mailboxen gekoppeld.</div>`
+          : `<div class="members">${td.mailboxes.map(mb => `
+              <div class="member" style="cursor:pointer" data-view="mailbox:${escapeHtml(mb.id)}">
+                <div class="avatar">${escapeHtml(initials(mb.email_address))}</div>
+                <div>
+                  <div class="member-name">${escapeHtml(mb.email_address)}</div>
+                  <div class="member-sub">${mb.status === 'connected' ? 'Actief' : mb.status}</div>
+                </div>
+                <span class="chip ${mb.status === 'connected' ? 'chip-green' : 'chip-grey'}">${escapeHtml(mb.status)}</span>
+                <span></span>
+              </div>`).join('')}</div>`}
+      </div>
+    `;
+    return html;
+  }
+
+  function renderMembersView() {
+    const td = STATE.currentTeam;
+    const t = td.team;
+    const isAdmin = STATE.isAdmin;
+    const ownerId = t.owner_user_id;
+
+    let html = `
+      <h1>Team-leden ${!isAdmin ? '<span class="readonly-pill">alleen-lezen</span>' : ''}</h1>
+      <p class="sub">${isAdmin ? 'Beheer je team-leden: uitnodigen, rol wijzigen of verwijderen.' : 'Je kunt het team-overzicht bekijken. Alleen de admin kan leden beheren.'}</p>
+
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <div class="card-title">Leden (${td.members.length})</div>
+            <div class="card-sub">Owner beheert billing. Members koppelen hun eigen Gmail.</div>
           </div>
         </div>
         <div class="members">
-          ${teamData.members.map(m => {
+          ${td.members.map(m => {
             const isOwner = m.user_id === ownerId;
-            const isSelf = m.user_id === currentUserId;
+            const isSelf = m.user_id === STATE.currentUserId;
             const canManage = isAdmin && !isOwner && !isSelf;
-            const actionBtns = canManage ? `
+            const actions = canManage ? `
               <div style="display:flex;gap:6px;align-items:center">
-                <button class="btn-xs" data-action="role-toggle" data-team="${escapeHtml(t.id)}" data-user="${escapeHtml(m.user_id)}" data-current="${escapeHtml(m.role)}">
+                <button class="btn-xs" data-action="role-toggle" data-user="${escapeHtml(m.user_id)}" data-current="${escapeHtml(m.role)}">
                   ${m.role === 'admin' ? '→ Member' : '→ Admin'}
                 </button>
-                <button class="btn-xs btn-danger" data-action="remove-member" data-team="${escapeHtml(t.id)}" data-user="${escapeHtml(m.user_id)}" data-email="${escapeHtml(m.email || '')}">
+                <button class="btn-xs btn-danger" data-action="remove-member" data-user="${escapeHtml(m.user_id)}" data-email="${escapeHtml(m.email || '')}">
                   Verwijder
                 </button>
-              </div>
-            ` : '<span></span>';
+              </div>` : '<span></span>';
             return `
               <div class="member">
                 <div class="avatar">${escapeHtml(initials(m.email))}</div>
                 <div>
-                  <div class="member-name">${escapeHtml(m.email || 'onbekend')}${isSelf ? ' <span style="color:var(--text-mute);font-weight:400">(jij)</span>' : ''}${isOwner ? ' <span style="color:var(--text-mute);font-weight:400">(owner)</span>' : ''}</div>
+                  <div class="member-name">
+                    ${escapeHtml(m.email || 'onbekend')}
+                    ${isSelf ? ' <span style="color:var(--text-mute);font-weight:400">(jij)</span>' : ''}
+                    ${isOwner ? ' <span style="color:var(--text-mute);font-weight:400">(owner)</span>' : ''}
+                  </div>
                   <div class="member-sub">${m.joined_at ? 'Lid sinds ' + new Date(m.joined_at).toLocaleDateString('nl-NL') : (m.invited_at ? 'Uitgenodigd ' + new Date(m.invited_at).toLocaleDateString('nl-NL') : 'Pending')}</div>
                 </div>
                 <span class="chip ${m.role === 'admin' ? 'chip-orange' : 'chip-grey'}">${escapeHtml(m.role)}</span>
-                ${actionBtns}
-              </div>
-            `;
+                ${actions}
+              </div>`;
           }).join('')}
         </div>
       </div>
-    `;
 
-    // Mailboxes
-    html += `
+      ${isAdmin ? `
       <div class="card">
         <div class="card-head">
           <div>
-            <div class="card-title">Gekoppelde mailboxen (${teamData.mailboxes.length} / ${teamData.seats_total})</div>
-            <div class="card-sub">Elk teamlid koppelt zijn eigen Gmail via OAuth.</div>
+            <div class="card-title">Teamlid uitnodigen</div>
+            <div class="card-sub">Nieuwe leden krijgen een welkom-mail om in te loggen en hun Gmail te koppelen.</div>
           </div>
-          ${teamData.seats_used < teamData.seats_total ? `
-            <a class="btn btn-orange" href="${API_BASE}/auth/google/start">+ Koppel Gmail</a>
-          ` : `
-            <span class="chip chip-red">Seat-limit bereikt</span>
-          `}
         </div>
-        ${teamData.mailboxes.length > 0 ? `
-          <div class="mailboxes">
-            ${teamData.mailboxes.map(mb => `
-              <div class="mailbox-row">
-                <span class="mailbox-email">${escapeHtml(mb.email_address)}</span>
-                <span class="chip ${mb.status === 'connected' ? 'chip-green' : 'chip-grey'}">${escapeHtml(mb.status)}</span>
-              </div>
-            `).join('')}
-          </div>
-        ` : `<div class="state-box" style="padding:20px">Nog geen mailboxen gekoppeld. Klik "Koppel Gmail" om te starten.</div>`}
-      </div>
+        <form class="invite-form" id="inviteForm">
+          <input type="email" name="email" placeholder="naam@bedrijf.nl" required />
+          <select name="role">
+            <option value="member">Member</option>
+            <option value="admin">Admin</option>
+          </select>
+          <button type="submit" class="btn btn-orange">Uitnodigen →</button>
+        </form>
+        <div class="form-msg" id="inviteMsg"></div>
+      </div>` : ''}
     `;
-
-    // Invite form (alleen admin)
-    if (isAdmin) {
-      html += `
-        <div class="card">
-          <div class="card-head">
-            <div>
-              <div class="card-title">Teamlid uitnodigen</div>
-              <div class="card-sub">Nieuwe leden krijgen een welkom-mail om in te loggen en hun eigen Gmail te koppelen.</div>
-            </div>
-          </div>
-          <form class="invite-form" id="inviteForm" data-team-id="${escapeHtml(t.id)}">
-            <input type="email" name="email" placeholder="naam@bedrijf.nl" required />
-            <select name="role">
-              <option value="member">Member</option>
-              <option value="admin">Admin</option>
-            </select>
-            <button type="submit" class="btn btn-orange">Uitnodigen →</button>
-          </form>
-          <div class="form-msg" id="inviteMsg"></div>
-        </div>
-      `;
-    }
-
     return html;
   }
 
-  async function wireInviteForm(teamId) {
-    const form = document.getElementById('inviteForm');
-    if (!form) return;
+  function renderMailboxDetail(mailboxId) {
+    const td = STATE.currentTeam;
+    const mb = (td.mailboxes || []).find(x => x.id === mailboxId);
+    if (!mb) {
+      return `<div class="state-box">Mailbox niet gevonden.</div>`;
+    }
+    const owner = (td.members || []).find(m => m.user_id === mb.user_id);
+
+    // Stats worden async geladen
+    const cachedStats = STATE.statsCache[td.team.id];
+    const mbStats = cachedStats?.per_mailbox?.find(x => x.mailbox_id === mailboxId);
+
+    let html = `
+      <div class="mb-head">
+        <div class="mb-head-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
+        </div>
+        <div class="mb-head-info">
+          <h2>${escapeHtml(mb.email_address)}</h2>
+          <div class="meta">
+            Status: <span class="chip ${mb.status === 'connected' ? 'chip-green' : 'chip-grey'}">${escapeHtml(mb.status)}</span>
+            ${owner ? ` · Eigenaar: ${escapeHtml(owner.email)}${owner.user_id === STATE.currentUserId ? ' (jij)' : ''}` : ''}
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <div class="card-title">Activiteit laatste 7 dagen</div>
+            <div class="card-sub">Stats voor deze mailbox.</div>
+          </div>
+        </div>
+        <div class="stats-row">
+          <div class="stat-tile"><div class="stat-num">${mbStats ? mbStats.mails_7d : '—'}</div><div class="stat-label">Mails verwerkt</div></div>
+          <div class="stat-tile"><div class="stat-num">${mbStats ? mbStats.drafts_7d : '—'}</div><div class="stat-label">Concepten klaar</div></div>
+          <div class="stat-tile"><div class="stat-num">${mb.status === 'connected' ? 'Live' : '—'}</div><div class="stat-label">Status</div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <div class="card-title">Beheer ${STATE.isAdmin ? '' : '<span class="readonly-pill">alleen-lezen</span>'}</div>
+            <div class="card-sub">Wijzigingen aan labels, filters en concepten gebeuren in de eigen Mailbox Manager van ${owner ? escapeHtml(owner.email) : 'de eigenaar'}.</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          ${owner && owner.user_id === STATE.currentUserId
+            ? `<a class="btn btn-orange" href="/dashboard.html">Open mijn Mailbox Manager →</a>`
+            : `<div style="font-size:13px;color:var(--text-mute)">Als teamlid kun je deze mailbox niet bewerken. De eigenaar beheert labels, stijlprofiel en concepten zelf.</div>`}
+        </div>
+      </div>
+    `;
+    return html;
+  }
+
+  function renderMainContent() {
+    const el = document.getElementById('mainContent');
+    const view = STATE.view || 'overview';
+    if (view === 'overview') el.innerHTML = renderOverview();
+    else if (view === 'members') el.innerHTML = renderMembersView();
+    else if (view.startsWith('mailbox:')) el.innerHTML = renderMailboxDetail(view.slice(8));
+    else el.innerHTML = '<div class="state-box">Onbekende view.</div>';
+
+    // Wire up forms + actions
+    const inviteForm = document.getElementById('inviteForm');
+    if (inviteForm) wireInviteForm(inviteForm);
+
+    // Members acties
+    el.querySelectorAll('[data-action]').forEach(btn => {
+      btn.addEventListener('click', async (e) => {
+        const action = btn.getAttribute('data-action');
+        if (action === 'remove-member') {
+          const userId = btn.getAttribute('data-user');
+          const email = btn.getAttribute('data-email');
+          if (!confirm(`${email || 'dit lid'} verwijderen uit het team?`)) return;
+          const r = await apiDelete(`/api/teams/${encodeURIComponent(STATE.currentTeam.team.id)}/members/${encodeURIComponent(userId)}`);
+          if (r && r.ok) location.reload(); else alert('Fout: ' + (r?.data?.detail || 'onbekend'));
+        } else if (action === 'role-toggle') {
+          const userId = btn.getAttribute('data-user');
+          const current = btn.getAttribute('data-current');
+          const newRole = current === 'admin' ? 'member' : 'admin';
+          if (!confirm(`Rol wijzigen naar ${newRole}?`)) return;
+          const r = await apiPatch(`/api/teams/${encodeURIComponent(STATE.currentTeam.team.id)}/members/${encodeURIComponent(userId)}/role`, { role: newRole });
+          if (r && r.ok) location.reload(); else alert('Fout: ' + (r?.data?.detail || 'onbekend'));
+        }
+      });
+    });
+
+    // Mailbox rows uit overview zijn clickable naar detail-view
+    el.querySelectorAll('.member[data-view]').forEach(row => {
+      row.addEventListener('click', () => {
+        const v = row.getAttribute('data-view');
+        STATE.view = v;
+        location.hash = '#' + v;
+        renderSidebar();
+        renderMainContent();
+      });
+    });
+  }
+
+  function wireInviteForm(form) {
     const msg = document.getElementById('inviteMsg');
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       msg.className = 'form-msg';
-      msg.textContent = '';
       const email = form.email.value.trim();
       const role = form.role.value;
       if (!email) return;
-
-      const { data: { session } } = await sb.auth.getSession();
-      if (!session) { msg.className = 'form-msg err'; msg.textContent = 'Sessie verlopen — log opnieuw in.'; return; }
-
-      try {
-        const res = await fetch(API_BASE + '/api/teams/invite', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + session.access_token },
-          body: JSON.stringify({ team_id: teamId, email, role })
-        });
-        const data = await res.json();
-        if (!res.ok) {
-          msg.className = 'form-msg err';
-          msg.textContent = data.detail || ('Fout: HTTP ' + res.status);
-          return;
-        }
+      const r = await apiPost('/api/teams/invite', { team_id: STATE.currentTeam.team.id, email, role });
+      if (r && r.ok) {
         msg.className = 'form-msg ok';
-        msg.textContent = `✓ ${email} is uitgenodigd. Ze krijgen zo een welkom-mail.`;
+        msg.textContent = `✓ ${email} is uitgenodigd. Welkom-mail onderweg.`;
         form.reset();
-        setTimeout(() => location.reload(), 1500);
-      } catch (err) {
+        setTimeout(() => location.reload(), 1400);
+      } else {
         msg.className = 'form-msg err';
-        msg.textContent = 'Fout bij versturen: ' + err.message;
+        msg.textContent = r?.data?.detail || 'Kon niet uitnodigen.';
       }
     });
   }
 
-  async function handleRemoveMember(teamId, userId, email) {
-    if (!confirm(`Verwijder ${email || 'dit lid'} uit het team? Ze verliezen teamtoegang maar hun Gmail-koppeling blijft bestaan.`)) return;
-    const { data: { session } } = await sb.auth.getSession();
-    if (!session) return;
-    try {
-      const res = await fetch(`${API_BASE}/api/teams/${encodeURIComponent(teamId)}/members/${encodeURIComponent(userId)}`, {
-        method: 'DELETE',
-        headers: { 'Authorization': 'Bearer ' + session.access_token }
-      });
-      const data = await res.json();
-      if (!res.ok) { alert('Fout: ' + (data.detail || res.status)); return; }
-      location.reload();
-    } catch (err) {
-      alert('Fout: ' + err.message);
-    }
+  async function handleBillingPortal() {
+    const teamId = STATE.currentTeam?.team?.id;
+    if (!teamId) return;
+    const r = await apiPost(`/api/teams/${encodeURIComponent(teamId)}/billing-portal`, {});
+    if (r && r.ok && r.data.url) window.location.href = r.data.url;
+    else alert('Fout: ' + (r?.data?.detail || 'kon billing portal niet openen'));
   }
 
-  async function handleRoleToggle(teamId, userId, currentRole) {
-    const newRole = currentRole === 'admin' ? 'member' : 'admin';
-    if (!confirm(`Rol wijzigen naar ${newRole}?`)) return;
-    const { data: { session } } = await sb.auth.getSession();
-    if (!session) return;
+  async function loadStats() {
+    if (!STATE.currentTeam) return;
+    const teamId = STATE.currentTeam.team.id;
     try {
-      const res = await fetch(`${API_BASE}/api/teams/${encodeURIComponent(teamId)}/members/${encodeURIComponent(userId)}/role`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + session.access_token },
-        body: JSON.stringify({ role: newRole })
-      });
-      const data = await res.json();
-      if (!res.ok) { alert('Fout: ' + (data.detail || res.status)); return; }
-      location.reload();
-    } catch (err) {
-      alert('Fout: ' + err.message);
-    }
-  }
-
-  async function handleBillingPortal(teamId) {
-    const { data: { session } } = await sb.auth.getSession();
-    if (!session) return;
-    try {
-      const res = await fetch(`${API_BASE}/api/teams/${encodeURIComponent(teamId)}/billing-portal`, {
-        method: 'POST',
-        headers: { 'Authorization': 'Bearer ' + session.access_token }
-      });
-      const data = await res.json();
-      if (!res.ok) { alert('Fout: ' + (data.detail || res.status)); return; }
-      if (data.url) window.location.href = data.url;
-    } catch (err) {
-      alert('Fout: ' + err.message);
-    }
-  }
-
-  async function loadTeamStats(teamId) {
-    const { data: { session } } = await sb.auth.getSession();
-    if (!session) return;
-    try {
-      const res = await fetch(`${API_BASE}/api/teams/${encodeURIComponent(teamId)}/stats`, {
-        headers: { 'Authorization': 'Bearer ' + session.access_token }
-      });
-      if (!res.ok) return;
-      const s = await res.json();
+      const s = await apiGet(`/api/teams/${encodeURIComponent(teamId)}/stats`);
+      STATE.statsCache[teamId] = s;
       const row = document.getElementById(`stats-row-${teamId}`);
       if (row) {
         row.innerHTML = `
@@ -458,103 +607,77 @@
           <div class="stat-tile"><div class="stat-num">${s.mailbox_count}</div><div class="stat-label">Mailboxen actief</div></div>
         `;
       }
-    } catch (err) { /* stil falen — stats zijn optioneel */ }
+      // Rerender als er nu een mailbox-view open is (stats kunnen nu gevuld worden)
+      if (STATE.view.startsWith('mailbox:')) renderMainContent();
+    } catch (_) { /* stats optioneel */ }
   }
 
-  function updateWizardSteps(teamData) {
-    const stepGmail = document.getElementById('step-gmail');
-    const stepInvite = document.getElementById('step-invite');
-    const stepDone = document.getElementById('step-done');
-    if (!stepGmail) return;
-
-    // Step 1: minstens 1 mailbox gekoppeld
-    if (teamData.seats_used >= 1) stepGmail.classList.add('done');
-    // Step 2: meer dan 1 member (owner + minstens 1 uitgenodigd)
-    if (teamData.members.length > 1) stepInvite.classList.add('done');
-    // Step 3: alle seats gebruikt OF team is ≥ 7 dagen oud (dan is setup klaar)
-    if (teamData.seats_used >= teamData.seats_total) stepDone.classList.add('done');
+  function updateWizard() {
+    if (!STATE.currentTeam) return;
+    const td = STATE.currentTeam;
+    if (td.seats_used >= 1) document.getElementById('step-gmail')?.classList.add('done');
+    if (td.members.length > 1) document.getElementById('step-invite')?.classList.add('done');
+    if (td.seats_used >= td.seats_total) document.getElementById('step-done')?.classList.add('done');
   }
 
+  // Hash routing
+  function getViewFromHash() {
+    const h = location.hash.replace(/^#/, '');
+    if (!h) return 'overview';
+    if (h === 'overview' || h === 'members') return h;
+    if (h.startsWith('mailbox:')) return h;
+    return 'overview';
+  }
+
+  window.addEventListener('hashchange', () => {
+    STATE.view = getViewFromHash();
+    renderSidebar();
+    renderMainContent();
+  });
+
+  // Bootstrap
   (async () => {
     const params = new URLSearchParams(location.search);
-
-    // Welcome banner als ?welcome=1
-    if (params.get('welcome') === '1') {
-      document.getElementById('welcomeBanner').classList.remove('hidden');
-    }
-
-    // Error banner (bv. seat-limit bereikt bij OAuth)
+    if (params.get('welcome') === '1') document.getElementById('welcomeBanner').classList.remove('hidden');
     if (params.get('error') === 'seat_limit') {
       const eb = document.getElementById('errorBanner');
-      const et = document.getElementById('errorBannerText');
-      et.textContent = 'Seat-limit bereikt — je team heeft alle beschikbare mailbox-slots gebruikt. Upgrade je abonnement om er meer te koppelen.';
+      document.getElementById('errorBannerText').textContent = 'Seat-limit bereikt — je team heeft alle beschikbare mailbox-slots gebruikt. Upgrade je abonnement om er meer te koppelen.';
       eb.classList.remove('hidden');
     }
 
     try {
       const { data: { session } } = await sb.auth.getSession();
-      if (!session) {
-        window.location.href = '/login.html?next=/team.html';
-        return;
-      }
-      const currentUserId = session.user?.id;
-      const currentEmail = session.user?.email;
+      if (!session) { window.location.href = '/login.html?next=/team.html'; return; }
+      STATE.currentUserId = session.user?.id;
+      STATE.currentUserEmail = session.user?.email;
 
-      const result = await fetchTeams();
+      const result = await apiGet('/api/teams/me');
       if (!result) return;
-      const teams = result.teams || [];
+      STATE.teams = result.teams || [];
 
-      document.getElementById('loadingState').style.display = 'none';
-
-      if (teams.length === 0) {
-        document.getElementById('noTeamState').style.display = 'block';
-        // Hide welcome banner als user geen team heeft
+      if (STATE.teams.length === 0) {
+        document.getElementById('sidebar').innerHTML = '<div class="side-label">Geen team</div>';
+        document.getElementById('mainContent').innerHTML = `
+          <h1>Team</h1>
+          <p class="sub">Je bent nog geen lid van een team.</p>
+          <div class="state-box">
+            <p>Start een team-abonnement voor meerdere mailboxen en een gedeeld dashboard.</p>
+            <p style="margin-top:12px"><a class="btn btn-orange" href="/#producten">Start een team-abonnement →</a></p>
+          </div>`;
         document.getElementById('welcomeBanner').classList.add('hidden');
         return;
       }
 
-      const content = document.getElementById('teamContent');
-      content.style.display = 'block';
-      content.innerHTML = teams.map(td => renderTeam(td, currentUserId, currentEmail)).join('');
+      STATE.currentTeam = STATE.teams[0];
+      STATE.isAdmin = STATE.currentTeam.role === 'admin';
+      STATE.view = getViewFromHash();
 
-      // Wire alles per team
-      teams.forEach(td => {
-        wireInviteForm(td.team.id);
-        loadTeamStats(td.team.id);
-        if (params.get('welcome') === '1') updateWizardSteps(td);
-      });
-
-      // Global event delegation voor buttons
-      document.addEventListener('click', async (e) => {
-        const target = e.target.closest('[data-action], [data-billing-portal]');
-        if (!target) return;
-
-        if (target.hasAttribute('data-billing-portal')) {
-          e.preventDefault();
-          await handleBillingPortal(target.getAttribute('data-billing-portal'));
-          return;
-        }
-
-        const action = target.getAttribute('data-action');
-        if (action === 'remove-member') {
-          e.preventDefault();
-          await handleRemoveMember(
-            target.getAttribute('data-team'),
-            target.getAttribute('data-user'),
-            target.getAttribute('data-email'),
-          );
-        } else if (action === 'role-toggle') {
-          e.preventDefault();
-          await handleRoleToggle(
-            target.getAttribute('data-team'),
-            target.getAttribute('data-user'),
-            target.getAttribute('data-current'),
-          );
-        }
-      });
-
+      renderSidebar();
+      renderMainContent();
+      updateWizard();
+      loadStats();
     } catch (err) {
-      document.getElementById('loadingState').innerHTML = '<p style="color:var(--red)">Fout bij laden: ' + escapeHtml(err.message) + '</p>';
+      document.getElementById('mainContent').innerHTML = '<div class="state-box" style="color:var(--red)">Fout bij laden: ' + escapeHtml(err.message) + '</div>';
     }
   })();
 
