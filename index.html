@@ -237,21 +237,21 @@
       font-size: 13px; font-weight: 600; color: var(--text-2);
     }
     .standalone-notice svg { color: var(--text-2); flex-shrink: 0; }
-    .products-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+    .products-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; align-items: stretch; }
     @media (max-width: 1100px) { .products-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; } }
-    .pcard { background: var(--white); border-radius: 20px; border: 1.5px solid var(--border); overflow: hidden; box-shadow: var(--shadow); transition: transform .25s, box-shadow .25s, border-color .25s; }
+    .pcard { background: var(--white); border-radius: 20px; border: 1.5px solid var(--border); overflow: hidden; box-shadow: var(--shadow); transition: transform .25s, box-shadow .25s, border-color .25s; display: flex; flex-direction: column; }
     .pcard:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
     .pcard-orange:hover { border-color: var(--orange); }
     .pcard-blue:hover { border-color: var(--blue-light); }
-    .pcard-header { padding: 36px 36px 28px; }
+    .pcard-header { padding: 28px 26px 22px; }
     .ptag { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 6px 13px; border-radius: 8px; margin-bottom: 22px; }
     .ptag-orange { background: var(--orange-bg); color: var(--orange-dark); }
     .ptag-blue { background: var(--blue-bg); color: var(--blue); }
-    .pcard h3 { font-size: 28px; font-weight: 800; letter-spacing: -.02em; margin-bottom: 12px; line-height: 1.15; }
-    .pcard-desc { font-size: 15px; color: var(--text-2); line-height: 1.75; margin-bottom: 24px; }
+    .pcard h3 { font-size: 24px; font-weight: 800; letter-spacing: -.02em; margin-bottom: 10px; line-height: 1.2; }
+    .pcard-desc { font-size: 13.5px; color: var(--text-2); line-height: 1.6; margin-bottom: 18px; }
     .pcard-price { display: flex; align-items: baseline; gap: 6px; }
     .pcard-price[hidden] { display: none; }
-    .price-num { font-size: 44px; font-weight: 800; letter-spacing: -.03em; line-height: 1; }
+    .price-num { font-size: 36px; font-weight: 800; letter-spacing: -.03em; line-height: 1; }
     .price-orange { color: var(--orange); }
     .price-blue { color: var(--blue); }
     .price-sub { font-size: 14px; color: var(--text-2); }
@@ -271,9 +271,9 @@
     .fo-plan-price { text-align: right; }
     .fo-plan-amount { font-size: 16px; font-weight: 800; color: var(--blue); letter-spacing: -.02em; }
     .fo-plan-sub { font-size: 11px; color: var(--text-2); }
-    .pcard-body { padding: 28px 36px 36px; }
-    .feat-list { list-style: none; display: grid; gap: 11px; margin-bottom: 28px; }
-    .feat-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--text-2); line-height: 1.5; }
+    .pcard-body { padding: 22px 26px 26px; display: flex; flex-direction: column; flex: 1; }
+    .feat-list { list-style: none; display: grid; gap: 9px; margin-bottom: 20px; flex: 1; }
+    .feat-list li { display: flex; align-items: flex-start; gap: 9px; font-size: 13px; color: var(--text-2); line-height: 1.5; }
     .feat-list li svg { flex-shrink: 0; margin-top: 2px; }
     .fl-orange li svg { color: var(--orange); }
     .fl-blue li svg { color: var(--blue-light); }
@@ -1348,21 +1348,14 @@
         <div class="pcard-divider"></div>
         <div class="pcard-body">
           <ul class="feat-list fl-orange">
-            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Automatische labels: Priority, To Respond, Done & meer</li>
-            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Conceptreplies in jouw toon en schrijfstijl</li>
-            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Nooit auto-send — jij beslist altijd</li>
-            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Leert van jouw verstuurde mails</li>
-            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Follow-Up Radar: automatische opvolg-concepten voor dingen die blijven liggen</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>10 automatische labels in Gmail</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Concept-antwoorden in jouw stijl</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Nooit auto-send, nooit auto-archive</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Follow-Up Radar + Auto-archive</li>
             <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Werkt in je bestaande Gmail — geen nieuwe app</li>
-            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Koppeling via Google OAuth in 2 minuten</li>
           </ul>
-          <div class="pcard-notice" style="background:#fff7ed; border:1px solid #fed7aa; border-radius:10px; padding:10px 12px; margin:0 0 10px 0; font-size:12.5px; color:#9a3412; line-height:1.45;">
-            <strong style="color:#7c2d12;">Tijdelijk niet beschikbaar</strong><br>
-            We wachten op Google OAuth-verificatie. Aanmelden voor Mailbox Manager kan zodra dit is goedgekeurd.
-          </div>
-          <div class="pcard-notice" style="background:#FFFBEB; border:1px solid #FDE68A; border-radius:10px; padding:10px 12px; margin:0 0 14px 0; font-size:12.5px; color:#78350F; line-height:1.45;">
-            <strong style="color:#422006;">Alleen in Gmail zelf.</strong><br>
-            Gebruik <a href="https://mail.google.com" target="_blank" rel="noopener" style="color:#B45309; font-weight:600;">mail.google.com</a> of de officiële Gmail-app. Je conceptantwoorden verschijnen direct in de Gmail-thread met een verzendknop.
+          <div class="pcard-notice" style="background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;padding:7px 10px;margin:0 0 12px 0;font-size:11.5px;color:#9a3412;line-height:1.4;">
+            <strong style="color:#7c2d12;">⏳ Tijdelijk beperkt</strong> — wacht op Google OAuth-verificatie
           </div>
           <div class="pcard-actions">
             <a class="btn btn-orange" href="/mailbox.html#prijs" data-mm-cta>Start Mailbox →</a>
@@ -1394,15 +1387,11 @@
         <div class="pcard-divider"></div>
         <div class="pcard-body">
           <ul class="feat-list fl-blue">
-            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Offertes opstellen en direct versturen</li>
-            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Klant accordeert online via eigen portaallink</li>
-            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Van offerte naar factuur in één klik</li>
-            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Abonnementen en terugkerende facturen</li>
-            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Werkregistratie en losse kosten direct factureerbaar</li>
-            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Automatische betalingsdetectie via Moneybird</li>
-            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Herinneringen en betalingsopvolging automatisch</li>
-            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Volledige Moneybird-sync — boekhouder werkt gewoon door</li>
-            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Speciaal gebouwd voor Nederlandse Moneybird-gebruikers</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Offertes + facturen in één klik</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Klant accordeert online via portaal</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Abonnementen &amp; terugkerende facturen</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Werkregistratie direct factureerbaar</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Volledige Moneybird-sync</li>
           </ul>
           <div class="pcard-actions">
             <a class="btn btn-blue" href="/facturen/signup">Start gratis →</a>
@@ -1442,12 +1431,10 @@
         <div class="pcard-body">
           <ul class="feat-list fl-orange">
             <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Alle features van Mailbox Manager</li>
-            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Gedeeld team-dashboard met aggregated stats</li>
-            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Elk lid eigen stijlprofiel en concepten</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Gedeeld team-dashboard</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Elk lid eigen stijlprofiel</li>
             <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Gedeelde inboxen (info@, verkoop@)</li>
-            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Één factuur, centraal beheerd door admin</li>
-            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg><strong data-tm-feat="team_s">Tot 5 team-leden</strong><strong data-tm-feat="team_pro" hidden>Priority support + tot 20 leden</strong><strong data-tm-feat="business" hidden>API + dedicated manager + SLA</strong></li>
-            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Maandelijks opzegbaar, BTW automatisch berekend</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg><strong data-tm-feat="team_s">Tot 5 team-leden</strong><strong data-tm-feat="team_pro" hidden>Priority support + 20 leden</strong><strong data-tm-feat="business" hidden>API + manager + SLA 99,9%</strong></li>
           </ul>
           <div class="pcard-actions">
             <a class="btn btn-orange" href="https://api.officeflowcompany.com/billing/start-team-checkout?tier=team_s&amp;billing_period=monthly" data-tm-cta>Start Team Starter →</a>
