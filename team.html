@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Team · OfficeFlow</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <style>
+    :root{
+      --orange:#F97316;--orange-dark:#C2410C;--orange-soft:#FFEDD5;
+      --text:#0F172A;--text-2:#475569;--text-mute:#94A3B8;
+      --border:#E2E8F0;--bg:#F8FAFC;--white:#fff;
+      --green:#22C55E;--red:#EF4444;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+    a{color:var(--orange);text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    /* Nav */
+    nav{background:#fff;border-bottom:1px solid var(--border);padding:14px 0}
+    .nav-inner{max-width:1100px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .logo{display:flex;align-items:center;gap:10px;font-size:18px;font-weight:800;color:var(--text);letter-spacing:-.01em}
+    .logo-mark{width:28px;height:28px;background:var(--orange);border-radius:7px;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:14px;line-height:1}
+    .logo .flow{color:var(--orange)}
+    .nav-right{display:flex;gap:10px;align-items:center}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:10px;font-size:13.5px;font-weight:600;cursor:pointer;border:0;font-family:inherit;text-decoration:none;transition:transform .1s,box-shadow .1s}
+    .btn:hover{transform:translateY(-1px)}
+    .btn-orange{background:var(--orange);color:#fff;box-shadow:0 2px 6px rgba(249,115,22,.25)}
+    .btn-ghost{background:transparent;color:var(--text-2);border:1px solid var(--border)}
+    .btn-ghost:hover{background:#f1f5f9}
+
+    /* Layout */
+    .wrap{max-width:1000px;margin:0 auto;padding:32px 24px}
+    h1{font-size:28px;font-weight:800;letter-spacing:-.02em;margin:0 0 8px}
+    .subtitle{color:var(--text-2);font-size:15px;margin:0 0 28px}
+
+    /* Loading / empty states */
+    .state-box{background:#fff;border:1px solid var(--border);border-radius:14px;padding:32px;text-align:center;color:var(--text-2);font-size:14px}
+
+    /* Cards */
+    .card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:22px;margin-bottom:18px;box-shadow:0 1px 2px rgba(15,23,42,.03)}
+    .card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:12px;flex-wrap:wrap}
+    .card-title{font-size:15px;font-weight:700;color:var(--text);letter-spacing:-.005em}
+    .card-sub{font-size:12.5px;color:var(--text-mute)}
+
+    /* Team header */
+    .team-hero{background:#fff;border:1px solid var(--border);border-radius:16px;padding:28px;margin-bottom:22px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:start}
+    .team-name{font-size:22px;font-weight:800;letter-spacing:-.01em;margin:0 0 8px}
+    .team-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+    .chip{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:.04em;padding:4px 9px;border-radius:999px;text-transform:uppercase}
+    .chip-orange{background:var(--orange-soft);color:var(--orange-dark)}
+    .chip-green{background:#d1fae5;color:#065f46}
+    .chip-red{background:#fee2e2;color:#991b1b}
+    .chip-grey{background:#e2e8f0;color:var(--text-2)}
+    .seats-box{text-align:right}
+    .seats-num{font-size:28px;font-weight:800;letter-spacing:-.02em;color:var(--text);line-height:1}
+    .seats-num .total{color:var(--text-mute);font-weight:600}
+    .seats-label{font-size:12px;color:var(--text-mute);margin-top:4px}
+    .seats-bar{width:120px;height:6px;background:var(--bg);border-radius:3px;margin-top:10px;overflow:hidden}
+    .seats-bar-fill{height:100%;background:var(--orange);border-radius:3px;transition:width .3s}
+
+    /* Members list */
+    .members{display:flex;flex-direction:column;gap:10px}
+    .member{display:grid;grid-template-columns:38px 1fr auto auto;gap:12px;align-items:center;padding:12px;background:var(--bg);border-radius:10px;border:1px solid transparent}
+    .avatar{width:38px;height:38px;border-radius:50%;background:var(--orange);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;line-height:1}
+    .member-name{font-size:14px;font-weight:600;color:var(--text);line-height:1.3}
+    .member-sub{font-size:12px;color:var(--text-mute);margin-top:2px}
+
+    /* Mailboxes */
+    .mailboxes{display:flex;flex-direction:column;gap:8px}
+    .mailbox-row{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--bg);border-radius:10px;font-size:13.5px}
+    .mailbox-email{font-weight:600;color:var(--text)}
+
+    /* Invite form */
+    .invite-form{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    .invite-form input{flex:1;min-width:200px;padding:10px 14px;border:1px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;color:var(--text);background:#fff}
+    .invite-form input:focus{outline:none;border-color:var(--orange);box-shadow:0 0 0 3px rgba(249,115,22,.15)}
+    .invite-form select{padding:10px 12px;border:1px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;background:#fff;color:var(--text)}
+    .form-msg{font-size:13px;margin-top:10px;padding:10px 12px;border-radius:8px;display:none}
+    .form-msg.ok{display:block;background:#d1fae5;color:#065f46}
+    .form-msg.err{display:block;background:#fee2e2;color:#991b1b}
+
+    /* Welcome banner (post-checkout) */
+    .welcome-banner{background:linear-gradient(135deg,#fff7ed 0%,#ffedd5 100%);border:1px solid #fed7aa;border-radius:14px;padding:20px 24px;margin-bottom:22px;display:flex;align-items:center;gap:16px}
+    .welcome-banner.hidden{display:none}
+    .welcome-icon{width:44px;height:44px;background:var(--orange);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:22px}
+    .welcome-body h3{margin:0 0 4px;font-size:16px;font-weight:700;color:#7c2d12}
+    .welcome-body p{margin:0;font-size:13.5px;color:#9a3412;line-height:1.5}
+
+    /* Responsive */
+    @media (max-width:720px){
+      .team-hero{grid-template-columns:1fr}
+      .seats-box{text-align:left}
+      .seats-bar{width:100%}
+      .member{grid-template-columns:38px 1fr}
+      .member > :nth-child(3),.member > :nth-child(4){grid-column:2}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="logo" href="/">
+      <span class="logo-mark">▶</span>
+      <span>Office<span class="flow">Flow</span></span>
+    </a>
+    <div class="nav-right">
+      <a class="btn btn-ghost" href="/dashboard.html">Mijn dashboard</a>
+      <button class="btn btn-ghost" id="logoutBtn">Uitloggen</button>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+  <!-- Welcome banner — shown only when ?welcome=1 URL param -->
+  <div class="welcome-banner hidden" id="welcomeBanner">
+    <div class="welcome-icon">🎉</div>
+    <div class="welcome-body">
+      <h3>Welkom bij OfficeFlow Teams</h3>
+      <p>Je team is aangemaakt. Koppel nu je eerste Gmail en nodig je collega's uit — ze krijgen een e-mail om hun eigen account aan te maken.</p>
+    </div>
+  </div>
+
+  <h1>Team</h1>
+  <p class="subtitle">Beheer je team-abonnement, mailboxen en leden.</p>
+
+  <!-- Loading state -->
+  <div class="state-box" id="loadingState">Laden...</div>
+
+  <!-- No team state -->
+  <div class="state-box" id="noTeamState" style="display:none">
+    <p>Je bent nog geen lid van een team.</p>
+    <p style="margin-top:12px"><a class="btn btn-orange" href="/#producten">Start een team-abonnement →</a></p>
+  </div>
+
+  <!-- Team content (filled dynamically) -->
+  <div id="teamContent" style="display:none"></div>
+</div>
+
+<script>
+  const SUPABASE_URL = 'https://lvjdqpklkueajxzznaqq.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx2amRxcGtsa3VlYWp4enpuYXFxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxODc5MTMsImV4cCI6MjA4OTc2MzkxM30.vnUBZpET7spcQ0oIhSwSFeZZdw1F2WYcYul2lbyotsk';
+  const API_BASE = 'https://api.officeflowcompany.com';
+  const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  const TIER_LABELS = {
+    team_s: 'Team Starter',
+    team_pro: 'Team Pro',
+    business: 'Business',
+  };
+
+  function escapeHtml(s) {
+    return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);
+  }
+
+  function initials(email) {
+    if (!email) return '?';
+    const name = email.split('@')[0];
+    return name.slice(0, 2).toUpperCase();
+  }
+
+  async function fetchTeams() {
+    const { data: { session } } = await sb.auth.getSession();
+    if (!session) {
+      window.location.href = '/login.html?next=/team.html';
+      return null;
+    }
+    const res = await fetch(API_BASE + '/api/teams/me', {
+      headers: { 'Authorization': 'Bearer ' + session.access_token }
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    return await res.json();
+  }
+
+  function renderTeam(teamData, currentUserEmail) {
+    const t = teamData.team;
+    const role = teamData.role;
+    const isAdmin = role === 'admin';
+    const tierLabel = TIER_LABELS[t.tier] || t.tier;
+    const seatsPct = Math.min(100, Math.round((teamData.seats_used / Math.max(1, teamData.seats_total)) * 100));
+    const statusChip = t.access_allowed
+      ? `<span class="chip chip-green">● ACTIEF</span>`
+      : `<span class="chip chip-red">● INACTIEF</span>`;
+
+    // Hero
+    let html = `
+      <div class="team-hero">
+        <div>
+          <h2 class="team-name">${escapeHtml(t.name)}</h2>
+          <div class="team-meta">
+            <span class="chip chip-orange">${escapeHtml(tierLabel)}</span>
+            ${statusChip}
+            <span class="chip chip-grey">${escapeHtml(t.billing_period === 'yearly' ? 'Jaarlijks' : 'Maandelijks')}</span>
+            <span class="chip chip-grey">Rol: ${escapeHtml(role)}</span>
+          </div>
+        </div>
+        <div class="seats-box">
+          <div class="seats-num">${teamData.seats_used}<span class="total"> / ${teamData.seats_total}</span></div>
+          <div class="seats-label">mailboxen gebruikt</div>
+          <div class="seats-bar"><div class="seats-bar-fill" style="width:${seatsPct}%"></div></div>
+        </div>
+      </div>
+    `;
+
+    // Members
+    html += `
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <div class="card-title">Team-leden (${teamData.members.length})</div>
+            <div class="card-sub">Admin beheert billing. Members koppelen hun eigen Gmail.</div>
+          </div>
+        </div>
+        <div class="members">
+          ${teamData.members.map(m => `
+            <div class="member">
+              <div class="avatar">${escapeHtml(initials(m.email))}</div>
+              <div>
+                <div class="member-name">${escapeHtml(m.email || 'onbekend')}${m.email === currentUserEmail ? ' <span style="color:var(--text-mute);font-weight:400">(jij)</span>' : ''}</div>
+                <div class="member-sub">${m.joined_at ? 'Lid sinds ' + new Date(m.joined_at).toLocaleDateString('nl-NL') : 'Uitgenodigd ' + new Date(m.invited_at).toLocaleDateString('nl-NL')}</div>
+              </div>
+              <span class="chip ${m.role === 'admin' ? 'chip-orange' : 'chip-grey'}">${escapeHtml(m.role)}</span>
+              <span></span>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+
+    // Mailboxes
+    html += `
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <div class="card-title">Gekoppelde mailboxen (${teamData.mailboxes.length} / ${teamData.seats_total})</div>
+            <div class="card-sub">Elk teamlid koppelt zijn eigen Gmail via OAuth.</div>
+          </div>
+          ${teamData.seats_used < teamData.seats_total ? `
+            <a class="btn btn-orange" href="${API_BASE}/auth/google/start">+ Koppel Gmail</a>
+          ` : `
+            <span class="chip chip-red">Seat-limit bereikt</span>
+          `}
+        </div>
+        ${teamData.mailboxes.length > 0 ? `
+          <div class="mailboxes">
+            ${teamData.mailboxes.map(mb => `
+              <div class="mailbox-row">
+                <span class="mailbox-email">${escapeHtml(mb.email_address)}</span>
+                <span class="chip ${mb.status === 'connected' ? 'chip-green' : 'chip-grey'}">${escapeHtml(mb.status)}</span>
+              </div>
+            `).join('')}
+          </div>
+        ` : `<div class="state-box" style="padding:20px">Nog geen mailboxen gekoppeld. Klik "Koppel Gmail" om te starten.</div>`}
+      </div>
+    `;
+
+    // Invite form (alleen admin)
+    if (isAdmin) {
+      html += `
+        <div class="card">
+          <div class="card-head">
+            <div>
+              <div class="card-title">Teamlid uitnodigen</div>
+              <div class="card-sub">Nieuwe leden krijgen een welkom-mail om in te loggen en hun eigen Gmail te koppelen.</div>
+            </div>
+          </div>
+          <form class="invite-form" id="inviteForm" data-team-id="${escapeHtml(t.id)}">
+            <input type="email" name="email" placeholder="naam@bedrijf.nl" required />
+            <select name="role">
+              <option value="member">Member</option>
+              <option value="admin">Admin</option>
+            </select>
+            <button type="submit" class="btn btn-orange">Uitnodigen →</button>
+          </form>
+          <div class="form-msg" id="inviteMsg"></div>
+        </div>
+      `;
+    }
+
+    return html;
+  }
+
+  async function wireInviteForm(teamId) {
+    const form = document.getElementById('inviteForm');
+    if (!form) return;
+    const msg = document.getElementById('inviteMsg');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      msg.className = 'form-msg';
+      msg.textContent = '';
+      const email = form.email.value.trim();
+      const role = form.role.value;
+      if (!email) return;
+
+      const { data: { session } } = await sb.auth.getSession();
+      if (!session) { msg.className = 'form-msg err'; msg.textContent = 'Sessie verlopen — log opnieuw in.'; return; }
+
+      try {
+        const res = await fetch(API_BASE + '/api/teams/invite', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + session.access_token },
+          body: JSON.stringify({ team_id: teamId, email, role })
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          msg.className = 'form-msg err';
+          msg.textContent = data.detail || ('Fout: HTTP ' + res.status);
+          return;
+        }
+        msg.className = 'form-msg ok';
+        msg.textContent = `✓ ${email} is uitgenodigd. Ze krijgen zo een welkom-mail.`;
+        form.reset();
+        setTimeout(() => location.reload(), 1500);
+      } catch (err) {
+        msg.className = 'form-msg err';
+        msg.textContent = 'Fout bij versturen: ' + err.message;
+      }
+    });
+  }
+
+  (async () => {
+    // Welcome banner als ?welcome=1
+    if (new URLSearchParams(location.search).get('welcome') === '1') {
+      document.getElementById('welcomeBanner').classList.remove('hidden');
+    }
+
+    try {
+      const { data: { session } } = await sb.auth.getSession();
+      if (!session) {
+        window.location.href = '/login.html?next=/team.html';
+        return;
+      }
+      const currentEmail = session.user?.email;
+
+      const result = await fetchTeams();
+      if (!result) return;
+      const teams = result.teams || [];
+
+      document.getElementById('loadingState').style.display = 'none';
+
+      if (teams.length === 0) {
+        document.getElementById('noTeamState').style.display = 'block';
+        return;
+      }
+
+      const content = document.getElementById('teamContent');
+      content.style.display = 'block';
+      content.innerHTML = teams.map(td => renderTeam(td, currentEmail)).join('');
+
+      // Wire invite-forms (kan meerdere teams zijn)
+      teams.forEach(td => wireInviteForm(td.team.id));
+
+    } catch (err) {
+      document.getElementById('loadingState').innerHTML = '<p style="color:var(--red)">Fout bij laden: ' + escapeHtml(err.message) + '</p>';
+    }
+  })();
+
+  document.getElementById('logoutBtn').addEventListener('click', async () => {
+    await sb.auth.signOut();
+    window.location.href = '/login.html';
+  });
+</script>
+
+</body>
+</html>
