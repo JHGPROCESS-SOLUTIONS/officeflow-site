@@ -629,19 +629,11 @@
     .dash-summary .sum-o { color: var(--orange-dark); font-weight: 700; }
     .dash-summary .sum-b { color: var(--blue); font-weight: 700; }
 
-    /* Scrollable flat list — no per-item boxing */
+    /* Flat list — fits without scroll */
     .dash-scroll {
-      max-height: 250px;
-      overflow-y: auto;
-      padding-right: 2px;
-      margin-right: -2px;
+      overflow: hidden;
       display: flex; flex-direction: column;
-      scrollbar-width: thin;
-      scrollbar-color: #e2e8f0 transparent;
     }
-    .dash-scroll::-webkit-scrollbar { width: 4px; }
-    .dash-scroll::-webkit-scrollbar-track { background: transparent; }
-    .dash-scroll::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
 
     /* Mail item — flat, clean row */
     .mail-item {
@@ -768,7 +760,6 @@
     }
     @media (max-width: 960px) {
       .hero-dash-grid { grid-template-columns: 1fr; }
-      .dash-scroll { max-height: 220px; }
       .hv-anim .hv-stage { min-width: 88px; }
       .hv-anim .hv-inv-badge { min-width: 72px; }
     }
@@ -1287,39 +1278,6 @@
                 <div class="inv-right">
                   <div class="inv-amount">€3.400</div>
                   <span class="inv-badge b-conc">CONCEPT</span>
-                </div>
-              </div>
-              <div class="inv-item">
-                <span class="inv-dot dot-green"></span>
-                <div class="inv-left">
-                  <div class="inv-ref">Factuur #040</div>
-                  <div class="inv-client">De Jong Installaties</div>
-                </div>
-                <div class="inv-right">
-                  <div class="inv-amount">€625</div>
-                  <span class="inv-badge b-paid">BETAALD</span>
-                </div>
-              </div>
-              <div class="inv-item">
-                <span class="inv-dot dot-blue"></span>
-                <div class="inv-left">
-                  <div class="inv-ref">Offerte #020</div>
-                  <div class="inv-client">Smit Catering</div>
-                </div>
-                <div class="inv-right">
-                  <div class="inv-amount">€2.150</div>
-                  <span class="inv-badge b-sent">VERSTUURD</span>
-                </div>
-              </div>
-              <div class="inv-item">
-                <span class="inv-dot" style="background:#cbd5e1;"></span>
-                <div class="inv-left">
-                  <div class="inv-ref">Factuur #043</div>
-                  <div class="inv-client">Nieuwe klant (nog niet ingevuld)</div>
-                </div>
-                <div class="inv-right">
-                  <div class="inv-amount">—</div>
-                  <span class="inv-badge b-draf">CONCEPT</span>
                 </div>
               </div>
             </div>
