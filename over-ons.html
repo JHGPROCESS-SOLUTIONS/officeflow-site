@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Over ons – OfficeFlow</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <meta name="theme-color" content="#F97316">
+  <meta name="description" content="Wie is OfficeFlow? Lees meer over ons bedrijf, onze aanpak en waarom we OfficeFlow bouwen.">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    :root {
+      --orange: #f97316;
+      --orange-soft: rgba(249,115,22,.25);
+      --orange-bg: rgba(249,115,22,.08);
+      --blue: #4f6ef7;
+      --text: #0f172a;
+      --text-2: #64748b;
+      --border: #e2e8f0;
+      --bg: #f8fafc;
+      --white: #ffffff;
+      --shadow: 0 1px 4px rgba(15,23,42,.06);
+      --shadow-lg: 0 8px 32px rgba(15,23,42,.10);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ─────────────────────────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 60px; gap: 16px; }
+    .logo-link { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-mark-svg { flex-shrink: 0; display: block; filter: drop-shadow(0 3px 8px rgba(249,115,22,.18)); }
+    .logo-wordmark { font-size: 18px; font-weight: 800; letter-spacing: -.03em; color: var(--text); }
+    .logo-wordmark .flow { color: var(--orange); }
+    .nav-links { display: flex; align-items: center; gap: 2px; }
+    .nav-links a { font-size: 14px; font-weight: 500; color: var(--text-2); padding: 8px 14px; border-radius: 8px; transition: color .2s, background .2s; text-decoration: none; }
+    .nav-links a:hover { color: var(--text); background: var(--bg); }
+    .nav-links a.active { color: var(--orange); font-weight: 600; }
+    .nav-right { display: flex; align-items: center; gap: 10px; }
+    .btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; border-radius: 10px; font-size: 14px; font-weight: 700; text-decoration: none; transition: opacity .18s, transform .18s; }
+    .btn:hover { opacity: .88; transform: translateY(-1px); }
+    .btn-orange { background: linear-gradient(135deg, #f97316, #fb923c); color: #fff; box-shadow: 0 4px 14px rgba(249,115,22,.28); }
+    .btn-ghost { background: transparent; color: var(--text-2); border: 1px solid var(--border); }
+    .btn-ghost:hover { color: var(--text); background: var(--bg); }
+
+    /* ── HERO ────────────────────────────────────────────────────────── */
+    .hero-wrap {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 80px 24px 72px;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--orange);
+      margin-bottom: 18px;
+    }
+    .eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 22px;
+      height: 2px;
+      background: var(--orange);
+      border-radius: 2px;
+    }
+    .hero-wrap h1 {
+      font-size: clamp(36px, 5vw, 58px);
+      font-weight: 800;
+      letter-spacing: -.04em;
+      line-height: 1.08;
+      color: var(--text);
+      margin: 0 0 20px;
+      max-width: 760px;
+    }
+    .hero-wrap .lead {
+      font-size: 18px;
+      color: var(--text-2);
+      line-height: 1.7;
+      max-width: 620px;
+      margin: 0;
+    }
+
+    /* ── SECTIONS ────────────────────────────────────────────────────── */
+    .section { padding: 72px 0; }
+    .section-wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+    .section-light { background: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .section-dark {
+      background: linear-gradient(160deg, rgba(9,18,44,.99) 0%, rgba(13,24,56,.98) 60%, rgba(18,32,70,.97) 100%);
+      color: #fff;
+    }
+    .section-orange { background: linear-gradient(135deg, rgba(249,115,22,.06) 0%, rgba(251,146,60,.03) 100%); border-top: 1px solid rgba(249,115,22,.12); border-bottom: 1px solid rgba(249,115,22,.12); }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--orange);
+      margin-bottom: 12px;
+    }
+    h2 {
+      font-size: clamp(26px, 3.5vw, 38px);
+      font-weight: 800;
+      letter-spacing: -.03em;
+      line-height: 1.15;
+      margin: 0 0 16px;
+    }
+    .section-body {
+      font-size: 16px;
+      color: var(--text-2);
+      line-height: 1.75;
+      max-width: 680px;
+    }
+    .section-body p { margin: 0 0 16px; }
+    .section-body p:last-child { margin: 0; }
+
+    /* ── TWO-COL ─────────────────────────────────────────────────────── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+
+    /* ── VALUES GRID ─────────────────────────────────────────────────── */
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 48px;
+    }
+    .value-card {
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 26px;
+    }
+    .value-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 11px;
+      background: var(--orange-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+    .value-icon svg { color: var(--orange); }
+    .value-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; letter-spacing: -.01em; }
+    .value-body { font-size: 14px; color: var(--text-2); line-height: 1.7; }
+
+    /* ── STAT ROW ────────────────────────────────────────────────────── */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,.07);
+      border-radius: 20px;
+      overflow: hidden;
+      margin-top: 56px;
+    }
+    .stat-item {
+      padding: 36px 32px;
+      background: rgba(255,255,255,.04);
+    }
+    .stat-num {
+      font-size: 42px;
+      font-weight: 800;
+      letter-spacing: -.04em;
+      color: #fff;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-num span { color: var(--orange); }
+    .stat-label { font-size: 14px; color: rgba(255,255,255,.5); }
+
+    /* ── PRODUCTS MINI ───────────────────────────────────────────────── */
+    .product-mini {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      padding: 22px 24px;
+      border-radius: 16px;
+      border: 1.5px solid var(--border);
+      background: var(--white);
+      text-decoration: none;
+      transition: border-color .2s, box-shadow .2s, transform .2s;
+    }
+    .product-mini:hover { border-color: var(--orange-soft); box-shadow: var(--shadow-lg); transform: translateY(-2px); }
+    .product-mini-blue:hover { border-color: rgba(79,110,247,.3); }
+    .product-mini-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .product-mini-icon-orange { background: var(--orange-bg); color: var(--orange); }
+    .product-mini-icon-blue { background: rgba(79,110,247,.1); color: var(--blue); }
+    .product-mini-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .product-mini-desc { font-size: 13px; color: var(--text-2); line-height: 1.5; }
+
+    /* ── FOOTER ──────────────────────────────────────────────────────── */
+    footer {
+      background: #09122c;
+      color: rgba(255,255,255,.55);
+      padding: 56px 0 32px;
+    }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 48px; }
+    .footer-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .footer-logo-text { font-size: 16px; font-weight: 800; letter-spacing: -.03em; color: #fff; }
+    .footer-logo-text .flow { color: var(--orange); }
+    .footer-desc { font-size: 13px; line-height: 1.7; max-width: 220px; }
+    .footer-col-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: rgba(255,255,255,.35); margin-bottom: 14px; }
+    .footer-links { display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a { font-size: 13px; color: rgba(255,255,255,.36); text-decoration: none; transition: color .2s; }
+    .footer-links a:hover { color: rgba(255,255,255,.75); }
+    .footer-bottom { padding-top: 24px; border-top: 1px solid rgba(255,255,255,.06); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 12px; color: rgba(255,255,255,.18); }
+
+    /* ── REVEAL ──────────────────────────────────────────────────────── */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .65s ease, transform .65s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    .rd1 { transition-delay: .08s; } .rd2 { transition-delay: .17s; } .rd3 { transition-delay: .26s; }
+
+    @media (max-width: 900px) {
+      .two-col { grid-template-columns: 1fr; gap: 36px; }
+      .values-grid { grid-template-columns: 1fr 1fr; }
+      .stat-row { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
+    }
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .values-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="wrap nav-inner">
+    <a href="/index.html" class="logo-link" aria-label="OfficeFlow">
+      <svg class="logo-mark-svg" viewBox="0 0 48 48" width="32" height="32" aria-hidden="true">
+        <defs><linearGradient id="of-nav-mark" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F97316"/><stop offset="100%" stop-color="#FB923C"/></linearGradient></defs>
+        <rect width="48" height="48" rx="11" fill="url(#of-nav-mark)"/>
+        <circle cx="24" cy="24" r="11" fill="none" stroke="#fff" stroke-width="3.2"/>
+        <path d="M21.5 19.5 L28 24 L21.5 28.5" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="logo-wordmark">Office<span class="flow">Flow</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="/mailbox.html">Mailbox Manager</a>
+      <a href="/facturen/">Facturen &amp; Offertes</a>
+      <a href="/#waarom">Waarom OfficeFlow</a>
+      <a href="/over-ons.html" class="active">Over ons</a>
+    </div>
+    <div class="nav-right">
+      <a href="/#producten" class="btn btn-orange">Bekijk producten →</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero-wrap">
+  <div class="eyebrow reveal">Over ons</div>
+  <h1 class="reveal">Wij bouwen software<br>voor mensen die gewoon<br>hun werk willen doen.</h1>
+  <p class="lead reveal">OfficeFlow is een Nederlands softwarebedrijf. We maken tools die de administratieve rompslomp uit je werkdag halen — zonder gedoe, zonder overbodige complexiteit.</p>
+</div>
+
+<!-- MISSIE -->
+<section class="section section-light">
+  <div class="section-wrap">
+    <div class="two-col">
+      <div>
+        <div class="section-label reveal">Onze missie</div>
+        <h2 class="reveal">Minder administratie.<br>Meer ruimte voor je werk.</h2>
+      </div>
+      <div class="section-body reveal">
+        <p>Te veel ondernemers besteden uren per week aan taken die eigenlijk vanzelf zouden moeten gaan. Facturen opstellen, e-mails beantwoorden, opvolgen, controleren — het zijn noodzakelijke onderdelen van je bedrijf, maar ze zijn niet de reden waarom je voor jezelf begon.</p>
+        <p>Wij geloven dat software je daarin volledig kan ondersteunen, zonder dat je er iets voor hoeft op te geven. Geen controle inleveren, geen geblinddoekte automatisering. Gewoon slimme hulp op het moment dat het telt.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WAARDEN -->
+<section class="section">
+  <div class="section-wrap">
+    <div class="section-label reveal">Hoe wij werken</div>
+    <h2 class="reveal">Drie dingen die nooit<br>onderhandeld worden.</h2>
+    <div class="values-grid">
+      <div class="value-card reveal rd1">
+        <div class="value-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+        </div>
+        <div class="value-title">Jij blijft aan de knoppen</div>
+        <div class="value-body">Niets gaat automatisch de deur uit zonder jouw akkoord. Software ondersteunt — mensen beslissen. Dat is bij ons geen marketingzin, maar een technische keuze die in elk product terugkomt.</div>
+      </div>
+      <div class="value-card reveal rd2">
+        <div class="value-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+        </div>
+        <div class="value-title">Simpel waar het kan</div>
+        <div class="value-body">We bouwen voor gewone ondernemers, niet voor power users. Als iets uitleg nodig heeft, is het nog niet goed genoeg. We schrappen liever een feature dan dat we de interface ingewikkelder maken.</div>
+      </div>
+      <div class="value-card reveal rd3">
+        <div class="value-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+        </div>
+        <div class="value-title">Bouwen vanuit de praktijk</div>
+        <div class="value-body">Onze producten worden gebouwd door mensen die zelf ondernemen. We begrijpen de werkdruk, de deadlines en het gevoel als iets eindelijk soepel loopt. Dat merk je aan hoe de software aanvoelt.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACHTERGROND (DONKER) -->
+<section class="section section-dark">
+  <div class="section-wrap">
+    <div class="two-col">
+      <div>
+        <div class="section-label reveal" style="color:rgba(249,115,22,1);">Hoe het begon</div>
+        <h2 class="reveal" style="color:#fff;">Begonnen als frustratie.<br>Geworden tot product.</h2>
+      </div>
+      <div class="section-body reveal" style="color:rgba(255,255,255,.55);">
+        <p>OfficeFlow is ontstaan omdat de bestaande tools te ingewikkeld, te duur of te generiek waren voor de dagelijkse praktijk van een dienstverlenend bedrijf. De combinatie van een slimme mailbox-assistent én een compleet facturatieplatform bestond simpelweg niet in één samenhangend pakket.</p>
+        <p>We zijn klein begonnen, goed geluisterd naar gebruikers, en bouwen sindsdien gestaag door. Niet om de grootste te worden, maar om de beste keuze te zijn voor ondernemers die hun administratie serieus willen aanpakken zonder er een dagtaak van te maken.</p>
+      </div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-item reveal rd1">
+        <div class="stat-num"><span>2</span> producten</div>
+        <div class="stat-label">Mailbox Manager &amp; Facturen en Offertes</div>
+      </div>
+      <div class="stat-item reveal rd2">
+        <div class="stat-num">NL<span>-first</span></div>
+        <div class="stat-label">Volledig in het Nederlands, voor de Nederlandse markt</div>
+      </div>
+      <div class="stat-item reveal rd3">
+        <div class="stat-num"><span>100%</span></div>
+        <div class="stat-label">Menselijke controle — nooit automatisch zonder jouw akkoord</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTEN MINI -->
+<section class="section section-orange">
+  <div class="section-wrap">
+    <div class="section-label reveal">Onze producten</div>
+    <h2 class="reveal">Twee diensten,<br>één bedrijf.</h2>
+    <p class="section-body reveal" style="margin-bottom:36px;">Elk product is volledig zelfstandig te gebruiken. Je start met wat nu het meeste oplevert.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:760px;" class="reveal">
+      <a href="/mailbox.html" class="product-mini">
+        <div class="product-mini-icon product-mini-icon-orange">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 2H3v16h5l3 3 3-3h7V2z"></path></svg>
+        </div>
+        <div>
+          <div class="product-mini-title">Mailbox Manager</div>
+          <div class="product-mini-desc">AI-assistent voor je Gmail-inbox. Concepten, labels en opvolging — altijd jij die beslist.</div>
+        </div>
+      </a>
+      <a href="/facturen/" class="product-mini product-mini-blue">
+        <div class="product-mini-icon product-mini-icon-blue">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+        </div>
+        <div>
+          <div class="product-mini-title">Facturen &amp; Offertes</div>
+          <div class="product-mini-desc">Van offerte tot betaalde factuur. Inclusief Moneybird-sync, herinneringen en klantportaal.</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">
+          <svg viewBox="0 0 48 48" width="26" height="26" aria-hidden="true">
+            <defs><linearGradient id="of-footer-mark" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F97316"/><stop offset="100%" stop-color="#FB923C"/></linearGradient></defs>
+            <rect width="48" height="48" rx="11" fill="url(#of-footer-mark)"/>
+            <circle cx="24" cy="24" r="11" fill="none" stroke="#fff" stroke-width="3.2"/>
+            <path d="M21.5 19.5 L28 24 L21.5 28.5" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="footer-logo-text">Office<span class="flow">Flow</span></span>
+        </div>
+        <div class="footer-desc">Slimme tools voor je dagelijkse werkprocessen. Mailbox automatisering én professionele facturatie — alles onder één dak.</div>
+      </div>
+      <div>
+        <div class="footer-col-title">Producten</div>
+        <div class="footer-links">
+          <a href="/mailbox.html">Mailbox Manager</a>
+          <a href="/facturen/">Facturen &amp; Offertes</a>
+          <a href="mailto:mail@officeflowcompany.com">Contact</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Mailbox Manager</div>
+        <div class="footer-links">
+          <a href="/privacy.html">Privacybeleid</a>
+          <a href="/terms.html">Algemene voorwaarden</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Facturen &amp; Offertes</div>
+        <div class="footer-links">
+          <a href="/privacy-facturen.html">Privacybeleid</a>
+          <a href="/terms-facturen.html">Algemene voorwaarden</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 OfficeFlow · mail@officeflowcompany.com · KVK 42041799</div>
+      <div class="footer-copy">Automatisch waar het slim is. Controle waar het telt.</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver(
+    es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } }),
+    { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+  );
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
