@@ -276,6 +276,91 @@
     .dash-bars span{text-align:center;font-size:9px;color:var(--text-mute);font-weight:600;margin-top:4px}
     .dash-days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:4px}
 
+    /* AUTO-ARCHIVE MOCK */
+    .aa-mock{
+      background:#fffaf3;border:1px solid #fed7aa;border-radius:20px;padding:20px;
+      box-shadow:var(--shadow-strong);margin-top:24px
+    }
+    .aa-row{
+      display:flex;align-items:center;justify-content:space-between;gap:16px;
+      background:#fff;border:1px solid #fef3c7;border-radius:12px;
+      padding:14px 16px;margin-bottom:10px
+    }
+    .aa-row:last-child{margin-bottom:0}
+    .aa-row-text{flex:1;min-width:0}
+    .aa-row-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px}
+    .aa-row-sub{font-size:11.5px;color:var(--text-mute);line-height:1.45}
+    .aa-row-sub strong{color:var(--text);font-weight:600}
+    .aa-toggle{
+      width:40px;height:22px;border-radius:999px;background:var(--orange);
+      flex-shrink:0;position:relative;transition:background .2s
+    }
+    .aa-toggle span{
+      position:absolute;top:2px;right:2px;width:18px;height:18px;
+      border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2)
+    }
+    .aa-safety{
+      background:#ecfdf5;border:1px solid #a7f3d0;border-radius:12px;
+      padding:14px 16px;margin-bottom:10px
+    }
+    .aa-safety-title{font-size:13px;font-weight:700;color:#065f46;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+    .aa-safety-sub{font-size:11.5px;color:#047857;line-height:1.5}
+    .aa-btn{
+      display:inline-flex;align-items:center;gap:8px;
+      background:var(--gradient-orange);color:#fff;font-size:12.5px;font-weight:700;
+      padding:10px 16px;border-radius:10px;flex-shrink:0;white-space:nowrap
+    }
+    .aa-btn-dot{width:6px;height:6px;border-radius:50%;background:#fff}
+
+    /* FOLLOW-UP RADAR MOCK */
+    .radar-mock{
+      background:#fffaf3;border:1px solid #fed7aa;border-radius:20px;padding:20px;
+      box-shadow:var(--shadow-strong);margin-top:24px
+    }
+    .radar-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+    .radar-head-left{display:flex;align-items:center;gap:12px}
+    .radar-head-icon{
+      width:40px;height:40px;border-radius:10px;background:var(--orange-soft);
+      color:var(--orange);display:flex;align-items:center;justify-content:center;flex-shrink:0
+    }
+    .radar-head-title{font-size:16px;font-weight:800;color:var(--text);letter-spacing:-.01em;line-height:1.2}
+    .radar-head-sub{font-size:11.5px;color:var(--text-mute);margin-top:2px;line-height:1.4}
+    .radar-live-pill{
+      display:inline-flex;align-items:center;gap:6px;
+      background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46;
+      font-size:11px;font-weight:800;letter-spacing:.06em;
+      padding:5px 10px;border-radius:999px
+    }
+    .radar-live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px rgba(34,197,94,.2)}
+    .radar-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+    .radar-tile{background:#fff;border-radius:12px;padding:14px;border:1px solid #fef3c7}
+    .radar-tile-label{font-size:9px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--text-mute);margin-bottom:6px;line-height:1.3}
+    .radar-tile-v{font-size:26px;font-weight:800;letter-spacing:-.025em;line-height:1;color:var(--text);margin-bottom:5px}
+    .radar-tile-s{font-size:10.5px;color:var(--text-soft);line-height:1.3}
+    .radar-features{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+    .radar-feature{background:#fff;border-radius:12px;padding:14px;border:1px solid #fef3c7}
+    .radar-feature-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:6px;display:flex;align-items:center;gap:7px}
+    .radar-feature-title svg{color:var(--orange);flex-shrink:0}
+    .radar-feature-sub{font-size:11.5px;color:var(--text-mute);line-height:1.5}
+    .radar-feature-sub strong{color:var(--text);font-weight:600}
+    .radar-feature-sub em{font-style:normal;background:#faf5ff;color:#6b21a8;padding:1px 5px;border-radius:4px;font-weight:600;font-size:11px}
+    .radar-safety{
+      background:#fef9c3;border:1px solid #fde68a;border-radius:12px;
+      padding:12px 16px;display:flex;gap:12px;align-items:flex-start
+    }
+    .radar-safety-icon{
+      flex-shrink:0;width:22px;height:22px;border-radius:50%;background:#facc15;
+      display:flex;align-items:center;justify-content:center;color:#78350f;font-weight:800;font-size:13px
+    }
+    .radar-safety-title{font-size:12.5px;font-weight:700;color:#78350f;margin-bottom:2px}
+    .radar-safety-sub{font-size:11px;color:#92400e;line-height:1.5}
+    @media (max-width:720px){
+      .aa-row{flex-direction:column;align-items:flex-start;gap:10px}
+      .aa-btn{align-self:stretch;justify-content:center}
+      .radar-tiles{grid-template-columns:repeat(2,1fr)}
+      .radar-features{grid-template-columns:1fr}
+    }
+
     /* ACCOUNT MOCK (afbeelding 1 inspired) */
     .account-wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
     .account-mock{
@@ -1620,7 +1705,7 @@
     <div class="section-head">
       <div class="section-eyebrow">Jouw overzicht</div>
       <h2 class="section-title">Een klein dashboard. Grote duidelijkheid.</h2>
-      <p class="section-sub">Zie in één oogopslag hoeveel tijd OfficeFlow je bespaart, hoeveel concepten klaarstaan, en wat er nog wacht op een reactie. Geen dashboard-verslaving — gewoon wat je nodig hebt.</p>
+      <p class="section-sub">Zie in één oogopslag hoeveel tijd OfficeFlow je bespaart, houd je inbox automatisch schoon en laat de Follow-Up Radar niets tussen wal en schip vallen. Alles bij elkaar in één plek — zonder ruis.</p>
     </div>
     <div style="max-width:880px;margin:0 auto" class="reveal">
       <div class="dash-mock">
@@ -1673,6 +1758,107 @@
           </div>
         </div>
       </div>
+
+      <!-- AUTO-ARCHIVE MOCK -->
+      <div class="aa-mock">
+        <div class="dash-head">
+          <div class="dash-title">Auto-archive &middot; inbox blijft schoon</div>
+          <div class="dash-chip">Aan</div>
+        </div>
+        <div class="aa-row">
+          <div class="aa-row-text">
+            <div class="aa-row-title">Marketing &amp; ruis uit je inbox halen</div>
+            <div class="aa-row-sub">Mails met label <strong>Marketing</strong>, <strong>Ignore</strong> of <strong>Unwanted</strong> verlaten je primaire inbox en blijven vindbaar via hun label. Niks wordt verwijderd.</div>
+          </div>
+          <div class="aa-toggle"><span></span></div>
+        </div>
+        <div class="aa-row">
+          <div class="aa-row-text">
+            <div class="aa-row-title">Ook Notification-mails automatisch archiveren</div>
+            <div class="aa-row-sub">Standaard <strong>uit</strong> — notificaties zijn soms transactioneel (bank, bezorging, 2FA). Zet aan als je zeker weet dat je ze niet mist.</div>
+          </div>
+          <div class="aa-toggle"><span></span></div>
+        </div>
+        <div class="aa-safety">
+          <div class="aa-safety-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Veiligheidsnet: bekende contacten worden nooit gearchiveerd
+          </div>
+          <div class="aa-safety-sub">Heb je ooit naar iemand gereageerd of zijn mail gelabeld als Priority / To Respond / Follow Up? Dan blijven nieuwe mails van die afzender altijd in je inbox, ook als de classifier ze als Marketing ziet.</div>
+        </div>
+        <div class="aa-row">
+          <div class="aa-row-text">
+            <div class="aa-row-title">Eenmalige opruimactie</div>
+            <div class="aa-row-sub">2 mails met low-value label staan nog in je inbox. Bekende contacten worden overgeslagen.</div>
+          </div>
+          <div class="aa-btn">
+            <span class="aa-btn-dot"></span>
+            Maak inbox schoon
+          </div>
+        </div>
+      </div>
+
+      <!-- FOLLOW-UP RADAR MOCK -->
+      <div class="radar-mock">
+        <div class="radar-head">
+          <div class="radar-head-left">
+            <div class="radar-head-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div>
+              <div class="radar-head-title">Follow-Up Radar</div>
+              <div class="radar-head-sub">OfficeFlow scant je inbox elke ochtend op open beloftes en stille threads. Jij blijft de knop die verzendt.</div>
+            </div>
+          </div>
+          <div class="radar-live-pill"><span class="radar-live-dot"></span>LIVE</div>
+        </div>
+        <div class="radar-tiles">
+          <div class="radar-tile">
+            <div class="radar-tile-label">In beeld — beloftes</div>
+            <div class="radar-tile-v">1</div>
+            <div class="radar-tile-s">Open beloftes die de radar bewaakt</div>
+          </div>
+          <div class="radar-tile">
+            <div class="radar-tile-label">In beeld — stille threads</div>
+            <div class="radar-tile-v">1</div>
+            <div class="radar-tile-s">Waiting On Reply, klok loopt</div>
+          </div>
+          <div class="radar-tile">
+            <div class="radar-tile-label">Nudges deze week</div>
+            <div class="radar-tile-v">0</div>
+            <div class="radar-tile-s">Opvolg-concepten gemaakt</div>
+          </div>
+          <div class="radar-tile">
+            <div class="radar-tile-label">Nudges totaal</div>
+            <div class="radar-tile-v">0</div>
+            <div class="radar-tile-s">Sinds je account gekoppeld is</div>
+          </div>
+        </div>
+        <div class="radar-features">
+          <div class="radar-feature">
+            <div class="radar-feature-title">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              Belofte-radar
+            </div>
+            <div class="radar-feature-sub">Beloof je iets ("ik stuur je morgen de offerte"), dan onthoudt OfficeFlow de deadline. Loopt die af zonder actie, dan escaleert de thread naar <strong>Priority</strong> en ligt er een opvolg-concept klaar in jouw stijl.</div>
+          </div>
+          <div class="radar-feature">
+            <div class="radar-feature-title">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg>
+              Stilte-radar
+            </div>
+            <div class="radar-feature-sub">Wacht je al een tijd op een reactie (label <em>Waiting On Reply</em>), dan verschijnt er na jouw drempel een vriendelijke herinnering als concept in dezelfde thread. Niks wordt automatisch verzonden.</div>
+          </div>
+        </div>
+        <div class="radar-safety">
+          <div class="radar-safety-icon">!</div>
+          <div>
+            <div class="radar-safety-title">Jij blijft de knop.</div>
+            <div class="radar-safety-sub">Opvolg-concepten worden nooit automatisch verzonden. Ze verschijnen in de bestaande Gmail-thread en veranderen niks aan de status totdat jij verzendt.</div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
