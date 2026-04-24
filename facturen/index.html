@@ -313,13 +313,13 @@
     .portal-dark .pb-card-icon svg { color: rgba(255,255,255,.45); }
 
     /* BANK SECTION */
-    .bank-bg { background: var(--bg-cool); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .bank-bg { background: var(--navy); border-top: 1px solid rgba(255,255,255,.06); border-bottom: 1px solid rgba(255,255,255,.06); }
     .bank-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
     .bank-label { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 6px 13px; border-radius: 8px; background: var(--orange-bg); color: var(--orange); margin-bottom: 20px; border: 1px solid var(--orange-soft); }
-    .bank-inner h2 { color: var(--text); margin-bottom: 16px; }
-    .bank-inner .sub { color: var(--text-2); max-width: 440px; }
+    .bank-inner h2 { color: #fff; margin-bottom: 16px; }
+    .bank-inner .sub { color: rgba(255,255,255,.6); max-width: 440px; }
     .bank-feats { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-top: 28px; }
-    .bank-feats li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--text-2); line-height: 1.55; }
+    .bank-feats li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: rgba(255,255,255,.6); line-height: 1.55; }
     .bank-feats li svg { color: var(--orange); flex-shrink: 0; margin-top: 2px; }
     .bank-visual { background: #fff; border: 1.5px solid var(--border); border-radius: 16px; padding: 32px; }
     .bank-v-title { font-size: 13px; font-weight: 700; color: var(--text-2); letter-spacing: .04em; text-transform: uppercase; margin-bottom: 20px; }
@@ -354,12 +354,12 @@
     .pricing-note { text-align: center; margin-top: 24px; font-size: 13px; color: var(--text-2); }
 
     /* FAQ */
-    .faq-bg { background: var(--navy); border-top: 1px solid rgba(255,255,255,.06); }
-    .faq-bg h2 { color: #fff; }
+    .faq-bg { background: var(--bg-cool); border-top: 1px solid var(--border); }
+    .faq-bg h2 { color: var(--text); }
     .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 48px; }
-    .faq-item { background: rgba(255,255,255,.04); border: 1.5px solid rgba(255,255,255,.08); border-radius: 14px; padding: 24px 26px; }
-    .faq-item h4 { font-size: 15px; font-weight: 700; margin-bottom: 10px; line-height: 1.4; color: #fff; }
-    .faq-item p { font-size: 13px; color: rgba(255,255,255,.55); line-height: 1.7; }
+    .faq-item { background: #fff; border: 1.5px solid var(--border); border-radius: 14px; padding: 24px 26px; }
+    .faq-item h4 { font-size: 15px; font-weight: 700; margin-bottom: 10px; line-height: 1.4; color: var(--text); }
+    .faq-item p { font-size: 13px; color: var(--text-2); line-height: 1.7; }
 
     /* CTA BAR */
     .cta-bar { background: var(--blue); padding: 56px 0; text-align: center; }
@@ -996,7 +996,7 @@
 
 <section class="faq-bg" aria-labelledby="faq-heading">
   <div class="wrap">
-    <div class="eyebrow ey-light reveal">Veelgestelde vragen</div>
+    <div class="eyebrow ey-b reveal">Veelgestelde vragen</div>
     <h2 id="faq-heading" class="reveal">Alles wat je wil weten.</h2>
     <div class="faq-grid">
       <div class="faq-item reveal rd1">
