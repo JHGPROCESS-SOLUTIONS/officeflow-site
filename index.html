@@ -260,6 +260,16 @@
     .pcard-toggle-btn.is-active { background: var(--white); color: var(--text); box-shadow: 0 1px 3px rgba(15,23,42,.08); }
     .pcard-toggle-save { font-size: 11px; font-weight: 700; letter-spacing: .03em; color: var(--orange); background: var(--orange-bg); padding: 2px 7px; border-radius: 999px; }
     .pcard-divider { height: 1px; background: var(--border); margin: 0 36px; }
+    .fo-plan-grid { display: grid; gap: 7px; margin-bottom: 6px; }
+    .fo-plan-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 9px 12px; border-radius: 10px; border: 1px solid var(--border); background: #f8fafc; }
+    .fo-plan-row.fo-plan-highlighted { border-color: rgba(59,130,246,.35); background: rgba(59,130,246,.04); }
+    .fo-plan-left { display: flex; align-items: center; gap: 8px; }
+    .fo-plan-name { font-size: 14px; font-weight: 700; color: var(--text); }
+    .fo-plan-desc { font-size: 12px; color: var(--text-2); }
+    .fo-plan-badge { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--blue); background: rgba(59,130,246,.1); padding: 2px 7px; border-radius: 999px; }
+    .fo-plan-price { text-align: right; }
+    .fo-plan-amount { font-size: 16px; font-weight: 800; color: var(--blue); letter-spacing: -.02em; }
+    .fo-plan-sub { font-size: 11px; color: var(--text-2); }
     .pcard-body { padding: 28px 36px 36px; }
     .feat-list { list-style: none; display: grid; gap: 11px; margin-bottom: 28px; }
     .feat-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--text-2); line-height: 1.5; }
@@ -1369,7 +1379,53 @@
           <div class="ptag ptag-blue"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>Facturen &amp; offertes</div>
           <h3>Facturen &amp; Offertes</h3>
           <p class="pcard-desc">Een compleet platform voor dienstverlenende bedrijven. Van offerte en abonnement tot werkregistratie, factuur, Moneybird-sync en betalingsopvolging — in één logische workflow.</p>
-          <div class="pcard-price"><span class="price-num price-blue">€19</span><span class="price-sub">per maand<br>excl. btw · tot €89</span></div>
+          <!-- Pricing toggle -->
+          <div class="pcard-toggle" role="tablist" aria-label="Kies abonnementsperiode" data-fo-toggle>
+            <button type="button" class="pcard-toggle-btn is-active" data-fo-plan="monthly" role="tab" aria-selected="true">Maandelijks</button>
+            <button type="button" class="pcard-toggle-btn" data-fo-plan="yearly" role="tab" aria-selected="false">Jaarlijks <span class="pcard-toggle-save">2 mnd gratis</span></button>
+          </div>
+
+          <!-- Plannen maandelijks -->
+          <div class="fo-plan-grid" data-fo-price="monthly">
+            <div class="fo-plan-row">
+              <div class="fo-plan-left"><span class="fo-plan-name">Solo</span><span class="fo-plan-desc">t/m 25 facturen/mnd</span></div>
+              <div class="fo-plan-price"><div class="fo-plan-amount">€19<span style="font-size:12px;font-weight:600">/mnd</span></div></div>
+            </div>
+            <div class="fo-plan-row fo-plan-highlighted">
+              <div class="fo-plan-left"><span class="fo-plan-name">Start</span><span class="fo-plan-badge">Populair</span><span class="fo-plan-desc">t/m 100/mnd</span></div>
+              <div class="fo-plan-price"><div class="fo-plan-amount">€34<span style="font-size:12px;font-weight:600">/mnd</span></div></div>
+            </div>
+            <div class="fo-plan-row">
+              <div class="fo-plan-left"><span class="fo-plan-name">Groei</span><span class="fo-plan-desc">t/m 300/mnd</span></div>
+              <div class="fo-plan-price"><div class="fo-plan-amount">€54<span style="font-size:12px;font-weight:600">/mnd</span></div></div>
+            </div>
+            <div class="fo-plan-row">
+              <div class="fo-plan-left"><span class="fo-plan-name">Pro</span><span class="fo-plan-desc">Onbeperkt</span></div>
+              <div class="fo-plan-price"><div class="fo-plan-amount">€89<span style="font-size:12px;font-weight:600">/mnd</span></div></div>
+            </div>
+          </div>
+
+          <!-- Plannen jaarlijks -->
+          <div class="fo-plan-grid" data-fo-price="yearly" hidden>
+            <div class="fo-plan-row">
+              <div class="fo-plan-left"><span class="fo-plan-name">Solo</span><span class="fo-plan-desc">t/m 25 facturen/mnd</span></div>
+              <div class="fo-plan-price"><div class="fo-plan-amount">€16<span style="font-size:12px;font-weight:600">/mnd</span></div><div class="fo-plan-sub">€190/jr</div></div>
+            </div>
+            <div class="fo-plan-row fo-plan-highlighted">
+              <div class="fo-plan-left"><span class="fo-plan-name">Start</span><span class="fo-plan-badge">Populair</span><span class="fo-plan-desc">t/m 100/mnd</span></div>
+              <div class="fo-plan-price"><div class="fo-plan-amount">€28<span style="font-size:12px;font-weight:600">/mnd</span></div><div class="fo-plan-sub">€340/jr</div></div>
+            </div>
+            <div class="fo-plan-row">
+              <div class="fo-plan-left"><span class="fo-plan-name">Groei</span><span class="fo-plan-desc">t/m 300/mnd</span></div>
+              <div class="fo-plan-price"><div class="fo-plan-amount">€45<span style="font-size:12px;font-weight:600">/mnd</span></div><div class="fo-plan-sub">€540/jr</div></div>
+            </div>
+            <div class="fo-plan-row">
+              <div class="fo-plan-left"><span class="fo-plan-name">Pro</span><span class="fo-plan-desc">Onbeperkt</span></div>
+              <div class="fo-plan-price"><div class="fo-plan-amount">€74<span style="font-size:12px;font-weight:600">/mnd</span></div><div class="fo-plan-sub">€890/jr</div></div>
+            </div>
+          </div>
+
+          <p style="font-size:12px;color:var(--text-2);margin:8px 0 0;">excl. btw · 14 dagen gratis proberen</p>
         </div>
         <div class="pcard-divider"></div>
         <div class="pcard-body">
@@ -1382,7 +1438,7 @@
             <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Automatische betalingsdetectie via Moneybird</li>
             <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Herinneringen en betalingsopvolging automatisch</li>
             <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Volledige Moneybird-sync — boekhouder werkt gewoon door</li>
-            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Ideaal om te beheren namens jouw klanten</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Speciaal gebouwd voor Nederlandse Moneybird-gebruikers</li>
           </ul>
           <div class="pcard-actions">
             <a class="btn btn-blue" href="/facturen/signup">Start gratis →</a>
@@ -2130,6 +2186,30 @@
 
     buttons.forEach(btn => {
       btn.addEventListener('click', () => setPlan(btn.getAttribute('data-mm-plan')));
+    });
+    setPlan('monthly');
+  })();
+
+  // Facturen & Offertes pricing toggle (monthly/yearly)
+  (function(){
+    const toggle = document.querySelector('[data-fo-toggle]');
+    if (!toggle) return;
+    const buttons = toggle.querySelectorAll('[data-fo-plan]');
+    const grids = document.querySelectorAll('[data-fo-price]');
+
+    function setPlan(plan) {
+      buttons.forEach(btn => {
+        const active = btn.getAttribute('data-fo-plan') === plan;
+        btn.classList.toggle('is-active', active);
+        btn.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+      grids.forEach(el => {
+        el.hidden = el.getAttribute('data-fo-price') !== plan;
+      });
+    }
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => setPlan(btn.getAttribute('data-fo-plan')));
     });
     setPlan('monthly');
   })();
