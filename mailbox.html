@@ -363,15 +363,27 @@
 
     /* ============ SPECIAL EFFECTS — auto-archive + radar mocks ============ */
 
-    /* Toggle: gentle orange glow pulse op de "aan"-toggles */
+    /* Toggle: schuift af en toe tussen aan en uit (8s cyclus) */
     .aa-toggle{
-      box-shadow:0 0 0 0 rgba(249,115,22,.45);
-      animation:aaTogglePulse 2.6s ease-in-out infinite;
+      animation:aaToggleFlip 8s ease-in-out infinite;
     }
-    .aa-toggle span{transition:transform .3s ease}
-    @keyframes aaTogglePulse{
-      0%,100%{box-shadow:0 0 0 0 rgba(249,115,22,.45)}
-      50%{box-shadow:0 0 0 6px rgba(249,115,22,0)}
+    .aa-toggle span{animation:aaToggleKnob 8s ease-in-out infinite}
+    /* Tweede toggle start 4s later zodat ze niet synchroon flippen */
+    .aa-row:nth-of-type(2) .aa-toggle{animation-delay:-4s}
+    .aa-row:nth-of-type(2) .aa-toggle span{animation-delay:-4s}
+    @keyframes aaToggleFlip{
+      0%      {background:var(--orange);box-shadow:0 0 0 0 rgba(249,115,22,.45)}
+      15%     {background:var(--orange);box-shadow:0 0 0 6px rgba(249,115,22,0)}
+      30%     {background:var(--orange);box-shadow:0 0 0 0 rgba(249,115,22,.45)}
+      45%     {background:var(--orange)}
+      55%     {background:#cbd5e1}
+      90%     {background:#cbd5e1}
+      100%    {background:var(--orange)}
+    }
+    @keyframes aaToggleKnob{
+      0%,45%  {transform:translateX(0)}
+      55%,90% {transform:translateX(-18px)}
+      100%    {transform:translateX(0)}
     }
 
     /* Safety-net groene sweep: subtiele glans-pass elke 6s */
