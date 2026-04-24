@@ -280,6 +280,42 @@
     .card-link { font-size: 14px; font-weight: 600; color: var(--text-2); border-bottom: 1.5px solid var(--border); padding-bottom: 1px; transition: color .2s, border-color .2s; }
     .card-link:hover { color: var(--text); border-color: var(--text); }
 
+    /* TEAMS TIERS — voor bedrijven met meerdere mailboxen */
+    .teams-bg { background: linear-gradient(180deg, #fbf5ec 0%, #fef8ef 100%); }
+    .teams-header { text-align: center; margin-bottom: 48px; max-width: 620px; margin-left: auto; margin-right: auto; }
+    .teams-header .sub { margin: 0 auto; }
+    .teams-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 1080px; margin: 0 auto; }
+    .tcard {
+      background: var(--white); border-radius: 18px; border: 1.5px solid var(--border);
+      padding: 32px 28px; position: relative;
+      display: flex; flex-direction: column;
+      transition: transform .25s, box-shadow .25s, border-color .25s;
+    }
+    .tcard:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--orange); }
+    .tcard-featured { border-color: var(--orange); box-shadow: 0 12px 32px rgba(249,115,22,.12); }
+    .tcard-featured::before {
+      content: "POPULAIR"; position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+      background: var(--grad-orange); color: #fff; font-size: 10px; font-weight: 800;
+      letter-spacing: .1em; padding: 5px 12px; border-radius: 999px;
+    }
+    .tcard-name { font-size: 13px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--text-2); margin-bottom: 10px; }
+    .tcard-price { display: flex; align-items: baseline; gap: 4px; margin-bottom: 2px; }
+    .tcard-price-num { font-size: 40px; font-weight: 800; letter-spacing: -.03em; color: var(--text); line-height: 1; }
+    .tcard-price-unit { font-size: 14px; color: var(--text-2); font-weight: 500; }
+    .tcard-seats { font-size: 15px; font-weight: 700; color: var(--orange-dark); margin-top: 6px; }
+    .tcard-per { font-size: 12px; color: var(--text-2); margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+    .tcard-feats { list-style: none; display: grid; gap: 10px; margin: 0 0 24px; padding: 0; flex: 1; }
+    .tcard-feats li { display: flex; align-items: flex-start; gap: 8px; font-size: 13.5px; color: var(--text-2); line-height: 1.5; }
+    .tcard-feats li svg { flex-shrink: 0; margin-top: 2px; color: var(--orange); }
+    .tcard-feats li strong { color: var(--text); font-weight: 600; }
+    .tcard .btn { width: 100%; justify-content: center; }
+    .teams-footer { text-align: center; margin-top: 32px; }
+    .teams-footer p { font-size: 13px; color: var(--text-2); }
+    .teams-footer strong { color: var(--text); font-weight: 600; }
+    @media (max-width: 900px) {
+      .teams-grid { grid-template-columns: 1fr; max-width: 440px; }
+    }
+
     /* HOW IT WORKS — DARK */
     .how-bg { background: linear-gradient(180deg, #0a1530 0%, var(--navy) 50%, #0b1a3a 100%); position: relative; }
     .how-bg::before, .how-bg::after { content: ''; position: absolute; left: 0; right: 0; height: 1px; pointer-events: none; }
@@ -847,6 +883,7 @@
     <div class="nav-links">
       <a href="/mailbox.html">Mailbox Manager</a>
       <a href="/facturen/">Facturen &amp; Offertes</a>
+      <a href="#teams">Teams</a>
       <a href="#waarom">Waarom OfficeFlow</a>
       <a href="/over-ons.html">Over ons</a>
     </div>
@@ -1373,6 +1410,77 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAMS TIERS -->
+<section id="teams" class="teams-bg">
+  <div class="wrap">
+    <div class="teams-header reveal">
+      <div class="eyebrow ey-orange" style="justify-content:center;">Voor teams</div>
+      <h2>Meerdere mailboxen?<br>Eén team, één abonnement.</h2>
+      <p class="sub">Geef je hele team toegang tot Mailbox Manager. Elk lid zijn eigen concept-antwoorden in hun schrijfstijl. Admin ziet het overzicht. Eén factuur.</p>
+    </div>
+    <div class="teams-grid">
+
+      <!-- Team Starter -->
+      <div class="tcard reveal rd1">
+        <div class="tcard-name">Team Starter</div>
+        <div class="tcard-price">
+          <span class="tcard-price-num">€59</span><span class="tcard-price-unit">/mnd</span>
+        </div>
+        <div class="tcard-seats">3 mailboxen</div>
+        <div class="tcard-per">€19,67 per mailbox · excl. btw</div>
+        <ul class="tcard-feats">
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Alle features van Mailbox Manager</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Gedeeld team-dashboard</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Tot <strong>5 team-leden</strong></li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Elk lid eigen stijlprofiel</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Maandelijks opzegbaar</li>
+        </ul>
+        <a class="btn btn-orange btn-lg" href="https://api.officeflowcompany.com/billing/start-team-checkout?tier=team_s&amp;billing_period=monthly">Start Team Starter →</a>
+      </div>
+
+      <!-- Team Pro (featured) -->
+      <div class="tcard tcard-featured reveal rd2">
+        <div class="tcard-name">Team Pro</div>
+        <div class="tcard-price">
+          <span class="tcard-price-num">€149</span><span class="tcard-price-unit">/mnd</span>
+        </div>
+        <div class="tcard-seats">10 mailboxen</div>
+        <div class="tcard-per">€14,90 per mailbox · excl. btw · <strong style="color:var(--orange-dark);">-38% vs solo</strong></div>
+        <ul class="tcard-feats">
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg><strong>Alles van Team Starter</strong></li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Geavanceerde analytics per mailbox</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Priority support (&lt; 4u response)</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Tot <strong>20 team-leden</strong></li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Gedeelde inboxen (info@, verkoop@)</li>
+        </ul>
+        <a class="btn btn-orange btn-lg" href="https://api.officeflowcompany.com/billing/start-team-checkout?tier=team_pro&amp;billing_period=monthly">Start Team Pro →</a>
+      </div>
+
+      <!-- Business -->
+      <div class="tcard reveal rd3">
+        <div class="tcard-name">Business</div>
+        <div class="tcard-price">
+          <span class="tcard-price-num">€299</span><span class="tcard-price-unit">/mnd</span>
+        </div>
+        <div class="tcard-seats">25 mailboxen</div>
+        <div class="tcard-per">€11,96 per mailbox · excl. btw · <strong style="color:var(--orange-dark);">-50% vs solo</strong></div>
+        <ul class="tcard-feats">
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg><strong>Alles van Team Pro</strong></li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>API-toegang voor integraties</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Dedicated success manager</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>SLA 99,9% uptime</li>
+          <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Onbeperkt team-leden</li>
+        </ul>
+        <a class="btn btn-orange btn-lg" href="https://api.officeflowcompany.com/billing/start-team-checkout?tier=business&amp;billing_period=monthly">Start Business →</a>
+      </div>
+
+    </div>
+    <div class="teams-footer reveal">
+      <p><strong>Jaarlijks betalen = 2 maanden gratis.</strong> Alle tiers: maandelijks opzegbaar · iDEAL / kaart / Bancontact · BTW wordt automatisch toegevoegd · Stripe-secure.</p>
     </div>
   </div>
 </section>
