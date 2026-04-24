@@ -4,573 +4,683 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Over ons – OfficeFlow</title>
+  <meta name="description" content="Wie is OfficeFlow? Lees over ons bedrijf, onze aanpak en waarom we software bouwen die ondernemers echt verder helpt.">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <meta name="theme-color" content="#F97316">
-  <meta name="description" content="Wie is OfficeFlow? Lees meer over ons bedrijf, onze aanpak en waarom we OfficeFlow bouwen.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --orange: #f97316;
-      --blue: #4f6ef7;
-      --navy: #09122c;
-      --text: #0f172a;
-      --text-2: #64748b;
-      --border: #e2e8f0;
-      --bg: #f8fafc;
-      --white: #ffffff;
+      --orange:       #f97316;
+      --orange-dark:  #ea580c;
+      --orange-light: #fb923c;
+      --orange-soft:  #fed7aa;
+      --orange-bg:    #fff7ed;
+      --blue:         #4f46e5;
+      --blue-light:   #6366f1;
+      --blue-soft:    #c7d2fe;
+      --blue-bg:      #eef2ff;
+      --navy:         #08142f;
+      --navy-2:       #0b1a3a;
+      --white:        #ffffff;
+      --bg:           #f8fafc;
+      --bg-warm:      #fffaf7;
+      --text:         #0f172a;
+      --text-2:       #64748b;
+      --border:       #e2e8f0;
+      --green:        #22c55e;
+      --grad-orange:  linear-gradient(135deg, #f97316 0%, #fb923c 100%);
+      --grad-blue:    linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+      --shadow:       0 4px 24px rgba(15,23,42,.07);
+      --shadow-lg:    0 20px 60px rgba(15,23,42,.10);
     }
 
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--white); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--white); color: var(--text); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    .wrap { max-width: 1160px; margin: 0 auto; padding: 0 28px; }
 
-    /* ── NAV ─────────────────────────────────────────── */
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; background: rgba(255,255,255,.95); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
-    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
-    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 60px; gap: 16px; }
+    /* ── NAV ──────────────────────────────────────────── */
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,.94); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; gap: 20px; }
     .logo-link { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; }
-    .logo-wordmark { font-size: 18px; font-weight: 800; letter-spacing: -.03em; color: var(--text); }
+    .logo-mark-svg { flex-shrink: 0; display: block; filter: drop-shadow(0 3px 8px rgba(249,115,22,.18)); }
+    .logo-wordmark { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 22px; font-weight: 800; letter-spacing: -.02em; color: var(--navy); line-height: 1; white-space: nowrap; }
     .logo-wordmark .flow { color: var(--orange); }
-    .nav-links { display: flex; align-items: center; gap: 2px; }
-    .nav-links a { font-size: 14px; font-weight: 500; color: var(--text-2); padding: 8px 14px; border-radius: 8px; transition: color .2s, background .2s; text-decoration: none; }
-    .nav-links a:hover { color: var(--text); background: var(--bg); }
-    .nav-links a.active { color: var(--orange); font-weight: 600; }
-    .btn { display: inline-flex; align-items: center; padding: 9px 20px; border-radius: 10px; font-size: 14px; font-weight: 700; text-decoration: none; transition: opacity .18s, transform .18s; }
-    .btn:hover { opacity: .88; transform: translateY(-1px); }
-    .btn-orange { background: linear-gradient(135deg, #f97316, #fb923c); color: #fff; box-shadow: 0 4px 16px rgba(249,115,22,.28); }
+    .nav-right { display: flex; align-items: center; gap: 10px; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 600; padding: 11px 22px; border-radius: 10px; transition: all .2s ease; cursor: pointer; border: none; white-space: nowrap; line-height: 1; }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-ghost { background: transparent; color: var(--text-2); border: 1.5px solid var(--border); }
+    .btn-ghost:hover { border-color: var(--text); color: var(--text); }
+    .btn-orange { background: var(--grad-orange); color: #fff; box-shadow: 0 4px 16px rgba(249,115,22,.28); }
+    .btn-orange:hover { box-shadow: 0 8px 24px rgba(249,115,22,.4); }
+    .btn-blue { background: var(--grad-blue); color: #fff; box-shadow: 0 4px 16px rgba(79,70,229,.28); }
+    .btn-blue:hover { box-shadow: 0 8px 24px rgba(79,70,229,.4); }
+    .btn-lg { padding: 15px 30px; font-size: 15px; border-radius: 12px; }
+
+    /* ── SECTIONS ─────────────────────────────────────── */
+    section { padding: 96px 0; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 14px; }
+    .ey-orange { color: var(--orange-dark); }
+    .ey-orange::before { content: ''; width: 18px; height: 2px; background: var(--orange); border-radius: 1px; display: inline-block; }
+    .ey-light { color: rgba(255,255,255,.4); }
+    .ey-light::before { content: ''; width: 18px; height: 2px; background: rgba(255,255,255,.25); border-radius: 1px; display: inline-block; }
+    h2 { font-size: clamp(30px, 3.8vw, 46px); font-weight: 800; line-height: 1.1; letter-spacing: -.025em; margin-bottom: 16px; }
+    .sub { font-size: 17px; font-weight: 400; color: var(--text-2); line-height: 1.75; }
+    .sub strong { color: var(--text); font-weight: 600; }
 
     /* ── HERO ─────────────────────────────────────────── */
     .hero {
-      padding: 140px 0 100px;
-      background: var(--white);
-      position: relative;
-      overflow: hidden;
+      padding: 72px 0 96px;
+      background: linear-gradient(180deg, #ffffff 0%, #fdfaf5 100%);
+      position: relative; overflow: hidden;
     }
-
-    /* Soft orange glow top-left, blue glow bottom-right */
-    .hero::before {
-      content: '';
-      position: absolute;
-      width: 800px; height: 800px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(249,115,22,.09) 0%, transparent 65%);
-      top: -300px; left: -200px;
-      pointer-events: none;
-    }
-    .hero::after {
-      content: '';
-      position: absolute;
-      width: 600px; height: 600px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(79,110,247,.07) 0%, transparent 65%);
-      bottom: -200px; right: -100px;
-      pointer-events: none;
-    }
-
+    .hero-orbs { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+    .orb { position: absolute; border-radius: 50%; filter: blur(70px); }
+    .orb-1 { width: 500px; height: 500px; background: rgba(249,115,22,.15); top: -140px; left: -120px; }
+    .orb-2 { width: 440px; height: 440px; background: rgba(79,70,229,.12); top: -80px; right: -100px; }
+    .orb-3 { width: 360px; height: 360px; background: rgba(251,146,60,.10); bottom: -120px; left: 50%; transform: translateX(-50%); }
     .hero-inner {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 0 24px;
-      position: relative;
-      z-index: 1;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
+      position: relative; z-index: 1; max-width: 1160px; margin: 0 auto; padding: 0 28px;
+      display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 64px; align-items: center;
     }
+    .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--white); border: 1.5px solid var(--border); border-radius: 999px; padding: 7px 16px; font-size: 12px; font-weight: 600; letter-spacing: .03em; color: var(--text-2); margin-bottom: 26px; }
+    .badge-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 0 3px rgba(249,115,22,.2); animation: dotPulse 2s ease-in-out infinite; }
+    @keyframes dotPulse { 0%,100%{opacity:1;} 50%{opacity:.4;} }
+    .hero h1 { font-size: clamp(36px, 4.6vw, 56px); font-weight: 800; line-height: 1.1; letter-spacing: -.025em; margin-bottom: 22px; }
+    .h1-grad { background: linear-gradient(135deg, #f97316 0%, #fb923c 50%, #4f46e5 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero-sub { font-size: 17px; color: var(--text-2); line-height: 1.75; max-width: 500px; margin-bottom: 36px; }
+    .hero-sub strong { color: var(--text); font-weight: 600; }
+    .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 32px; }
+    .hero-trust { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; font-size: 12.5px; color: var(--text-2); font-weight: 500; }
+    .trust-item { display: flex; align-items: center; gap: 6px; }
+    .trust-check { color: var(--green); }
 
-    .hero-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: .1em;
-      color: var(--orange);
-      background: rgba(249,115,22,.08);
-      border: 1px solid rgba(249,115,22,.2);
-      padding: 5px 12px;
-      border-radius: 999px;
-      margin-bottom: 28px;
-      opacity: 0;
-      animation: fadeUp .7s .1s ease forwards;
-    }
-
-    .hero h1 {
-      font-size: clamp(38px, 4.5vw, 64px);
-      font-weight: 800;
-      letter-spacing: -.04em;
-      line-height: 1.07;
-      color: var(--text);
-      margin-bottom: 24px;
-      opacity: 0;
-      animation: fadeUp .7s .25s ease forwards;
-    }
-    .hero h1 em {
-      font-style: normal;
-      color: var(--orange);
-    }
-
-    .hero-lead {
-      font-size: 17px;
-      color: var(--text-2);
-      line-height: 1.75;
-      max-width: 480px;
-      opacity: 0;
-      animation: fadeUp .7s .4s ease forwards;
-    }
-
-    /* Right side: decorative card stack */
-    .hero-visual {
-      opacity: 0;
-      animation: fadeUp .7s .55s ease forwards;
-      position: relative;
-    }
+    /* Hero right card */
     .hero-card {
-      background: var(--white);
-      border: 1.5px solid var(--border);
-      border-radius: 20px;
-      padding: 24px 28px;
-      box-shadow: 0 8px 40px rgba(15,23,42,.07);
-      position: relative;
-    }
-    .hero-card-back {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(249,115,22,.06), rgba(79,110,247,.04));
-      border: 1.5px solid rgba(249,115,22,.15);
-      border-radius: 20px;
-      transform: rotate(2.5deg) translateY(8px);
-      z-index: -1;
-    }
-    .hc-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--orange); margin-bottom: 14px; }
-    .hc-item { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--border); }
-    .hc-item:last-child { border: 0; }
-    .hc-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-    .hc-dot-green { background: #22c55e; }
-    .hc-dot-orange { background: var(--orange); }
-    .hc-dot-blue { background: var(--blue); }
-    .hc-text { font-size: 13px; font-weight: 600; color: var(--text); }
-    .hc-sub { font-size: 12px; color: var(--text-2); margin-left: auto; white-space: nowrap; }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ── MISSIE ───────────────────────────────────────── */
-    .mission {
-      background: var(--bg);
-      padding: 100px 0;
-      position: relative;
-    }
-    .mission::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--orange), #fb923c 40%, var(--blue) 100%);
-    }
-    .mission-inner {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 0 24px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: start;
-    }
-    .section-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; color: var(--orange); margin-bottom: 14px; }
-    .section-h2 { font-size: clamp(26px, 3vw, 40px); font-weight: 800; letter-spacing: -.04em; line-height: 1.1; color: var(--text); margin-bottom: 0; }
-    .section-h2-light { color: #fff; }
-    .mission-body p { font-size: 16px; color: var(--text-2); line-height: 1.8; margin-bottom: 20px; }
-    .mission-body p:last-child { margin: 0; }
-    .quote-block {
-      margin-top: 28px;
-      padding: 18px 22px;
-      border-left: 3px solid var(--orange);
-      background: rgba(249,115,22,.05);
-      border-radius: 0 12px 12px 0;
-    }
-    .quote-block p { font-size: 15px; color: var(--text); font-weight: 500; font-style: italic; line-height: 1.65; margin: 0; }
-
-    /* ── WAARDEN ──────────────────────────────────────── */
-    .values {
-      background: linear-gradient(160deg, #070f26 0%, #09122c 55%, #0c1735 100%);
-      padding: 100px 0;
-      position: relative;
+      background: var(--navy);
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: 0 40px 80px -20px rgba(15,23,42,.28), 0 12px 28px -8px rgba(15,23,42,.12);
       overflow: hidden;
+      animation: cardFloat 7s ease-in-out infinite;
     }
-    .values-glow {
-      position: absolute;
-      border-radius: 50%;
-      pointer-events: none;
+    @keyframes cardFloat { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-8px);} }
+    .hc-header {
+      padding: 16px 22px; border-bottom: 1px solid rgba(255,255,255,.07);
+      background: rgba(255,255,255,.03);
+      display: flex; align-items: center; justify-content: space-between;
     }
-    .values-glow-1 {
-      width: 700px; height: 700px;
-      background: radial-gradient(circle, rgba(249,115,22,.1) 0%, transparent 60%);
-      top: -200px; right: -150px;
-      animation: pulse 8s ease-in-out infinite alternate;
+    .hc-title { font-size: 11.5px; font-weight: 700; color: rgba(255,255,255,.45); letter-spacing: .06em; text-transform: uppercase; }
+    .hc-live { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; color: rgba(255,255,255,.35); font-weight: 600; }
+    .hc-live-dot { width: 6px; height: 6px; border-radius: 50%; background: #4ade80; box-shadow: 0 0 0 3px rgba(74,222,128,.2); animation: dotPulse 2s infinite; }
+    .hc-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 22px; border-bottom: 1px solid rgba(255,255,255,.04); gap: 12px; }
+    .hc-row:last-child { border-bottom: none; }
+    .hc-row-left { display: flex; align-items: center; gap: 12px; }
+    .hc-icon { width: 34px; height: 34px; border-radius: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .hci-orange { background: linear-gradient(135deg, rgba(249,115,22,.3), rgba(251,146,60,.15)); }
+    .hci-orange svg { color: #fb923c; }
+    .hci-blue { background: linear-gradient(135deg, rgba(79,70,229,.3), rgba(99,102,241,.15)); }
+    .hci-blue svg { color: #818cf8; }
+    .hci-green { background: rgba(34,197,94,.15); }
+    .hci-green svg { color: #4ade80; }
+    .hci-soft { background: rgba(255,255,255,.06); }
+    .hci-soft svg { color: rgba(255,255,255,.3); }
+    .hc-name { font-size: 13px; font-weight: 700; color: rgba(255,255,255,.85); }
+    .hc-sub { font-size: 11px; color: rgba(255,255,255,.3); margin-top: 2px; }
+    .hc-badge { padding: 4px 10px; border-radius: 5px; font-size: 10px; font-weight: 700; letter-spacing: .05em; }
+    .hcb-green  { background: rgba(74,222,128,.14); color: #4ade80; }
+    .hcb-orange { background: rgba(249,115,22,.18); color: #fb923c; }
+    .hcb-blue   { background: rgba(99,102,241,.18); color: #818cf8; }
+    .hc-footer {
+      padding: 16px 22px;
+      background: rgba(255,255,255,.03);
+      border-top: 1px solid rgba(255,255,255,.06);
+      font-size: 12.5px; color: rgba(255,255,255,.3); font-style: italic; line-height: 1.6;
     }
-    .values-glow-2 {
-      width: 500px; height: 500px;
-      background: radial-gradient(circle, rgba(79,110,247,.08) 0%, transparent 60%);
-      bottom: -150px; left: -100px;
-      animation: pulse 10s ease-in-out infinite alternate-reverse;
-    }
-    @keyframes pulse { from { opacity: .5; transform: scale(1); } to { opacity: 1; transform: scale(1.12); } }
+    .hc-footer strong { color: rgba(255,255,255,.6); font-style: normal; font-weight: 600; }
 
-    .values-inner { max-width: 1120px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
-    .values-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; color: var(--orange); margin-bottom: 14px; }
-    .values-h2 { font-size: clamp(26px, 3vw, 40px); font-weight: 800; letter-spacing: -.04em; line-height: 1.1; color: #fff; margin-bottom: 56px; }
-    .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-    .value-card {
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.07);
-      border-radius: 20px;
-      padding: 32px 26px;
-      transition: transform .25s ease, background .25s, border-color .25s;
-      position: relative;
-      overflow: hidden;
+    @media (max-width: 960px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+      .hero-card { max-width: 460px; margin: 0 auto; }
     }
-    .value-card::after {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--orange), transparent);
-      opacity: 0;
-      transition: opacity .25s;
-    }
-    .value-card:hover { transform: translateY(-5px); background: rgba(255,255,255,.06); border-color: rgba(249,115,22,.25); }
-    .value-card:hover::after { opacity: 1; }
-    .value-icon { width: 42px; height: 42px; border-radius: 11px; background: rgba(249,115,22,.12); border: 1px solid rgba(249,115,22,.2); display: flex; align-items: center; justify-content: center; margin-bottom: 18px; }
-    .value-icon svg { color: var(--orange); }
-    .value-title { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 10px; letter-spacing: -.01em; }
-    .value-body { font-size: 14px; color: rgba(255,255,255,.42); line-height: 1.75; }
 
-    /* ── VERHAAL / TIMELINE ───────────────────────────── */
-    .story { background: var(--white); padding: 100px 0; }
-    .story-inner { max-width: 1120px; margin: 0 auto; padding: 0 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
-    .story-left .section-label { margin-bottom: 14px; }
-    .story-h2 { font-size: clamp(26px, 3vw, 40px); font-weight: 800; letter-spacing: -.04em; line-height: 1.1; color: var(--text); margin-bottom: 0; }
-    .timeline { display: flex; flex-direction: column; gap: 32px; position: relative; }
-    .timeline::before { content: ''; position: absolute; left: 15px; top: 16px; bottom: 0; width: 1.5px; background: linear-gradient(to bottom, var(--orange), rgba(249,115,22,.0)); }
-    .tl-item { display: flex; gap: 22px; align-items: flex-start; }
-    .tl-dot { flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #f97316, #fb923c); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 5px rgba(249,115,22,.1); position: relative; z-index: 1; }
-    .tl-dot svg { color: #fff; }
-    .tl-content { padding-top: 4px; }
-    .tl-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
-    .tl-body { font-size: 14px; color: var(--text-2); line-height: 1.75; }
+    /* ── MISSION — dark ───────────────────────────────── */
+    .mission-bg {
+      background: linear-gradient(180deg, #08142f 0%, #050e25 100%);
+      position: relative; overflow: hidden;
+    }
+    .mission-bg::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,.08), transparent); pointer-events: none; }
+    .mission-bg::after  { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,.05), transparent); pointer-events: none; }
+    .m-orb-1 { position: absolute; width: 600px; height: 600px; border-radius: 50%; filter: blur(80px); background: rgba(249,115,22,.10); top: -200px; left: -100px; pointer-events: none; animation: orbDrift 12s ease-in-out infinite; }
+    .m-orb-2 { position: absolute; width: 500px; height: 500px; border-radius: 50%; filter: blur(80px); background: rgba(79,70,229,.12); bottom: -200px; right: -80px; pointer-events: none; animation: orbDrift 15s ease-in-out 4s infinite reverse; }
+    @keyframes orbDrift { 0%,100%{transform:translate(0,0);} 50%{transform:translate(30px,20px);} }
+    .mission-inner { position: relative; z-index: 1; max-width: 820px; }
+    .mission-inner h2 { color: #fff; font-size: clamp(30px, 4vw, 50px); line-height: 1.15; margin-bottom: 28px; }
+    .m-accent { color: var(--orange-light); }
+    .mission-quote {
+      border-left: 3px solid rgba(249,115,22,.5); padding-left: 24px;
+      margin-top: 32px;
+      font-size: 18px; color: rgba(255,255,255,.5); line-height: 1.8; font-style: italic;
+    }
+    .mission-quote strong { color: rgba(255,255,255,.82); font-weight: 600; font-style: normal; }
+
+    /* ── VALUES ───────────────────────────────────────── */
+    .values-bg { background: linear-gradient(180deg, #fbf5ec 0%, #fdfaf5 100%); }
+    .values-header { max-width: 540px; margin-bottom: 56px; }
+    .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .val-card {
+      background: var(--white); border: 1.5px solid var(--border); border-radius: 20px;
+      padding: 34px 30px; transition: border-color .2s, transform .25s, box-shadow .25s;
+      position: relative; overflow: hidden;
+    }
+    .val-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--grad-orange); border-radius: 20px 20px 0 0; opacity: 0; transition: opacity .25s; }
+    .val-card:hover { border-color: var(--orange-soft); transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+    .val-card:hover::before { opacity: 1; }
+    .val-icon { width: 48px; height: 48px; border-radius: 14px; background: var(--orange-bg); display: flex; align-items: center; justify-content: center; margin-bottom: 22px; }
+    .val-icon svg { color: var(--orange); }
+    .val-title { font-size: 19px; font-weight: 800; letter-spacing: -.015em; margin-bottom: 10px; }
+    .val-body { font-size: 14.5px; color: var(--text-2); line-height: 1.75; }
+    @media (max-width: 840px) { .values-grid { grid-template-columns: 1fr; } }
+
+    /* ── STORY ────────────────────────────────────────── */
+    .story-bg { background: var(--white); }
+    .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+    .story-tag { display: inline-flex; align-items: center; gap: 8px; background: var(--orange-bg); color: var(--orange-dark); border-radius: 8px; padding: 6px 14px; font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 28px; }
+    .story-text h2 { margin-bottom: 20px; }
+    .story-text .sub { margin-bottom: 16px; }
+
+    /* Timeline */
+    .timeline { display: flex; flex-direction: column; position: relative; }
+    .timeline::before { content: ''; position: absolute; left: 18px; top: 24px; bottom: 24px; width: 2px; background: linear-gradient(180deg, var(--orange) 0%, var(--blue-light) 100%); border-radius: 1px; }
+    .tl-item { display: flex; gap: 24px; padding-bottom: 36px; position: relative; }
+    .tl-item:last-child { padding-bottom: 0; }
+    .tl-dot { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; position: relative; z-index: 1; border: 3px solid var(--white); background: var(--white); }
+    .tl-dot-inner { width: 14px; height: 14px; border-radius: 50%; }
+    .tl-item:nth-child(1) .tl-dot { box-shadow: 0 0 0 2px var(--orange); }
+    .tl-item:nth-child(1) .tl-dot-inner { background: var(--orange); }
+    .tl-item:nth-child(2) .tl-dot { box-shadow: 0 0 0 2px var(--blue-light); }
+    .tl-item:nth-child(2) .tl-dot-inner { background: var(--blue-light); }
+    .tl-item:nth-child(3) .tl-dot { box-shadow: 0 0 0 2px var(--orange); }
+    .tl-item:nth-child(3) .tl-dot-inner { background: var(--orange); }
+    .tl-item:nth-child(4) .tl-dot { box-shadow: 0 0 0 2px var(--green); }
+    .tl-item:nth-child(4) .tl-dot-inner { background: var(--green); }
+    .tl-content { flex: 1; padding-top: 6px; }
+    .tl-year { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 4px; }
+    .tl-item:nth-child(1) .tl-year { color: var(--orange); }
+    .tl-item:nth-child(2) .tl-year { color: var(--blue); }
+    .tl-item:nth-child(3) .tl-year { color: var(--orange); }
+    .tl-item:nth-child(4) .tl-year { color: var(--green); }
+    .tl-title { font-size: 17px; font-weight: 800; letter-spacing: -.01em; color: var(--text); margin-bottom: 6px; }
+    .tl-body { font-size: 14px; color: var(--text-2); line-height: 1.7; }
+    @media (max-width: 840px) { .story-grid { grid-template-columns: 1fr; gap: 48px; } }
 
     /* ── STATS ────────────────────────────────────────── */
-    .stats {
-      background: linear-gradient(135deg, #070f26 0%, #09122c 100%);
-      padding: 80px 0;
+    .stats-bg {
+      background: linear-gradient(180deg, #0a1530 0%, var(--navy) 100%);
+      position: relative; overflow: hidden;
     }
-    .stats-inner {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 0 24px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2px;
-    }
+    .stats-bg::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at 15% 50%, rgba(249,115,22,.1) 0%, transparent 45%), radial-gradient(circle at 85% 50%, rgba(79,70,229,.1) 0%, transparent 45%); }
+    .stats-bg::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,.08), transparent); pointer-events: none; }
+    .stats-header { text-align: center; margin-bottom: 64px; }
+    .stats-header h2 { color: #fff; }
+    .stats-header .sub { color: rgba(255,255,255,.45); max-width: 460px; margin: 0 auto; }
+    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; position: relative; z-index: 1; }
     .stat-card {
-      padding: 56px 52px;
-      position: relative;
-      overflow: hidden;
-      transition: background .2s;
+      background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08);
+      border-radius: 20px; padding: 36px 28px; text-align: center;
+      transition: background .25s, border-color .25s;
     }
-    .stat-card:first-child { border-right: 1px solid rgba(255,255,255,.06); }
-    .stat-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--orange), transparent);
-      opacity: 0;
-      transition: opacity .25s;
-    }
-    .stat-card:hover::before { opacity: 1; }
-    .stat-num { font-size: 60px; font-weight: 800; letter-spacing: -.05em; color: #fff; line-height: 1; margin-bottom: 12px; }
-    .stat-num .accent { color: var(--orange); }
-    .stat-label { font-size: 15px; color: rgba(255,255,255,.38); line-height: 1.6; max-width: 280px; }
+    .stat-card:hover { background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.14); }
+    .stat-num { font-size: clamp(48px, 6vw, 72px); font-weight: 800; letter-spacing: -.04em; line-height: 1; margin-bottom: 10px; }
+    .sn-orange { color: var(--orange-light); }
+    .sn-blue   { color: #818cf8; }
+    .sn-green  { color: #4ade80; }
+    .stat-label { font-size: 14px; font-weight: 700; color: rgba(255,255,255,.7); margin-bottom: 8px; letter-spacing: -.01em; }
+    .stat-body { font-size: 13px; color: rgba(255,255,255,.32); line-height: 1.7; }
+    @media (max-width: 760px) { .stats-grid { grid-template-columns: 1fr; } }
 
-    /* ── PRODUCTEN ────────────────────────────────────── */
-    .products-section { background: var(--bg); padding: 100px 0; }
-    .products-inner { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
-    .products-top { margin-bottom: 48px; }
-    .products-h2 { font-size: clamp(26px, 3vw, 40px); font-weight: 800; letter-spacing: -.04em; line-height: 1.1; color: var(--text); margin-bottom: 10px; }
-    .products-sub { font-size: 16px; color: var(--text-2); }
-    .products-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    .product-card {
-      padding: 36px 32px;
-      border-radius: 22px;
-      text-decoration: none;
-      border: 1.5px solid var(--border);
-      background: var(--white);
-      transition: transform .25s, border-color .25s, box-shadow .25s;
-      display: block;
+    /* ── DIENSTEN ─────────────────────────────────────── */
+    .diensten-bg { background: linear-gradient(180deg, #fdfaf5 0%, #fbf5ec 100%); }
+    .diensten-header { text-align: center; margin-bottom: 48px; }
+    .diensten-header .sub { max-width: 520px; margin: 0 auto; }
+    .diensten-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .dc {
+      background: var(--white); border: 1.5px solid var(--border); border-radius: 22px;
+      overflow: hidden; box-shadow: var(--shadow);
+      transition: transform .25s, box-shadow .25s, border-color .25s;
     }
-    .product-card:hover { transform: translateY(-5px); box-shadow: 0 16px 48px rgba(15,23,42,.09); }
-    .product-card-orange:hover { border-color: rgba(249,115,22,.35); }
-    .product-card-blue:hover { border-color: rgba(79,110,247,.3); }
-    .pc-icon { width: 48px; height: 48px; border-radius: 13px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
-    .pc-icon-orange { background: rgba(249,115,22,.1); color: var(--orange); }
-    .pc-icon-blue { background: rgba(79,110,247,.1); color: var(--blue); }
-    .pc-title { font-size: 19px; font-weight: 800; letter-spacing: -.02em; color: var(--text); margin-bottom: 8px; }
-    .pc-desc { font-size: 14px; color: var(--text-2); line-height: 1.7; margin-bottom: 24px; }
-    .pc-link { font-size: 14px; font-weight: 700; }
-    .pc-link-orange { color: var(--orange); }
-    .pc-link-blue { color: var(--blue); }
+    .dc:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+    .dc-orange:hover { border-color: var(--orange); }
+    .dc-blue:hover   { border-color: var(--blue-light); }
+    .dc-head { padding: 32px 32px 24px; }
+    .dc-tag { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 6px 13px; border-radius: 8px; margin-bottom: 20px; }
+    .dct-orange { background: var(--orange-bg); color: var(--orange-dark); }
+    .dct-blue   { background: var(--blue-bg); color: var(--blue); }
+    .dc h3 { font-size: 26px; font-weight: 800; letter-spacing: -.02em; margin-bottom: 10px; }
+    .dc-desc { font-size: 15px; color: var(--text-2); line-height: 1.75; margin-bottom: 24px; }
+    .dc-price { display: flex; align-items: baseline; gap: 5px; }
+    .dc-num { font-size: 40px; font-weight: 800; letter-spacing: -.03em; line-height: 1; }
+    .dc-num-orange { color: var(--orange); }
+    .dc-num-blue   { color: var(--blue); }
+    .dc-price-sub  { font-size: 14px; color: var(--text-2); }
+    .dc-divider { height: 1px; background: var(--border); margin: 0 32px; }
+    .dc-body { padding: 24px 32px 32px; }
+    .dc-feats { list-style: none; display: grid; gap: 10px; margin-bottom: 28px; }
+    .dc-feats li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--text-2); line-height: 1.5; }
+    .dc-feats li svg { flex-shrink: 0; margin-top: 2px; }
+    .dcf-orange li svg { color: var(--orange); }
+    .dcf-blue   li svg { color: var(--blue-light); }
+    .dc-actions { display: flex; align-items: center; gap: 16px; }
+    .dc-link { font-size: 14px; font-weight: 600; color: var(--text-2); border-bottom: 1.5px solid var(--border); padding-bottom: 1px; transition: color .2s, border-color .2s; }
+    .dc-link:hover { color: var(--text); border-color: var(--text); }
+    @media (max-width: 760px) { .diensten-grid { grid-template-columns: 1fr; } }
+
+    /* ── CTA ──────────────────────────────────────────── */
+    .cta-bg { background: linear-gradient(180deg, #08142f 0%, #050e25 100%); position: relative; overflow: hidden; }
+    .cta-bg::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at 15% 50%, rgba(249,115,22,.13) 0%, transparent 40%), radial-gradient(circle at 85% 50%, rgba(79,70,229,.13) 0%, transparent 40%); }
+    .cta-bg::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,.08), transparent); pointer-events: none; }
+    .cta-inner { position: relative; z-index: 1; text-align: center; max-width: 600px; margin: 0 auto; }
+    .cta-inner h2 { color: #fff; }
+    .cta-inner .sub { color: rgba(255,255,255,.45); margin: 16px 0 40px; }
+    .cta-btns { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+    .cta-fine { margin-top: 18px; font-size: 12px; color: rgba(255,255,255,.22); display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
 
     /* ── FOOTER ───────────────────────────────────────── */
-    footer { background: var(--navy); color: rgba(255,255,255,.5); padding: 56px 0 32px; }
-    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 48px; }
-    .footer-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-    .footer-logo-text { font-size: 16px; font-weight: 800; letter-spacing: -.03em; color: #fff; }
-    .footer-logo-text .flow { color: var(--orange); }
-    .footer-desc { font-size: 13px; line-height: 1.7; max-width: 220px; }
-    .footer-col-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: rgba(255,255,255,.25); margin-bottom: 14px; }
+    footer { background: #050b18; padding: 56px 0 36px; }
+    .footer-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 36px; border-bottom: 1px solid rgba(255,255,255,.06); }
+    .footer-logo { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+    .footer-logo-text { font-size: 20px; font-weight: 800; letter-spacing: -.02em; color: rgba(255,255,255,.9); line-height: 1; }
+    .footer-logo-text .flow { color: var(--orange-light); }
+    .footer-desc { font-size: 13px; color: rgba(255,255,255,.28); line-height: 1.75; }
+    .footer-col-title { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.22); margin-bottom: 16px; font-weight: 600; }
     .footer-links { display: flex; flex-direction: column; gap: 10px; }
-    .footer-links a { font-size: 13px; color: rgba(255,255,255,.35); text-decoration: none; transition: color .2s; }
+    .footer-links a { font-size: 13px; color: rgba(255,255,255,.36); transition: color .2s; }
     .footer-links a:hover { color: rgba(255,255,255,.75); }
-    .footer-bottom { padding-top: 24px; border-top: 1px solid rgba(255,255,255,.06); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
-    .footer-copy { font-size: 12px; color: rgba(255,255,255,.16); }
+    .footer-bottom { padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-size: 12px; color: rgba(255,255,255,.18); }
+    @media (max-width: 960px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 560px) { .footer-grid { grid-template-columns: 1fr; } }
 
-    /* ── REVEAL ───────────────────────────────────────── */
+    /* ── ANIMATIONS ───────────────────────────────────── */
     .reveal { opacity: 0; transform: translateY(22px); transition: opacity .65s ease, transform .65s ease; }
     .reveal.in { opacity: 1; transform: translateY(0); }
-    .rd1 { transition-delay: .07s; } .rd2 { transition-delay: .16s; } .rd3 { transition-delay: .25s; }
+    .rd1 { transition-delay: .08s; } .rd2 { transition-delay: .17s; } .rd3 { transition-delay: .26s; }
 
-    /* ── RESPONSIVE ───────────────────────────────────── */
-    @media (max-width: 900px) {
-      .hero-inner, .mission-inner, .story-inner { grid-template-columns: 1fr; gap: 40px; }
-      .hero-visual { display: none; }
-      .values-grid { grid-template-columns: 1fr 1fr; }
-      .stats-inner, .products-grid { grid-template-columns: 1fr; }
-      .stat-card:first-child { border-right: 0; border-bottom: 1px solid rgba(255,255,255,.06); }
-      .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
-    }
-    @media (max-width: 600px) {
-      .nav-links { display: none; }
+    @media (max-width: 640px) {
+      section { padding: 72px 0; }
+      .hero { padding: 56px 0 72px; }
       .values-grid { grid-template-columns: 1fr; }
-      .footer-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
+<!-- ── NAV ──────────────────────────────────────────── -->
+<nav aria-label="Hoofdnavigatie">
   <div class="wrap nav-inner">
-    <a href="/index.html" class="logo-link" aria-label="OfficeFlow">
-      <svg viewBox="0 0 48 48" width="30" height="30" aria-hidden="true" style="flex-shrink:0;filter:drop-shadow(0 2px 6px rgba(249,115,22,.2))">
-        <defs><linearGradient id="ng" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F97316"/><stop offset="100%" stop-color="#FB923C"/></linearGradient></defs>
-        <rect width="48" height="48" rx="11" fill="url(#ng)"/>
+    <a href="/" class="logo-link" aria-label="OfficeFlow">
+      <svg class="logo-mark-svg" viewBox="0 0 48 48" width="32" height="32" aria-hidden="true">
+        <defs><linearGradient id="of-nav-mark" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F97316"/><stop offset="100%" stop-color="#FB923C"/></linearGradient></defs>
+        <rect width="48" height="48" rx="11" fill="url(#of-nav-mark)"/>
         <circle cx="24" cy="24" r="11" fill="none" stroke="#fff" stroke-width="3.2"/>
         <path d="M21.5 19.5 L28 24 L21.5 28.5" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
       <span class="logo-wordmark">Office<span class="flow">Flow</span></span>
     </a>
-    <div class="nav-links">
-      <a href="/mailbox.html">Mailbox Manager</a>
-      <a href="/facturen/">Facturen &amp; Offertes</a>
-      <a href="/#waarom">Waarom OfficeFlow</a>
-      <a href="/over-ons.html" class="active">Over ons</a>
-    </div>
-    <div>
-      <a href="/#producten" class="btn btn-orange">Bekijk producten →</a>
+    <div class="nav-right">
+      <a class="btn btn-ghost" href="/">← Terug</a>
+      <a class="btn btn-orange" href="/#producten">Bekijk producten →</a>
     </div>
   </div>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
+<main>
+
+<!-- ── HERO ──────────────────────────────────────────── -->
+<section class="hero" aria-labelledby="hero-heading">
+  <div class="hero-orbs" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
   <div class="hero-inner">
     <div>
-      <div class="hero-tag">
-        <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/></svg>
-        Sinds 2024 · Nederland
+      <div class="hero-badge">
+        <span class="badge-dot" aria-hidden="true"></span>
+        Ons verhaal · OfficeFlow
       </div>
-      <h1>Wij bouwen software voor mensen die <em>gewoon hun werk</em> willen doen.</h1>
-      <p class="hero-lead">OfficeFlow is een Nederlands softwarebedrijf. We maken tools die de administratieve rompslomp uit je werkdag halen — zonder gedoe, zonder overbodige complexiteit.</p>
+      <h1 id="hero-heading">
+        Software gebouwd voor mensen die
+        <span class="h1-grad">gewoon hun werk willen doen.</span>
+      </h1>
+      <p class="hero-sub">
+        OfficeFlow is een Nederlands softwarebedrijf. We maken tools die de administratieve rompslomp uit je werkdag halen — <strong>zonder gedoe, zonder overbodige complexiteit.</strong>
+      </p>
+      <div class="hero-cta">
+        <a class="btn btn-orange btn-lg" href="/#producten">Bekijk onze producten →</a>
+        <a class="btn btn-ghost" href="#missie">Onze missie</a>
+      </div>
+      <div class="hero-trust">
+        <span class="trust-item">
+          <svg class="trust-check" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          Opgericht in 2024
+        </span>
+        <span class="trust-item">
+          <svg class="trust-check" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          2 diensten, 1 bedrijf
+        </span>
+        <span class="trust-item">
+          <svg class="trust-check" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          100% gemaakt in Nederland
+        </span>
+      </div>
     </div>
-    <div class="hero-visual">
-      <div class="hero-card-back"></div>
-      <div class="hero-card">
-        <div class="hc-label">OfficeFlow · Live status</div>
-        <div class="hc-item">
-          <div class="hc-dot hc-dot-green"></div>
-          <div class="hc-text">Facturen &amp; Offertes</div>
-          <div class="hc-sub">Live ✓</div>
+
+    <div class="hero-card" role="img" aria-label="OfficeFlow diensten status">
+      <div class="hc-header">
+        <span class="hc-title">OfficeFlow · Live status</span>
+        <span class="hc-live"><span class="hc-live-dot" aria-hidden="true"></span>Actief</span>
+      </div>
+      <div>
+        <div class="hc-row">
+          <div class="hc-row-left">
+            <div class="hc-icon hci-orange">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+            </div>
+            <div>
+              <div class="hc-name">Facturen &amp; Offertes</div>
+              <div class="hc-sub">Facturatie platform · Vanaf €19/mnd</div>
+            </div>
+          </div>
+          <span class="hc-badge hcb-green">Live ✓</span>
         </div>
-        <div class="hc-item">
-          <div class="hc-dot hc-dot-green"></div>
-          <div class="hc-text">Moneybird-sync</div>
-          <div class="hc-sub">Actief</div>
+        <div class="hc-row">
+          <div class="hc-row-left">
+            <div class="hc-icon hci-blue">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>
+            </div>
+            <div>
+              <div class="hc-name">Moneybird sync</div>
+              <div class="hc-sub">Automatische synchronisatie</div>
+            </div>
+          </div>
+          <span class="hc-badge hcb-green">Actief ✓</span>
         </div>
-        <div class="hc-item">
-          <div class="hc-dot hc-dot-orange"></div>
-          <div class="hc-text">Mailbox Manager</div>
-          <div class="hc-sub">In verificatie</div>
+        <div class="hc-row">
+          <div class="hc-row-left">
+            <div class="hc-icon hci-soft">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 2H3v16h5l3 3 3-3h7V2z"/></svg>
+            </div>
+            <div>
+              <div class="hc-name">Mailbox Manager</div>
+              <div class="hc-sub">AI inbox automatisering</div>
+            </div>
+          </div>
+          <span class="hc-badge hcb-orange">In verificatie</span>
         </div>
-        <div class="hc-item">
-          <div class="hc-dot hc-dot-blue"></div>
-          <div class="hc-text">Automatisering</div>
-          <div class="hc-sub">Klaar</div>
+        <div class="hc-row">
+          <div class="hc-row-left">
+            <div class="hc-icon hci-green">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div>
+              <div class="hc-name">Automatisering</div>
+              <div class="hc-sub">Herinneringen &amp; opvolging</div>
+            </div>
+          </div>
+          <span class="hc-badge" style="background:rgba(99,102,241,.18);color:#818cf8;">Klaar</span>
         </div>
+      </div>
+      <div class="hc-footer">
+        <strong>"Automatisch waar het slim is. Controle waar het telt."</strong>
       </div>
     </div>
   </div>
 </section>
 
-<!-- MISSIE -->
-<section class="mission">
-  <div class="mission-inner">
-    <div>
-      <div class="section-label reveal">Onze missie</div>
-      <h2 class="section-h2 reveal">Minder administratie.<br>Meer ruimte voor<br>je echte werk.</h2>
-    </div>
-    <div class="mission-body reveal">
-      <p>Te veel ondernemers besteden uren per week aan taken die eigenlijk vanzelf zouden moeten gaan. Facturen opstellen, e-mails beantwoorden, opvolgen, controleren — het zijn noodzakelijke onderdelen van je bedrijf, maar ze zijn niet de reden waarom je voor jezelf begon.</p>
-      <p>Wij geloven dat software je daarin volledig kan ondersteunen, zonder dat je er iets voor hoeft op te geven. Geen controle inleveren, geen geblinddoekte automatisering. Gewoon slimme hulp op het moment dat het telt.</p>
-      <div class="quote-block">
-        <p>"Automatisch waar het slim is. Controle waar het telt."</p>
+<!-- ── MISSIE — dark ──────────────────────────────────── -->
+<section class="mission-bg" id="missie" aria-labelledby="missie-heading">
+  <div class="m-orb-1" aria-hidden="true"></div>
+  <div class="m-orb-2" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="mission-inner">
+      <div class="eyebrow ey-light reveal">Onze missie</div>
+      <h2 id="missie-heading" class="reveal">
+        Te veel ondernemers besteden uren per week aan taken die eigenlijk
+        <span class="m-accent">vanzelf zouden moeten gaan.</span>
+      </h2>
+      <p class="sub reveal" style="color:rgba(255,255,255,.45);max-width:640px;">
+        Facturen opstellen, e-mails beantwoorden, opvolgen, controleren — het zijn noodzakelijke onderdelen van je bedrijf, maar ze zijn niet de reden waarom je voor jezelf begon. Wij geloven dat software je daarin volledig kan ondersteunen, <strong style="color:rgba(255,255,255,.75);">zonder dat je er iets voor hoeft op te geven.</strong>
+      </p>
+      <div class="mission-quote reveal">
+        Geen controle inleveren, geen geblinddoekte automatisering. Gewoon <strong>slimme hulp op het moment dat het telt.</strong>
       </div>
     </div>
   </div>
 </section>
 
-<!-- WAARDEN -->
-<section class="values">
-  <div class="values-glow values-glow-1"></div>
-  <div class="values-glow values-glow-2"></div>
-  <div class="values-inner">
-    <div class="values-label reveal">Hoe wij werken</div>
-    <h2 class="values-h2 reveal">Drie dingen die nooit<br>onderhandeld worden.</h2>
+<!-- ── VALUES ─────────────────────────────────────────── -->
+<section class="values-bg" aria-labelledby="values-heading">
+  <div class="wrap">
+    <div class="values-header">
+      <div class="eyebrow ey-orange reveal">Hoe we werken</div>
+      <h2 id="values-heading" class="reveal">Drie principes.<br>Elke beslissing.</h2>
+    </div>
     <div class="values-grid">
-      <div class="value-card reveal rd1">
-        <div class="value-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <div class="val-card reveal rd1">
+        <div class="val-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         </div>
-        <div class="value-title">Jij blijft aan de knoppen</div>
-        <div class="value-body">Jij bepaalt wat automatisch gaat en wat niet. Software ondersteunt — mensen beslissen. Die keuze is altijd aan jou.</div>
+        <div class="val-title">Controle is niet onderhandelbaar</div>
+        <p class="val-body">Jij bepaalt wat er automatisch gebeurt. Niets gaat vanzelf zonder jouw keuze. Elke automatisering is opt-in en naar jouw voorkeur instelbaar.</p>
       </div>
-      <div class="value-card reveal rd2">
-        <div class="value-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <div class="val-card reveal rd2">
+        <div class="val-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
         </div>
-        <div class="value-title">Simpel waar het kan</div>
-        <div class="value-body">We bouwen voor gewone ondernemers, niet voor power users. Als iets uitleg nodig heeft, is het nog niet goed genoeg.</div>
+        <div class="val-title">Eerlijk over wat het kan</div>
+        <p class="val-body">We beloven niet meer dan we waarmaken. Geen marketingpraat, geen onduidelijke limieten verstopt in de kleine lettertjes. Gewoon wat werkt, duidelijk beschreven.</p>
       </div>
-      <div class="value-card reveal rd3">
-        <div class="value-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      <div class="val-card reveal rd3">
+        <div class="val-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
         </div>
-        <div class="value-title">Bouwen vanuit de praktijk</div>
-        <div class="value-body">Onze producten worden gebouwd door mensen die zelf ondernemen. Dat merk je aan hoe de software aanvoelt.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- VERHAAL -->
-<section class="story">
-  <div class="story-inner">
-    <div class="story-left">
-      <div class="section-label reveal">Hoe het begon</div>
-      <h2 class="story-h2 reveal">Begonnen als<br>frustratie. Geworden<br>tot product.</h2>
-    </div>
-    <div class="timeline">
-      <div class="tl-item reveal rd1">
-        <div class="tl-dot">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-        </div>
-        <div class="tl-content">
-          <div class="tl-title">De aanleiding</div>
-          <div class="tl-body">OfficeFlow is ontstaan omdat de bestaande tools te ingewikkeld, te duur of te generiek waren. De combinatie van een slimme inbox-assistent én een compleet facturatieplatform bestond simpelweg niet in één samenhangend pakket.</div>
-        </div>
-      </div>
-      <div class="tl-item reveal rd2">
-        <div class="tl-dot">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
-        </div>
-        <div class="tl-content">
-          <div class="tl-title">Klein beginnen, goed luisteren</div>
-          <div class="tl-body">We zijn klein begonnen, dicht bij de gebruiker gebleven en bouwen sindsdien gestaag door. Niet om de grootste te worden, maar om de beste keuze te zijn voor Nederlandse ondernemers.</div>
-        </div>
-      </div>
-      <div class="tl-item reveal rd3">
-        <div class="tl-dot">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-        </div>
-        <div class="tl-content">
-          <div class="tl-title">Vandaag en verder</div>
-          <div class="tl-body">Twee diensten live, een groeiende gebruikersbasis en een duidelijke koers. We blijven bouwen aan features die écht verschil maken.</div>
-        </div>
+        <div class="val-title">Eenvoud als ontwerpdoel</div>
+        <p class="val-body">Als een feature moeilijk uit te leggen is, is hij waarschijnlijk te complex. We bouwen voor de ondernemer die gewoon z'n werk wil doen.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- STATS -->
-<section class="stats">
-  <div class="stats-inner">
-    <div class="stat-card reveal rd1">
-      <div class="stat-num"><span class="accent" data-count="2">0</span> diensten</div>
-      <div class="stat-label">Mailbox Manager &amp; Facturen en Offertes — beide volledig live</div>
-    </div>
-    <div class="stat-card reveal rd2">
-      <div class="stat-num"><span class="accent" data-count="100">0</span>%</div>
-      <div class="stat-label">Jij bepaalt wat automatisch gaat — aan of uit, jouw keuze</div>
+<!-- ── STORY ──────────────────────────────────────────── -->
+<section class="story-bg" aria-labelledby="story-heading">
+  <div class="wrap">
+    <div class="story-grid">
+      <div class="story-text reveal">
+        <div class="story-tag">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          Opgericht 2024
+        </div>
+        <h2 id="story-heading">Zo is OfficeFlow ontstaan.</h2>
+        <p class="sub">OfficeFlow is geen venture-backed startup met een team van 50. Het is een eerlijk product, gebouwd door twee mensen die zelf zagen hoe administratie tijd vreet die je liever ergens anders aan besteedt.</p>
+        <p class="sub" style="margin-top:16px;">Twee diensten, twee specialisaties — maar één bedrijf, met één missie: software bouwen die ondernemers écht verder helpt.</p>
+      </div>
+      <div class="timeline reveal rd1" aria-label="Tijdlijn OfficeFlow">
+        <div class="tl-item">
+          <div class="tl-dot" aria-hidden="true"><div class="tl-dot-inner"></div></div>
+          <div class="tl-content">
+            <div class="tl-year">2024 — Start</div>
+            <div class="tl-title">Het idee</div>
+            <p class="tl-body">OfficeFlow begint als idee: software bouwen die ondernemers écht ontlast. Geen generieke tools, maar gerichte oplossingen voor dagelijkse werkprocessen.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot" aria-hidden="true"><div class="tl-dot-inner"></div></div>
+          <div class="tl-content">
+            <div class="tl-year">2024 — Eerste dienst</div>
+            <div class="tl-title">Mailbox Manager live</div>
+            <p class="tl-body">De eerste dienst gaat live: Mailbox Manager helpt ondernemers hun Gmail-inbox onder controle te houden met AI-classificatie en concept-antwoorden.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot" aria-hidden="true"><div class="tl-dot-inner"></div></div>
+          <div class="tl-content">
+            <div class="tl-year">2025 — Tweede dienst</div>
+            <div class="tl-title">Facturen &amp; Offertes live</div>
+            <p class="tl-body">Facturen &amp; Offertes is klaar: een volledig facturatie- en offerteplatform met Moneybird-sync, klantportaal, abonnementen en slimme automatisering.</p>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot" aria-hidden="true"><div class="tl-dot-inner"></div></div>
+          <div class="tl-content">
+            <div class="tl-year">Nu</div>
+            <div class="tl-title">Doorontwikkeling</div>
+            <p class="tl-body">Beide diensten groeien op basis van feedback van echte gebruikers. Geen roadmap voor de bühne — gewoon bouwen wat echt helpt.</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- PRODUCTEN -->
-<section class="products-section">
-  <div class="products-inner">
-    <div class="products-top">
-      <div class="section-label reveal">Onze diensten</div>
-      <h2 class="products-h2 reveal">Twee diensten, één bedrijf.</h2>
-      <p class="products-sub reveal">Elk zelfstandig te gebruiken. Start met wat nu het meeste oplevert.</p>
+<!-- ── STATS ──────────────────────────────────────────── -->
+<section class="stats-bg" aria-labelledby="stats-heading">
+  <div class="wrap">
+    <div class="stats-header reveal">
+      <div class="eyebrow ey-light" style="justify-content:center;">OfficeFlow in cijfers</div>
+      <h2 id="stats-heading">Klein team.<br><span style="color:rgba(255,255,255,.35);">Serieuze software.</span></h2>
+      <p class="sub">Gebouwd met focus, niet met budget.</p>
     </div>
-    <div class="products-grid">
-      <a href="/mailbox.html" class="product-card product-card-orange reveal rd1">
-        <div class="pc-icon pc-icon-orange">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 2H3v16h5l3 3 3-3h7V2z"/></svg>
-        </div>
-        <div class="pc-title">Mailbox Manager</div>
-        <div class="pc-desc">AI-assistent voor je Gmail-inbox. Concepten, labels en opvolging — altijd jij die beslist. Nooit auto-send.</div>
-        <div class="pc-link pc-link-orange">Meer over Mailbox Manager →</div>
-      </a>
-      <a href="/facturen/" class="product-card product-card-blue reveal rd2">
-        <div class="pc-icon pc-icon-blue">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-        </div>
-        <div class="pc-title">Facturen &amp; Offertes</div>
-        <div class="pc-desc">Van offerte tot betaalde factuur. Inclusief Moneybird-sync, herinneringen, klantportaal en betalingsopvolging.</div>
-        <div class="pc-link pc-link-blue">Meer over Facturen &amp; Offertes →</div>
-      </a>
+    <div class="stats-grid">
+      <div class="stat-card reveal rd1">
+        <div class="stat-num sn-orange" data-count="2">0</div>
+        <div class="stat-label">Diensten</div>
+        <p class="stat-body">Mailbox Manager en Facturen &amp; Offertes — elk zelfstandig bruikbaar, samen één bedrijf.</p>
+      </div>
+      <div class="stat-card reveal rd2">
+        <div class="stat-num sn-blue" data-count="100" data-suffix="%">0%</div>
+        <div class="stat-label">Jij bepaalt de automatisering</div>
+        <p class="stat-body">Aan of uit, per onderdeel instelbaar. Nooit een verrassing, altijd controle over wat er automatisch gebeurt.</p>
+      </div>
+      <div class="stat-card reveal rd3">
+        <div class="stat-num sn-green" data-prefix="€" data-count="19">€0</div>
+        <div class="stat-label">Vanaf per maand</div>
+        <p class="stat-body">Maandelijks opzegbaar, geen verplichte contracten, geen verborgen kosten.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
+<!-- ── DIENSTEN ───────────────────────────────────────── -->
+<section class="diensten-bg" aria-labelledby="diensten-heading">
+  <div class="wrap">
+    <div class="diensten-header reveal">
+      <div class="eyebrow ey-orange" style="justify-content:center;">Onze diensten</div>
+      <h2 id="diensten-heading">Twee specialisaties.<br>Eén bedrijf.</h2>
+      <p class="sub">Elk product is zelfstandig bruikbaar. Geen verplichte koppeling, geen gedeelde login.</p>
+    </div>
+    <div class="diensten-grid">
+
+      <div class="dc dc-orange reveal rd1">
+        <div class="dc-head">
+          <div class="dc-tag dct-orange">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+            Facturen &amp; Offertes
+          </div>
+          <h3>Facturatie &amp; offertebeheer</h3>
+          <p class="dc-desc">Van klantafspraak naar betaling in één systeem. Met Moneybird-sync, klantportaal, abonnementen en slimme automatisering.</p>
+          <div class="dc-price">
+            <span class="dc-num dc-num-orange">€19</span>
+            <span class="dc-price-sub">per maand excl. btw</span>
+          </div>
+        </div>
+        <div class="dc-divider"></div>
+        <div class="dc-body">
+          <ul class="dc-feats dcf-orange">
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Offertes &amp; facturen aanmaken en versturen</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Automatische Moneybird-sync</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Klantportaal per document</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Abonnementen &amp; werkregistratie</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Slimme herinneringen &amp; opvolging</li>
+          </ul>
+          <div class="dc-actions">
+            <a class="btn btn-orange" href="/facturen/">Meer over dit product</a>
+            <a class="dc-link" href="/facturen/signup">Gratis starten</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="dc dc-blue reveal rd2">
+        <div class="dc-head">
+          <div class="dc-tag dct-blue">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M21 2H3v16h5l3 3 3-3h7V2z"/></svg>
+            Mailbox Manager
+          </div>
+          <h3>AI inbox automatisering</h3>
+          <p class="dc-desc">Classificeert je Gmail-inbox en bereidt concept-antwoorden voor op basis van eerder verzonden e-mails. Jij stuurt altijd zelf.</p>
+          <div class="dc-price">
+            <span class="dc-num dc-num-blue">€24</span>
+            <span class="dc-price-sub">per maand excl. btw</span>
+          </div>
+        </div>
+        <div class="dc-divider"></div>
+        <div class="dc-body">
+          <ul class="dc-feats dcf-blue">
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>AI-classificatie van e-mails</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Concept-antwoorden op maat</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Gmail-integratie (geen aparte app)</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Nooit auto-send — jij verstuurt altijd</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>Dagelijkse briefing met prioriteiten</li>
+          </ul>
+          <div class="dc-actions">
+            <a class="btn btn-blue" href="/mailbox.html">Meer over dit product</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ────────────────────────────────────────────── -->
+<section class="cta-bg" aria-labelledby="cta-heading">
+  <div class="wrap">
+    <div class="cta-inner">
+      <div class="eyebrow ey-light" style="justify-content:center;">Start vandaag</div>
+      <h2 id="cta-heading">Welke dienst past<br>bij jouw bedrijf?</h2>
+      <p class="sub">Twee losse diensten. Geen verplichte koppeling. Start met wat nu het meeste oplevert.</p>
+      <div class="cta-btns">
+        <a class="btn btn-orange btn-lg" href="/facturen/">Facturen &amp; Offertes</a>
+        <a class="btn btn-blue btn-lg" href="/mailbox.html">Mailbox Manager</a>
+      </div>
+      <div class="cta-fine">
+        <span>Maandelijks opzegbaar</span>
+        <span>·</span>
+        <span>Geen verplichte koppeling</span>
+        <span>·</span>
+        <span>Gemaakt in Nederland</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ── FOOTER ─────────────────────────────────────────── -->
 <footer>
   <div class="wrap">
     <div class="footer-grid">
       <div>
         <div class="footer-logo">
           <svg viewBox="0 0 48 48" width="26" height="26" aria-hidden="true">
-            <defs><linearGradient id="fg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F97316"/><stop offset="100%" stop-color="#FB923C"/></linearGradient></defs>
-            <rect width="48" height="48" rx="11" fill="url(#fg)"/>
+            <defs><linearGradient id="of-footer-mark" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F97316"/><stop offset="100%" stop-color="#FB923C"/></linearGradient></defs>
+            <rect width="48" height="48" rx="11" fill="url(#of-footer-mark)"/>
             <circle cx="24" cy="24" r="11" fill="none" stroke="#fff" stroke-width="3.2"/>
             <path d="M21.5 19.5 L28 24 L21.5 28.5" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
@@ -583,6 +693,7 @@
         <div class="footer-links">
           <a href="/mailbox.html">Mailbox Manager</a>
           <a href="/facturen/">Facturen &amp; Offertes</a>
+          <a href="/over-ons.html">Over ons</a>
           <a href="mailto:mail@officeflowcompany.com">Contact</a>
         </div>
       </div>
@@ -609,25 +720,37 @@
 </footer>
 
 <script>
+  // Reveal on scroll
   const obs = new IntersectionObserver(
     es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } }),
     { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
   );
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-  // Count-up
-  function countUp(el, target, duration) {
-    const start = performance.now();
-    (function step(now) {
-      const p = Math.min((now - start) / duration, 1);
-      el.textContent = Math.round((1 - Math.pow(1 - p, 3)) * target);
-      if (p < 1) requestAnimationFrame(step);
-    })(start);
+  // Count-up animation
+  function countUp(el) {
+    const target = parseInt(el.dataset.count, 10);
+    const suffix = el.dataset.suffix || '';
+    const prefix = el.dataset.prefix || '';
+    const duration = 1400;
+    const steps = Math.ceil(duration / 16);
+    let current = 0;
+    const increment = target / steps;
+    const timer = setInterval(() => {
+      current = Math.min(current + increment, target);
+      el.textContent = prefix + Math.round(current) + suffix;
+      if (Math.round(current) >= target) clearInterval(timer);
+    }, 16);
   }
-  const cObs = new IntersectionObserver(es => {
-    es.forEach(e => { if (e.isIntersecting) { countUp(e.target, +e.target.dataset.count, 1000); cObs.unobserve(e.target); } });
-  }, { threshold: 0.5 });
-  document.querySelectorAll('[data-count]').forEach(el => cObs.observe(el));
+
+  const countObs = new IntersectionObserver(
+    es => es.forEach(e => {
+      if (e.isIntersecting) { countUp(e.target); countObs.unobserve(e.target); }
+    }),
+    { threshold: 0.5 }
+  );
+  document.querySelectorAll('[data-count]').forEach(el => countObs.observe(el));
 </script>
+
 </body>
 </html>
