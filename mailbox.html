@@ -501,9 +501,27 @@
 
     /* PRIJS */
     .price-grid{
-      display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:900px;margin:0 auto;
+      display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:1140px;margin:0 auto;
       align-items:stretch
     }
+    @media (max-width:1000px){ .price-grid{grid-template-columns:1fr 1fr;max-width:720px} }
+    @media (max-width:600px){ .price-grid{grid-template-columns:1fr;max-width:440px} }
+
+    /* Period toggle boven pricing-tabel (maandelijks / jaarlijks) */
+    .price-period-toggle{
+      display:inline-flex;background:#f1f5f9;border:1px solid var(--border);
+      border-radius:999px;padding:4px;gap:2px;margin:0 auto 28px;
+    }
+    .price-period-btn{
+      appearance:none;background:transparent;border:0;cursor:pointer;
+      padding:9px 20px;font-size:13.5px;font-weight:600;color:var(--text-soft);
+      border-radius:999px;font-family:inherit;display:inline-flex;align-items:center;gap:8px;
+      transition:background .18s,color .18s,box-shadow .18s
+    }
+    .price-period-btn:hover{color:var(--text)}
+    .price-period-btn.is-active{background:#fff;color:var(--text);box-shadow:0 1px 3px rgba(15,23,42,.08)}
+    .price-period-save{font-size:10.5px;font-weight:700;letter-spacing:.03em;color:var(--orange);background:#fff7ed;padding:2px 7px;border-radius:999px}
+    .price-period-wrap{text-align:center;margin-bottom:0}
     .price-card{
       background:#fff;border:1px solid var(--border);border-radius:24px;padding:34px 30px;
       box-shadow:var(--shadow-strong);text-align:left;position:relative;display:flex;flex-direction:column
@@ -1757,45 +1775,98 @@
     <div class="section-head">
       <div class="section-eyebrow">Prijs</div>
       <h2 class="section-title">Kies wat bij je past.</h2>
-      <p class="section-sub">Zelfde product, zelfde functies — kies maandelijks of jaarlijks met 2 maanden gratis.</p>
+      <p class="section-sub">Van solo tot team van 25 — alle tiers delen dezelfde AI en features. Schakel tussen maandelijks en jaarlijks.</p>
+    </div>
+
+    <!-- Maandelijks / Jaarlijks toggle -->
+    <div class="price-period-wrap reveal">
+      <div class="price-period-toggle" role="tablist" aria-label="Kies periode" data-mb-toggle>
+        <button type="button" class="price-period-btn is-active" data-mb-period="monthly" role="tab" aria-selected="true">Maandelijks</button>
+        <button type="button" class="price-period-btn" data-mb-period="yearly" role="tab" aria-selected="false">Jaarlijks <span class="price-period-save">2 mnd gratis</span></button>
+      </div>
     </div>
 
     <div class="price-grid">
+
+      <!-- SOLO -->
       <div class="price-card reveal">
-        <div class="price-card-eyebrow">Maandelijks</div>
+        <div class="price-card-eyebrow">Solo</div>
         <div class="price-card-title">Mailbox Manager</div>
-        <div class="price-card-sub">Maandelijks opzegbaar</div>
-        <div class="price-tag">€24<span class="price-tag-unit">/mnd</span></div>
-        <div class="price-per">Excl. btw · maandelijks opzegbaar</div>
-        <div class="price-note">Start wanneer je wilt. Stop wanneer je wilt.</div>
+        <div class="price-card-sub">1 mailbox · 1 gebruiker</div>
+        <div class="price-tag" data-mb-price="solo" data-period="monthly">€24<span class="price-tag-unit">/mnd</span></div>
+        <div class="price-tag" data-mb-price="solo" data-period="yearly" hidden>€240<span class="price-tag-unit">/jr</span></div>
+        <div class="price-per" data-mb-per="solo" data-period="monthly">Excl. btw · maandelijks opzegbaar</div>
+        <div class="price-per" data-mb-per="solo" data-period="yearly" hidden>= €20/mnd · excl. btw · bespaar €48/jr</div>
         <ul class="price-feats">
           <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>10 automatische labels in Gmail</li>
           <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Concept-antwoorden in jouw stijl</li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Thread-bewust — drafts verstoren geen status</li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Follow-Up Radar — opvolg-concepten voor beloftes &amp; stille threads</li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Nooit auto-send, nooit auto-archive</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Follow-Up Radar + Auto-archive</li>
           <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Dashboard met weekoverzicht</li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Support via mail, antwoord binnen 1 werkdag</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Support &lt; 1 werkdag</li>
         </ul>
-        <a class="btn btn-primary btn-lg" href="/onboarding.html?plan=monthly" style="width:100%">Start maandelijks →</a>
+        <a class="btn btn-primary btn-lg" href="/onboarding.html?plan=monthly" style="width:100%" data-mb-cta="solo">Start Solo →</a>
       </div>
 
-      <div class="price-card price-card--featured reveal">
-        <div class="price-card-badge">Beste deal</div>
-        <div class="price-card-eyebrow">Jaarlijks</div>
-        <div class="price-card-title">Mailbox Manager</div>
-        <div class="price-card-sub">Eén keer per jaar — 2 maanden gratis</div>
-        <div class="price-tag">€240<span class="price-tag-unit">/jr</span></div>
-        <div class="price-per">= €20/mnd · excl. btw</div>
-        <div class="price-save">Bespaar €48 per jaar</div>
+      <!-- TEAM STARTER -->
+      <div class="price-card reveal">
+        <div class="price-card-eyebrow">Team Starter</div>
+        <div class="price-card-title">Voor kleine teams</div>
+        <div class="price-card-sub">3 mailboxen · tot 5 leden</div>
+        <div class="price-tag" data-mb-price="team_s" data-period="monthly">€59<span class="price-tag-unit">/mnd</span></div>
+        <div class="price-tag" data-mb-price="team_s" data-period="yearly" hidden>€590<span class="price-tag-unit">/jr</span></div>
+        <div class="price-per" data-mb-per="team_s" data-period="monthly">€19,67 per mailbox · excl. btw</div>
+        <div class="price-per" data-mb-per="team_s" data-period="yearly" hidden>= €49,17/mnd · excl. btw · bespaar €118/jr</div>
         <ul class="price-feats">
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><strong>Alles</strong> van het maandabonnement</li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>2 maanden gratis — effectief €20/mnd</li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Eén factuur per jaar — minder administratie</li>
-          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Prioriteit bij nieuwe features &amp; support</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><strong>Alles van Solo</strong>, per lid</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Gedeeld team-dashboard</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Tot 5 team-leden uitnodigen</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Elk lid eigen stijlprofiel</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Eén factuur via Stripe</li>
         </ul>
-        <a class="btn btn-primary btn-lg" href="/onboarding.html?plan=yearly" style="width:100%">Start jaarlijks →</a>
+        <a class="btn btn-primary btn-lg" style="width:100%" data-mb-cta="team_s" href="https://api.officeflowcompany.com/billing/start-team-checkout?tier=team_s&amp;billing_period=monthly">Start Team Starter →</a>
       </div>
+
+      <!-- TEAM PRO (featured) -->
+      <div class="price-card price-card--featured reveal">
+        <div class="price-card-badge">Populair</div>
+        <div class="price-card-eyebrow">Team Pro</div>
+        <div class="price-card-title">Voor groeiende teams</div>
+        <div class="price-card-sub">10 mailboxen · tot 20 leden</div>
+        <div class="price-tag" data-mb-price="team_pro" data-period="monthly">€149<span class="price-tag-unit">/mnd</span></div>
+        <div class="price-tag" data-mb-price="team_pro" data-period="yearly" hidden>€1.490<span class="price-tag-unit">/jr</span></div>
+        <div class="price-per" data-mb-per="team_pro" data-period="monthly">€14,90 per mailbox · excl. btw</div>
+        <div class="price-per" data-mb-per="team_pro" data-period="yearly" hidden>= €124,17/mnd · excl. btw · bespaar €298/jr</div>
+        <div class="price-save">-38% vs solo per mailbox</div>
+        <ul class="price-feats">
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><strong>Alles van Team Starter</strong></li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Geavanceerde analytics per mailbox</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Priority support (&lt; 4u response)</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Gedeelde inboxen (info@, verkoop@)</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Tot 20 team-leden</li>
+        </ul>
+        <a class="btn btn-primary btn-lg" style="width:100%" data-mb-cta="team_pro" href="https://api.officeflowcompany.com/billing/start-team-checkout?tier=team_pro&amp;billing_period=monthly">Start Team Pro →</a>
+      </div>
+
+      <!-- BUSINESS -->
+      <div class="price-card reveal">
+        <div class="price-card-eyebrow">Business</div>
+        <div class="price-card-title">Voor grote teams</div>
+        <div class="price-card-sub">25 mailboxen · onbeperkt leden</div>
+        <div class="price-tag" data-mb-price="business" data-period="monthly">€299<span class="price-tag-unit">/mnd</span></div>
+        <div class="price-tag" data-mb-price="business" data-period="yearly" hidden>€2.990<span class="price-tag-unit">/jr</span></div>
+        <div class="price-per" data-mb-per="business" data-period="monthly">€11,96 per mailbox · excl. btw</div>
+        <div class="price-per" data-mb-per="business" data-period="yearly" hidden>= €249,17/mnd · excl. btw · bespaar €598/jr</div>
+        <div class="price-save">-50% vs solo per mailbox</div>
+        <ul class="price-feats">
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><strong>Alles van Team Pro</strong></li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>API-toegang voor integraties</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Dedicated success manager</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>SLA 99,9% uptime</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Onbeperkt team-leden</li>
+        </ul>
+        <a class="btn btn-primary btn-lg" style="width:100%" data-mb-cta="business" href="https://api.officeflowcompany.com/billing/start-team-checkout?tier=business&amp;billing_period=monthly">Start Business →</a>
+      </div>
+
     </div>
 
     <div class="risk-row">
@@ -2229,6 +2300,56 @@
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll);
     onScroll();
+  })();
+
+  // Pricing period toggle (maandelijks / jaarlijks) — schakelt 4 tiers tegelijk
+  (function(){
+    const toggle = document.querySelector('[data-mb-toggle]');
+    if (!toggle) return;
+    const buttons = toggle.querySelectorAll('[data-mb-period]');
+    const priceEls = document.querySelectorAll('[data-mb-price]');
+    const perEls = document.querySelectorAll('[data-mb-per]');
+    const ctas = document.querySelectorAll('[data-mb-cta]');
+
+    // Solo CTA gaat naar onboarding, team CTAs naar Stripe team-checkout
+    const SOLO_URL = (period) => `/onboarding.html?plan=${period}`;
+    const TEAM_URL = (tier, period) => `https://api.officeflowcompany.com/billing/start-team-checkout?tier=${tier}&billing_period=${period}`;
+    const CTA_LABELS = {
+      solo:     { monthly: 'Start Solo maandelijks →', yearly: 'Start Solo jaarlijks →' },
+      team_s:   { monthly: 'Start Team Starter →',     yearly: 'Start Team Starter →' },
+      team_pro: { monthly: 'Start Team Pro →',         yearly: 'Start Team Pro →' },
+      business: { monthly: 'Start Business →',         yearly: 'Start Business →' },
+    };
+
+    function setPeriod(period) {
+      buttons.forEach(btn => {
+        const active = btn.getAttribute('data-mb-period') === period;
+        btn.classList.toggle('is-active', active);
+        btn.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+      priceEls.forEach(el => {
+        el.hidden = el.getAttribute('data-period') !== period;
+      });
+      perEls.forEach(el => {
+        el.hidden = el.getAttribute('data-period') !== period;
+      });
+      ctas.forEach(cta => {
+        const tier = cta.getAttribute('data-mb-cta');
+        if (tier === 'solo') {
+          cta.href = SOLO_URL(period);
+        } else {
+          cta.href = TEAM_URL(tier, period);
+        }
+        if (CTA_LABELS[tier]) {
+          cta.textContent = CTA_LABELS[tier][period];
+        }
+      });
+    }
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => setPeriod(btn.getAttribute('data-mb-period')));
+    });
+    setPeriod('monthly');
   })();
 </script>
 

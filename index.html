@@ -237,7 +237,8 @@
       font-size: 13px; font-weight: 600; color: var(--text-2);
     }
     .standalone-notice svg { color: var(--text-2); flex-shrink: 0; }
-    .products-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .products-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+    @media (max-width: 1100px) { .products-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; } }
     .pcard { background: var(--white); border-radius: 20px; border: 1.5px solid var(--border); overflow: hidden; box-shadow: var(--shadow); transition: transform .25s, box-shadow .25s, border-color .25s; }
     .pcard:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
     .pcard-orange:hover { border-color: var(--orange); }
@@ -883,7 +884,6 @@
     <div class="nav-links">
       <a href="/mailbox.html">Mailbox Manager</a>
       <a href="/facturen/">Facturen &amp; Offertes</a>
-      <a href="#teams">Teams</a>
       <a href="#waarom">Waarom OfficeFlow</a>
       <a href="/over-ons.html">Over ons</a>
     </div>
@@ -1410,6 +1410,52 @@
           </div>
         </div>
       </div>
+
+      <!-- Teams card -->
+      <div class="pcard pcard-orange reveal rd3" id="teams-card">
+        <div class="pcard-header">
+          <div class="ptag ptag-orange"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Voor teams</div>
+          <h3>Teams</h3>
+          <p class="pcard-desc">Mailbox Manager voor bedrijven met meerdere inboxen. Gedeeld dashboard, één factuur, per lid eigen stijlprofiel.</p>
+
+          <!-- Tier toggle -->
+          <div class="pcard-toggle" role="tablist" aria-label="Kies team-tier" data-tm-toggle>
+            <button type="button" class="pcard-toggle-btn is-active" data-tm-tier="team_s" role="tab" aria-selected="true">Starter</button>
+            <button type="button" class="pcard-toggle-btn" data-tm-tier="team_pro" role="tab" aria-selected="false">Pro</button>
+            <button type="button" class="pcard-toggle-btn" data-tm-tier="business" role="tab" aria-selected="false">Business</button>
+          </div>
+
+          <div class="pcard-price" data-tm-price="team_s">
+            <span class="price-num price-orange">€59</span>
+            <span class="price-sub">per maand<br>3 inboxen · excl. btw</span>
+          </div>
+          <div class="pcard-price" data-tm-price="team_pro" hidden>
+            <span class="price-num price-orange">€149</span>
+            <span class="price-sub">per maand<br>10 inboxen · excl. btw</span>
+          </div>
+          <div class="pcard-price" data-tm-price="business" hidden>
+            <span class="price-num price-orange">€299</span>
+            <span class="price-sub">per maand<br>25 inboxen · excl. btw</span>
+          </div>
+        </div>
+        <div class="pcard-divider"></div>
+        <div class="pcard-body">
+          <ul class="feat-list fl-orange">
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Alle features van Mailbox Manager</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Gedeeld team-dashboard met aggregated stats</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Elk lid eigen stijlprofiel en concepten</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Gedeelde inboxen (info@, verkoop@)</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Één factuur, centraal beheerd door admin</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg><strong data-tm-feat="team_s">Tot 5 team-leden</strong><strong data-tm-feat="team_pro" hidden>Priority support + tot 20 leden</strong><strong data-tm-feat="business" hidden>API + dedicated manager + SLA</strong></li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>Maandelijks opzegbaar, BTW automatisch berekend</li>
+          </ul>
+          <div class="pcard-actions">
+            <a class="btn btn-orange" href="https://api.officeflowcompany.com/billing/start-team-checkout?tier=team_s&amp;billing_period=monthly" data-tm-cta>Start Team Starter →</a>
+            <a class="card-link" href="#teams">Bekijk tiers</a>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -2247,6 +2293,45 @@
       btn.addEventListener('click', () => setPlan(btn.getAttribute('data-fo-plan')));
     });
     setPlan('monthly');
+  })();
+
+  // Teams tier toggle (team_s / team_pro / business)
+  (function(){
+    const toggle = document.querySelector('[data-tm-toggle]');
+    if (!toggle) return;
+    const buttons = toggle.querySelectorAll('[data-tm-tier]');
+    const prices = document.querySelectorAll('[data-tm-price]');
+    const feats = document.querySelectorAll('[data-tm-feat]');
+    const cta = document.querySelector('[data-tm-cta]');
+
+    const TIER_META = {
+      team_s:   { name: 'Team Starter', label: 'Start Team Starter →' },
+      team_pro: { name: 'Team Pro',     label: 'Start Team Pro →' },
+      business: { name: 'Business',     label: 'Start Business →' },
+    };
+
+    function setTier(tier) {
+      buttons.forEach(btn => {
+        const active = btn.getAttribute('data-tm-tier') === tier;
+        btn.classList.toggle('is-active', active);
+        btn.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+      prices.forEach(el => {
+        el.hidden = el.getAttribute('data-tm-price') !== tier;
+      });
+      feats.forEach(el => {
+        el.hidden = el.getAttribute('data-tm-feat') !== tier;
+      });
+      if (cta) {
+        cta.href = `https://api.officeflowcompany.com/billing/start-team-checkout?tier=${tier}&billing_period=monthly`;
+        cta.textContent = TIER_META[tier].label;
+      }
+    }
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => setTier(btn.getAttribute('data-tm-tier')));
+    });
+    setTier('team_s');
   })();
 </script>
 </body>
