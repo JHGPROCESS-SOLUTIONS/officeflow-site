@@ -84,11 +84,33 @@
     .form-msg.err{display:block;background:#fee2e2;color:#991b1b}
 
     /* Welcome banner (post-checkout) */
-    .welcome-banner{background:linear-gradient(135deg,#fff7ed 0%,#ffedd5 100%);border:1px solid #fed7aa;border-radius:14px;padding:20px 24px;margin-bottom:22px;display:flex;align-items:center;gap:16px}
+    .welcome-banner{background:linear-gradient(135deg,#fff7ed 0%,#ffedd5 100%);border:1px solid #fed7aa;border-radius:14px;padding:20px 24px;margin-bottom:22px;display:flex;align-items:flex-start;gap:16px}
     .welcome-banner.hidden{display:none}
     .welcome-icon{width:44px;height:44px;background:var(--orange);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:22px}
-    .welcome-body h3{margin:0 0 4px;font-size:16px;font-weight:700;color:#7c2d12}
-    .welcome-body p{margin:0;font-size:13.5px;color:#9a3412;line-height:1.5}
+    .welcome-body h3{margin:0 0 6px;font-size:16px;font-weight:700;color:#7c2d12}
+    .welcome-body p{margin:0 0 10px;font-size:13.5px;color:#9a3412;line-height:1.5}
+    .wizard-steps{display:flex;gap:14px;margin-top:10px;flex-wrap:wrap}
+    .wizard-step{display:flex;align-items:center;gap:8px;font-size:12.5px;color:#7c2d12;background:#ffffff80;padding:7px 12px;border-radius:999px;border:1px solid #fdba74}
+    .wizard-step.done{background:#d1fae5;color:#065f46;border-color:#86efac}
+    .wizard-step-num{width:20px;height:20px;border-radius:50%;background:var(--orange);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+    .wizard-step.done .wizard-step-num{background:var(--green)}
+
+    /* Error banner */
+    .error-banner{background:#fee2e2;border:1px solid #fca5a5;border-radius:12px;padding:14px 18px;margin-bottom:18px;display:flex;align-items:center;gap:12px;color:#991b1b;font-size:13.5px}
+    .error-banner.hidden{display:none}
+
+    /* Action buttons small */
+    .btn-xs{padding:5px 10px;font-size:11.5px;font-weight:600;background:transparent;border:1px solid var(--border);border-radius:7px;color:var(--text-2);cursor:pointer;font-family:inherit;transition:background .15s}
+    .btn-xs:hover{background:var(--bg)}
+    .btn-xs.btn-danger{color:var(--red);border-color:#fca5a5}
+    .btn-xs.btn-danger:hover{background:#fee2e2}
+
+    /* Stats tiles */
+    .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px}
+    .stat-tile{background:var(--bg);border-radius:10px;padding:14px;text-align:center}
+    .stat-num{font-size:24px;font-weight:800;color:var(--text);letter-spacing:-.02em;line-height:1}
+    .stat-label{font-size:11px;font-weight:700;letter-spacing:.06em;color:var(--text-mute);text-transform:uppercase;margin-top:6px}
+    @media(max-width:520px){.stats-row{grid-template-columns:1fr 1fr}}
 
     /* Responsive */
     @media (max-width:720px){
@@ -119,10 +141,21 @@
   <!-- Welcome banner — shown only when ?welcome=1 URL param -->
   <div class="welcome-banner hidden" id="welcomeBanner">
     <div class="welcome-icon">🎉</div>
-    <div class="welcome-body">
+    <div class="welcome-body" id="welcomeBody">
       <h3>Welkom bij OfficeFlow Teams</h3>
-      <p>Je team is aangemaakt. Koppel nu je eerste Gmail en nodig je collega's uit — ze krijgen een e-mail om hun eigen account aan te maken.</p>
+      <p>Je team is aangemaakt. Doorloop de 3 stappen om je team live te krijgen:</p>
+      <div class="wizard-steps" id="wizardSteps">
+        <div class="wizard-step" id="step-gmail"><span class="wizard-step-num">1</span>Koppel je eigen Gmail</div>
+        <div class="wizard-step" id="step-invite"><span class="wizard-step-num">2</span>Nodig team-leden uit</div>
+        <div class="wizard-step" id="step-done"><span class="wizard-step-num">3</span>Leden koppelen hun Gmail</div>
+      </div>
     </div>
+  </div>
+
+  <!-- Error banner (bv. seat-limit bereikt) -->
+  <div class="error-banner hidden" id="errorBanner">
+    <strong>⚠</strong>
+    <span id="errorBannerText"></span>
   </div>
 
   <h1>Team</h1>
@@ -176,10 +209,11 @@
     return await res.json();
   }
 
-  function renderTeam(teamData, currentUserEmail) {
+  function renderTeam(teamData, currentUserId, currentUserEmail) {
     const t = teamData.team;
     const role = teamData.role;
     const isAdmin = role === 'admin';
+    const ownerId = t.owner_user_id;
     const tierLabel = TIER_LABELS[t.tier] || t.tier;
     const seatsPct = Math.min(100, Math.round((teamData.seats_used / Math.max(1, teamData.seats_total)) * 100));
     const statusChip = t.access_allowed
@@ -197,11 +231,29 @@
             <span class="chip chip-grey">${escapeHtml(t.billing_period === 'yearly' ? 'Jaarlijks' : 'Maandelijks')}</span>
             <span class="chip chip-grey">Rol: ${escapeHtml(role)}</span>
           </div>
+          ${isAdmin ? `<button class="btn btn-ghost" style="margin-top:10px" data-billing-portal="${escapeHtml(t.id)}">💳 Billing beheren</button>` : ''}
         </div>
         <div class="seats-box">
           <div class="seats-num">${teamData.seats_used}<span class="total"> / ${teamData.seats_total}</span></div>
           <div class="seats-label">mailboxen gebruikt</div>
           <div class="seats-bar"><div class="seats-bar-fill" style="width:${seatsPct}%"></div></div>
+        </div>
+      </div>
+    `;
+
+    // Stats placeholder (laden asynchroon)
+    html += `
+      <div class="card" id="stats-card-${escapeHtml(t.id)}">
+        <div class="card-head">
+          <div>
+            <div class="card-title">Activiteit laatste 7 dagen</div>
+            <div class="card-sub">Aggregated over alle gekoppelde team-mailboxen.</div>
+          </div>
+        </div>
+        <div class="stats-row" id="stats-row-${escapeHtml(t.id)}">
+          <div class="stat-tile"><div class="stat-num">—</div><div class="stat-label">Mails verwerkt</div></div>
+          <div class="stat-tile"><div class="stat-num">—</div><div class="stat-label">Concepten klaar</div></div>
+          <div class="stat-tile"><div class="stat-num">—</div><div class="stat-label">Mailboxen actief</div></div>
         </div>
       </div>
     `;
@@ -216,17 +268,32 @@
           </div>
         </div>
         <div class="members">
-          ${teamData.members.map(m => `
-            <div class="member">
-              <div class="avatar">${escapeHtml(initials(m.email))}</div>
-              <div>
-                <div class="member-name">${escapeHtml(m.email || 'onbekend')}${m.email === currentUserEmail ? ' <span style="color:var(--text-mute);font-weight:400">(jij)</span>' : ''}</div>
-                <div class="member-sub">${m.joined_at ? 'Lid sinds ' + new Date(m.joined_at).toLocaleDateString('nl-NL') : 'Uitgenodigd ' + new Date(m.invited_at).toLocaleDateString('nl-NL')}</div>
+          ${teamData.members.map(m => {
+            const isOwner = m.user_id === ownerId;
+            const isSelf = m.user_id === currentUserId;
+            const canManage = isAdmin && !isOwner && !isSelf;
+            const actionBtns = canManage ? `
+              <div style="display:flex;gap:6px;align-items:center">
+                <button class="btn-xs" data-action="role-toggle" data-team="${escapeHtml(t.id)}" data-user="${escapeHtml(m.user_id)}" data-current="${escapeHtml(m.role)}">
+                  ${m.role === 'admin' ? '→ Member' : '→ Admin'}
+                </button>
+                <button class="btn-xs btn-danger" data-action="remove-member" data-team="${escapeHtml(t.id)}" data-user="${escapeHtml(m.user_id)}" data-email="${escapeHtml(m.email || '')}">
+                  Verwijder
+                </button>
               </div>
-              <span class="chip ${m.role === 'admin' ? 'chip-orange' : 'chip-grey'}">${escapeHtml(m.role)}</span>
-              <span></span>
-            </div>
-          `).join('')}
+            ` : '<span></span>';
+            return `
+              <div class="member">
+                <div class="avatar">${escapeHtml(initials(m.email))}</div>
+                <div>
+                  <div class="member-name">${escapeHtml(m.email || 'onbekend')}${isSelf ? ' <span style="color:var(--text-mute);font-weight:400">(jij)</span>' : ''}${isOwner ? ' <span style="color:var(--text-mute);font-weight:400">(owner)</span>' : ''}</div>
+                  <div class="member-sub">${m.joined_at ? 'Lid sinds ' + new Date(m.joined_at).toLocaleDateString('nl-NL') : (m.invited_at ? 'Uitgenodigd ' + new Date(m.invited_at).toLocaleDateString('nl-NL') : 'Pending')}</div>
+                </div>
+                <span class="chip ${m.role === 'admin' ? 'chip-orange' : 'chip-grey'}">${escapeHtml(m.role)}</span>
+                ${actionBtns}
+              </div>
+            `;
+          }).join('')}
         </div>
       </div>
     `;
@@ -322,10 +389,106 @@
     });
   }
 
+  async function handleRemoveMember(teamId, userId, email) {
+    if (!confirm(`Verwijder ${email || 'dit lid'} uit het team? Ze verliezen teamtoegang maar hun Gmail-koppeling blijft bestaan.`)) return;
+    const { data: { session } } = await sb.auth.getSession();
+    if (!session) return;
+    try {
+      const res = await fetch(`${API_BASE}/api/teams/${encodeURIComponent(teamId)}/members/${encodeURIComponent(userId)}`, {
+        method: 'DELETE',
+        headers: { 'Authorization': 'Bearer ' + session.access_token }
+      });
+      const data = await res.json();
+      if (!res.ok) { alert('Fout: ' + (data.detail || res.status)); return; }
+      location.reload();
+    } catch (err) {
+      alert('Fout: ' + err.message);
+    }
+  }
+
+  async function handleRoleToggle(teamId, userId, currentRole) {
+    const newRole = currentRole === 'admin' ? 'member' : 'admin';
+    if (!confirm(`Rol wijzigen naar ${newRole}?`)) return;
+    const { data: { session } } = await sb.auth.getSession();
+    if (!session) return;
+    try {
+      const res = await fetch(`${API_BASE}/api/teams/${encodeURIComponent(teamId)}/members/${encodeURIComponent(userId)}/role`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + session.access_token },
+        body: JSON.stringify({ role: newRole })
+      });
+      const data = await res.json();
+      if (!res.ok) { alert('Fout: ' + (data.detail || res.status)); return; }
+      location.reload();
+    } catch (err) {
+      alert('Fout: ' + err.message);
+    }
+  }
+
+  async function handleBillingPortal(teamId) {
+    const { data: { session } } = await sb.auth.getSession();
+    if (!session) return;
+    try {
+      const res = await fetch(`${API_BASE}/api/teams/${encodeURIComponent(teamId)}/billing-portal`, {
+        method: 'POST',
+        headers: { 'Authorization': 'Bearer ' + session.access_token }
+      });
+      const data = await res.json();
+      if (!res.ok) { alert('Fout: ' + (data.detail || res.status)); return; }
+      if (data.url) window.location.href = data.url;
+    } catch (err) {
+      alert('Fout: ' + err.message);
+    }
+  }
+
+  async function loadTeamStats(teamId) {
+    const { data: { session } } = await sb.auth.getSession();
+    if (!session) return;
+    try {
+      const res = await fetch(`${API_BASE}/api/teams/${encodeURIComponent(teamId)}/stats`, {
+        headers: { 'Authorization': 'Bearer ' + session.access_token }
+      });
+      if (!res.ok) return;
+      const s = await res.json();
+      const row = document.getElementById(`stats-row-${teamId}`);
+      if (row) {
+        row.innerHTML = `
+          <div class="stat-tile"><div class="stat-num">${s.total_mails}</div><div class="stat-label">Mails verwerkt</div></div>
+          <div class="stat-tile"><div class="stat-num">${s.total_drafts}</div><div class="stat-label">Concepten klaar</div></div>
+          <div class="stat-tile"><div class="stat-num">${s.mailbox_count}</div><div class="stat-label">Mailboxen actief</div></div>
+        `;
+      }
+    } catch (err) { /* stil falen — stats zijn optioneel */ }
+  }
+
+  function updateWizardSteps(teamData) {
+    const stepGmail = document.getElementById('step-gmail');
+    const stepInvite = document.getElementById('step-invite');
+    const stepDone = document.getElementById('step-done');
+    if (!stepGmail) return;
+
+    // Step 1: minstens 1 mailbox gekoppeld
+    if (teamData.seats_used >= 1) stepGmail.classList.add('done');
+    // Step 2: meer dan 1 member (owner + minstens 1 uitgenodigd)
+    if (teamData.members.length > 1) stepInvite.classList.add('done');
+    // Step 3: alle seats gebruikt OF team is ≥ 7 dagen oud (dan is setup klaar)
+    if (teamData.seats_used >= teamData.seats_total) stepDone.classList.add('done');
+  }
+
   (async () => {
+    const params = new URLSearchParams(location.search);
+
     // Welcome banner als ?welcome=1
-    if (new URLSearchParams(location.search).get('welcome') === '1') {
+    if (params.get('welcome') === '1') {
       document.getElementById('welcomeBanner').classList.remove('hidden');
+    }
+
+    // Error banner (bv. seat-limit bereikt bij OAuth)
+    if (params.get('error') === 'seat_limit') {
+      const eb = document.getElementById('errorBanner');
+      const et = document.getElementById('errorBannerText');
+      et.textContent = 'Seat-limit bereikt — je team heeft alle beschikbare mailbox-slots gebruikt. Upgrade je abonnement om er meer te koppelen.';
+      eb.classList.remove('hidden');
     }
 
     try {
@@ -334,6 +497,7 @@
         window.location.href = '/login.html?next=/team.html';
         return;
       }
+      const currentUserId = session.user?.id;
       const currentEmail = session.user?.email;
 
       const result = await fetchTeams();
@@ -344,15 +508,50 @@
 
       if (teams.length === 0) {
         document.getElementById('noTeamState').style.display = 'block';
+        // Hide welcome banner als user geen team heeft
+        document.getElementById('welcomeBanner').classList.add('hidden');
         return;
       }
 
       const content = document.getElementById('teamContent');
       content.style.display = 'block';
-      content.innerHTML = teams.map(td => renderTeam(td, currentEmail)).join('');
+      content.innerHTML = teams.map(td => renderTeam(td, currentUserId, currentEmail)).join('');
 
-      // Wire invite-forms (kan meerdere teams zijn)
-      teams.forEach(td => wireInviteForm(td.team.id));
+      // Wire alles per team
+      teams.forEach(td => {
+        wireInviteForm(td.team.id);
+        loadTeamStats(td.team.id);
+        if (params.get('welcome') === '1') updateWizardSteps(td);
+      });
+
+      // Global event delegation voor buttons
+      document.addEventListener('click', async (e) => {
+        const target = e.target.closest('[data-action], [data-billing-portal]');
+        if (!target) return;
+
+        if (target.hasAttribute('data-billing-portal')) {
+          e.preventDefault();
+          await handleBillingPortal(target.getAttribute('data-billing-portal'));
+          return;
+        }
+
+        const action = target.getAttribute('data-action');
+        if (action === 'remove-member') {
+          e.preventDefault();
+          await handleRemoveMember(
+            target.getAttribute('data-team'),
+            target.getAttribute('data-user'),
+            target.getAttribute('data-email'),
+          );
+        } else if (action === 'role-toggle') {
+          e.preventDefault();
+          await handleRoleToggle(
+            target.getAttribute('data-team'),
+            target.getAttribute('data-user'),
+            target.getAttribute('data-current'),
+          );
+        }
+      });
 
     } catch (err) {
       document.getElementById('loadingState').innerHTML = '<p style="color:var(--red)">Fout bij laden: ' + escapeHtml(err.message) + '</p>';
