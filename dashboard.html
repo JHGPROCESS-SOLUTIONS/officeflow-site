@@ -797,12 +797,12 @@
         </a></li>
       </ul>
 
-      <div class="sb-section-label">Deze maand</div>
+      <div class="sb-section-label">Vandaag</div>
       <div class="sb-quick">
-        <div class="sb-quick-title">Tijd bespaard</div>
-        <div><span class="sb-quick-big" id="sb-time">—</span><span class="sb-quick-unit" id="sb-time-unit"></span></div>
-        <div class="sb-quick-sub" id="sb-time-sub">Gebaseerd op concepten + spamfilter.</div>
-        <span class="sb-quick-delta" id="sb-delta" hidden>↑ <span id="sb-delta-val"></span>% vs vorige maand</span>
+        <div class="sb-quick-title">Concepten klaar</div>
+        <div><span class="sb-quick-big" id="sb-today-drafts">0</span></div>
+        <div class="sb-quick-sub">Wachtend in je Gmail-threads.</div>
+        <a href="https://mail.google.com" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:8px 12px;background:#F97316;color:#fff;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;">Open Gmail →</a>
       </div>
     </aside>
 
@@ -821,7 +821,7 @@
 
       <!-- ============ HERO STATS ============ -->
       <section id="statistieken">
-        <div class="section-title">Jouw impact</div>
+        <div class="section-title">Jouw impact <span style="font-size:13px;color:var(--text-2);font-weight:500;margin-left:8px;">· deze maand</span></div>
         <div class="stats-grid">
 
           <div class="stat-card">
@@ -880,7 +880,8 @@
         </div>
 
         <!-- Secondary stats row -->
-        <div class="stats-grid" style="margin-top: 14px;">
+        <div class="section-title" style="margin-top:28px;">Workflow nu <span style="font-size:13px;color:var(--text-2);font-weight:500;margin-left:8px;">· wat staat er open</span></div>
+        <div class="stats-grid">
           <div class="stat-card">
             <div class="stat-icon ic-green">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 12l-4-4v3H9v2h9v3z"/><path d="M12 20H4V4h8"/></svg>
@@ -916,6 +917,34 @@
         </div>
       </section>
 
+      <!-- ============ LAATSTE CONCEPTEN (verplaatst naar boven — dit is de actie-content) ============ -->
+      <section id="recent-drafts">
+        <div class="section-title">Concepten klaar voor jou</div>
+        <div class="card">
+          <div class="rd-header">
+            <div>
+              <div class="card-label">Zeker­heid per concept</div>
+              <div class="card-meta" style="margin-top:4px;">
+                Groen = AI is zeker, geel = quick check, rood = even goed lezen. Klik een rij om de Gmail-thread te openen.
+              </div>
+            </div>
+            <div class="rd-summary" id="rd-summary" aria-live="polite">
+              <span class="rd-sum-item"><span class="rd-dot high"></span><span id="rd-count-high">0</span></span>
+              <span class="rd-sum-item"><span class="rd-dot medium"></span><span id="rd-count-medium">0</span></span>
+              <span class="rd-sum-item"><span class="rd-dot low"></span><span id="rd-count-low">0</span></span>
+            </div>
+          </div>
+          <div id="rd-body">
+            <div class="rd-empty">Concepten laden…</div>
+          </div>
+          <div class="rd-legend" aria-hidden="true">
+            <span class="rd-sum-item"><span class="rd-dot high"></span>High — meestal direct te verzenden</span>
+            <span class="rd-sum-item"><span class="rd-dot medium"></span>Medium — quick review</span>
+            <span class="rd-sum-item"><span class="rd-dot low"></span>Low — lees goed voor je stuurt</span>
+          </div>
+        </div>
+      </section>
+
       <!-- ============ FOLLOW-UP RADAR ============ -->
       <section id="radar">
         <div class="section-title">Follow-Up Radar</div>
@@ -931,7 +960,7 @@
                 Follow-Up Radar
               </h3>
               <div class="sub">
-                OfficeFlow scant je inbox elke ochtend op <strong>open beloftes</strong> en <strong>stille threads</strong>. Als iets blijft liggen, verschijnt er een opvolg-concept in de bestaande Gmail-thread. Jij blijft de knop die verzendt.
+                Bewaakt open beloftes en stille threads. Maakt een opvolg-concept als iets blijft liggen — jij verzendt.
               </div>
             </div>
             <span class="radar-live" id="radar-live-badge">
@@ -1129,34 +1158,6 @@
         </div>
       </section>
 
-      <!-- ============ LAATSTE CONCEPTEN ============ -->
-      <section id="recent-drafts">
-        <div class="section-title">Laatste concepten</div>
-        <div class="card">
-          <div class="rd-header">
-            <div>
-              <div class="card-label">Zeker­heid per concept</div>
-              <div class="card-meta" style="margin-top:4px;">
-                Groen = AI is zeker, geel = quick check, rood = even goed lezen. Klik een rij om de Gmail-thread te openen.
-              </div>
-            </div>
-            <div class="rd-summary" id="rd-summary" aria-live="polite">
-              <span class="rd-sum-item"><span class="rd-dot high"></span><span id="rd-count-high">0</span></span>
-              <span class="rd-sum-item"><span class="rd-dot medium"></span><span id="rd-count-medium">0</span></span>
-              <span class="rd-sum-item"><span class="rd-dot low"></span><span id="rd-count-low">0</span></span>
-            </div>
-          </div>
-          <div id="rd-body">
-            <div class="rd-empty">Concepten laden…</div>
-          </div>
-          <div class="rd-legend" aria-hidden="true">
-            <span class="rd-sum-item"><span class="rd-dot high"></span>High — meestal direct te verzenden</span>
-            <span class="rd-sum-item"><span class="rd-dot medium"></span>Medium — quick review</span>
-            <span class="rd-sum-item"><span class="rd-dot low"></span>Low — lees goed voor je stuurt</span>
-          </div>
-        </div>
-      </section>
-
       <!-- ============ ABONNEMENT ============ -->
       <section id="abonnement">
         <div class="section-title">Abonnement</div>
@@ -1340,32 +1341,39 @@
     }
 
     function renderStats(s) {
-      // Sidebar time saved
+      // Helper: only set if the element exists (defensive after sidebar redesign)
+      const setText = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = val;
+      };
+
+      // Hero "Tijd bespaard" card
       const t = formatTimeSaved(s.time_saved_minutes);
-      document.getElementById('sb-time').textContent = t.big;
-      document.getElementById('sb-time-unit').textContent = t.unit;
-      document.getElementById('stat-time').textContent = t.big;
-      document.getElementById('stat-time-unit').textContent = t.unit;
+      setText('stat-time', t.big);
+      setText('stat-time-unit', t.unit);
 
       if (s.time_saved_delta_pct && s.time_saved_delta_pct > 0) {
-        const deltaEl = document.getElementById('sb-delta');
-        deltaEl.hidden = false;
-        document.getElementById('sb-delta-val').textContent = s.time_saved_delta_pct;
         const d2 = document.getElementById('stat-time-delta');
-        d2.hidden = false;
-        d2.querySelector('span').textContent = s.time_saved_delta_pct;
+        if (d2) {
+          d2.hidden = false;
+          d2.querySelector('span').textContent = s.time_saved_delta_pct;
+        }
       }
 
       const hasData = !s._fallback && (s.emails_classified ?? 0) > 0;
       const dash = '—';
+      const draftsReady = s.drafts_ready ?? 0;
 
-      document.getElementById('stat-drafts').textContent = s.drafts_ready ?? 0;
-      document.getElementById('stat-classified').textContent = (s.emails_classified ?? 0).toLocaleString('nl-NL');
-      document.getElementById('stat-priority').textContent = hasData && s.priority_caught_pct != null ? s.priority_caught_pct : dash;
-      document.getElementById('stat-fast').textContent = hasData && s.fast_reply_pct != null ? s.fast_reply_pct : dash;
-      document.getElementById('stat-spam').textContent = (s.spam_filtered ?? 0).toLocaleString('nl-NL');
-      document.getElementById('stat-followup').textContent = s.followup_active ?? 0;
-      document.getElementById('stat-waiting').textContent = s.waiting_reply ?? 0;
+      // Sidebar "Vandaag" widget
+      setText('sb-today-drafts', draftsReady);
+
+      setText('stat-drafts', draftsReady);
+      setText('stat-classified', (s.emails_classified ?? 0).toLocaleString('nl-NL'));
+      setText('stat-priority', hasData && s.priority_caught_pct != null ? s.priority_caught_pct : dash);
+      setText('stat-fast', hasData && s.fast_reply_pct != null ? s.fast_reply_pct : dash);
+      setText('stat-spam', (s.spam_filtered ?? 0).toLocaleString('nl-NL'));
+      setText('stat-followup', s.followup_active ?? 0);
+      setText('stat-waiting', s.waiting_reply ?? 0);
 
       // Hide "%" unit als we "—" tonen
       if (!hasData) {
@@ -1375,16 +1383,10 @@
       const weekly = Array.isArray(s.weekly_activity) && s.weekly_activity.length === 7
         ? s.weekly_activity : [0,0,0,0,0,0,0];
       const weekTotal = weekly.reduce((a, b) => a + b, 0);
-      document.getElementById('week-total').textContent = weekTotal.toLocaleString('nl-NL');
+      setText('week-total', weekTotal.toLocaleString('nl-NL'));
       renderChart(weekly);
 
-      document.getElementById('chart-note').textContent = s._fallback
-        ? 'Statistieken worden verzameld…'
-        : 'Bijgewerkt zojuist';
-
-      if (s._fallback) {
-        document.getElementById('sb-time-sub').textContent = 'Statistieken worden verzameld zodra er mails verwerkt zijn.';
-      }
+      setText('chart-note', s._fallback ? 'Statistieken worden verzameld…' : 'Bijgewerkt zojuist');
     }
 
     // ============ RADAR LOADER ============
