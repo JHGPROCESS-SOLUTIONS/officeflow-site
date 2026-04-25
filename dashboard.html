@@ -734,6 +734,185 @@
       display:flex; gap:12px; flex-wrap:wrap;
     }
     .rd-legend .rd-sum-item { display:inline-flex; align-items:center; gap:5px; }
+
+    /* ============ PRO REDESIGN — v2 ============ */
+
+    /* Hero snapshot pills */
+    .hero-snapshot {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      margin-top: 14px;
+    }
+    .snap-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 14px;
+      background: #fff;
+      border: 1.5px solid var(--border-soft);
+      border-radius: 999px;
+      font-size: 13px; font-weight: 600;
+      color: var(--text);
+      transition: border-color .15s, transform .08s;
+    }
+    .snap-pill:hover { border-color: #fed7aa; }
+    .snap-pill .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--orange);
+    }
+    .snap-pill.muted { color: var(--text-2); }
+    .snap-pill.muted .dot { background: var(--text-3); }
+    .snap-pill strong { color: var(--orange-2); font-weight: 800; }
+
+    /* Featured drafts hero card (centerpiece) */
+    .drafts-feature {
+      background: linear-gradient(135deg, #fffaf3 0%, #fff 60%);
+      border: 1.5px solid #fed7aa;
+      border-radius: 20px;
+      padding: 26px 28px 22px;
+      margin-bottom: 8px;
+      box-shadow: 0 6px 30px rgba(249,115,22,.06);
+    }
+    .drafts-feature-head {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      gap: 18px; flex-wrap: wrap; margin-bottom: 18px;
+    }
+    .drafts-feature-title h2 {
+      font-size: 22px; font-weight: 800; margin: 0 0 4px;
+      letter-spacing: -.01em; color: var(--navy);
+    }
+    .drafts-feature-title p {
+      font-size: 13.5px; color: var(--text-2); margin: 0; line-height: 1.5;
+    }
+    .drafts-counter {
+      display: inline-flex; align-items: baseline; gap: 6px;
+      padding: 12px 20px;
+      background: #fff;
+      border: 1.5px solid #fed7aa;
+      border-radius: 14px;
+      box-shadow: 0 2px 12px rgba(249,115,22,.08);
+    }
+    .drafts-counter-num {
+      font-size: 32px; font-weight: 800; line-height: 1;
+      color: var(--orange-2); letter-spacing: -.02em;
+    }
+    .drafts-counter-lbl {
+      font-size: 12px; font-weight: 600;
+      color: var(--text-2); text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+    .drafts-confidence {
+      display: flex; gap: 14px; align-items: center;
+      padding: 12px 16px;
+      background: rgba(255,255,255,.7);
+      border-radius: 12px;
+      margin-bottom: 14px;
+      font-size: 13px;
+    }
+    .drafts-confidence .conf-item {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: var(--text-2);
+    }
+    .drafts-confidence .conf-item strong {
+      color: var(--text); font-weight: 700;
+    }
+    .empty-celebrate {
+      text-align: center; padding: 30px 20px;
+      background: rgba(255,255,255,.6);
+      border-radius: 14px; border: 1px dashed #fed7aa;
+    }
+    .empty-celebrate .ec-emoji {
+      font-size: 36px; line-height: 1; margin-bottom: 10px;
+    }
+    .empty-celebrate .ec-title {
+      font-size: 16px; font-weight: 700; color: var(--text);
+      margin-bottom: 4px;
+    }
+    .empty-celebrate .ec-sub {
+      font-size: 13px; color: var(--text-2);
+    }
+
+    /* Compact secondary stats */
+    .stats-compact {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+    .stat-mini {
+      background: #fff;
+      border: 1.5px solid var(--border-soft);
+      border-radius: 12px;
+      padding: 14px 16px;
+      transition: border-color .15s;
+    }
+    .stat-mini:hover { border-color: #fed7aa; }
+    .stat-mini-label {
+      font-size: 11px; letter-spacing: .04em;
+      color: var(--text-3); font-weight: 700;
+      text-transform: uppercase; margin-bottom: 4px;
+    }
+    .stat-mini-value {
+      font-size: 22px; font-weight: 800;
+      color: var(--navy); line-height: 1.1;
+      letter-spacing: -.01em;
+    }
+    .stat-mini-value .unit {
+      font-size: 13px; color: var(--text-2);
+      font-weight: 600; margin-left: 3px;
+    }
+    .stat-mini-sub {
+      font-size: 12px; color: var(--text-3);
+      margin-top: 4px; line-height: 1.4;
+    }
+
+    /* Trend indicator */
+    .trend {
+      display: inline-flex; align-items: center; gap: 3px;
+      padding: 2px 7px; border-radius: 999px;
+      font-size: 11px; font-weight: 700;
+      margin-top: 8px;
+    }
+    .trend.up { color: #047857; background: #d1fae5; }
+    .trend.flat { color: var(--text-2); background: var(--border-soft); }
+
+    /* Section eyebrow with subtitle */
+    .section-eyebrow {
+      display: flex; align-items: baseline; gap: 10px;
+      margin: 36px 0 14px;
+    }
+    .section-eyebrow h3 {
+      font-size: 18px; font-weight: 700; margin: 0;
+      color: var(--text); letter-spacing: -.01em;
+    }
+    .section-eyebrow .sub {
+      font-size: 13px; color: var(--text-3); font-weight: 500;
+    }
+
+    /* Collapsible card pattern */
+    details.collapsible-card {
+      background: #fff;
+      border: 1.5px solid var(--border-soft);
+      border-radius: 14px;
+      padding: 0;
+      transition: border-color .15s;
+    }
+    details.collapsible-card:hover { border-color: #fed7aa; }
+    details.collapsible-card > summary {
+      list-style: none; cursor: pointer;
+      padding: 16px 20px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px;
+    }
+    details.collapsible-card > summary::-webkit-details-marker { display: none; }
+    details.collapsible-card > summary::after {
+      content: '⌃';
+      transform: rotate(180deg);
+      font-size: 16px; color: var(--text-3);
+      transition: transform .2s;
+    }
+    details.collapsible-card[open] > summary::after { transform: rotate(0); }
+
+    /* Mobile: collapse compact stats to 2-col */
+    @media (max-width: 720px) {
+      .stats-compact { grid-template-columns: repeat(2, 1fr); }
+    }
   </style>
 </head>
 <body>
@@ -814,6 +993,11 @@
             <div class="eyebrow">Dashboard</div>
             <h1 id="welcome-title">Welkom terug</h1>
             <p class="page-desc">Zo heeft OfficeFlow je inbox deze maand geholpen. Blijf zelf in controle — elk antwoord kies je zelf.</p>
+            <div class="hero-snapshot" id="hero-snapshot">
+              <span class="snap-pill"><span class="dot"></span><strong id="snap-drafts">0</strong>&nbsp;concepten klaar</span>
+              <span class="snap-pill muted"><span class="dot"></span><strong id="snap-week">0</strong>&nbsp;mails verwerkt deze week</span>
+              <span class="snap-pill muted"><span class="dot"></span><strong id="snap-time">—</strong>&nbsp;bespaard deze maand</span>
+            </div>
           </div>
           <a class="btn-orange" href="https://mail.google.com" target="_blank" rel="noopener" style="text-decoration:none;">Open Gmail →</a>
         </div>
@@ -821,7 +1005,10 @@
 
       <!-- ============ HERO STATS ============ -->
       <section id="statistieken">
-        <div class="section-title">Jouw impact <span style="font-size:13px;color:var(--text-2);font-weight:500;margin-left:8px;">· deze maand</span></div>
+        <div class="section-eyebrow">
+          <h3>Jouw impact</h3>
+          <span class="sub">· deze maand</span>
+        </div>
         <div class="stats-grid">
 
           <div class="stat-card">
@@ -879,68 +1066,57 @@
           </div>
         </div>
 
-        <!-- Secondary stats row -->
-        <div class="section-title" style="margin-top:28px;">Workflow nu <span style="font-size:13px;color:var(--text-2);font-weight:500;margin-left:8px;">· wat staat er open</span></div>
-        <div class="stats-grid">
-          <div class="stat-card">
-            <div class="stat-icon ic-green">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 12l-4-4v3H9v2h9v3z"/><path d="M12 20H4V4h8"/></svg>
-            </div>
-            <div class="stat-label">Snel gereageerd</div>
-            <div class="stat-value"><span id="stat-fast">—</span><span class="unit">%</span></div>
-            <div class="stat-sub">Binnen 4 uur beantwoord.</div>
+        <!-- Secondary stats row — compact mini cards -->
+        <div class="section-eyebrow" style="margin-top:28px;">
+          <h3>Workflow nu</h3>
+          <span class="sub">· wat staat er open</span>
+        </div>
+        <div class="stats-compact">
+          <div class="stat-mini">
+            <div class="stat-mini-label">Snel gereageerd</div>
+            <div class="stat-mini-value"><span id="stat-fast">—</span><span class="unit">%</span></div>
+            <div class="stat-mini-sub">Binnen 4 uur beantwoord</div>
           </div>
-          <div class="stat-card">
-            <div class="stat-icon ic-orange">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 6h18M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2M6 6l1 14a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-14"/></svg>
-            </div>
-            <div class="stat-label">Spam gefilterd</div>
-            <div class="stat-value"><span id="stat-spam">—</span></div>
-            <div class="stat-sub">Marketing + notificaties uit je weg gehouden.</div>
+          <div class="stat-mini">
+            <div class="stat-mini-label">Spam gefilterd</div>
+            <div class="stat-mini-value"><span id="stat-spam">—</span></div>
+            <div class="stat-mini-sub">Uit je weg gehouden</div>
           </div>
-          <div class="stat-card">
-            <div class="stat-icon ic-purple">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-            </div>
-            <div class="stat-label">Follow-up actief</div>
-            <div class="stat-value"><span id="stat-followup">—</span></div>
-            <div class="stat-sub">Mails die nog een actie van jou vragen.</div>
+          <div class="stat-mini">
+            <div class="stat-mini-label">Follow-up actief</div>
+            <div class="stat-mini-value"><span id="stat-followup">—</span></div>
+            <div class="stat-mini-sub">Vraagt nog actie van jou</div>
           </div>
-          <div class="stat-card">
-            <div class="stat-icon ic-blue">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l2 2"/></svg>
-            </div>
-            <div class="stat-label">Wachten op reply</div>
-            <div class="stat-value"><span id="stat-waiting">—</span></div>
-            <div class="stat-sub">Externe reactie wordt nog verwacht.</div>
+          <div class="stat-mini">
+            <div class="stat-mini-label">Wachten op reply</div>
+            <div class="stat-mini-value"><span id="stat-waiting">—</span></div>
+            <div class="stat-mini-sub">Externe reactie verwacht</div>
           </div>
         </div>
       </section>
 
-      <!-- ============ LAATSTE CONCEPTEN (verplaatst naar boven — dit is de actie-content) ============ -->
-      <section id="recent-drafts">
-        <div class="section-title">Concepten klaar voor jou</div>
-        <div class="card">
-          <div class="rd-header">
-            <div>
-              <div class="card-label">Zeker­heid per concept</div>
-              <div class="card-meta" style="margin-top:4px;">
-                Groen = AI is zeker, geel = quick check, rood = even goed lezen. Klik een rij om de Gmail-thread te openen.
-              </div>
+      <!-- ============ FEATURED: CONCEPTEN KLAAR ============ -->
+      <section id="recent-drafts" style="margin-top:8px;">
+        <div class="drafts-feature">
+          <div class="drafts-feature-head">
+            <div class="drafts-feature-title">
+              <h2>Concepten klaar voor jou</h2>
+              <p>AI heeft alvast antwoorden klaargezet in je Gmail-threads. Klik een rij om de thread te openen, lees, pas aan, verzend.</p>
             </div>
-            <div class="rd-summary" id="rd-summary" aria-live="polite">
-              <span class="rd-sum-item"><span class="rd-dot high"></span><span id="rd-count-high">0</span></span>
-              <span class="rd-sum-item"><span class="rd-dot medium"></span><span id="rd-count-medium">0</span></span>
-              <span class="rd-sum-item"><span class="rd-dot low"></span><span id="rd-count-low">0</span></span>
+            <div class="drafts-counter">
+              <span class="drafts-counter-num" id="drafts-counter-num">0</span>
+              <span class="drafts-counter-lbl">wachtend</span>
             </div>
           </div>
+
+          <div class="drafts-confidence" id="rd-summary" aria-live="polite">
+            <span class="conf-item"><span class="rd-dot high"></span><strong id="rd-count-high">0</strong>&nbsp;direct te verzenden</span>
+            <span class="conf-item"><span class="rd-dot medium"></span><strong id="rd-count-medium">0</strong>&nbsp;quick review</span>
+            <span class="conf-item"><span class="rd-dot low"></span><strong id="rd-count-low">0</strong>&nbsp;goed lezen</span>
+          </div>
+
           <div id="rd-body">
             <div class="rd-empty">Concepten laden…</div>
-          </div>
-          <div class="rd-legend" aria-hidden="true">
-            <span class="rd-sum-item"><span class="rd-dot high"></span>High — meestal direct te verzenden</span>
-            <span class="rd-sum-item"><span class="rd-dot medium"></span>Medium — quick review</span>
-            <span class="rd-sum-item"><span class="rd-dot low"></span>Low — lees goed voor je stuurt</span>
           </div>
         </div>
       </section>
@@ -1364,8 +1540,9 @@
       const dash = '—';
       const draftsReady = s.drafts_ready ?? 0;
 
-      // Sidebar "Vandaag" widget
+      // Sidebar "Vandaag" widget + featured drafts counter
       setText('sb-today-drafts', draftsReady);
+      setText('drafts-counter-num', draftsReady);
 
       setText('stat-drafts', draftsReady);
       setText('stat-classified', (s.emails_classified ?? 0).toLocaleString('nl-NL'));
@@ -1374,6 +1551,10 @@
       setText('stat-spam', (s.spam_filtered ?? 0).toLocaleString('nl-NL'));
       setText('stat-followup', s.followup_active ?? 0);
       setText('stat-waiting', s.waiting_reply ?? 0);
+
+      // Hero snapshot pills
+      setText('snap-drafts', draftsReady);
+      setText('snap-time', `${t.big}${t.unit}`);
 
       // Hide "%" unit als de waarde "—" is (per veld, niet alleen bij _fallback)
       const hideUnitIfDash = (id) => {
@@ -1391,6 +1572,7 @@
         ? s.weekly_activity : [0,0,0,0,0,0,0];
       const weekTotal = weekly.reduce((a, b) => a + b, 0);
       setText('week-total', weekTotal.toLocaleString('nl-NL'));
+      setText('snap-week', weekTotal.toLocaleString('nl-NL'));
       renderChart(weekly);
 
       setText('chart-note', s._fallback ? 'Statistieken worden verzameld…' : 'Bijgewerkt zojuist');
@@ -1891,7 +2073,12 @@
       if (elLow)  elLow.textContent  = Number(counts.low || 0).toLocaleString('nl-NL');
 
       if (!items.length) {
-        body.innerHTML = '<div class="rd-empty">Nog geen concepten — zodra OfficeFlow een antwoord voor je klaarzet, verschijnt het hier.</div>';
+        body.innerHTML = `
+          <div class="empty-celebrate">
+            <div class="ec-emoji">✨</div>
+            <div class="ec-title">Inbox is bij</div>
+            <div class="ec-sub">Geen concepten in de wachtrij. Zodra OfficeFlow een antwoord voor je klaarzet, verschijnt het hier.</div>
+          </div>`;
         return;
       }
 
