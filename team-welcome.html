@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welkom bij OfficeFlow Teams</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <meta name="theme-color" content="#F97316">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --orange: #F97316;
+      --orange-2: #EA580C;
+      --navy: #08142f;
+      --text: #0F172A;
+      --text-2: #64748B;
+      --border: #E2E8F0;
+      --bg: #F8FAFC;
+      --warm: #fdfaf5;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(180deg, var(--warm) 0%, #fef8ef 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .container {
+      background: #fff;
+      border-radius: 20px;
+      padding: 48px 40px;
+      max-width: 520px;
+      width: 100%;
+      box-shadow: 0 8px 32px rgba(15, 23, 42, 0.08);
+      text-align: center;
+    }
+    .check-circle {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #10b981, #059669);
+      margin: 0 auto 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 24px rgba(16, 185, 129, 0.25);
+    }
+    .check-circle svg {
+      width: 40px;
+      height: 40px;
+      stroke: #fff;
+      stroke-width: 3;
+      fill: none;
+    }
+    h1 {
+      font-size: 28px;
+      margin: 0 0 12px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .subtitle {
+      color: var(--text-2);
+      font-size: 16px;
+      line-height: 1.55;
+      margin: 0 0 32px;
+    }
+    .steps {
+      text-align: left;
+      background: var(--warm);
+      border: 1px solid #fde7c7;
+      border-radius: 14px;
+      padding: 20px 24px;
+      margin: 0 0 28px;
+    }
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 0;
+      font-size: 14.5px;
+      line-height: 1.5;
+    }
+    .step + .step {
+      border-top: 1px dashed #fde7c7;
+    }
+    .step-num {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--orange);
+      color: #fff;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+    }
+    .step-num.done {
+      background: #10b981;
+    }
+    .step-text strong {
+      display: block;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+    .step-text span {
+      color: var(--text-2);
+      font-size: 13.5px;
+    }
+    .help {
+      font-size: 13px;
+      color: var(--text-2);
+      margin-top: 24px;
+    }
+    .help a {
+      color: var(--orange);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 32px;
+    }
+    .logo img { height: 28px; }
+    .email-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #f1f5f9;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      margin-top: 4px;
+      word-break: break-all;
+    }
+    .email-badge svg {
+      flex-shrink: 0;
+      width: 16px;
+      height: 16px;
+      stroke: var(--text-2);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <img src="/logo.svg" alt="OfficeFlow" onerror="this.style.display='none'">
+    </div>
+
+    <div class="check-circle">
+      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+    </div>
+
+    <h1>Welkom bij OfficeFlow Teams</h1>
+    <p class="subtitle">
+      Je betaling is gelukt en je team is aangemaakt.<br>
+      Open nu je inbox om je wachtwoord in te stellen.
+    </p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num done">✓</div>
+        <div class="step-text">
+          <strong>Betaling ontvangen</strong>
+          <span>Je team-abonnement is actief.</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text">
+          <strong>Check je inbox</strong>
+          <span>We hebben een mail gestuurd met een link om je wachtwoord in te stellen.</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text">
+          <strong>Stel je wachtwoord in</strong>
+          <span>Klik op de link in de mail. Daarna kun je inloggen.</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text">
+          <strong>Nodig je teamleden uit</strong>
+          <span>In je dashboard kun je extra leden toevoegen en mailboxen koppelen.</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="help">
+      Geen mail ontvangen? Check je spam-folder of mail
+      <a href="mailto:support@officeflowcompany.com">support@officeflowcompany.com</a>.
+    </p>
+  </div>
+</body>
+</html>
