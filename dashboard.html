@@ -751,6 +751,7 @@
       </a>
       <div class="nav-user">
         <span class="email-chip" id="user-email">—</span>
+        <a href="/team.html" class="btn-ghost" id="team-link" style="display:none; text-decoration:none;">Team dashboard →</a>
         <button class="btn-ghost" id="logout-btn">Uitloggen</button>
       </div>
     </div>
@@ -2037,6 +2038,24 @@
 
       document.getElementById('user-email').textContent = session.user.email;
       document.getElementById('gmail-email').textContent = session.user.email;
+
+      // Toon "Team dashboard" link in nav als user lid is van een team
+      (async () => {
+        try {
+          const r = await fetch(`${API_BASE}/api/teams/me`, {
+            headers: { Authorization: `Bearer ${session.access_token}` }
+          });
+          if (r.ok) {
+            const data = await r.json();
+            if (data && Array.isArray(data.teams) && data.teams.length > 0) {
+              const link = document.getElementById('team-link');
+              if (link) link.style.display = 'inline-block';
+            }
+          }
+        } catch (e) {
+          // best-effort, faalt stil
+        }
+      })();
 
       // Nette voornaam, alleen als we 'm betrouwbaar kunnen bepalen.
       // Bron 1: metadata.first_name (gezet bij onboarding — beste optie)
