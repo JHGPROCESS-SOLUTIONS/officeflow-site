@@ -187,7 +187,7 @@
       removeTyping();
 
       if (!res.ok) {
-        appendMessage('assistant', data.detail || 'Sorry, dat ging niet goed. Probeer 't opnieuw of mail mail@officeflowcompany.com');
+        appendMessage('assistant', data.detail || 'Sorry, dat ging niet goed. Probeer het opnieuw of mail mail@officeflowcompany.com');
         return;
       }
       const reply = data.reply || 'Geen antwoord ontvangen.';
