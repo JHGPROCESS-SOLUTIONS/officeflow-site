@@ -196,17 +196,17 @@
     if (sessionStorage.getItem(POP_KEY) === '1') return;
     if (wrapper.classList.contains('ofcb-open')) return;
     els.pop.classList.add('show');
-    // Auto-hide na 12 sec
+    // Auto-hide na 8 sec
     setTimeout(() => {
       els.pop.classList.remove('show');
-    }, 12000);
+    }, 8000);
   }
   function hidePop(persist = true) {
     els.pop.classList.remove('show');
     if (persist) sessionStorage.setItem(POP_KEY, '1');
   }
-  // Trigger 4 sec na page-load
-  setTimeout(showPop, 4000);
+  // Trigger 2 sec na page-load
+  setTimeout(showPop, 2000);
 
   els.popClose.addEventListener('click', (e) => {
     e.stopPropagation();
