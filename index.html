@@ -1361,7 +1361,7 @@
           </div>
           <div class="pcard-actions">
             <a class="btn btn-orange" href="/mailbox.html#prijs" data-mm-cta>Start Mailbox →</a>
-            <a class="card-link" href="/mailbox.html">Meer details</a>
+            <a class="card-link" href="/mailbox.html#top">Meer info</a>
           </div>
         </div>
       </div>
@@ -1442,8 +1442,8 @@
             <strong style="color:#7c2d12;">⏳ Beta</strong> — Google OAuth-verificatie loopt. Aanmelden kan, je krijgt nog wel een "niet-geverifieerd" waarschuwing.
           </div>
           <div class="pcard-actions">
-            <a class="btn btn-orange" href="https://api.officeflowcompany.com/billing/start-team-checkout?tier=team_s&amp;billing_period=monthly" data-tm-cta>Start Team Starter →</a>
-            <a class="card-link" href="/mailbox.html">Meer details</a>
+            <a class="btn btn-orange" href="/mailbox.html#prijs" data-tm-cta>Start Team Starter →</a>
+            <a class="card-link" href="/mailbox.html#top">Meer info</a>
           </div>
         </div>
       </div>
@@ -2244,7 +2244,7 @@
         el.hidden = el.getAttribute('data-tm-feat') !== tier;
       });
       if (cta) {
-        cta.href = `https://api.officeflowcompany.com/billing/start-team-checkout?tier=${tier}&billing_period=monthly`;
+        cta.href = '/mailbox.html#prijs';
         cta.textContent = TIER_META[tier].label;
       }
     }
