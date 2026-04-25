@@ -148,7 +148,7 @@
 
     /* HERO */
     .hero { padding: 80px 0 72px; background: var(--bg-cool); border-bottom: 1px solid var(--border); position: relative; overflow: hidden; }
-    .hero::before { display:none; }
+    .hero::before { content: ''; position: absolute; top: -100px; right: -100px; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(79,70,229,.07) 0%, transparent 65%); pointer-events: none; }
     .hero-breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-2); margin-bottom: 36px; }
     .hero-breadcrumb a { color: var(--text-2); } .hero-breadcrumb a:hover { color: var(--text); }
     .hero-breadcrumb span { color: var(--border); }
@@ -465,72 +465,6 @@
       .trust-inner { gap: 10px 16px; }
       .trust-item { font-size: 11.5px; }
     }
-
-    /* ===== SPECIAL EFFECTS ===== */
-    @keyframes orb-drift  { 0%{transform:translate(0,0) scale(1)} 100%{transform:translate(30px,18px) scale(1.08)} }
-    @keyframes orb-drift2 { 0%{transform:translate(0,0) scale(1)} 100%{transform:translate(-22px,28px) scale(1.05)} }
-    @keyframes grad-text  { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
-    @keyframes float-ck   { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)} }
-    @keyframes glow-pulse { 0%,100%{box-shadow:0 4px 24px rgba(79,70,229,.25),0 0 0 0 rgba(79,70,229,.0)} 50%{box-shadow:0 8px 40px rgba(79,70,229,.45),0 0 0 6px rgba(79,70,229,.06)} }
-    @keyframes tag-shimmer { 0%{background-position:-200% center} 100%{background-position:200% center} }
-    @keyframes trust-in   { from{opacity:0;transform:translateX(-12px)} to{opacity:1;transform:translateX(0)} }
-
-    /* Hero orbs */
-    .hero-orb { position:absolute; border-radius:50%; filter:blur(72px); pointer-events:none; }
-    .hero-orb-1 { width:440px; height:440px; top:-100px; right:-80px; background:radial-gradient(circle, rgba(79,70,229,.09) 0%, transparent 65%); animation:orb-drift 9s ease-in-out infinite alternate; }
-    .hero-orb-2 { width:300px; height:300px; bottom:-60px; left:-40px; background:radial-gradient(circle, rgba(249,115,22,.07) 0%, transparent 65%); animation:orb-drift2 12s ease-in-out infinite alternate; }
-    .hero-orb-3 { width:220px; height:220px; top:40%; left:40%; background:radial-gradient(circle, rgba(99,102,241,.05) 0%, transparent 65%); animation:orb-drift 15s ease-in-out infinite alternate-reverse; }
-
-    /* Animated gradient h1 blue */
-    .h1-blue { background:linear-gradient(135deg, #4f46e5, #818cf8, #a855f7, #6366f1, #4f46e5); background-size:300% 300%; -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; animation:grad-text 7s ease infinite; }
-
-    /* Hero tag shimmer */
-    .hero-tag { background:linear-gradient(90deg, var(--blue-bg) 40%, #e0e7ff 50%, var(--blue-bg) 60%); background-size:200% auto; animation:tag-shimmer 3s linear infinite; }
-
-    /* Cockpit subtle float */
-    .cockpit { animation:float-ck 5s ease-in-out infinite; }
-
-    /* Pricing featured glow */
-    .pbox.featured { animation:glow-pulse 3.5s ease-in-out infinite; }
-
-    /* Module card gradient border on hover */
-    .mcard { overflow:hidden; }
-    .mcard::before { content:''; position:absolute; inset:-1.5px; border-radius:16px; background:linear-gradient(135deg,#4f46e5,#818cf8,#6366f1); opacity:0; transition:opacity .3s; z-index:-1; }
-    .mcard:hover::before { opacity:1; }
-    .mcard:hover { border-color:transparent; }
-    .mcard-icon { transition:transform .3s; }
-    .mcard:hover .mcard-icon { transform:scale(1.1) rotate(-4deg); }
-
-    /* Lifecycle tab glow on active */
-    .lc-tab.active { box-shadow:0 0 14px rgba(99,102,241,.25); }
-
-    /* ===== MODULES AUTO-SCROLL ===== */
-    @keyframes modulesScroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
-    .modules-auto { position:relative; margin-top:48px; overflow:hidden;
-      -webkit-mask-image:linear-gradient(90deg, transparent 0, #000 60px, #000 calc(100% - 60px), transparent 100%);
-              mask-image:linear-gradient(90deg, transparent 0, #000 60px, #000 calc(100% - 60px), transparent 100%); }
-    .modules-track { display:flex; gap:16px; width:max-content; animation:modulesScroll 48s linear infinite; }
-    .modules-auto:hover .modules-track { animation-play-state:paused; }
-    .modules-track .mcard { width:300px; flex:0 0 300px; }
-
-    /* ===== FAQ ACCORDION 2-KOLOM ===== */
-    .faq-grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:40px; align-items:start; }
-    .faq-item { background:var(--white); border:1.5px solid var(--border); border-radius:12px; overflow:hidden; transition:border-color .2s, box-shadow .2s; }
-    .faq-item[open] { border-color:var(--blue-soft); box-shadow:0 3px 14px rgba(79,70,229,.08); }
-    .faq-item summary { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 18px; font-size:13.5px; font-weight:700; color:var(--text); cursor:pointer; list-style:none; user-select:none; line-height:1.35; }
-    .faq-item summary::-webkit-details-marker { display:none; }
-    .faq-chevron { width:22px; height:22px; border-radius:50%; background:var(--blue-bg); display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:transform .25s, background .2s; }
-    .faq-item[open] .faq-chevron { transform:rotate(180deg); background:var(--blue-soft); }
-    .faq-body { padding:0 18px 16px; font-size:13px; color:var(--text-2); line-height:1.7; }
-
-    @media (max-width: 768px) {
-      .faq-grid-2 { grid-template-columns:1fr; }
-      .faq-item summary { padding:13px 16px; font-size:13px; }
-      .faq-body { padding:0 16px 14px; }
-    }
-
-    /* CTA bar gradient shimmer */
-    .cta-bar { background:linear-gradient(135deg, #4338ca 0%, #4f46e5 40%, #6366f1 70%, #4f46e5 100%); background-size:200% 200%; animation:grad-text 8s ease infinite; }
   </style>
 </head>
 <body>
@@ -557,9 +491,9 @@
 
 <section class="hero" aria-labelledby="hero-heading">
   <div class="wrap">
-    <div class="hero-orb hero-orb-1" aria-hidden="true"></div>
-    <div class="hero-orb hero-orb-2" aria-hidden="true"></div>
-    <div class="hero-orb hero-orb-3" aria-hidden="true"></div>
+    <nav class="hero-breadcrumb" aria-label="Broodkruimelpad">
+      <a href="/">OfficeFlow</a><span aria-hidden="true">/</span><span aria-current="page">Facturen &amp; Offertes</span>
+    </nav>
     <div class="hero-grid">
       <div>
         <div class="hero-tag" role="text">
@@ -754,101 +688,52 @@
     <div class="eyebrow ey-b reveal">Modules</div>
     <h2 id="modules-heading" class="reveal">Alle bouwstenen<br>in één systeem.</h2>
     <p class="sub reveal" style="max-width:540px;">OfficeFlow bestaat uit nauw samenhangende modules die samen de volledige commerciële en operationele flow afdekken — van eerste offerte tot betaalde factuur.</p>
-    <div class="modules-auto" aria-label="Modules overzicht">
-      <div class="modules-track" aria-hidden="true">
-        <!-- Set 1 -->
-        <article class="mcard">
-          <div class="mcard-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
-          <h4>Klantenbeheer</h4>
-          <p>Klanten als centraal ankerpunt. Alle offertes, abonnementen, worklogs en facturen zijn klantgebonden en volledig traceerbaar.</p>
-        </article>
-        <article class="mcard">
-          <div class="mcard-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg></div>
-          <h4>Offertes</h4>
-          <p>Offertes opstellen, bewaken, synchroniseren naar Moneybird en opvolgen. Automatische herinneringen en statusbewaking ingebouwd.</p>
-        </article>
-        <article class="mcard">
-          <div class="mcard-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg></div>
-          <h4>Facturen &amp; BTW</h4>
-          <p>Facturen als operationele objecten met volledige lifecycle, ingebouwde BTW-bewaking, Moneybird-sync en automatische betalingsopvolging.</p>
-        </article>
-        <article class="mcard">
-          <div class="mcard-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
-          <h4>Abonnementen</h4>
-          <p>Terugkerende klantafspraken die automatisch activiteiten voor factuur genereren. Periodieke facturatie zonder handmatig werk.</p>
-        </article>
-        <article class="mcard">
-          <div class="mcard-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg></div>
-          <h4>Werkregistratie</h4>
-          <p>Uren en uitgevoerde taken vastleggen die direct factureerbaar worden. Van gewerkt uur naar factuurregel in één stap.</p>
-        </article>
-        <article class="mcard">
-          <div class="mcard-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg></div>
-          <h4>Activiteiten voor factuur</h4>
-          <p>Factureerbare gebeurtenissen die voortkomen uit abonnementen of handmatige registraties. Ze bundelen zich automatisch in een factuur.</p>
-        </article>
-        <article class="mcard">
-          <div class="mcard-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></div>
-          <h4>Handmatige kosten</h4>
-          <p>Eenmalige kosten handmatig toevoegen aan een klant en direct koppelen aan een factuur. Flexibel voor losse opdrachten.</p>
-        </article>
-        <article class="mcard">
-          <div class="mcard-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"></path></svg></div>
-          <h4>Moneybird sync</h4>
-          <p>Automatische synchronisatie van facturen én offertes naar Moneybird. Stap voor stap gesynchroniseerd met volledige foutafhandeling.</p>
-        </article>
-        <article class="mcard">
-          <div class="mcard-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg></div>
-          <h4>Huisstijl via Moneybird</h4>
-          <p>Je branding stel je in via Moneybird. OfficeFlow biedt een directe link naar de brandinginstellingen — alles in jouw eigen uitstraling.</p>
-        </article>
-        <!-- Set 2 — duplicate voor naadloze loop -->
-        <article class="mcard">
-          <div class="mcard-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
-          <h4>Klantenbeheer</h4>
-          <p>Klanten als centraal ankerpunt. Alle offertes, abonnementen, worklogs en facturen zijn klantgebonden en volledig traceerbaar.</p>
-        </article>
-        <article class="mcard">
-          <div class="mcard-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg></div>
-          <h4>Offertes</h4>
-          <p>Offertes opstellen, bewaken, synchroniseren naar Moneybird en opvolgen. Automatische herinneringen en statusbewaking ingebouwd.</p>
-        </article>
-        <article class="mcard">
-          <div class="mcard-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg></div>
-          <h4>Facturen &amp; BTW</h4>
-          <p>Facturen als operationele objecten met volledige lifecycle, ingebouwde BTW-bewaking, Moneybird-sync en automatische betalingsopvolging.</p>
-        </article>
-        <article class="mcard">
-          <div class="mcard-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
-          <h4>Abonnementen</h4>
-          <p>Terugkerende klantafspraken die automatisch activiteiten voor factuur genereren. Periodieke facturatie zonder handmatig werk.</p>
-        </article>
-        <article class="mcard">
-          <div class="mcard-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg></div>
-          <h4>Werkregistratie</h4>
-          <p>Uren en uitgevoerde taken vastleggen die direct factureerbaar worden. Van gewerkt uur naar factuurregel in één stap.</p>
-        </article>
-        <article class="mcard">
-          <div class="mcard-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg></div>
-          <h4>Activiteiten voor factuur</h4>
-          <p>Factureerbare gebeurtenissen die voortkomen uit abonnementen of handmatige registraties. Ze bundelen zich automatisch in een factuur.</p>
-        </article>
-        <article class="mcard">
-          <div class="mcard-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></div>
-          <h4>Handmatige kosten</h4>
-          <p>Eenmalige kosten handmatig toevoegen aan een klant en direct koppelen aan een factuur. Flexibel voor losse opdrachten.</p>
-        </article>
-        <article class="mcard">
-          <div class="mcard-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"></path></svg></div>
-          <h4>Moneybird sync</h4>
-          <p>Automatische synchronisatie van facturen én offertes naar Moneybird. Stap voor stap gesynchroniseerd met volledige foutafhandeling.</p>
-        </article>
-        <article class="mcard">
-          <div class="mcard-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg></div>
-          <h4>Huisstijl via Moneybird</h4>
-          <p>Je branding stel je in via Moneybird. OfficeFlow biedt een directe link naar de brandinginstellingen — alles in jouw eigen uitstraling.</p>
-        </article>
-      </div>
+    <div class="modules-grid">
+      <article class="mcard reveal rd1">
+        <div class="mcard-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
+        <h4>Klantenbeheer</h4>
+        <p>Klanten als centraal ankerpunt. Alle offertes, abonnementen, worklogs en facturen zijn klantgebonden en volledig traceerbaar.</p>
+      </article>
+      <article class="mcard reveal rd2">
+        <div class="mcard-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg></div>
+        <h4>Offertes</h4>
+        <p>Offertes opstellen, bewaken, synchroniseren naar Moneybird en opvolgen. Automatische herinneringen en statusbewaking ingebouwd.</p>
+      </article>
+      <article class="mcard reveal rd3">
+        <div class="mcard-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg></div>
+        <h4>Facturen &amp; BTW</h4>
+        <p>Facturen als operationele objecten met volledige lifecycle, ingebouwde BTW-bewaking, Moneybird-sync en automatische betalingsopvolging.</p>
+      </article>
+      <article class="mcard reveal rd1">
+        <div class="mcard-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
+        <h4>Abonnementen</h4>
+        <p>Terugkerende klantafspraken die automatisch activiteiten voor factuur genereren. Periodieke facturatie zonder handmatig werk.</p>
+      </article>
+      <article class="mcard reveal rd2">
+        <div class="mcard-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg></div>
+        <h4>Werkregistratie</h4>
+        <p>Uren en uitgevoerde taken vastleggen die direct factureerbaar worden. Van gewerkt uur naar factuurregel in één stap.</p>
+      </article>
+      <article class="mcard reveal rd3">
+        <div class="mcard-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg></div>
+        <h4>Activiteiten voor factuur</h4>
+        <p>Factureerbare gebeurtenissen die voortkomen uit abonnementen of handmatige registraties. Ze bundelen zich automatisch in een factuur voor de klant.</p>
+      </article>
+      <article class="mcard reveal rd1">
+        <div class="mcard-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></div>
+        <h4>Handmatige kosten</h4>
+        <p>Eenmalige kosten handmatig toevoegen aan een klant en direct koppelen aan een factuur. Flexibel voor losse opdrachten of extra's.</p>
+      </article>
+      <article class="mcard reveal rd2">
+        <div class="mcard-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"></path></svg></div>
+        <h4>Moneybird sync</h4>
+        <p>Automatische synchronisatie van facturen én offertes naar Moneybird. Exportpayload opgebouwd, gevalideerd en stap voor stap gesynchroniseerd met volledige foutafhandeling.</p>
+      </article>
+      <article class="mcard reveal rd3">
+        <div class="mcard-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg></div>
+        <h4>Huisstijl via Moneybird</h4>
+        <p>Je branding stel je in via Moneybird. OfficeFlow biedt een directe link vanuit het dashboard naar de brandinginstellingen in Moneybird — zodat alle facturen en offertes automatisch in jouw eigen uitstraling worden verstuurd.</p>
+      </article>
     </div>
   </div>
 </section>
@@ -1113,39 +998,39 @@
   <div class="wrap">
     <div class="eyebrow ey-b reveal">Veelgestelde vragen</div>
     <h2 id="faq-heading" class="reveal">Alles wat je wil weten.</h2>
-    <div class="faq-grid-2">
-      <details class="faq-item reveal">
-        <summary>Hoe werkt de Moneybird koppeling?<span class="faq-chevron" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></summary>
-        <div class="faq-body">OfficeFlow bouwt automatisch een exportpayload op voor elke factuur of offerte, synchroniseert stap voor stap naar Moneybird en verstuurt het document via Moneybird. De klant ontvangt het in jouw huisstijl zoals Moneybird die kent.</div>
-      </details>
-      <details class="faq-item reveal">
-        <summary>Werken offertes ook met Moneybird?<span class="faq-chevron" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></summary>
-        <div class="faq-body">Ja. Offertes worden gesynchroniseerd als Moneybird estimates. De klant wordt als contact gekoppeld of automatisch aangemaakt. Na sync kan de offerte direct vanuit Moneybird verstuurd worden.</div>
-      </details>
-      <details class="faq-item reveal">
-        <summary>Wat is het klantportaal?<span class="faq-chevron" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></summary>
-        <div class="faq-body">Elke klant ontvangt een persoonlijke portaallink voor hun offerte of factuur. Zodra gesynchroniseerd naar Moneybird, wordt de bezoeker automatisch doorgestuurd naar de Moneybird-weergave — netjes en consistent.</div>
-      </details>
-      <details class="faq-item reveal">
-        <summary>Wat zijn activiteiten voor factuur?<span class="faq-chevron" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></summary>
-        <div class="faq-body">Activiteiten voor factuur zijn factureerbare gebeurtenissen: gewerkte uren, vaste kosten of afgesloten abonnementsperiodes. Ze zijn gekoppeld aan een klant en worden automatisch gebundeld in een factuur.</div>
-      </details>
-      <details class="faq-item reveal">
-        <summary>Hoe werken abonnementen?<span class="faq-chevron" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></summary>
-        <div class="faq-body">Je stelt een abonnement in per klant met een vaste periode. Het systeem genereert automatisch activiteiten voor factuur op de afgesproken momenten. Die activiteiten worden daarna gebundeld tot een factuur — zonder handmatig werk.</div>
-      </details>
-      <details class="faq-item reveal">
-        <summary>Kan ik mijn eigen huisstijl gebruiken?<span class="faq-chevron" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></summary>
-        <div class="faq-body">Ja. Je stelt je logo en huisstijl in via Moneybird. OfficeFlow biedt een directe link vanuit het dashboard naar de brandinginstellingen in Moneybird. Alle facturen en offertes worden via Moneybird verstuurd en dragen automatisch jouw eigen uitstraling — zonder extra instellingen in OfficeFlow zelf.</div>
-      </details>
-      <details class="faq-item reveal">
-        <summary>Wat kost OfficeFlow?<span class="faq-chevron" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></summary>
-        <div class="faq-body">Vanaf €19 per maand excl. btw voor het Solo-pakket (25 facturen + 25 offertes). Start €34, Groei €54, Pro €89 per maand. Maandelijks opzegbaar. Jaarlijks = 2 maanden gratis.</div>
-      </details>
-      <details class="faq-item reveal">
-        <summary>Hoe werkt de bankkoppeling?<span class="faq-chevron" aria-hidden="true"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></summary>
-        <div class="faq-body">De bankkoppeling werkt via Moneybird. Koppel je bankrekening in Moneybird, dan herkent Moneybird binnenkomende betalingen en matcht ze aan openstaande facturen. OfficeFlow controleert elke 5 minuten de betaalstatus en zet de factuur automatisch op Betaald — inclusief een melding in je dashboard.</div>
-      </details>
+    <div class="faq-grid">
+      <div class="faq-item reveal rd1">
+        <h4>Hoe werkt de Moneybird koppeling?</h4>
+        <p>OfficeFlow bouwt automatisch een exportpayload op voor elke factuur of offerte, synchroniseert stap voor stap naar Moneybird en verstuurt het document via Moneybird. De klant ontvangt het in jouw huisstijl zoals Moneybird die kent.</p>
+      </div>
+      <div class="faq-item reveal rd2">
+        <h4>Werken offertes ook met Moneybird?</h4>
+        <p>Ja. Offertes worden gesynchroniseerd als Moneybird estimates. De klant wordt als contact gekoppeld of automatisch aangemaakt. Na sync kan de offerte direct vanuit Moneybird verstuurd worden.</p>
+      </div>
+      <div class="faq-item reveal rd1">
+        <h4>Wat is het klantportaal?</h4>
+        <p>Elke klant ontvangt een persoonlijke portaallink voor hun offerte of factuur. Zodra gesynchroniseerd naar Moneybird, wordt de bezoeker automatisch doorgestuurd naar de Moneybird-weergave — netjes en consistent.</p>
+      </div>
+      <div class="faq-item reveal rd2">
+        <h4>Wat zijn activiteiten voor factuur?</h4>
+        <p>Activiteiten voor factuur zijn factureerbare gebeurtenissen: gewerkte uren, vaste kosten of afgesloten abonnementsperiodes. Ze zijn gekoppeld aan een klant en worden automatisch gebundeld in een factuur.</p>
+      </div>
+      <div class="faq-item reveal rd1">
+        <h4>Hoe werken abonnementen?</h4>
+        <p>Je stelt een abonnement in per klant met een vaste periode. Het systeem genereert automatisch activiteiten voor factuur op de afgesproken momenten. Die activiteiten worden daarna gebundeld tot een factuur — zonder handmatig werk.</p>
+      </div>
+      <div class="faq-item reveal rd2">
+        <h4>Kan ik mijn eigen huisstijl gebruiken?</h4>
+        <p>Ja. Je stelt je logo en huisstijl in via Moneybird. OfficeFlow biedt een directe link vanuit het dashboard naar de brandinginstellingen in Moneybird. Alle facturen en offertes worden via Moneybird verstuurd en dragen automatisch jouw eigen uitstraling — zonder extra instellingen in OfficeFlow zelf.</p>
+      </div>
+      <div class="faq-item reveal rd1">
+        <h4>Wat kost OfficeFlow?</h4>
+        <p>Vanaf €19 per maand excl. btw voor het Solo-pakket (25 facturen + 25 offertes). Start €34, Groei €54, Pro €89 per maand. Maandelijks opzegbaar. Jaarlijks = 2 maanden gratis.</p>
+      </div>
+      <div class="faq-item reveal rd2">
+        <h4>Hoe werkt de bankkoppeling?</h4>
+        <p>De bankkoppeling werkt via Moneybird. Koppel je bankrekening in Moneybird, dan herkent Moneybird binnenkomende betalingen en matcht ze aan openstaande facturen. OfficeFlow controleert elke 5 minuten de betaalstatus en zet de factuur automatisch op Betaald — inclusief een melding in je dashboard.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -1155,8 +1040,7 @@
     <h2>Klaar om je facturatie te professionaliseren?</h2>
     <p>Van klantafspraak naar betaling — zonder handmatig gedoe. Alles in één systeem.</p>
     <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;">
-      <a class="btn btn-white btn-lg" href="/facturen/signup">Start gratis →</a>
-      <a class="btn btn-lg" style="background:rgba(255,255,255,.12);color:#fff;border:1.5px solid rgba(255,255,255,.25);" href="#prijzen">Bekijk prijzen</a>
+      <a class="btn btn-white btn-lg" href="#prijzen">Kies abonnement, sta binnen 3 min. live →</a>
     </div>
   </div>
 </div>
@@ -1203,5 +1087,8 @@
   );
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>
+
+<!-- AI chatbot widget (auto-blauw thema op facturen-pagina's) -->
+<script src="/chatbot.js" defer></script>
 </body>
 </html>
