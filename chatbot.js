@@ -204,10 +204,10 @@
     if (sessionStorage.getItem(POP_KEY) === '1') return;
     if (wrapper.classList.contains('ofcb-open')) return;
     els.pop.classList.add('show');
-    // Auto-hide na 8 sec
+    // Auto-hide na 2 sec
     setTimeout(() => {
       els.pop.classList.remove('show');
-    }, 8000);
+    }, 2000);
   }
   function hidePop(persist = true) {
     els.pop.classList.remove('show');
