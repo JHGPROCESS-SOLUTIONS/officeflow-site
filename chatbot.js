@@ -13,12 +13,31 @@
 
   // ---- Style ----
   const css = `
-    .ofcb-bubble{position:fixed;bottom:20px;right:20px;z-index:9999;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#F97316 0%,#FB923C 100%);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;border:0;box-shadow:0 8px 20px rgba(249,115,22,.35),0 2px 6px rgba(15,23,42,.15);transition:transform .2s}
-    .ofcb-bubble:hover{transform:scale(1.06)}
-    .ofcb-bubble svg{width:26px;height:26px}
+    .ofcb-bubble{position:fixed;bottom:20px;right:20px;z-index:9999;width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#F97316 0%,#FB923C 100%);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;border:0;box-shadow:0 8px 20px rgba(249,115,22,.4),0 2px 6px rgba(15,23,42,.15);transition:transform .2s;animation:ofcb-pulse 2.4s ease-in-out infinite}
+    .ofcb-bubble:hover{transform:scale(1.08);animation:none}
+    .ofcb-bubble svg{width:28px;height:28px}
     .ofcb-bubble .ofcb-close-icon{display:none}
+    .ofcb-open .ofcb-bubble{animation:none}
     .ofcb-open .ofcb-bubble .ofcb-chat-icon{display:none}
     .ofcb-open .ofcb-bubble .ofcb-close-icon{display:block}
+
+    @keyframes ofcb-pulse{
+      0%,100%{box-shadow:0 8px 20px rgba(249,115,22,.4),0 2px 6px rgba(15,23,42,.15),0 0 0 0 rgba(249,115,22,.4)}
+      50%{box-shadow:0 8px 20px rgba(249,115,22,.4),0 2px 6px rgba(15,23,42,.15),0 0 0 14px rgba(249,115,22,0)}
+    }
+
+    /* Pop-up tooltip die uitnodigt om te chatten */
+    .ofcb-pop{position:fixed;bottom:90px;right:20px;z-index:9998;background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:14px 16px 14px 14px;box-shadow:0 12px 28px -6px rgba(15,23,42,.18),0 4px 10px -2px rgba(15,23,42,.08);display:none;align-items:flex-start;gap:11px;max-width:280px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;animation:ofcb-pop-in .35s ease-out}
+    .ofcb-pop.show{display:flex}
+    .ofcb-pop::after{content:"";position:absolute;bottom:-7px;right:24px;width:14px;height:14px;background:#fff;border-right:1px solid #e2e8f0;border-bottom:1px solid #e2e8f0;transform:rotate(45deg)}
+    .ofcb-pop-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#F97316 0%,#FB923C 100%);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0}
+    .ofcb-pop-body{flex:1;min-width:0}
+    .ofcb-pop-title{font-size:13px;font-weight:700;color:#0f172a;margin-bottom:3px;line-height:1.3}
+    .ofcb-pop-text{font-size:12.5px;color:#475569;line-height:1.45}
+    .ofcb-pop-close{position:absolute;top:6px;right:8px;background:none;border:0;cursor:pointer;color:#94a3b8;font-size:16px;line-height:1;padding:4px;border-radius:4px}
+    .ofcb-pop-close:hover{color:#475569;background:#f1f5f9}
+
+    @keyframes ofcb-pop-in{from{opacity:0;transform:translateY(8px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
 
     .ofcb-panel{position:fixed;bottom:88px;right:20px;z-index:9998;width:380px;max-width:calc(100vw - 40px);height:540px;max-height:calc(100vh - 120px);background:#fff;border-radius:16px;box-shadow:0 20px 50px -10px rgba(15,23,42,.25),0 8px 20px -4px rgba(15,23,42,.1);display:none;flex-direction:column;overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;color:#0f172a;border:1px solid #e2e8f0}
     .ofcb-open .ofcb-panel{display:flex;animation:ofcb-in .2s ease-out}
@@ -62,7 +81,15 @@
   const wrapper = document.createElement('div');
   wrapper.id = 'ofcb-wrapper';
   wrapper.innerHTML = `
-    <button class="ofcb-bubble" id="ofcb-bubble" aria-label="Chat openen">
+    <div class="ofcb-pop" id="ofcb-pop" role="status" aria-live="polite">
+      <button class="ofcb-pop-close" id="ofcb-pop-close" aria-label="Sluit">×</button>
+      <div class="ofcb-pop-avatar">F</div>
+      <div class="ofcb-pop-body">
+        <div class="ofcb-pop-title">👋 Hoi, ik ben Floor</div>
+        <div class="ofcb-pop-text">Heb je vragen over OfficeFlow? Stel ze mij — ik help je direct.</div>
+      </div>
+    </div>
+    <button class="ofcb-bubble" id="ofcb-bubble" aria-label="Chat openen met Floor">
       <svg class="ofcb-chat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
       </svg>
@@ -70,12 +97,12 @@
         <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
       </svg>
     </button>
-    <div class="ofcb-panel" role="dialog" aria-label="OfficeFlow chatbot">
+    <div class="ofcb-panel" role="dialog" aria-label="Chat met Floor van OfficeFlow">
       <div class="ofcb-head">
-        <div class="ofcb-head-mark">▶</div>
+        <div class="ofcb-head-mark">F</div>
         <div>
-          <div class="ofcb-head-title">OfficeFlow assistent</div>
-          <div class="ofcb-head-sub">Stel een vraag over Mailbox Manager, Teams of Facturen</div>
+          <div class="ofcb-head-title">Floor — OfficeFlow</div>
+          <div class="ofcb-head-sub">Vraag mij over Mailbox Manager, Teams of Facturen</div>
         </div>
       </div>
       <div class="ofcb-msgs" id="ofcb-msgs"></div>
@@ -102,6 +129,8 @@
     quick: document.getElementById('ofcb-quick'),
     input: document.getElementById('ofcb-input'),
     send: document.getElementById('ofcb-send'),
+    pop: document.getElementById('ofcb-pop'),
+    popClose: document.getElementById('ofcb-pop-close'),
   };
 
   function loadHistory() {
@@ -155,11 +184,44 @@
   function renderHistory() {
     els.msgs.innerHTML = '';
     if (history.length === 0) {
-      appendMessage('assistant', 'Hoi! Ik help je graag met vragen over OfficeFlow. Stel maar — over prijzen, Gmail-koppeling, Teams of wat je maar wil weten.');
+      appendMessage('assistant', 'Hoi! Ik ben Floor, jouw OfficeFlow-assistent. 👋\n\nStel maar een vraag — over prijzen, Gmail-koppeling, Teams, Facturen of wat je maar wil weten.');
     } else {
       history.forEach(m => appendMessage(m.role, m.content));
     }
   }
+
+  // ---- Pop-up uitnodiging (alleen 1x per sessie tonen) ----
+  const POP_KEY = 'officeflow_chat_pop_shown_v1';
+  function showPop() {
+    if (sessionStorage.getItem(POP_KEY) === '1') return;
+    if (wrapper.classList.contains('ofcb-open')) return;
+    els.pop.classList.add('show');
+    // Auto-hide na 12 sec
+    setTimeout(() => {
+      els.pop.classList.remove('show');
+    }, 12000);
+  }
+  function hidePop(persist = true) {
+    els.pop.classList.remove('show');
+    if (persist) sessionStorage.setItem(POP_KEY, '1');
+  }
+  // Trigger 4 sec na page-load
+  setTimeout(showPop, 4000);
+
+  els.popClose.addEventListener('click', (e) => {
+    e.stopPropagation();
+    hidePop(true);
+  });
+  // Klik op pop opent direct de chat
+  els.pop.addEventListener('click', (e) => {
+    if (e.target === els.popClose) return;
+    hidePop(true);
+    if (!wrapper.classList.contains('ofcb-open')) {
+      wrapper.classList.add('ofcb-open');
+      renderHistory();
+      setTimeout(() => els.input.focus(), 100);
+    }
+  });
 
   async function sendMessage(text) {
     const trimmed = (text || '').trim();
@@ -187,7 +249,7 @@
       removeTyping();
 
       if (!res.ok) {
-        appendMessage('assistant', data.detail || 'Sorry, dat ging niet goed. Probeer het opnieuw of mail mail@officeflowcompany.com');
+        appendMessage('assistant', data.detail || 'Sorry, dat ging niet goed. Probeer het opnieuw of mail support@officeflowcompany.com');
         return;
       }
       const reply = data.reply || 'Geen antwoord ontvangen.';
@@ -205,6 +267,7 @@
 
   // ---- Events ----
   els.bubble.addEventListener('click', () => {
+    hidePop(true);
     wrapper.classList.toggle('ofcb-open');
     if (wrapper.classList.contains('ofcb-open')) {
       renderHistory();
