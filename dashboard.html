@@ -1375,10 +1375,17 @@
       setText('stat-followup', s.followup_active ?? 0);
       setText('stat-waiting', s.waiting_reply ?? 0);
 
-      // Hide "%" unit als we "—" tonen
-      if (!hasData) {
-        document.querySelectorAll('#stat-priority + .unit, #stat-fast + .unit').forEach(el => el.style.display = 'none');
-      }
+      // Hide "%" unit als de waarde "—" is (per veld, niet alleen bij _fallback)
+      const hideUnitIfDash = (id) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const unit = el.nextElementSibling;
+        if (unit && unit.classList.contains('unit')) {
+          unit.style.display = el.textContent === '—' ? 'none' : '';
+        }
+      };
+      hideUnitIfDash('stat-priority');
+      hideUnitIfDash('stat-fast');
 
       const weekly = Array.isArray(s.weekly_activity) && s.weekly_activity.length === 7
         ? s.weekly_activity : [0,0,0,0,0,0,0];
