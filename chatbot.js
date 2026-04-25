@@ -11,9 +11,17 @@
   const STORAGE_KEY = 'officeflow_chat_history_v1';
   const MAX_HISTORY = 20;
 
+  // Auto-detect blauw thema op facturen-pagina's
+  const path = (location.pathname || '').toLowerCase();
+  const isFacturen = path.startsWith('/facturen') || path.includes('facturatie');
+  const COLOR_PRIMARY = isFacturen ? '#4F46E5' : '#F97316';
+  const COLOR_PRIMARY_LIGHT = isFacturen ? '#6366F1' : '#FB923C';
+  const COLOR_PRIMARY_DARK = isFacturen ? '#3730A3' : '#C2410C';
+  const COLOR_PRIMARY_RGB = isFacturen ? '79,70,229' : '249,115,22';
+
   // ---- Style ----
   const css = `
-    .ofcb-bubble{position:fixed;bottom:20px;right:20px;z-index:9999;width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#F97316 0%,#FB923C 100%);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;border:0;box-shadow:0 8px 20px rgba(249,115,22,.4),0 2px 6px rgba(15,23,42,.15);transition:transform .2s;animation:ofcb-pulse 2.4s ease-in-out infinite}
+    .ofcb-bubble{position:fixed;bottom:20px;right:20px;z-index:9999;width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,${COLOR_PRIMARY} 0%,${COLOR_PRIMARY_LIGHT} 100%);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;border:0;box-shadow:0 8px 20px rgba(${COLOR_PRIMARY_RGB},.4),0 2px 6px rgba(15,23,42,.15);transition:transform .2s;animation:ofcb-pulse 2.4s ease-in-out infinite}
     .ofcb-bubble:hover{transform:scale(1.08);animation:none}
     .ofcb-bubble svg{width:28px;height:28px}
     .ofcb-bubble .ofcb-close-icon{display:none}
@@ -22,15 +30,15 @@
     .ofcb-open .ofcb-bubble .ofcb-close-icon{display:block}
 
     @keyframes ofcb-pulse{
-      0%,100%{box-shadow:0 8px 20px rgba(249,115,22,.4),0 2px 6px rgba(15,23,42,.15),0 0 0 0 rgba(249,115,22,.4)}
-      50%{box-shadow:0 8px 20px rgba(249,115,22,.4),0 2px 6px rgba(15,23,42,.15),0 0 0 14px rgba(249,115,22,0)}
+      0%,100%{box-shadow:0 8px 20px rgba(${COLOR_PRIMARY_RGB},.4),0 2px 6px rgba(15,23,42,.15),0 0 0 0 rgba(${COLOR_PRIMARY_RGB},.4)}
+      50%{box-shadow:0 8px 20px rgba(${COLOR_PRIMARY_RGB},.4),0 2px 6px rgba(15,23,42,.15),0 0 0 14px rgba(${COLOR_PRIMARY_RGB},0)}
     }
 
     /* Pop-up tooltip die uitnodigt om te chatten */
     .ofcb-pop{position:fixed;bottom:90px;right:20px;z-index:9998;background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:14px 16px 14px 14px;box-shadow:0 12px 28px -6px rgba(15,23,42,.18),0 4px 10px -2px rgba(15,23,42,.08);display:none;align-items:flex-start;gap:11px;max-width:280px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;animation:ofcb-pop-in .35s ease-out}
     .ofcb-pop.show{display:flex}
     .ofcb-pop::after{content:"";position:absolute;bottom:-7px;right:24px;width:14px;height:14px;background:#fff;border-right:1px solid #e2e8f0;border-bottom:1px solid #e2e8f0;transform:rotate(45deg)}
-    .ofcb-pop-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#F97316 0%,#FB923C 100%);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0}
+    .ofcb-pop-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,${COLOR_PRIMARY} 0%,${COLOR_PRIMARY_LIGHT} 100%);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0}
     .ofcb-pop-body{flex:1;min-width:0}
     .ofcb-pop-title{font-size:13px;font-weight:700;color:#0f172a;margin-bottom:3px;line-height:1.3}
     .ofcb-pop-text{font-size:12.5px;color:#475569;line-height:1.45}
@@ -43,16 +51,16 @@
     .ofcb-open .ofcb-panel{display:flex;animation:ofcb-in .2s ease-out}
     @keyframes ofcb-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
-    .ofcb-head{padding:14px 18px;background:linear-gradient(135deg,#F97316 0%,#FB923C 100%);color:#fff;display:flex;align-items:center;gap:10px;flex-shrink:0}
+    .ofcb-head{padding:14px 18px;background:linear-gradient(135deg,${COLOR_PRIMARY} 0%,${COLOR_PRIMARY_LIGHT} 100%);color:#fff;display:flex;align-items:center;gap:10px;flex-shrink:0}
     .ofcb-head-mark{width:30px;height:30px;background:rgba(255,255,255,.2);border-radius:7px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:700;font-size:13px}
     .ofcb-head-title{font-size:14px;font-weight:700;line-height:1.2}
     .ofcb-head-sub{font-size:11.5px;opacity:.9;line-height:1.3;margin-top:2px}
 
     .ofcb-msgs{flex:1;overflow-y:auto;padding:18px;background:#fafafa;display:flex;flex-direction:column;gap:10px}
     .ofcb-msg{max-width:85%;padding:10px 13px;border-radius:12px;font-size:13.5px;line-height:1.5;white-space:pre-wrap;word-break:break-word}
-    .ofcb-msg.user{align-self:flex-end;background:#F97316;color:#fff;border-bottom-right-radius:4px}
+    .ofcb-msg.user{align-self:flex-end;background:${COLOR_PRIMARY};color:#fff;border-bottom-right-radius:4px}
     .ofcb-msg.assistant{align-self:flex-start;background:#fff;color:#0f172a;border:1px solid #e2e8f0;border-bottom-left-radius:4px}
-    .ofcb-msg.assistant a{color:#F97316;text-decoration:underline}
+    .ofcb-msg.assistant a{color:${COLOR_PRIMARY};text-decoration:underline}
     .ofcb-msg.typing{align-self:flex-start;background:#fff;border:1px solid #e2e8f0;display:inline-flex;gap:4px;padding:13px 14px}
     .ofcb-msg.typing span{width:6px;height:6px;border-radius:50%;background:#cbd5e1;animation:ofcb-dot 1.2s ease-in-out infinite}
     .ofcb-msg.typing span:nth-child(2){animation-delay:.2s}
@@ -61,12 +69,12 @@
 
     .ofcb-quick{display:flex;flex-wrap:wrap;gap:6px;padding:10px 18px 0;background:#fafafa}
     .ofcb-quick button{appearance:none;border:1px solid #e2e8f0;background:#fff;color:#475569;padding:6px 11px;border-radius:999px;font-size:12px;cursor:pointer;font-family:inherit;transition:all .15s}
-    .ofcb-quick button:hover{border-color:#F97316;color:#C2410C;background:#fff7ed}
+    .ofcb-quick button:hover{border-color:${COLOR_PRIMARY};color:${COLOR_PRIMARY_DARK};background:rgba(${COLOR_PRIMARY_RGB},.06)}
 
     .ofcb-input{padding:14px 18px;background:#fff;border-top:1px solid #e2e8f0;display:flex;gap:8px;flex-shrink:0}
     .ofcb-input input{flex:1;border:1px solid #e2e8f0;border-radius:10px;padding:10px 14px;font-size:13.5px;font-family:inherit;color:#0f172a;background:#fff;outline:none;transition:border-color .15s,box-shadow .15s}
-    .ofcb-input input:focus{border-color:#F97316;box-shadow:0 0 0 3px rgba(249,115,22,.15)}
-    .ofcb-input button{appearance:none;border:0;background:#F97316;color:#fff;padding:10px 16px;border-radius:10px;font-size:13.5px;font-weight:600;cursor:pointer;font-family:inherit;flex-shrink:0;transition:opacity .15s}
+    .ofcb-input input:focus{border-color:${COLOR_PRIMARY};box-shadow:0 0 0 3px rgba(${COLOR_PRIMARY_RGB},.15)}
+    .ofcb-input button{appearance:none;border:0;background:${COLOR_PRIMARY};color:#fff;padding:10px 16px;border-radius:10px;font-size:13.5px;font-weight:600;cursor:pointer;font-family:inherit;flex-shrink:0;transition:opacity .15s}
     .ofcb-input button:hover{opacity:.9}
     .ofcb-input button:disabled{opacity:.5;cursor:not-allowed}
 
