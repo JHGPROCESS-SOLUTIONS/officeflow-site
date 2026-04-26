@@ -480,8 +480,20 @@
     .faq-col-blue details.faq-col[open] > summary.faq-col-head {
       border-color: rgba(99,102,241,.35);
     }
-    .faq-group-chevron {
+    .faq-group-meta {
       margin-left: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .faq-group-hint {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-2);
+      text-transform: none;
+      letter-spacing: .02em;
+    }
+    .faq-group-chevron {
       font-size: 13px;
       color: var(--text-2);
       font-weight: 700;
@@ -491,6 +503,13 @@
     }
     details.faq-col[open] > summary .faq-group-chevron {
       transform: rotate(180deg);
+    }
+    details.faq-col[open] > summary .faq-group-hint {
+      opacity: 0;
+      transition: opacity .2s;
+    }
+    @media (max-width: 520px) {
+      .faq-group-hint { display: none; }
     }
     details.faq-col > .faq-list {
       animation: faqGroupOpen .25s ease;
@@ -1904,7 +1923,10 @@
           <summary class="faq-col-head">
             <span class="faq-col-dot"></span>
             <span class="faq-col-title-main">Mailbox Manager</span>
-            <span class="faq-group-chevron" aria-hidden="true">⌄</span>
+            <span class="faq-group-meta">
+              <span class="faq-group-hint">Meest gestelde vragen — bekijk hier</span>
+              <span class="faq-group-chevron" aria-hidden="true">⌄</span>
+            </span>
           </summary>
           <div class="faq-list">
             <details class="faq-item reveal">
@@ -1982,7 +2004,10 @@
           <summary class="faq-col-head">
             <span class="faq-col-dot"></span>
             <span class="faq-col-title-main">Facturen &amp; Offertes</span>
-            <span class="faq-group-chevron" aria-hidden="true">⌄</span>
+            <span class="faq-group-meta">
+              <span class="faq-group-hint">Meest gestelde vragen — bekijk hier</span>
+              <span class="faq-group-chevron" aria-hidden="true">⌄</span>
+            </span>
           </summary>
           <div class="faq-list">
             <details class="faq-item reveal">
