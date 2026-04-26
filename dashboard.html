@@ -1240,10 +1240,10 @@
                 <div class="s">Hoe klinkt OfficeFlow in jouw concepten?</div>
               </div>
               <div class="chip-group" id="prefs-chips-tone" role="radiogroup" aria-label="Tone">
-                <button class="chip" type="button" data-val="zakelijk">Zakelijk</button>
                 <button class="chip" type="button" data-val="vriendelijk">Vriendelijk</button>
-                <button class="chip" type="button" data-val="informeel">Informeel</button>
-                <button class="chip" type="button" data-val="warm">Warm</button>
+                <button class="chip" type="button" data-val="professioneel">Professioneel</button>
+                <button class="chip" type="button" data-val="direct">Direct</button>
+                <button class="chip" type="button" data-val="enthousiast">Enthousiast</button>
               </div>
             </div>
 
@@ -1266,32 +1266,23 @@
               </div>
               <div class="chip-group" id="prefs-chips-length" role="radiogroup" aria-label="Lengte">
                 <button class="chip" type="button" data-val="kort">Kort</button>
-                <button class="chip" type="button" data-val="medium">Medium</button>
+                <button class="chip" type="button" data-val="gemiddeld">Normaal</button>
                 <button class="chip" type="button" data-val="uitgebreid">Uitgebreid</button>
               </div>
             </div>
 
             <div class="rc-row" style="align-items:flex-start;flex-direction:column;gap:8px;padding:14px 0 18px;border-bottom:1px solid var(--border-soft);">
               <div>
-                <div class="k">Taal</div>
-                <div class="s">In welke taal worden concepten geschreven?</div>
+                <div class="k">Talen</div>
+                <div class="s">Welke talen mag OfficeFlow gebruiken? Meerdere selecteren mag — auto-detect bepaalt dan welke.</div>
               </div>
-              <div class="chip-group" id="prefs-chips-language" role="radiogroup" aria-label="Taal">
+              <div class="chip-group" id="prefs-chips-language" role="group" aria-label="Talen" data-multi="true">
                 <button class="chip" type="button" data-val="nl">Nederlands</button>
                 <button class="chip" type="button" data-val="en">Engels</button>
-                <button class="chip" type="button" data-val="nl, en">Beide (auto-detect)</button>
-              </div>
-            </div>
-
-            <div class="rc-row" style="align-items:flex-start;flex-direction:column;gap:8px;padding:14px 0 18px;border-bottom:1px solid var(--border-soft);">
-              <div>
-                <div class="k">Call-to-action stijl</div>
-                <div class="s">Hoe vaak rond OfficeFlow de mail af met een vraag of vervolgstap?</div>
-              </div>
-              <div class="chip-group" id="prefs-chips-cta" role="radiogroup" aria-label="Call-to-action">
-                <button class="chip" type="button" data-val="never">Nooit</button>
-                <button class="chip" type="button" data-val="only_when_relevant">Alleen als relevant</button>
-                <button class="chip" type="button" data-val="always">Altijd</button>
+                <button class="chip" type="button" data-val="de">Duits</button>
+                <button class="chip" type="button" data-val="fr">Frans</button>
+                <button class="chip" type="button" data-val="es">Spaans</button>
+                <button class="chip" type="button" data-val="it">Italiaans</button>
               </div>
             </div>
 
@@ -1351,27 +1342,15 @@
             <!-- ============ STIJL LEREN ============ -->
             <div class="acc-group-head" style="margin:24px 0 14px;">Stijl leren</div>
 
-            <div class="rc-row" style="padding:8px 0 18px;border-bottom:1px solid var(--border-soft);">
+            <div class="rc-row" style="padding:8px 0 14px;">
               <div>
                 <div class="k">Leer van mijn verzonden mails</div>
-                <div class="s">OfficeFlow analyseert je laatste verzonden berichten om jouw schrijfstijl beter te imiteren.</div>
+                <div class="s">OfficeFlow analyseert je laatste 20 verzonden berichten om jouw schrijfstijl beter te imiteren.</div>
               </div>
               <label class="switch" aria-label="Style learning aan/uit">
                 <input id="prefs-style-learning" type="checkbox">
                 <span class="slider"></span>
               </label>
-            </div>
-
-            <div class="rc-row" style="align-items:flex-start;flex-direction:column;gap:8px;padding:14px 0 14px;">
-              <div>
-                <div class="k">Aantal mails om van te leren</div>
-                <div class="s">Hoeveel recent verzonden mails analyseert OfficeFlow.</div>
-              </div>
-              <div class="chip-group" id="prefs-chips-source-limit" role="radiogroup" aria-label="Aantal mails">
-                <button class="chip" type="button" data-val="5">5 mails</button>
-                <button class="chip" type="button" data-val="10">10 mails</button>
-                <button class="chip" type="button" data-val="20">20 mails</button>
-              </div>
             </div>
 
             <!-- ============ INBOX OPRUIMEN — verhuisd uit Gmail-koppeling ============ -->
@@ -2757,9 +2736,16 @@
           setActiveChip('prefs-chips-tone', s.tone_preference);
           setActiveChip('prefs-chips-length', s.length_preference);
           setActiveChip('prefs-chips-formality', s.formality);
-          setActiveChip('prefs-chips-language', s.preferred_language);
-          setActiveChip('prefs-chips-cta', s.cta_preference);
-          setActiveChip('prefs-chips-source-limit', s.style_learning_source_limit);
+
+          // Talen — multi-select (komma-gescheiden string in DB)
+          const langGrp = document.getElementById('prefs-chips-language');
+          if (langGrp) {
+            const rawLang = s.preferred_language || 'nl';
+            const langs = String(rawLang).split(',').map(x => x.trim().toLowerCase()).filter(Boolean);
+            langGrp.querySelectorAll('.chip').forEach(c => {
+              c.classList.toggle('active', langs.includes(c.dataset.val));
+            });
+          }
 
           document.getElementById('prefs-loading').style.display = 'none';
           document.getElementById('prefs-form').style.display = 'block';
@@ -2771,21 +2757,29 @@
         }
       }
 
-      // Chip-click: maak gekozen actief binnen z'n groep (radio gedrag)
+      // Chip-click: single-select (radio gedrag) tenzij data-multi="true"
       const PREFS_CHIP_GROUPS = [
         '#prefs-chips-tone',
         '#prefs-chips-length',
         '#prefs-chips-formality',
         '#prefs-chips-language',
-        '#prefs-chips-cta',
-        '#prefs-chips-source-limit',
       ];
       document.querySelectorAll(PREFS_CHIP_GROUPS.join(', ')).forEach(grp => {
         grp.addEventListener('click', (ev) => {
           const chip = ev.target.closest('.chip');
           if (!chip || !grp.contains(chip)) return;
-          grp.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-          chip.classList.add('active');
+          if (grp.dataset.multi === 'true') {
+            // Multi-select: toggle deze chip alleen
+            chip.classList.toggle('active');
+            // Zorg dat er minstens 1 actief blijft (anders fallback naar nl)
+            if (!grp.querySelector('.chip.active')) {
+              const nl = grp.querySelector('.chip[data-val="nl"]');
+              if (nl) nl.classList.add('active');
+            }
+          } else {
+            grp.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+            chip.classList.add('active');
+          }
         });
       });
 
@@ -2807,22 +2801,27 @@
             return c ? c.dataset.val : null;
           };
 
-          const sourceLimitRaw = activeChip('prefs-chips-source-limit');
-          const sourceLimit = sourceLimitRaw ? parseInt(sourceLimitRaw, 10) : 20;
+          // Talen: multi-select → komma-gescheiden string
+          const langGrpEl = document.getElementById('prefs-chips-language');
+          const activeLangs = langGrpEl
+            ? Array.from(langGrpEl.querySelectorAll('.chip.active')).map(c => c.dataset.val)
+            : [];
+          const langString = activeLangs.length ? activeLangs.join(', ') : 'nl';
 
           const body = {
             tone_preference: activeChip('prefs-chips-tone'),
             length_preference: activeChip('prefs-chips-length'),
             formality: activeChip('prefs-chips-formality'),
-            preferred_language: activeChip('prefs-chips-language'),
-            cta_preference: activeChip('prefs-chips-cta'),
+            preferred_language: langString,
+            // CTA + source-limit blijven hardcoded zoals onboarding-formulier doet
+            cta_preference: 'only_when_relevant',
             emoji_preference: document.getElementById('prefs-emoji').checked,
             signature_text: document.getElementById('prefs-signature').value,
             preferred_phrases: document.getElementById('prefs-preferred').value,
             forbidden_phrases: document.getElementById('prefs-forbidden').value,
             custom_instructions: document.getElementById('prefs-custom').value,
             style_learning_enabled: document.getElementById('prefs-style-learning').checked,
-            style_learning_source_limit: sourceLimit,
+            style_learning_source_limit: 20,
           };
 
           try {
