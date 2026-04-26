@@ -760,27 +760,44 @@
     .snap-pill.muted { color: var(--text-2); }
     .snap-pill.muted .dot { background: var(--text-3); }
     .snap-pill strong { color: var(--orange-2); font-weight: 800; }
-    /* Klikbare action-pills (concepten / follow-up) */
-    a.snap-action {
-      text-decoration: none; cursor: pointer;
+    /* TO-DO BANNER — verschijnt alleen als er actie nodig is */
+    .todo-banner {
+      margin-top: 14px;
+      padding: 14px 18px;
+      border-radius: 12px;
+      display: flex; align-items: center; gap: 14px;
+      font-size: 14.5px; font-weight: 500;
+      animation: todoBannerSlide .25s ease;
     }
-    a.snap-action:hover {
-      transform: translateY(-1px);
-      border-color: var(--orange);
+    @keyframes todoBannerSlide {
+      from { opacity: 0; transform: translateY(-6px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
-    /* Warning state — als > 0 actiepunten */
-    .snap-pill.snap-warn {
+    .todo-banner.warn {
       background: #fff7ed;
-      border-color: rgba(234,88,12,.45);
+      border: 1.5px solid rgba(234,88,12,.45);
+      color: var(--orange-2);
     }
-    .snap-pill.snap-warn strong { color: var(--orange-2); }
-    /* Urgent state — bij hoge aantallen */
-    .snap-pill.snap-urgent {
+    .todo-banner.urgent {
       background: #fef2f2;
-      border-color: #dc2626;
+      border: 1.5px solid #dc2626;
+      color: #b91c1c;
     }
-    .snap-pill.snap-urgent strong { color: #b91c1c; }
-    .snap-pill.snap-urgent .dot { background: #dc2626; }
+    .todo-banner-icon {
+      width: 26px; height: 26px; flex-shrink: 0;
+      border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: currentColor; color: #fff;
+      font-size: 14px; font-weight: 800;
+    }
+    .todo-banner.warn .todo-banner-icon { color: #fff; background: var(--orange-2); }
+    .todo-banner.urgent .todo-banner-icon { color: #fff; background: #b91c1c; }
+    .todo-banner-text { flex: 1; line-height: 1.5; }
+    .todo-banner-text strong { font-weight: 700; }
+    .todo-banner a {
+      color: inherit; text-decoration: underline; font-weight: 700;
+    }
+    .todo-banner a:hover { text-decoration: none; }
 
     /* Featured drafts hero card (centerpiece) */
     .drafts-feature {
@@ -1127,14 +1144,15 @@
             <h1 id="welcome-title">Welkom terug</h1>
             <p class="page-desc">Zo heeft OfficeFlow je inbox deze maand geholpen. Blijf zelf in controle — elk antwoord kies je zelf.</p>
             <div class="hero-snapshot" id="hero-snapshot">
-              <a class="snap-pill snap-action" id="snap-drafts-pill" href='https://mail.google.com' target="_blank" rel="noopener" title="Open Gmail om concepten te bekijken">
-                <span class="dot"></span><strong id="snap-drafts">0</strong>&nbsp;concepten klaar
-              </a>
-              <a class="snap-pill snap-action" id="snap-followup-pill" href='https://mail.google.com/mail/u/0/#search/label%3A"Follow+Up"' target="_blank" rel="noopener" title="Open Follow Up threads in Gmail">
-                <span class="dot"></span><strong id="snap-followup">0</strong>&nbsp;follow-ups voor jou
-              </a>
+              <span class="snap-pill"><span class="dot"></span><strong id="snap-drafts">0</strong>&nbsp;concepten klaar</span>
               <span class="snap-pill muted"><span class="dot"></span><strong id="snap-week">0</strong>&nbsp;mails verwerkt deze week</span>
               <span class="snap-pill muted"><span class="dot"></span><strong id="snap-time">—</strong>&nbsp;bespaard deze maand</span>
+            </div>
+
+            <!-- TO-DO BANNER — verschijnt alleen als er actie van jou nodig is -->
+            <div class="todo-banner" id="todo-banner" style="display:none;">
+              <span class="todo-banner-icon" aria-hidden="true">!</span>
+              <div class="todo-banner-text" id="todo-banner-text"></div>
             </div>
           </div>
           <a class="btn-orange" href="https://mail.google.com" target="_blank" rel="noopener" style="text-decoration:none;">Open Gmail →</a>
@@ -1869,6 +1887,38 @@
       }
     }
 
+    // ============ TO-DO BANNER ============
+    // Verschijnt alleen als er actie van de gebruiker nodig is.
+    // Bouwt zelf de zin: '3 follow-ups vragen jouw actie · 16 concepten klaar om te verzenden'
+    // Klikbaar naar Gmail-search met de juiste label-filter.
+    function updateTodoBanner({ drafts = 0, followup = 0 }) {
+      const banner = document.getElementById('todo-banner');
+      const textEl = document.getElementById('todo-banner-text');
+      if (!banner || !textEl) return;
+
+      const parts = [];
+      if (followup > 0) {
+        const label = followup === 1 ? 'follow-up vraagt' : 'follow-ups vragen';
+        parts.push(`<a href='https://mail.google.com/mail/u/0/#search/label%3A"Follow+Up"' target="_blank" rel="noopener"><strong>${followup} ${label} jouw actie</strong></a>`);
+      }
+      if (drafts > 0) {
+        const label = drafts === 1 ? 'concept klaar' : 'concepten klaar';
+        parts.push(`<a href="https://mail.google.com" target="_blank" rel="noopener"><strong>${drafts} ${label}</strong> om te verzenden</a>`);
+      }
+
+      if (parts.length === 0) {
+        banner.style.display = 'none';
+        return;
+      }
+
+      // Urgency: rood als er veel follow-ups of concepten staan
+      const isUrgent = followup > 3 || drafts > 10;
+      banner.classList.remove('warn', 'urgent');
+      banner.classList.add(isUrgent ? 'urgent' : 'warn');
+      banner.style.display = 'flex';
+      textEl.innerHTML = `To-do voor jou: ${parts.join('  ·  ')}`;
+    }
+
     function renderStats(s) {
       // Helper: only set if the element exists (defensive after sidebar redesign)
       const setText = (id, val) => {
@@ -1903,31 +1953,21 @@
       setText('stat-fast', hasData && s.fast_reply_pct != null ? s.fast_reply_pct : dash);
       setText('stat-spam', (s.spam_filtered ?? 0).toLocaleString('nl-NL'));
       setText('stat-followup', s.followup_active ?? 0);
-      // Follow Up = JOUW actie nodig — strenger urgency-niveau
+      // Follow-up actief — strenger urgency op de mini-tile
       const followupCount = Number(s.followup_active ?? 0);
-      setText('snap-followup', followupCount);
       const followupTile = document.getElementById('stat-followup-tile');
       if (followupTile) {
         followupTile.classList.remove('warn', 'urgent');
         if (followupCount > 3) followupTile.classList.add('urgent');
         else if (followupCount > 0) followupTile.classList.add('warn');
       }
-      // Sync warning state naar de hero-pill
-      const followupPill = document.getElementById('snap-followup-pill');
-      if (followupPill) {
-        followupPill.classList.remove('snap-warn', 'snap-urgent');
-        if (followupCount > 3) followupPill.classList.add('snap-urgent');
-        else if (followupCount > 0) followupPill.classList.add('snap-warn');
-      }
-      // Concepten-pill ook urgency: als > 0 in oranje
-      // (Echte count komt later van renderRecentDrafts via setText('snap-drafts', ...))
-      const draftsCount = Number(s.drafts_ready ?? 0);
-      const draftsPill = document.getElementById('snap-drafts-pill');
-      if (draftsPill) {
-        draftsPill.classList.remove('snap-warn', 'snap-urgent');
-        if (draftsCount > 10) draftsPill.classList.add('snap-urgent');
-        else if (draftsCount > 0) draftsPill.classList.add('snap-warn');
-      }
+
+      // Update to-do banner met huidige follow-ups + (provisorische) drafts count
+      // De échte drafts count komt vanuit renderRecentDrafts kort daarna
+      updateTodoBanner({
+        drafts: Number(s.drafts_ready ?? 0),
+        followup: followupCount,
+      });
 
       // Wachten op reply = ander aan zet — passieve waarschuwing
       // Pas warn als > 5 (anders is het alleen ruis), urgent pas bij > 10
@@ -2474,13 +2514,14 @@
       setText('snap-drafts', activeCount);
       setText('stat-drafts', activeCount);
 
-      // Sync urgency op de hero-pill met de échte (Gmail-gefilterde) count
-      const draftsPill = document.getElementById('snap-drafts-pill');
-      if (draftsPill) {
-        draftsPill.classList.remove('snap-warn', 'snap-urgent');
-        if (activeCount > 10) draftsPill.classList.add('snap-urgent');
-        else if (activeCount > 0) draftsPill.classList.add('snap-warn');
-      }
+      // Update to-do banner met de échte (Gmail-gefilterde) draft-count
+      // Follow-up count blijft staan vanaf de eerdere renderStats call.
+      const followupEl = document.getElementById('stat-followup');
+      const followupNow = followupEl ? Number(followupEl.textContent) || 0 : 0;
+      updateTodoBanner({
+        drafts: activeCount,
+        followup: followupNow,
+      });
 
       if (!items.length) {
         body.innerHTML = `
