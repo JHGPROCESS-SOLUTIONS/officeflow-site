@@ -1046,6 +1046,10 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg>
           Statistieken
         </a></li>
+        <li><a href="#voorkeuren" data-tab="voorkeuren">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20v-6m0-4V4m-8 6h6m4 0h6M6 14h12"/></svg>
+          Voorkeuren
+        </a></li>
         <li><a href="#radar" data-tab="radar">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           Follow-Up Radar
@@ -1220,6 +1224,99 @@
           <div id="rd-body">
             <div class="rd-empty">Concepten laden…</div>
           </div>
+        </div>
+      </section>
+
+      <!-- ============ VOORKEUREN ============ -->
+      <section id="voorkeuren">
+        <div class="tab-head" data-tab-head="voorkeuren" style="display:none;">
+          <div class="eyebrow">Voorkeuren</div>
+          <h1>Hoe OfficeFlow voor je schrijft</h1>
+          <p>Stel hier de basis-tone, lengte en handtekening in. Voor uitgebreide instellingen (taal, emoji's, voorkeurszinnen, stijlleren) gebruik je de volledige voorkeuren-pagina.</p>
+        </div>
+
+        <div class="card" id="prefs-card">
+          <div id="prefs-loading" class="card-meta" style="text-align:center;padding:30px;">Voorkeuren laden…</div>
+          <form id="prefs-form" style="display:none;">
+
+            <!-- TONE -->
+            <div class="rc-row" style="align-items:flex-start;flex-direction:column;gap:8px;padding:8px 0 18px;border-bottom:1px solid var(--border-soft);">
+              <div>
+                <div class="k">Tone</div>
+                <div class="s">Hoe formeel klinkt OfficeFlow in jouw concepten?</div>
+              </div>
+              <div class="chip-group" id="prefs-chips-tone" role="radiogroup" aria-label="Tone">
+                <button class="chip" type="button" data-val="zakelijk">Zakelijk</button>
+                <button class="chip" type="button" data-val="vriendelijk">Vriendelijk</button>
+                <button class="chip" type="button" data-val="informeel">Informeel</button>
+                <button class="chip" type="button" data-val="warm">Warm</button>
+              </div>
+            </div>
+
+            <!-- LENGTH -->
+            <div class="rc-row" style="align-items:flex-start;flex-direction:column;gap:8px;padding:14px 0 18px;border-bottom:1px solid var(--border-soft);">
+              <div>
+                <div class="k">Standaard lengte</div>
+                <div class="s">Hoe lang mag een concept-reply gemiddeld zijn?</div>
+              </div>
+              <div class="chip-group" id="prefs-chips-length" role="radiogroup" aria-label="Lengte">
+                <button class="chip" type="button" data-val="kort">Kort</button>
+                <button class="chip" type="button" data-val="medium">Medium</button>
+                <button class="chip" type="button" data-val="uitgebreid">Uitgebreid</button>
+              </div>
+            </div>
+
+            <!-- SIGNATURE -->
+            <div class="rc-row" style="align-items:flex-start;flex-direction:column;gap:8px;padding:14px 0 18px;border-bottom:1px solid var(--border-soft);">
+              <div>
+                <div class="k">Handtekening</div>
+                <div class="s">Wordt automatisch onder elk concept-reply gezet (kun je in Gmail nog aanpassen).</div>
+              </div>
+              <textarea id="prefs-signature" rows="3" placeholder="Met vriendelijke groet,&#10;Jouw naam"
+                style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;font-family:inherit;font-size:14px;color:var(--text);resize:vertical;"></textarea>
+            </div>
+
+            <!-- FORBIDDEN -->
+            <div class="rc-row" style="align-items:flex-start;flex-direction:column;gap:8px;padding:14px 0 18px;border-bottom:1px solid var(--border-soft);">
+              <div>
+                <div class="k">Te vermijden zinnen</div>
+                <div class="s">Komma-gescheiden. OfficeFlow zal deze zinnen vermijden in concepten.</div>
+              </div>
+              <input id="prefs-forbidden" type="text" placeholder="bijv: heel hartelijk, mooi je te ontmoeten"
+                style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;font-family:inherit;font-size:14px;color:var(--text);">
+            </div>
+
+            <!-- CUSTOM INSTRUCTIONS -->
+            <div class="rc-row" style="align-items:flex-start;flex-direction:column;gap:8px;padding:14px 0 18px;border-bottom:1px solid var(--border-soft);">
+              <div>
+                <div class="k">Extra instructies</div>
+                <div class="s">Vrije tekst — geef OfficeFlow context over jouw stijl, je bedrijf of veelvoorkomende vragen.</div>
+              </div>
+              <textarea id="prefs-custom" rows="4" placeholder="Bijv: ik antwoord altijd in dezelfde taal als de afzender, bedrijfsnaam is X, gebruik geen 'beste' maar 'hoi' bij bestaande klanten…"
+                style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;font-family:inherit;font-size:14px;color:var(--text);resize:vertical;"></textarea>
+            </div>
+
+            <!-- STYLE LEARNING -->
+            <div class="rc-row" style="padding:14px 0 8px;">
+              <div>
+                <div class="k">Stijl leren van verzonden mail</div>
+                <div class="s">OfficeFlow analyseert je laatste verzonden berichten om jouw schrijfstijl beter te imiteren.</div>
+              </div>
+              <label class="switch" aria-label="Style learning aan/uit">
+                <input id="prefs-style-learning" type="checkbox">
+                <span class="slider"></span>
+              </label>
+            </div>
+
+            <!-- ACTIONS -->
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-top:18px;padding-top:14px;border-top:1px solid var(--border-soft);">
+              <a href="/preferences.html?edit=1" style="font-size:13px;color:var(--text-2);text-decoration:none;">Alle opties (taal, emoji's, voorkeurszinnen) →</a>
+              <div style="display:flex;gap:10px;align-items:center;">
+                <span id="prefs-saved-msg" style="font-size:13px;color:var(--green);display:none;">✓ Opgeslagen</span>
+                <button id="prefs-save-btn" type="submit" class="btn-orange" style="padding:10px 20px;">Opslaan</button>
+              </div>
+            </div>
+          </form>
         </div>
       </section>
 
@@ -2504,13 +2601,14 @@
       const TAB_SECTIONS = {
         'overzicht':     ['overzicht', 'statistieken', 'recent-drafts'],
         'statistieken':  ['statistieken'],
+        'voorkeuren':    ['voorkeuren'],
         'radar':         ['radar'],
         'koppeling':     ['koppeling'],
         'recent-drafts': ['recent-drafts'],
         'abonnement':    ['abonnement'],
         'account':       ['account'],
       };
-      const ALL_SECTION_IDS = ['overzicht','statistieken','radar','koppeling','recent-drafts','abonnement','account'];
+      const ALL_SECTION_IDS = ['overzicht','statistieken','voorkeuren','radar','koppeling','recent-drafts','abonnement','account'];
 
       function activateTab(tabName) {
         const wanted = TAB_SECTIONS[tabName] || TAB_SECTIONS['overzicht'];
@@ -2542,6 +2640,136 @@
       // Init from hash, default to overzicht
       const hashTab = (window.location.hash || '').replace('#', '');
       activateTab(hashTab && TAB_SECTIONS[hashTab] ? hashTab : 'overzicht');
+
+      // ============ VOORKEUREN-TAB ============
+      // Laadt huidige voorkeuren bij eerste tabnav, save via PATCH endpoint.
+      let prefsLoaded = false;
+      async function loadPreferences() {
+        if (prefsLoaded) return;
+        try {
+          const { data: { session: sess2 } } = await sb.auth.getSession();
+          if (!sess2) return;
+          const r = await fetch(API_BASE + '/api/preferences/me', {
+            headers: { Authorization: 'Bearer ' + sess2.access_token }
+          });
+          if (!r.ok) throw new Error('preferences fetch failed');
+          const data = await r.json();
+          const s = data.settings || {};
+
+          // Vul form in
+          const setVal = (id, val) => {
+            const el = document.getElementById(id);
+            if (el && val != null) el.value = val;
+          };
+          setVal('prefs-signature', s.signature_text);
+          setVal('prefs-custom', s.custom_instructions);
+
+          // Forbidden phrases — kunnen array of string zijn
+          const fp = s.forbidden_phrases;
+          const fpStr = Array.isArray(fp) ? fp.join(', ') : (fp || '');
+          setVal('prefs-forbidden', fpStr);
+
+          // Style learning toggle
+          const sl = document.getElementById('prefs-style-learning');
+          if (sl) sl.checked = !!s.style_learning_enabled;
+
+          // Chip-groups (tone + length)
+          const setActiveChip = (groupId, val) => {
+            const grp = document.getElementById(groupId);
+            if (!grp || !val) return;
+            grp.querySelectorAll('.chip').forEach(c => {
+              c.classList.toggle('active', c.dataset.val === val);
+            });
+          };
+          setActiveChip('prefs-chips-tone', s.tone_preference);
+          setActiveChip('prefs-chips-length', s.length_preference);
+
+          document.getElementById('prefs-loading').style.display = 'none';
+          document.getElementById('prefs-form').style.display = 'block';
+          prefsLoaded = true;
+        } catch (e) {
+          console.warn('[prefs] load failed', e);
+          const ld = document.getElementById('prefs-loading');
+          if (ld) ld.textContent = 'Kon voorkeuren niet laden. Probeer opnieuw of mail support@officeflowcompany.com.';
+        }
+      }
+
+      // Chip-click: maak gekozen actief binnen z'n groep (per chip-group radio gedrag)
+      document.querySelectorAll('#prefs-chips-tone, #prefs-chips-length').forEach(grp => {
+        grp.addEventListener('click', (ev) => {
+          const chip = ev.target.closest('.chip');
+          if (!chip || !grp.contains(chip)) return;
+          grp.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+        });
+      });
+
+      // Save handler
+      const prefsForm = document.getElementById('prefs-form');
+      if (prefsForm) {
+        prefsForm.addEventListener('submit', async (ev) => {
+          ev.preventDefault();
+          const btn = document.getElementById('prefs-save-btn');
+          const msg = document.getElementById('prefs-saved-msg');
+          const orig = btn.textContent;
+          btn.disabled = true;
+          btn.textContent = 'Opslaan…';
+          if (msg) msg.style.display = 'none';
+
+          const activeChip = (gid) => {
+            const grp = document.getElementById(gid);
+            const c = grp ? grp.querySelector('.chip.active') : null;
+            return c ? c.dataset.val : null;
+          };
+
+          const body = {
+            tone_preference: activeChip('prefs-chips-tone'),
+            length_preference: activeChip('prefs-chips-length'),
+            signature_text: document.getElementById('prefs-signature').value,
+            forbidden_phrases: document.getElementById('prefs-forbidden').value,
+            custom_instructions: document.getElementById('prefs-custom').value,
+            style_learning_enabled: document.getElementById('prefs-style-learning').checked,
+          };
+
+          try {
+            const { data: { session: sess3 } } = await sb.auth.getSession();
+            const r = await fetch(API_BASE + '/api/preferences/me', {
+              method: 'PATCH',
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + sess3.access_token,
+              },
+              body: JSON.stringify(body),
+            });
+            if (!r.ok) throw new Error('save failed');
+            if (msg) {
+              msg.style.display = 'inline';
+              setTimeout(() => { if (msg) msg.style.display = 'none'; }, 3000);
+            }
+          } catch (e) {
+            console.warn('[prefs] save failed', e);
+            alert('Opslaan mislukt. Probeer het later opnieuw.');
+          } finally {
+            btn.disabled = false;
+            btn.textContent = orig;
+          }
+        });
+      }
+
+      // Lazy-load preferences zodra Voorkeuren-tab actief wordt
+      const origActivateTab = activateTab;
+      window.activateTab = function(tabName) {
+        origActivateTab(tabName);
+        if (tabName === 'voorkeuren') loadPreferences();
+      };
+      // Re-bind sidebar clicks naar de nieuwe wrapper
+      document.querySelectorAll('.sb-nav a[data-tab]').forEach(a => {
+        a.addEventListener('click', e => {
+          if (a.dataset.tab === 'voorkeuren') loadPreferences();
+        });
+      });
+      // Als Voorkeuren al de actieve tab was bij page-load (deep-link)
+      if (hashTab === 'voorkeuren') loadPreferences();
     })();
 
     // ============ UI HANDLERS ============
