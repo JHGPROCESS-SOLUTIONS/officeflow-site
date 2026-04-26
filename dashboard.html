@@ -1231,11 +1231,13 @@
           <div id="prefs-loading" class="card-meta" style="text-align:center;padding:30px;">Voorkeuren laden…</div>
           <form id="prefs-form" style="display:none;">
 
-            <!-- TONE -->
+            <!-- ============ SCHRIJFSTIJL ============ -->
+            <div class="acc-group-head" style="margin:0 0 14px;">Schrijfstijl</div>
+
             <div class="rc-row" style="align-items:flex-start;flex-direction:column;gap:8px;padding:8px 0 18px;border-bottom:1px solid var(--border-soft);">
               <div>
                 <div class="k">Tone</div>
-                <div class="s">Hoe formeel klinkt OfficeFlow in jouw concepten?</div>
+                <div class="s">Hoe klinkt OfficeFlow in jouw concepten?</div>
               </div>
               <div class="chip-group" id="prefs-chips-tone" role="radiogroup" aria-label="Tone">
                 <button class="chip" type="button" data-val="zakelijk">Zakelijk</button>
@@ -1245,7 +1247,18 @@
               </div>
             </div>
 
-            <!-- LENGTH -->
+            <div class="rc-row" style="align-items:flex-start;flex-direction:column;gap:8px;padding:14px 0 18px;border-bottom:1px solid var(--border-soft);">
+              <div>
+                <div class="k">Formaliteit</div>
+                <div class="s">Hoe formeel adresseert OfficeFlow ontvangers?</div>
+              </div>
+              <div class="chip-group" id="prefs-chips-formality" role="radiogroup" aria-label="Formaliteit">
+                <button class="chip" type="button" data-val="informeel">Informeel</button>
+                <button class="chip" type="button" data-val="neutraal">Neutraal</button>
+                <button class="chip" type="button" data-val="formeel">Formeel</button>
+              </div>
+            </div>
+
             <div class="rc-row" style="align-items:flex-start;flex-direction:column;gap:8px;padding:14px 0 18px;border-bottom:1px solid var(--border-soft);">
               <div>
                 <div class="k">Standaard lengte</div>
@@ -1258,28 +1271,75 @@
               </div>
             </div>
 
-            <!-- SIGNATURE -->
             <div class="rc-row" style="align-items:flex-start;flex-direction:column;gap:8px;padding:14px 0 18px;border-bottom:1px solid var(--border-soft);">
               <div>
-                <div class="k">Handtekening</div>
-                <div class="s">Wordt automatisch onder elk concept-reply gezet (kun je in Gmail nog aanpassen).</div>
+                <div class="k">Taal</div>
+                <div class="s">In welke taal worden concepten geschreven?</div>
+              </div>
+              <div class="chip-group" id="prefs-chips-language" role="radiogroup" aria-label="Taal">
+                <button class="chip" type="button" data-val="nl">Nederlands</button>
+                <button class="chip" type="button" data-val="en">Engels</button>
+                <button class="chip" type="button" data-val="nl, en">Beide (auto-detect)</button>
+              </div>
+            </div>
+
+            <div class="rc-row" style="align-items:flex-start;flex-direction:column;gap:8px;padding:14px 0 18px;border-bottom:1px solid var(--border-soft);">
+              <div>
+                <div class="k">Call-to-action stijl</div>
+                <div class="s">Hoe vaak rond OfficeFlow de mail af met een vraag of vervolgstap?</div>
+              </div>
+              <div class="chip-group" id="prefs-chips-cta" role="radiogroup" aria-label="Call-to-action">
+                <button class="chip" type="button" data-val="never">Nooit</button>
+                <button class="chip" type="button" data-val="only_when_relevant">Alleen als relevant</button>
+                <button class="chip" type="button" data-val="always">Altijd</button>
+              </div>
+            </div>
+
+            <div class="rc-row" style="padding:14px 0 18px;border-bottom:1px solid var(--border-soft);">
+              <div>
+                <div class="k">Emoji toegestaan</div>
+                <div class="s">Soms een emoji gebruiken als dat natuurlijk past bij de conversatie.</div>
+              </div>
+              <label class="switch" aria-label="Emoji aan/uit">
+                <input id="prefs-emoji" type="checkbox">
+                <span class="slider"></span>
+              </label>
+            </div>
+
+            <!-- ============ HANDTEKENING ============ -->
+            <div class="acc-group-head" style="margin:24px 0 14px;">Handtekening</div>
+
+            <div class="rc-row" style="align-items:flex-start;flex-direction:column;gap:8px;padding:8px 0 14px;">
+              <div>
+                <div class="k">Wat staat er onder elke concept?</div>
+                <div class="s">Wordt automatisch onder elk concept-reply gezet. Je kunt 'm in Gmail nog aanpassen voor je verzendt.</div>
               </div>
               <textarea id="prefs-signature" rows="3" placeholder="Met vriendelijke groet,&#10;Jouw naam"
                 style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;font-family:inherit;font-size:14px;color:var(--text);resize:vertical;"></textarea>
             </div>
 
-            <!-- FORBIDDEN -->
+            <!-- ============ WOORDKEUZE ============ -->
+            <div class="acc-group-head" style="margin:24px 0 14px;">Woordkeuze</div>
+
+            <div class="rc-row" style="align-items:flex-start;flex-direction:column;gap:8px;padding:8px 0 18px;border-bottom:1px solid var(--border-soft);">
+              <div>
+                <div class="k">Voorkeurszinnen</div>
+                <div class="s">Komma-gescheiden. OfficeFlow zal deze zinnen waar mogelijk gebruiken in concepten.</div>
+              </div>
+              <input id="prefs-preferred" type="text" placeholder="bijv: ik kom er morgen op terug, even voor de zekerheid"
+                style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;font-family:inherit;font-size:14px;color:var(--text);">
+            </div>
+
             <div class="rc-row" style="align-items:flex-start;flex-direction:column;gap:8px;padding:14px 0 18px;border-bottom:1px solid var(--border-soft);">
               <div>
                 <div class="k">Te vermijden zinnen</div>
-                <div class="s">Komma-gescheiden. OfficeFlow zal deze zinnen vermijden in concepten.</div>
+                <div class="s">Komma-gescheiden. OfficeFlow zal deze zinnen vermijden.</div>
               </div>
               <input id="prefs-forbidden" type="text" placeholder="bijv: heel hartelijk, mooi je te ontmoeten"
                 style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;font-family:inherit;font-size:14px;color:var(--text);">
             </div>
 
-            <!-- CUSTOM INSTRUCTIONS -->
-            <div class="rc-row" style="align-items:flex-start;flex-direction:column;gap:8px;padding:14px 0 18px;border-bottom:1px solid var(--border-soft);">
+            <div class="rc-row" style="align-items:flex-start;flex-direction:column;gap:8px;padding:14px 0 14px;">
               <div>
                 <div class="k">Extra instructies</div>
                 <div class="s">Vrije tekst — geef OfficeFlow context over jouw stijl, je bedrijf of veelvoorkomende vragen.</div>
@@ -1288,10 +1348,12 @@
                 style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;font-family:inherit;font-size:14px;color:var(--text);resize:vertical;"></textarea>
             </div>
 
-            <!-- STYLE LEARNING -->
-            <div class="rc-row" style="padding:14px 0 18px;border-bottom:1px solid var(--border-soft);">
+            <!-- ============ STIJL LEREN ============ -->
+            <div class="acc-group-head" style="margin:24px 0 14px;">Stijl leren</div>
+
+            <div class="rc-row" style="padding:8px 0 18px;border-bottom:1px solid var(--border-soft);">
               <div>
-                <div class="k">Stijl leren van verzonden mail</div>
+                <div class="k">Leer van mijn verzonden mails</div>
                 <div class="s">OfficeFlow analyseert je laatste verzonden berichten om jouw schrijfstijl beter te imiteren.</div>
               </div>
               <label class="switch" aria-label="Style learning aan/uit">
@@ -1300,8 +1362,47 @@
               </label>
             </div>
 
-            <!-- WEEKLY RECAP — verhuisd vanuit Account-tab -->
-            <div class="rc-row" style="padding:14px 0 8px;">
+            <div class="rc-row" style="align-items:flex-start;flex-direction:column;gap:8px;padding:14px 0 14px;">
+              <div>
+                <div class="k">Aantal mails om van te leren</div>
+                <div class="s">Hoeveel recent verzonden mails analyseert OfficeFlow.</div>
+              </div>
+              <div class="chip-group" id="prefs-chips-source-limit" role="radiogroup" aria-label="Aantal mails">
+                <button class="chip" type="button" data-val="5">5 mails</button>
+                <button class="chip" type="button" data-val="10">10 mails</button>
+                <button class="chip" type="button" data-val="20">20 mails</button>
+              </div>
+            </div>
+
+            <!-- ============ INBOX OPRUIMEN — verhuisd uit Gmail-koppeling ============ -->
+            <div class="acc-group-head" style="margin:24px 0 14px;">Inbox opruimen</div>
+
+            <div class="rc-row" style="padding:8px 0 18px;border-bottom:1px solid var(--border-soft);">
+              <div>
+                <div class="k">Marketing &amp; ruis uit je Inbox halen</div>
+                <div class="s">Mails met label <strong>Marketing</strong>, <strong>Ignore</strong> of <strong>Unwanted</strong> verlaten je primaire Inbox en blijven vindbaar via hun label. Niets wordt verwijderd.</div>
+              </div>
+              <label class="switch" aria-label="Auto-archive low-value aan/uit">
+                <input id="tgl-auto-archive" type="checkbox">
+                <span class="slider"></span>
+              </label>
+            </div>
+
+            <div class="rc-row" style="padding:14px 0;">
+              <div>
+                <div class="k">Ook Notification-mails automatisch archiveren</div>
+                <div class="s">Standaard <strong>uit</strong> — notificaties zijn soms transactioneel (bank, bezorging, 2FA, belastingdienst). Zet alleen aan als je zeker weet dat je die niet mist.</div>
+              </div>
+              <label class="switch" aria-label="Notification auto-archive aan/uit">
+                <input id="tgl-notification-archive" type="checkbox">
+                <span class="slider"></span>
+              </label>
+            </div>
+
+            <!-- ============ NOTIFICATIES ============ -->
+            <div class="acc-group-head" style="margin:24px 0 14px;">Notificaties</div>
+
+            <div class="rc-row" style="padding:8px 0 14px;">
               <div>
                 <div class="k">Weekoverzicht per mail</div>
                 <div class="s">Elke zaterdagochtend een korte samenvatting: mails verwerkt, concepten klaargezet en tijd bespaard.</div>
@@ -1313,12 +1414,12 @@
             </div>
 
             <!-- ACTIONS -->
-            <div style="display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-top:18px;padding-top:14px;border-top:1px solid var(--border-soft);">
-              <a href="/preferences.html?edit=1" style="font-size:13px;color:var(--text-2);text-decoration:none;">Alle opties (taal, emoji's, voorkeurszinnen) →</a>
-              <div style="display:flex;gap:10px;align-items:center;">
-                <span id="prefs-saved-msg" style="font-size:13px;color:var(--green);display:none;">✓ Opgeslagen</span>
-                <button id="prefs-save-btn" type="submit" class="btn-orange" style="padding:10px 20px;">Opslaan</button>
-              </div>
+            <div style="display:flex;justify-content:flex-end;align-items:center;gap:14px;flex-wrap:wrap;margin-top:24px;padding-top:18px;border-top:1px solid var(--border-soft);">
+              <span id="prefs-saved-msg" style="font-size:13px;color:var(--green);display:none;">✓ Schrijfstijl-voorkeuren opgeslagen</span>
+              <button id="prefs-save-btn" type="submit" class="btn-orange" style="padding:10px 24px;">Opslaan</button>
+            </div>
+            <div style="font-size:11.5px;color:var(--text-3);margin-top:6px;text-align:right;">
+              Toggle-instellingen (inbox opruimen, weekoverzicht) bewaren automatisch zodra je ze omklikt.
             </div>
           </form>
         </div>
@@ -1504,38 +1605,18 @@
             </div>
           </div>
 
-          <!-- AUTO-ARCHIVE LOW-VALUE MAIL -->
+          <!-- EENMALIGE OPRUIMACTIE -->
           <div class="archive-wrap" style="margin-top:18px;padding:16px 18px;background:#fffaf3;border:1px solid #fed7aa;border-radius:14px;">
-            <div class="rc-row">
-              <div>
-                <div class="k">Marketing &amp; ruis uit je Inbox halen</div>
-                <div class="s">Mails met label <strong>Marketing</strong>, <strong>Ignore</strong> of <strong>Unwanted</strong> verlaten je primaire Inbox en blijven vindbaar via hun label. Niets wordt verwijderd.</div>
-              </div>
-              <label class="switch" aria-label="Auto-archive low-value aan/uit">
-                <input id="tgl-auto-archive" type="checkbox">
-                <span class="slider"></span>
-              </label>
-            </div>
-            <div class="rc-row">
-              <div>
-                <div class="k">Ook Notification-mails automatisch archiveren</div>
-                <div class="s">Standaard <strong>uit</strong> — notificaties zijn soms transactioneel (bank, bezorging, 2FA, belastingdienst). Zet alleen aan als je zeker weet dat je die niet mist.</div>
-              </div>
-              <label class="switch" aria-label="Notification auto-archive aan/uit">
-                <input id="tgl-notification-archive" type="checkbox">
-                <span class="slider"></span>
-              </label>
-            </div>
-            <div class="rc-row" style="align-items:flex-start;background:#f0fdf4;margin:10px -10px;padding:10px 14px;border-radius:10px;border:1px solid #bbf7d0;">
+            <div class="rc-row" style="align-items:flex-start;background:#f0fdf4;margin:0 -10px 10px;padding:10px 14px;border-radius:10px;border:1px solid #bbf7d0;">
               <div>
                 <div class="k" style="color:#065f46;">Veiligheidsnet: bekende contacten worden nooit gearchiveerd</div>
-                <div class="s" style="color:#166534;">Heb je ooit naar iemand gereageerd of z'n mail als Priority / To Respond / Follow Up gelabeld? Dan blijven nieuwe mails van die afzender altijd in je Inbox, ook als de classifier ze als Marketing ziet.</div>
+                <div class="s" style="color:#166534;">Heb je ooit naar iemand gereageerd of z'n mail als Priority / To Respond / Follow Up gelabeld? Dan blijven nieuwe mails van die afzender altijd in je Inbox.</div>
               </div>
             </div>
             <div class="rc-row" style="align-items:flex-start;">
               <div>
                 <div class="k">Eenmalige opruimactie</div>
-                <div class="s" id="archive-hint">Haalt alle bestaande low-value mails uit je Inbox. Bekende contacten worden overgeslagen.</div>
+                <div class="s" id="archive-hint">Haalt alle bestaande low-value mails (Marketing, Ignore, Unwanted) uit je Inbox. Bekende contacten worden overgeslagen. Voor de auto-archive toggles, ga naar <a href="#voorkeuren" data-tab="voorkeuren" style="color:var(--orange);text-decoration:underline;">Voorkeuren</a>.</div>
               </div>
               <button id="btn-archive-cleanup" class="btn-scan" type="button">
                 <span class="scan-dot" aria-hidden="true"></span>
@@ -2652,24 +2733,33 @@
           setVal('prefs-custom', s.custom_instructions);
 
           // Forbidden phrases — kunnen array of string zijn
-          const fp = s.forbidden_phrases;
-          const fpStr = Array.isArray(fp) ? fp.join(', ') : (fp || '');
-          setVal('prefs-forbidden', fpStr);
+          const phrasesToStr = (v) => Array.isArray(v) ? v.join(', ') : (v || '');
+          setVal('prefs-forbidden', phrasesToStr(s.forbidden_phrases));
+          setVal('prefs-preferred', phrasesToStr(s.preferred_phrases));
 
-          // Style learning toggle
+          // Toggle: Style learning
           const sl = document.getElementById('prefs-style-learning');
           if (sl) sl.checked = !!s.style_learning_enabled;
 
-          // Chip-groups (tone + length)
+          // Toggle: Emoji
+          const ej = document.getElementById('prefs-emoji');
+          if (ej) ej.checked = !!s.emoji_preference;
+
+          // Chip-groups
           const setActiveChip = (groupId, val) => {
             const grp = document.getElementById(groupId);
-            if (!grp || !val) return;
+            if (!grp || val == null) return;
+            const valStr = String(val);
             grp.querySelectorAll('.chip').forEach(c => {
-              c.classList.toggle('active', c.dataset.val === val);
+              c.classList.toggle('active', c.dataset.val === valStr);
             });
           };
           setActiveChip('prefs-chips-tone', s.tone_preference);
           setActiveChip('prefs-chips-length', s.length_preference);
+          setActiveChip('prefs-chips-formality', s.formality);
+          setActiveChip('prefs-chips-language', s.preferred_language);
+          setActiveChip('prefs-chips-cta', s.cta_preference);
+          setActiveChip('prefs-chips-source-limit', s.style_learning_source_limit);
 
           document.getElementById('prefs-loading').style.display = 'none';
           document.getElementById('prefs-form').style.display = 'block';
@@ -2681,8 +2771,16 @@
         }
       }
 
-      // Chip-click: maak gekozen actief binnen z'n groep (per chip-group radio gedrag)
-      document.querySelectorAll('#prefs-chips-tone, #prefs-chips-length').forEach(grp => {
+      // Chip-click: maak gekozen actief binnen z'n groep (radio gedrag)
+      const PREFS_CHIP_GROUPS = [
+        '#prefs-chips-tone',
+        '#prefs-chips-length',
+        '#prefs-chips-formality',
+        '#prefs-chips-language',
+        '#prefs-chips-cta',
+        '#prefs-chips-source-limit',
+      ];
+      document.querySelectorAll(PREFS_CHIP_GROUPS.join(', ')).forEach(grp => {
         grp.addEventListener('click', (ev) => {
           const chip = ev.target.closest('.chip');
           if (!chip || !grp.contains(chip)) return;
@@ -2709,13 +2807,22 @@
             return c ? c.dataset.val : null;
           };
 
+          const sourceLimitRaw = activeChip('prefs-chips-source-limit');
+          const sourceLimit = sourceLimitRaw ? parseInt(sourceLimitRaw, 10) : 20;
+
           const body = {
             tone_preference: activeChip('prefs-chips-tone'),
             length_preference: activeChip('prefs-chips-length'),
+            formality: activeChip('prefs-chips-formality'),
+            preferred_language: activeChip('prefs-chips-language'),
+            cta_preference: activeChip('prefs-chips-cta'),
+            emoji_preference: document.getElementById('prefs-emoji').checked,
             signature_text: document.getElementById('prefs-signature').value,
+            preferred_phrases: document.getElementById('prefs-preferred').value,
             forbidden_phrases: document.getElementById('prefs-forbidden').value,
             custom_instructions: document.getElementById('prefs-custom').value,
             style_learning_enabled: document.getElementById('prefs-style-learning').checked,
+            style_learning_source_limit: sourceLimit,
           };
 
           try {
