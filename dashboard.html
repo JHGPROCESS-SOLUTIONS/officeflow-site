@@ -2072,6 +2072,20 @@
       if (elMed)  elMed.textContent  = Number(counts.medium || 0).toLocaleString('nl-NL');
       if (elLow)  elLow.textContent  = Number(counts.low || 0).toLocaleString('nl-NL');
 
+      // Authoritative count — overrides whatever stats-overview set earlier,
+      // because that endpoint doesn't filter against Gmail's live drafts list.
+      const activeCount = Number.isFinite(data.active_count)
+        ? Number(data.active_count)
+        : items.length;
+      const setText = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = val;
+      };
+      setText('drafts-counter-num', activeCount);
+      setText('sb-today-drafts', activeCount);
+      setText('snap-drafts', activeCount);
+      setText('stat-drafts', activeCount);
+
       if (!items.length) {
         body.innerHTML = `
           <div class="empty-celebrate">
