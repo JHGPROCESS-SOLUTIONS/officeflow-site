@@ -1042,10 +1042,6 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
           Overzicht
         </a></li>
-        <li><a href="#statistieken" data-tab="statistieken">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg>
-          Statistieken
-        </a></li>
         <li><a href="#voorkeuren" data-tab="voorkeuren">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20v-6m0-4V4m-8 6h6m4 0h6M6 14h12"/></svg>
           Voorkeuren
@@ -1057,10 +1053,6 @@
         <li><a href="#koppeling" data-tab="koppeling">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
           Gmail-koppeling
-        </a></li>
-        <li><a href="#recent-drafts" data-tab="recent-drafts">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M8 9h8"/><path d="M8 13h6"/><path d="M8 17h4"/></svg>
-          Laatste concepten
         </a></li>
         <li><a href="#abonnement" data-tab="abonnement">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg>
@@ -1297,13 +1289,25 @@
             </div>
 
             <!-- STYLE LEARNING -->
-            <div class="rc-row" style="padding:14px 0 8px;">
+            <div class="rc-row" style="padding:14px 0 18px;border-bottom:1px solid var(--border-soft);">
               <div>
                 <div class="k">Stijl leren van verzonden mail</div>
                 <div class="s">OfficeFlow analyseert je laatste verzonden berichten om jouw schrijfstijl beter te imiteren.</div>
               </div>
               <label class="switch" aria-label="Style learning aan/uit">
                 <input id="prefs-style-learning" type="checkbox">
+                <span class="slider"></span>
+              </label>
+            </div>
+
+            <!-- WEEKLY RECAP — verhuisd vanuit Account-tab -->
+            <div class="rc-row" style="padding:14px 0 8px;">
+              <div>
+                <div class="k">Weekoverzicht per mail</div>
+                <div class="s">Elke zaterdagochtend een korte samenvatting: mails verwerkt, concepten klaargezet en tijd bespaard.</div>
+              </div>
+              <label class="switch" aria-label="Weekrecap aan/uit">
+                <input id="tgl-weekly-recap" type="checkbox">
                 <span class="slider"></span>
               </label>
             </div>
@@ -1590,21 +1594,6 @@
           <div class="eyebrow">Account</div>
           <h1>Voorkeuren en juridisch</h1>
           <p>Stel je notificaties in, beheer je inloggegevens en bekijk privacy-info.</p>
-        </div>
-
-        <!-- VOORKEUREN -->
-        <div class="acc-group">
-          <div class="acc-group-head">Voorkeuren</div>
-          <div class="rc-row" style="padding:4px 0;">
-            <div>
-              <div class="k">Weekoverzicht per mail</div>
-              <div class="s">Elke zaterdagochtend een korte samenvatting: mails verwerkt, concepten klaargezet en tijd bespaard.</div>
-            </div>
-            <label class="switch" aria-label="Weekrecap aan/uit">
-              <input id="tgl-weekly-recap" type="checkbox">
-              <span class="slider"></span>
-            </label>
-          </div>
         </div>
 
         <!-- BEVEILIGING -->
@@ -2599,14 +2588,12 @@
       // Each sidebar item shows ONLY its section, except 'overzicht' which is the
       // landing-overview (hero + impact stats + chart + recent drafts).
       const TAB_SECTIONS = {
-        'overzicht':     ['overzicht', 'statistieken', 'recent-drafts'],
-        'statistieken':  ['statistieken'],
-        'voorkeuren':    ['voorkeuren'],
-        'radar':         ['radar'],
-        'koppeling':     ['koppeling'],
-        'recent-drafts': ['recent-drafts'],
-        'abonnement':    ['abonnement'],
-        'account':       ['account'],
+        'overzicht':  ['overzicht', 'statistieken', 'recent-drafts'],
+        'voorkeuren': ['voorkeuren'],
+        'radar':      ['radar'],
+        'koppeling':  ['koppeling'],
+        'abonnement': ['abonnement'],
+        'account':    ['account'],
       };
       const ALL_SECTION_IDS = ['overzicht','statistieken','voorkeuren','radar','koppeling','recent-drafts','abonnement','account'];
 
