@@ -913,6 +913,102 @@
     @media (max-width: 720px) {
       .stats-compact { grid-template-columns: repeat(2, 1fr); }
     }
+
+    /* Per-tab page header (shown when section is a standalone tab) */
+    .tab-head {
+      margin: 0 0 24px;
+    }
+    .tab-head .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; font-weight: 700; color: var(--orange);
+      background: var(--orange-soft); padding: 5px 12px; border-radius: 20px;
+      letter-spacing: .04em; margin-bottom: 12px;
+    }
+    .tab-head h1 {
+      font-size: 28px; margin: 0 0 6px; letter-spacing: -.01em; line-height: 1.15;
+    }
+    .tab-head p {
+      color: var(--text-2); font-size: 15px; margin: 0; max-width: 600px; line-height: 1.55;
+    }
+
+    /* Account sub-section grouping */
+    .acc-group {
+      background: #fff;
+      border: 1.5px solid var(--border-soft);
+      border-radius: 16px;
+      padding: 20px 22px;
+      margin-bottom: 16px;
+    }
+    .acc-group-head {
+      font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--text-3); font-weight: 700; margin-bottom: 14px;
+    }
+    .acc-group .link-row {
+      padding: 12px 0;
+      border-top: 1px solid var(--border-soft);
+    }
+    .acc-group .link-row:first-of-type { border-top: none; padding-top: 4px; }
+    .acc-group .link-row:last-of-type { padding-bottom: 4px; }
+
+    /* Abonnement — meer detail */
+    .plan-card {
+      background: linear-gradient(135deg, #fffaf3 0%, #fff 60%);
+      border: 1.5px solid #fed7aa;
+      border-radius: 16px;
+      padding: 24px 26px;
+      box-shadow: 0 4px 20px rgba(249,115,22,.05);
+    }
+    .plan-card-top {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      gap: 16px; flex-wrap: wrap; margin-bottom: 18px;
+    }
+    .plan-name {
+      font-size: 22px; font-weight: 800; letter-spacing: -.01em;
+      color: var(--navy); margin: 0;
+    }
+    .plan-status {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 10px; border-radius: 999px;
+      font-size: 12px; font-weight: 700;
+      background: #d1fae5; color: #047857;
+    }
+    .plan-status.canceled { background: #fee2e2; color: #b91c1c; }
+    .plan-status .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: currentColor;
+    }
+    .plan-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+      margin-bottom: 18px;
+    }
+    .plan-item {
+      background: rgba(255,255,255,.6);
+      border-radius: 10px;
+      padding: 12px 14px;
+    }
+    .plan-item-label {
+      font-size: 11px; letter-spacing: .04em;
+      color: var(--text-3); font-weight: 700;
+      text-transform: uppercase; margin-bottom: 4px;
+    }
+    .plan-item-value {
+      font-size: 15px; font-weight: 700; color: var(--text);
+    }
+    .plan-actions {
+      display: flex; gap: 10px; flex-wrap: wrap;
+    }
+    .btn-portal {
+      background: #fff; color: var(--text);
+      border: 1.5px solid var(--border);
+      padding: 10px 16px; border-radius: 10px;
+      font-size: 14px; font-weight: 600;
+      cursor: pointer; text-decoration: none;
+      transition: border-color .15s, transform .08s;
+    }
+    .btn-portal:hover { border-color: var(--orange); color: var(--orange); }
+    @media (max-width: 720px) {
+      .plan-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -1005,6 +1101,11 @@
 
       <!-- ============ HERO STATS ============ -->
       <section id="statistieken">
+        <div class="tab-head" data-tab-head="statistieken" style="display:none;">
+          <div class="eyebrow">Statistieken</div>
+          <h1>Hoeveel werk OfficeFlow voor je doet</h1>
+          <p>Maandelijkse impact en realtime workflow-status — alles op één plek.</p>
+        </div>
         <div class="section-eyebrow">
           <h3>Jouw impact</h3>
           <span class="sub">· deze maand</span>
@@ -1097,6 +1198,11 @@
 
       <!-- ============ FEATURED: CONCEPTEN KLAAR ============ -->
       <section id="recent-drafts" style="margin-top:8px;">
+        <div class="tab-head" data-tab-head="recent-drafts" style="display:none;">
+          <div class="eyebrow">Concepten</div>
+          <h1>Wat OfficeFlow voor je heeft klaargezet</h1>
+          <p>AI-voorstellen wachtend in je Gmail-threads. Klik om te openen, lees, pas aan, verzend.</p>
+        </div>
         <div class="drafts-feature">
           <div class="drafts-feature-head">
             <div class="drafts-feature-title">
@@ -1123,6 +1229,11 @@
 
       <!-- ============ FOLLOW-UP RADAR ============ -->
       <section id="radar">
+        <div class="tab-head" data-tab-head="radar" style="display:none;">
+          <div class="eyebrow">Follow-Up Radar</div>
+          <h1>Niets meer vergeten op te volgen</h1>
+          <p>OfficeFlow scant je inbox elke ochtend op open beloftes en stille threads. Jij blijft de knop die verzendt.</p>
+        </div>
         <div class="section-title">Follow-Up Radar</div>
 
         <div class="radar-card" id="radar-card">
@@ -1271,6 +1382,11 @@
 
       <!-- ============ GMAIL ============ -->
       <section id="koppeling">
+        <div class="tab-head" data-tab-head="koppeling" style="display:none;">
+          <div class="eyebrow">Gmail-koppeling</div>
+          <h1>Status, instellingen en onderhoud</h1>
+          <p>Hier beheer je je Gmail-koppeling, automatisch archiveren en eenmalige inbox-opruimacties.</p>
+        </div>
         <div class="section-title">Gmail-koppeling</div>
         <div class="card">
           <div class="card-row">
@@ -1336,14 +1452,40 @@
 
       <!-- ============ ABONNEMENT ============ -->
       <section id="abonnement">
-        <div class="section-title">Abonnement</div>
-        <div class="card">
-          <div class="card-row">
+        <div class="tab-head" data-tab-head="abonnement" style="display:none;">
+          <div class="eyebrow">Abonnement</div>
+          <h1>Beheer je plan en facturatie</h1>
+          <p>Bekijk je actieve abonnement, betaalmethode en facturen — of zeg op wanneer het je uitkomt.</p>
+        </div>
+        <div class="section-title">Actief plan</div>
+        <div class="plan-card">
+          <div class="plan-card-top">
             <div>
-              <div class="card-label">Actief plan</div>
-              <div class="card-title" id="plan-title">Mailbox Manager</div>
-              <div class="card-meta" id="plan-meta">Laden…</div>
+              <h2 class="plan-name" id="plan-title">Mailbox Manager</h2>
+              <div class="card-meta" id="plan-meta" style="margin-top:6px;">Laden…</div>
             </div>
+            <span class="plan-status" id="plan-status">
+              <span class="dot"></span><span id="plan-status-text">Actief</span>
+            </span>
+          </div>
+
+          <div class="plan-grid">
+            <div class="plan-item">
+              <div class="plan-item-label">Periode</div>
+              <div class="plan-item-value" id="plan-period">Maandelijks</div>
+            </div>
+            <div class="plan-item">
+              <div class="plan-item-label">Volgende factuur</div>
+              <div class="plan-item-value" id="plan-next-bill">—</div>
+            </div>
+            <div class="plan-item">
+              <div class="plan-item-label">Bedrag</div>
+              <div class="plan-item-value" id="plan-amount">—</div>
+            </div>
+          </div>
+
+          <div class="plan-actions">
+            <button class="btn-portal" id="billing-portal-btn" type="button">Beheer betaalmethode →</button>
             <button class="btn-danger" id="cancel-btn">Opzeggen</button>
           </div>
         </div>
@@ -1351,11 +1493,16 @@
 
       <!-- ============ ACCOUNT ============ -->
       <section id="account">
-        <div class="section-title">Account</div>
-        <div class="card">
+        <div class="tab-head" data-tab-head="account" style="display:none;">
+          <div class="eyebrow">Account</div>
+          <h1>Voorkeuren en juridisch</h1>
+          <p>Stel je notificaties in, beheer je inloggegevens en bekijk privacy-info.</p>
+        </div>
 
-          <!-- WEEKLY RECAP TOGGLE -->
-          <div class="rc-row" style="padding:4px 0 14px;border-bottom:1px solid var(--border-soft);margin-bottom:10px;">
+        <!-- VOORKEUREN -->
+        <div class="acc-group">
+          <div class="acc-group-head">Voorkeuren</div>
+          <div class="rc-row" style="padding:4px 0;">
             <div>
               <div class="k">Weekoverzicht per mail</div>
               <div class="s">Elke zaterdagochtend een korte samenvatting: mails verwerkt, concepten klaargezet en tijd bespaard.</div>
@@ -1365,11 +1512,20 @@
               <span class="slider"></span>
             </label>
           </div>
+        </div>
 
+        <!-- BEVEILIGING -->
+        <div class="acc-group">
+          <div class="acc-group-head">Beveiliging</div>
           <div class="link-row">
             <span>Wachtwoord wijzigen</span>
             <a href="/reset-password.html">Wijzig →</a>
           </div>
+        </div>
+
+        <!-- JURIDISCH -->
+        <div class="acc-group">
+          <div class="acc-group-head">Juridisch</div>
           <div class="link-row">
             <span>Privacybeleid</span>
             <a href="/privacy.html">Bekijk →</a>
@@ -1378,9 +1534,14 @@
             <span>Algemene voorwaarden</span>
             <a href="/terms.html">Bekijk →</a>
           </div>
+        </div>
+
+        <!-- HULP -->
+        <div class="acc-group">
+          <div class="acc-group-head">Hulp</div>
           <div class="link-row">
             <span>Support</span>
-            <a href="mailto:mail@officeflowcompany.com">mail@officeflowcompany.com</a>
+            <a href="mailto:support@officeflowcompany.com">support@officeflowcompany.com</a>
           </div>
         </div>
       </section>
@@ -2144,19 +2305,40 @@
     }
 
     function renderSubscription(data) {
+      const setText = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = val;
+      };
       const planMeta = document.getElementById('plan-meta');
+
+      // Plan card velden
+      setText('plan-title', data.plan || 'Mailbox Manager');
+      setText('plan-period', data.period || 'Maandelijks');
+      setText('plan-amount', `${data.price || '€24'}/mnd`);
+
+      const nextBill = data.next_billing_date
+        ? new Date(data.next_billing_date).toLocaleDateString('nl-NL', { day: 'numeric', month: 'short', year: 'numeric' })
+        : '—';
+      setText('plan-next-bill', nextBill);
+
+      // Status pill
+      const statusEl = document.getElementById('plan-status');
+      const statusTextEl = document.getElementById('plan-status-text');
       if (data.cancels_at) {
         const dt = new Date(data.cancels_at).toLocaleDateString('nl-NL');
-        planMeta.innerHTML = `<strong class="cancel-warn">Abonnement stopt op ${dt}</strong>`;
-        document.getElementById('cancel-btn').textContent = 'Toch doorgaan';
-        document.getElementById('cancel-btn').onclick = reactivate;
+        if (planMeta) planMeta.innerHTML = `<strong class="cancel-warn">Abonnement stopt op ${dt}</strong>`;
+        if (statusEl) statusEl.classList.add('canceled');
+        if (statusTextEl) statusTextEl.textContent = `Stopt ${dt}`;
+        const cancelBtn = document.getElementById('cancel-btn');
+        if (cancelBtn) {
+          cancelBtn.textContent = 'Toch doorgaan';
+          cancelBtn.onclick = reactivate;
+        }
       } else {
-        const next = data.next_billing_date
-          ? ' · Volgende betaling op ' + new Date(data.next_billing_date).toLocaleDateString('nl-NL')
-          : '';
-        planMeta.textContent = `${data.price || '€24'}/mnd · Maandelijks opzegbaar${next}`;
+        if (planMeta) planMeta.textContent = `Maandelijks opzegbaar — geen verborgen kosten`;
+        if (statusEl) statusEl.classList.remove('canceled');
+        if (statusTextEl) statusTextEl.textContent = 'Actief';
       }
-      document.getElementById('plan-title').textContent = data.plan || 'Mailbox Manager';
     }
 
     // ============ FIRST-RUN WELCOME MODAL ============
@@ -2343,6 +2525,13 @@
         document.querySelectorAll('.sb-nav a[data-tab]').forEach(a => {
           a.classList.toggle('active', a.dataset.tab === tabName);
         });
+        // Tab-heads alleen tonen op solo-tabs (Overzicht is multi-section,
+        // gebruikt de bestaande page-head met "Welkom terug").
+        const isSoloTab = tabName !== 'overzicht';
+        document.querySelectorAll('.tab-head[data-tab-head]').forEach(el => {
+          const matchesActive = el.dataset.tabHead === tabName;
+          el.style.display = (isSoloTab && matchesActive) ? '' : 'none';
+        });
         history.replaceState(null, '', '#' + tabName);
         window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
       }
@@ -2368,6 +2557,37 @@
     document.getElementById('cancel-btn').addEventListener('click', () => {
       document.getElementById('cancel-modal').hidden = false;
     });
+
+    // Stripe billing portal — opent Stripe-portaal voor betaalmethode/facturen
+    const billingPortalBtn = document.getElementById('billing-portal-btn');
+    if (billingPortalBtn) {
+      billingPortalBtn.addEventListener('click', async () => {
+        const orig = billingPortalBtn.textContent;
+        billingPortalBtn.disabled = true;
+        billingPortalBtn.textContent = 'Bezig…';
+        try {
+          const { data: { session } } = await sb.auth.getSession();
+          if (!session) throw new Error('Geen sessie');
+          const res = await fetch(API_BASE + '/billing/portal', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: session.user.email }),
+          });
+          if (!res.ok) throw new Error('Portal-sessie mislukt');
+          const data = await res.json();
+          if (data && data.url) {
+            window.location.href = data.url;
+          } else {
+            throw new Error('Geen portal-URL ontvangen');
+          }
+        } catch (err) {
+          console.warn('[billing-portal]', err);
+          alert('Kon de billing-portal niet openen. Probeer het later opnieuw of mail support@officeflowcompany.com.');
+          billingPortalBtn.disabled = false;
+          billingPortalBtn.textContent = orig;
+        }
+      });
+    }
     document.getElementById('cancel-close').addEventListener('click', () => {
       document.getElementById('cancel-modal').hidden = true;
     });
