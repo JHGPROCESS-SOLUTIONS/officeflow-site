@@ -633,6 +633,37 @@
     .faq-body{padding:0 24px 22px;font-size:14.5px;color:var(--text-soft);line-height:1.7}
     .faq-body strong{color:var(--text);font-weight:600}
 
+    /* Collapsible FAQ group wrapper (zelfde patroon als homepage) */
+    .faq-group{max-width:780px;margin:0 auto}
+    .faq-group > summary{
+      list-style:none;cursor:pointer;
+      background:#fff;border:1.5px solid var(--border);border-radius:14px;
+      padding:18px 22px;
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      font-size:15px;font-weight:700;color:var(--text);letter-spacing:-.01em;
+      transition:border-color .2s,box-shadow .2s,background .2s;
+      user-select:none;margin-bottom:16px;
+    }
+    .faq-group > summary::-webkit-details-marker{display:none}
+    .faq-group > summary:hover{border-color:#fed7aa}
+    .faq-group[open] > summary{border-color:#fed7aa;box-shadow:var(--shadow)}
+    .faq-group-meta{display:inline-flex;align-items:center;gap:10px}
+    .faq-group-hint{font-size:12px;font-weight:500;color:var(--text-soft)}
+    .faq-group-chevron{
+      font-size:14px;color:var(--text-soft);font-weight:700;
+      transition:transform .25s ease;display:inline-block;
+    }
+    .faq-group[open] > summary .faq-group-chevron{transform:rotate(180deg)}
+    .faq-group[open] > summary .faq-group-hint{opacity:0;transition:opacity .2s}
+    .faq-group > .faq-list{animation:faqGroupOpen .25s ease}
+    @keyframes faqGroupOpen{
+      from{opacity:0;transform:translateY(-4px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+    @media (max-width:520px){
+      .faq-group-hint{display:none}
+    }
+
     /* TRUST STRIP (onder hero) */
     .trust-strip{padding:28px 0;background:#fff;border-top:1px solid var(--border-soft);border-bottom:1px solid var(--border-soft)}
     .trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;max-width:960px;margin:0 auto}
@@ -2130,7 +2161,15 @@
       <p class="section-sub">De zes vragen die bijna iedereen stelt voordat ze beginnen.</p>
     </div>
 
-    <div class="faq-list">
+    <details class="faq-group">
+      <summary>
+        <span>Bekijk de antwoorden</span>
+        <span class="faq-group-meta">
+          <span class="faq-group-hint">Meest gestelde vragen — bekijk hier</span>
+          <span class="faq-group-chevron" aria-hidden="true">⌄</span>
+        </span>
+      </summary>
+      <div class="faq-list">
       <details class="faq-item reveal">
         <summary>Hoeveel tijd ga ik hiermee besparen?</summary>
         <div class="faq-body">Gemiddeld <strong>15–30 minuten per dag</strong> bij een normale inbox (50–200 mails/dag). De winst zit in drie dingen: niet meer handmatig sorteren wat belangrijk is, sneller kunnen beginnen met antwoorden (concept ligt er al), en niets meer vergeten op te volgen. Voor veel gebruikers is <em>minder mentale ruis</em> het grootste voordeel — moeilijker te meten, maar net zo waardevol.</div>
@@ -2159,7 +2198,8 @@
         <summary>Wat als de AI een draft schrijft die ik niet wil gebruiken?</summary>
         <div class="faq-body">Niks aan de hand — je negeert het concept of verwijdert het in 1 klik. De draft staat alleen als voorzet klaar; je mag er altijd overheen schrijven of 'm weggooien. Hoe vaker je aanpast, hoe beter OfficeFlow jouw stijl leert.</div>
       </details>
-    </div>
+      </div>
+    </details>
   </div>
 </section>
 
