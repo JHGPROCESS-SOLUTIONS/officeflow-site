@@ -1199,15 +1199,15 @@
             <div class="stat-mini-value"><span id="stat-spam">—</span></div>
             <div class="stat-mini-sub">Uit je weg gehouden</div>
           </div>
-          <div class="stat-mini">
+          <a class="stat-mini stat-mini-link" id="stat-followup-tile" href='https://mail.google.com/mail/u/0/#search/label%3A"Follow+Up"' target="_blank" rel="noopener">
             <div class="stat-mini-label">Follow-up actief</div>
             <div class="stat-mini-value"><span id="stat-followup">—</span></div>
-            <div class="stat-mini-sub">Vraagt nog actie van jou</div>
-          </div>
+            <div class="stat-mini-sub">Klik — jouw actie nodig →</div>
+          </a>
           <a class="stat-mini stat-mini-link" id="stat-waiting-tile" href='https://mail.google.com/mail/u/0/#search/label%3A"Waiting+On+Reply"' target="_blank" rel="noopener">
             <div class="stat-mini-label">Wachten op reply</div>
             <div class="stat-mini-value"><span id="stat-waiting">—</span></div>
-            <div class="stat-mini-sub">Klik om threads in Gmail te openen →</div>
+            <div class="stat-mini-sub">Klik — wacht op anderen →</div>
           </a>
         </div>
       </section>
@@ -1877,15 +1877,24 @@
       setText('stat-fast', hasData && s.fast_reply_pct != null ? s.fast_reply_pct : dash);
       setText('stat-spam', (s.spam_filtered ?? 0).toLocaleString('nl-NL'));
       setText('stat-followup', s.followup_active ?? 0);
+      // Follow Up = JOUW actie nodig — strenger urgency-niveau
+      const followupCount = Number(s.followup_active ?? 0);
+      const followupTile = document.getElementById('stat-followup-tile');
+      if (followupTile) {
+        followupTile.classList.remove('warn', 'urgent');
+        if (followupCount > 3) followupTile.classList.add('urgent');
+        else if (followupCount > 0) followupTile.classList.add('warn');
+      }
+
+      // Wachten op reply = ander aan zet — passieve waarschuwing
+      // Pas warn als > 5 (anders is het alleen ruis), urgent pas bij > 10
       const waitingCount = Number(s.waiting_reply ?? 0);
       setText('stat-waiting', waitingCount);
-      // Visuele waarschuwing: oranje als er > 0 zijn, rood als > 5
-      // (proxy voor 'naderend de bump-threshold' totdat we backend per-thread leeftijd hebben)
       const waitingTile = document.getElementById('stat-waiting-tile');
       if (waitingTile) {
         waitingTile.classList.remove('warn', 'urgent');
-        if (waitingCount > 5) waitingTile.classList.add('urgent');
-        else if (waitingCount > 0) waitingTile.classList.add('warn');
+        if (waitingCount > 10) waitingTile.classList.add('urgent');
+        else if (waitingCount > 5) waitingTile.classList.add('warn');
       }
 
       // Hero snapshot pills
