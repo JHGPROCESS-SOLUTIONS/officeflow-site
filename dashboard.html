@@ -760,6 +760,27 @@
     .snap-pill.muted { color: var(--text-2); }
     .snap-pill.muted .dot { background: var(--text-3); }
     .snap-pill strong { color: var(--orange-2); font-weight: 800; }
+    /* Klikbare action-pills (concepten / follow-up) */
+    a.snap-action {
+      text-decoration: none; cursor: pointer;
+    }
+    a.snap-action:hover {
+      transform: translateY(-1px);
+      border-color: var(--orange);
+    }
+    /* Warning state — als > 0 actiepunten */
+    .snap-pill.snap-warn {
+      background: #fff7ed;
+      border-color: rgba(234,88,12,.45);
+    }
+    .snap-pill.snap-warn strong { color: var(--orange-2); }
+    /* Urgent state — bij hoge aantallen */
+    .snap-pill.snap-urgent {
+      background: #fef2f2;
+      border-color: #dc2626;
+    }
+    .snap-pill.snap-urgent strong { color: #b91c1c; }
+    .snap-pill.snap-urgent .dot { background: #dc2626; }
 
     /* Featured drafts hero card (centerpiece) */
     .drafts-feature {
@@ -1106,7 +1127,12 @@
             <h1 id="welcome-title">Welkom terug</h1>
             <p class="page-desc">Zo heeft OfficeFlow je inbox deze maand geholpen. Blijf zelf in controle — elk antwoord kies je zelf.</p>
             <div class="hero-snapshot" id="hero-snapshot">
-              <span class="snap-pill"><span class="dot"></span><strong id="snap-drafts">0</strong>&nbsp;concepten klaar</span>
+              <a class="snap-pill snap-action" id="snap-drafts-pill" href='https://mail.google.com' target="_blank" rel="noopener" title="Open Gmail om concepten te bekijken">
+                <span class="dot"></span><strong id="snap-drafts">0</strong>&nbsp;concepten klaar
+              </a>
+              <a class="snap-pill snap-action" id="snap-followup-pill" href='https://mail.google.com/mail/u/0/#search/label%3A"Follow+Up"' target="_blank" rel="noopener" title="Open Follow Up threads in Gmail">
+                <span class="dot"></span><strong id="snap-followup">0</strong>&nbsp;follow-ups voor jou
+              </a>
               <span class="snap-pill muted"><span class="dot"></span><strong id="snap-week">0</strong>&nbsp;mails verwerkt deze week</span>
               <span class="snap-pill muted"><span class="dot"></span><strong id="snap-time">—</strong>&nbsp;bespaard deze maand</span>
             </div>
@@ -1879,11 +1905,28 @@
       setText('stat-followup', s.followup_active ?? 0);
       // Follow Up = JOUW actie nodig — strenger urgency-niveau
       const followupCount = Number(s.followup_active ?? 0);
+      setText('snap-followup', followupCount);
       const followupTile = document.getElementById('stat-followup-tile');
       if (followupTile) {
         followupTile.classList.remove('warn', 'urgent');
         if (followupCount > 3) followupTile.classList.add('urgent');
         else if (followupCount > 0) followupTile.classList.add('warn');
+      }
+      // Sync warning state naar de hero-pill
+      const followupPill = document.getElementById('snap-followup-pill');
+      if (followupPill) {
+        followupPill.classList.remove('snap-warn', 'snap-urgent');
+        if (followupCount > 3) followupPill.classList.add('snap-urgent');
+        else if (followupCount > 0) followupPill.classList.add('snap-warn');
+      }
+      // Concepten-pill ook urgency: als > 0 in oranje
+      // (Echte count komt later van renderRecentDrafts via setText('snap-drafts', ...))
+      const draftsCount = Number(s.drafts_ready ?? 0);
+      const draftsPill = document.getElementById('snap-drafts-pill');
+      if (draftsPill) {
+        draftsPill.classList.remove('snap-warn', 'snap-urgent');
+        if (draftsCount > 10) draftsPill.classList.add('snap-urgent');
+        else if (draftsCount > 0) draftsPill.classList.add('snap-warn');
       }
 
       // Wachten op reply = ander aan zet — passieve waarschuwing
@@ -2430,6 +2473,14 @@
       setText('sb-today-drafts', activeCount);
       setText('snap-drafts', activeCount);
       setText('stat-drafts', activeCount);
+
+      // Sync urgency op de hero-pill met de échte (Gmail-gefilterde) count
+      const draftsPill = document.getElementById('snap-drafts-pill');
+      if (draftsPill) {
+        draftsPill.classList.remove('snap-warn', 'snap-urgent');
+        if (activeCount > 10) draftsPill.classList.add('snap-urgent');
+        else if (activeCount > 0) draftsPill.classList.add('snap-warn');
+      }
 
       if (!items.length) {
         body.innerHTML = `
