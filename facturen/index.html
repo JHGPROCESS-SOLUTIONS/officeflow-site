@@ -799,7 +799,55 @@
     .demo-mob-item.active{color:#fb923c;}
     .demo-mob-item.active svg{stroke:#fb923c;}
 
-  </style>
+  
+    /* ===== EXTRA DEMO CLASSES ===== */
+    .d-stats-5{grid-template-columns:repeat(5,1fr);}
+    .d-werk-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+    .d-werk-card{background:#fff;border:1px solid #e2e8f0;border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:0;box-shadow:0 2px 8px rgba(15,23,42,.07),0 1px 3px rgba(15,23,42,.04);}
+    .d-werk-emoji{font-size:28px;margin-bottom:14px;line-height:1;}
+    .d-werk-title{font-size:17px;font-weight:700;color:#0f172a;letter-spacing:-.02em;margin:0 0 8px;}
+    .d-werk-desc{font-size:14px;line-height:1.65;color:#64748b;margin:0 0 20px;flex-grow:1;}
+    .d-werk-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:12px;background:linear-gradient(135deg,#f97316,#fb923c);color:#fff;font-weight:700;font-size:13px;box-shadow:0 4px 14px rgba(249,115,22,.20);width:fit-content;}
+    .d-tip{display:flex;align-items:flex-start;gap:12px;padding:12px 16px;border-radius:14px;background:#fffaf7;border:1px solid #fed7aa;margin-bottom:0;}
+    .d-tip-icon{width:20px;height:20px;border-radius:50%;background:#f97316;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff;font-size:11px;font-weight:800;margin-top:1px;}
+    .d-tip-txt{font-size:13px;color:#9a3412;font-weight:500;line-height:1.5;}
+    .d-fpill{display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border-radius:999px;text-decoration:none;font-size:13px;font-weight:600;cursor:default;}
+    .d-fpill.act{background:#f97316;color:#fff;box-shadow:0 4px 12px rgba(249,115,22,.22);}
+    .d-fpill.in{background:#f8fafc;color:#475569;border:1px solid #e2e8f0;}
+    .d-fpill-ct{min-width:18px;height:18px;display:inline-flex;align-items:center;justify-content:center;border-radius:999px;font-size:11px;font-weight:700;padding:0 5px;}
+    .d-fpill.act .d-fpill-ct{background:rgba(255,255,255,.22);color:#fff;}
+    .d-fpill.in .d-fpill-ct{background:#e2e8f0;color:#64748b;}
+    .d-tfoot{padding:12px 18px;border-top:1px solid #f1f5f9;display:flex;justify-content:space-between;align-items:center;}
+    .d-tfoot-lnk{color:#f97316;font-weight:600;font-size:14px;}
+    .d-nextstep{border:1px solid #e2e8f0;border-radius:20px;padding:18px 20px;background:#fff;box-shadow:0 2px 8px rgba(15,23,42,.07);display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;}
+    .d-steps{display:grid;gap:10px;}
+    .d-step{display:flex;gap:14px;align-items:flex-start;padding:13px 16px;border-radius:14px;background:#f8fafc;border:1px solid #e2e8f0;}
+    .d-step.done{background:rgba(34,197,94,.05);border-color:rgba(34,197,94,.18);}
+    .d-step-nr{width:28px;height:28px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff;}
+    .d-step-nr.open{background:#f97316;}
+    .d-step-nr.done{background:#22c55e;}
+    .d-step-title{font-size:14px;font-weight:700;color:#0f172a;margin:0 0 3px;}
+    .d-step-desc{font-size:13px;color:#64748b;line-height:1.6;margin:0;}
+    .d-progress-card{border:1px solid #e2e8f0;border-radius:20px;background:#fff;box-shadow:0 2px 8px rgba(15,23,42,.07);overflow:hidden;}
+    .d-progress-head{padding:20px 22px;border-bottom:1px solid #f1f5f9;}
+    .d-progress-pct{font-size:26px;font-weight:800;color:#0f172a;letter-spacing:-.04em;}
+    .d-progress-body{padding:14px 22px;display:grid;gap:8px;}
+    .d-progress-item{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 14px;border:1px solid #f1f5f9;border-radius:14px;background:#fafafa;}
+    .d-two-col{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(280px,.75fr);gap:14px;align-items:start;}
+    .d-quick-actions{border:1px solid #e2e8f0;border-radius:20px;padding:18px 16px;background:#fff;box-shadow:0 2px 8px rgba(15,23,42,.07);display:grid;gap:8px;align-content:start;}
+    .d-quick-new{display:flex;flex-direction:column;gap:3px;text-decoration:none;padding:14px 16px;border-radius:14px;background:linear-gradient(135deg,#f97316,#fb923c);box-shadow:0 6px 20px rgba(249,115,22,.22);cursor:default;}
+    .d-quick-link{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 16px;border-radius:14px;border:1px solid #e2e8f0;background:#fff;font-size:14px;font-weight:600;color:#0f172a;box-shadow:0 1px 4px rgba(15,23,42,.05);cursor:default;}
+    .d-mb-status{padding:12px 14px;border-radius:14px;border:1px solid #fed7aa;background:#fff7ed;margin-top:4px;}
+    .d-usage-bar{height:6px;border-radius:999px;background:#f1f5f9;overflow:hidden;margin-bottom:8px;}
+    .d-usage-fill{height:100%;border-radius:999px;background:#f97316;}
+    .d-plan-limit{font-size:12px;color:#94a3b8;margin-bottom:10px;}
+    @media(max-width:768px){
+      .d-stats-5{grid-template-columns:repeat(2,1fr);}
+      .d-werk-cards{grid-template-columns:1fr;}
+      .d-two-col{grid-template-columns:1fr;}
+      .d-plans{grid-template-columns:1fr 1fr!important;}
+    }
+</style>
 </head>
 <body>
 
@@ -1769,7 +1817,7 @@
       <aside class="demo-sidebar">
         <div class="dsb-inner">
 
-          <!-- Logo SVG — exact copy from Logo component -->
+          <!-- Logo SVG -->
           <div class="dsb-logo-wrap">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 210 48" width="148" height="34" role="img" aria-label="OfficeFlow">
               <defs><linearGradient id="dsbGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F97316"/><stop offset="100%" stop-color="#FB923C"/></linearGradient></defs>
@@ -1870,324 +1918,893 @@
             <span>Overzicht</span>
           </button>
           <button class="demo-mob-item" id="mnav-facturen" onclick="switchDemo('facturen')">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
             <span>Facturen</span>
           </button>
           <button class="demo-mob-item" id="mnav-offertes" onclick="switchDemo('offertes')">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><path d="M9 5a2 2 0 002 2h2a2 2 0 002-2 2 2 0 00-2-2h-2a2 2 0 00-2 2zM9 12h6M9 16h4"/></svg>
             <span>Offertes</span>
           </button>
           <button class="demo-mob-item" id="mnav-klanten" onclick="switchDemo('klanten')">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75M9 7a4 4 0 100 8 4 4 0 000-8z"/></svg>
             <span>Klanten</span>
           </button>
-          <button class="demo-mob-item" id="mnav-settings" onclick="switchDemo('settings')">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 15a3 3 0 100-6 3 3 0 000 6z"/></svg>
+          <button class="demo-mob-item" id="mnav-meer" onclick="switchDemo('settings')">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 15a3 3 0 100-6 3 3 0 000 6z"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
             <span>Meer</span>
           </button>
         </div>
 
-        <!-- SCREEN: Overzicht -->
+        <!-- ════════════════════════════════════
+             SCREEN: Overzicht (Dashboard)
+             ════════════════════════════════════ -->
         <div class="ds active" id="ds-overzicht">
+
+          <!-- Tooltip banner -->
+          <div class="d-tip" style="margin-bottom:0;">
+            <div class="d-tip-icon">i</div>
+            <div class="d-tip-txt">Hier zie je een overzicht van je bedrijf. Begin met je bedrijfsgegevens invullen en je eerste klant aanmaken.</div>
+          </div>
+
+          <!-- Hero -->
           <div class="d-hero">
             <div class="d-hero-inner">
-              <div class="d-hero-eyebrow"><span class="d-hero-eyebrow-dot"></span><span class="d-hero-eyebrow-lbl">Dashboard</span></div>
-              <h1 class="d-hero-title">Welkom terug, Thomas</h1>
-              <p class="d-hero-sub">Overzicht van Bakker &amp; Partners — klanten, facturen, offertes en de voortgang van je omgeving.</p>
-            </div>
-          </div>
-          <div class="d-stats d-stats-4">
-            <div class="d-stat b"><div class="d-stat-v">12</div><div class="d-stat-l">Klanten</div></div>
-            <div class="d-stat o"><div class="d-stat-v">8</div><div class="d-stat-l">Facturen</div><div class="d-stat-sub">3 verzonden deze maand</div></div>
-            <div class="d-stat p"><div class="d-stat-v">5</div><div class="d-stat-l">Offertes</div><div class="d-stat-sub">2 in behandeling</div></div>
-            <div class="d-stat g"><div class="d-stat-v">€4.240</div><div class="d-stat-l">Betaald</div><div class="d-stat-sub">Afgelopen 30 dagen</div></div>
-          </div>
-          <div class="d-alert-g">
-            <div class="d-shdr" style="margin-bottom:12px">
-              <div>
-                <p class="d-seyebrow" style="color:#16a34a">Automatisch verwerkt</p>
-                <h2 class="d-stitle">Betalingen via bank</h2>
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+                <div>
+                  <div class="d-hero-eyebrow"><span class="d-hero-eyebrow-dot"></span><span class="d-hero-eyebrow-lbl">Dashboard</span></div>
+                  <h1 class="d-hero-title">Welkom terug, Thomas</h1>
+                  <p class="d-hero-sub">Overzicht van Bakker &amp; Partners — klanten, facturen, offertes en de voortgang van je omgeving.</p>
+                </div>
               </div>
-              <span class="d-slink">Alle betaalde facturen →</span>
-            </div>
-            <div style="display:grid;gap:8px">
-              <div class="d-bankrow"><div style="display:flex;align-items:center;gap:10px"><div class="d-bankicon">✓</div><div><div style="font-size:14px;font-weight:600;color:#0f172a">INV-2026-007 · De Vries BV</div><div style="font-size:12px;color:#64748b">Rabobank · 12 april 2026</div></div></div><span class="d-badge dbg">€890,00</span></div>
-              <div class="d-bankrow"><div style="display:flex;align-items:center;gap:10px"><div class="d-bankicon">✓</div><div><div style="font-size:14px;font-weight:600;color:#0f172a">INV-2026-005 · Hooft Advies</div><div style="font-size:12px;color:#64748b">Rabobank · 10 april 2026</div></div></div><span class="d-badge dbg">€440,00</span></div>
             </div>
           </div>
-          <div class="d-card">
-            <div class="d-shdr">
-              <h2 class="d-stitle">Snelle acties</h2>
+
+          <!-- Primary action: Moneybird koppelen -->
+          <div style="border-radius:20px;padding:20px 24px;background:linear-gradient(135deg,rgba(249,115,22,.08),#ffffff);border:1px solid rgba(251,146,60,.24);box-shadow:0 2px 12px rgba(15,23,42,.05);">
+            <p style="margin:0 0 4px;font-size:11px;color:#ea580c;text-transform:uppercase;letter-spacing:.1em;font-weight:700;">Aanbevolen volgende stap</p>
+            <h2 style="margin:0 0 6px;font-size:22px;letter-spacing:-.03em;color:#0f172a;font-weight:700;">Moneybird koppelen</h2>
+            <p style="margin:0 0 16px;font-size:14px;line-height:1.65;color:#64748b;max-width:560px;">Koppel je Moneybird-omgeving om klanten, synchronisatie en verzending goed te kunnen gebruiken.</p>
+            <span class="d-btn-o">Openen</span>
+          </div>
+
+          <!-- Stat cards row: 4 cols -->
+          <div class="d-stats d-stats-4">
+            <div class="d-stat b">
+              <p class="d-stat-l" style="margin:0 0 8px;">Klanten</p>
+              <div class="d-stat-v">12</div>
+              <div class="d-stat-sub">Actieve klanten</div>
             </div>
-            <div class="d-ql">
-              <div class="d-ql-item"><div style="display:flex;align-items:center;gap:10px"><div class="d-ql-icon d-ql-icon-o"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="1.75"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg></div><span>Nieuwe factuur</span></div><span style="color:#94a3b8">→</span></div>
-              <div class="d-ql-item"><div style="display:flex;align-items:center;gap:10px"><div class="d-ql-icon d-ql-icon-b"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.75"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/></svg></div><span>Nieuwe offerte</span></div><span style="color:#94a3b8">→</span></div>
-              <div class="d-ql-item"><div style="display:flex;align-items:center;gap:10px"><div class="d-ql-icon d-ql-icon-g"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="1.75"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/></svg></div><span>Klant toevoegen</span></div><span style="color:#94a3b8">→</span></div>
+            <div class="d-stat o">
+              <p class="d-stat-l" style="margin:0 0 8px;">Facturen</p>
+              <div class="d-stat-v">8</div>
+              <div class="d-stat-sub">Facturen aanwezig</div>
             </div>
+            <div class="d-stat p">
+              <p class="d-stat-l" style="margin:0 0 8px;">Offertes</p>
+              <div class="d-stat-v">5</div>
+              <div class="d-stat-sub">Offertes aanwezig</div>
+            </div>
+            <div class="d-stat" style="border-top-color:#f97316;">
+              <p class="d-stat-l" style="margin:0 0 8px;">Moneybird</p>
+              <div class="d-stat-v" style="font-size:18px;color:#ea580c;">Niet gekoppeld</div>
+              <div class="d-stat-sub">Koppel Moneybird</div>
+            </div>
+          </div>
+
+          <!-- Usage tiles: 2 cols -->
+          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;">
+            <div class="d-card">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:10px;">
+                <p style="margin:0;font-size:13px;color:#64748b;font-weight:600;">Facturen deze maand</p>
+                <span style="padding:3px 9px;border-radius:999px;font-size:11px;font-weight:700;background:#fff7ed;border:1px solid #fed7aa;color:#ea580c;white-space:nowrap;">25 max</span>
+              </div>
+              <p style="margin:0 0 10px;font-size:28px;font-weight:800;color:#0f172a;letter-spacing:-.04em;">8 <span style="font-size:14px;font-weight:500;color:#94a3b8;margin-left:4px;">/ 25</span></p>
+              <div class="d-usage-bar"><div class="d-usage-fill" style="width:32%;"></div></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <p style="margin:0;font-size:12px;color:#94a3b8;">32% gebruikt</p>
+              </div>
+            </div>
+            <div class="d-card">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:10px;">
+                <p style="margin:0;font-size:13px;color:#64748b;font-weight:600;">Offertes deze maand</p>
+                <span style="padding:3px 9px;border-radius:999px;font-size:11px;font-weight:700;background:#fff7ed;border:1px solid #fed7aa;color:#ea580c;white-space:nowrap;">25 max</span>
+              </div>
+              <p style="margin:0 0 10px;font-size:28px;font-weight:800;color:#0f172a;letter-spacing:-.04em;">5 <span style="font-size:14px;font-weight:500;color:#94a3b8;margin-left:4px;">/ 25</span></p>
+              <div class="d-usage-bar"><div class="d-usage-fill" style="width:20%;"></div></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <p style="margin:0;font-size:12px;color:#94a3b8;">20% gebruikt</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Voortgang + Snelle acties -->
+          <div class="d-two-col">
+
+            <!-- Voortgang omgeving -->
+            <div class="d-progress-card">
+              <div class="d-progress-head">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:14px;">
+                  <div>
+                    <p style="margin:0 0 6px;font-size:13px;color:#64748b;font-weight:600;">Voortgang omgeving</p>
+                    <div class="d-progress-pct">33% afgerond</div>
+                    <p style="margin:0;font-size:13px;color:#94a3b8;">2 van 6 onderdelen klaar</p>
+                  </div>
+                  <span style="padding:6px 12px;border-radius:999px;font-size:12px;font-weight:700;background:#fff7ed;border:1px solid #fed7aa;color:#ea580c;">Aanvullen</span>
+                </div>
+                <div style="padding:12px 14px;border-radius:14px;background:#fffaf7;border:1px solid #fed7aa;">
+                  <p style="margin:0 0 4px;font-size:11px;color:#ea580c;font-weight:700;text-transform:uppercase;letter-spacing:.1em;">Volgende stap</p>
+                  <p style="margin:0;font-size:14px;color:#0f172a;font-weight:600;line-height:1.55;">Koppel eerst Moneybird zodat je omgeving compleet werkt.</p>
+                </div>
+              </div>
+              <div class="d-progress-body">
+                <div class="d-progress-item"><div><p style="margin:0;font-size:14px;font-weight:600;color:#0f172a;">Bedrijfsgegevens</p><p style="margin:0;font-size:12px;color:#94a3b8;">Bedrijfsnaam, e-mail en adres</p></div><span style="padding:4px 10px;border-radius:999px;font-size:12px;font-weight:700;background:#f0fdf4;border:1px solid #bbf7d0;color:#16a34a;">Klaar</span></div>
+                <div class="d-progress-item"><div><p style="margin:0;font-size:14px;font-weight:600;color:#0f172a;">Betaalgegevens</p><p style="margin:0;font-size:12px;color:#94a3b8;">IBAN en betaalgegevens</p></div><span style="padding:4px 10px;border-radius:999px;font-size:12px;font-weight:700;background:#f0fdf4;border:1px solid #bbf7d0;color:#16a34a;">Klaar</span></div>
+                <div class="d-progress-item"><div><p style="margin:0;font-size:14px;font-weight:600;color:#0f172a;">Koppeling</p><p style="margin:0;font-size:12px;color:#94a3b8;">Actieve providerkoppeling</p></div><span style="padding:4px 10px;border-radius:999px;font-size:12px;font-weight:700;background:#fff7ed;border:1px solid #fed7aa;color:#ea580c;">Aanvullen →</span></div>
+                <div class="d-progress-item"><div><p style="margin:0;font-size:14px;font-weight:600;color:#0f172a;">Klantgegevens</p><p style="margin:0;font-size:12px;color:#94a3b8;">Minimaal één klant</p></div><span style="padding:4px 10px;border-radius:999px;font-size:12px;font-weight:700;background:#fff7ed;border:1px solid #fed7aa;color:#ea580c;">Aanvullen →</span></div>
+              </div>
+            </div>
+
+            <!-- Snelle acties -->
+            <div class="d-quick-actions">
+              <p style="margin:0 0 6px;font-size:13px;color:#64748b;font-weight:600;">Snelle acties</p>
+              <div class="d-quick-new">
+                <span style="font-size:14px;font-weight:700;color:#fff;">Nieuwe offerte</span>
+                <span style="font-size:12px;color:rgba(255,255,255,.85);">Snel een offerte aanmaken</span>
+              </div>
+              <div class="d-quick-link"><div><p style="margin:0;font-size:14px;font-weight:600;color:#0f172a;">Facturen</p><p style="margin:0;font-size:12px;color:#94a3b8;">Open factuuroverzicht</p></div><span style="font-size:16px;color:#cbd5e1;">→</span></div>
+              <div class="d-quick-link"><div><p style="margin:0;font-size:14px;font-weight:600;color:#0f172a;">Offertes</p><p style="margin:0;font-size:12px;color:#94a3b8;">Open offerteoverzicht</p></div><span style="font-size:16px;color:#cbd5e1;">→</span></div>
+              <div class="d-quick-link"><div><p style="margin:0;font-size:14px;font-weight:600;color:#0f172a;">Klanten</p><p style="margin:0;font-size:12px;color:#94a3b8;">Klanten beheren</p></div><span style="font-size:16px;color:#cbd5e1;">→</span></div>
+              <div class="d-quick-link"><div><p style="margin:0;font-size:14px;font-weight:600;color:#0f172a;">Instellingen</p><p style="margin:0;font-size:12px;color:#94a3b8;">Bedrijfsgegevens</p></div><span style="font-size:16px;color:#cbd5e1;">→</span></div>
+              <div class="d-mb-status">
+                <p style="margin:0 0 2px;font-size:13px;font-weight:700;color:#ea580c;">Moneybird koppelen</p>
+                <p style="margin:0;font-size:12px;color:#fb923c;">Koppeling vereist</p>
+              </div>
+            </div>
+
           </div>
         </div>
 
-        <!-- SCREEN: Klanten -->
+        <!-- ════════════════════════════════════
+             SCREEN: Klanten
+             ════════════════════════════════════ -->
         <div class="ds" id="ds-klanten">
-          <div class="d-hero">
-            <div class="d-hero-inner">
-              <div class="d-hero-eyebrow"><span class="d-hero-eyebrow-dot"></span><span class="d-hero-eyebrow-lbl">Klanten</span></div>
-              <h1 class="d-hero-title">Klanten</h1>
-              <p class="d-hero-sub">Beheer je klantbestand en bekijk facturen, offertes en activiteiten per klant.</p>
-              <div class="d-hero-actions"><span class="d-btn-o">+ Nieuwe klant</span></div>
-            </div>
-          </div>
-          <div class="d-card" style="padding:0">
-            <div class="d-bar" style="padding:16px 20px 12px;border-bottom:1px solid #f1f5f9">
-              <div class="d-search"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg> Zoek op naam of e-mail...</div>
-            </div>
-            <div class="d-thead" style="grid-template-columns:2fr 2fr 1fr 1fr"><span>Naam</span><span>E-mail</span><span>Facturen</span><span>Status</span></div>
-            <div class="d-trow" style="grid-template-columns:2fr 2fr 1fr 1fr"><span class="dcb">Maas Solutions</span><span class="dcs">maas@example.nl</span><span class="dc">3</span><span><span class="d-badge dbb">Actief</span></span></div>
-            <div class="d-trow" style="grid-template-columns:2fr 2fr 1fr 1fr"><span class="dcb">De Vries BV</span><span class="dcs">devries@example.nl</span><span class="dc">5</span><span><span class="d-badge dbg">Actief</span></span></div>
-            <div class="d-trow" style="grid-template-columns:2fr 2fr 1fr 1fr"><span class="dcb">Janssen Groep</span><span class="dcs">janssen@example.nl</span><span class="dc">2</span><span><span class="d-badge dbo">2 offertes</span></span></div>
-            <div class="d-trow" style="grid-template-columns:2fr 2fr 1fr 1fr"><span class="dcb">Berg &amp; Zonen</span><span class="dcs">berg@example.nl</span><span class="dc">1</span><span><span class="d-badge dbg">Actief</span></span></div>
-            <div class="d-trow" style="grid-template-columns:2fr 2fr 1fr 1fr"><span class="dcb">Hooft Advies</span><span class="dcs">hooft@example.nl</span><span class="dc">2</span><span><span class="d-badge dbgr">Actief</span></span></div>
-            <div class="d-trow" style="grid-template-columns:2fr 2fr 1fr 1fr"><span class="dcb">Van Dam &amp; Co</span><span class="dcs">vandam@example.nl</span><span class="dc">0</span><span><span class="d-badge dbgr">Nieuw</span></span></div>
-          </div>
-        </div>
 
-        <!-- SCREEN: Werk & inkomsten -->
-        <div class="ds" id="ds-werk">
-          <div class="d-hero">
-            <div class="d-hero-inner">
-              <div class="d-hero-eyebrow"><span class="d-hero-eyebrow-dot"></span><span class="d-hero-eyebrow-lbl">Werk &amp; inkomsten</span></div>
-              <h1 class="d-hero-title">Werk &amp; inkomsten</h1>
-              <p class="d-hero-sub">Werklogboek, activiteiten voor factuur, abonnementen en handmatige kosten op één plek.</p>
-            </div>
+          <div class="d-tip" style="margin-bottom:0;">
+            <div class="d-tip-icon">i</div>
+            <div class="d-tip-txt">Dit zijn je klanten. Voeg een klant toe om je eerste offerte of factuur te kunnen maken.</div>
           </div>
-          <div class="d-stats d-stats-4">
-            <div class="d-stat o"><div class="d-stat-v">14</div><div class="d-stat-l">Activiteiten</div><div class="d-stat-sub">Onverwerkt: 3</div></div>
-            <div class="d-stat g"><div class="d-stat-v">28h</div><div class="d-stat-l">Werklogboek</div><div class="d-stat-sub">Deze maand</div></div>
-            <div class="d-stat b"><div class="d-stat-v">3</div><div class="d-stat-l">Abonnementen</div><div class="d-stat-sub">Actief</div></div>
-            <div class="d-stat p"><div class="d-stat-v">2</div><div class="d-stat-l">Handmatig</div><div class="d-stat-sub">Openstaand</div></div>
-          </div>
-          <div class="d-card" style="padding:0">
-            <div style="padding:16px 20px 12px;border-bottom:1px solid #f1f5f9">
-              <h2 class="d-stitle">Recente activiteiten</h2>
-            </div>
-            <div class="d-thead" style="grid-template-columns:2fr 1.5fr 1fr 1fr"><span>Klant</span><span>Omschrijving</span><span>Bedrag</span><span>Status</span></div>
-            <div class="d-trow" style="grid-template-columns:2fr 1.5fr 1fr 1fr"><span class="dcb">Maas Solutions</span><span class="dc">8u consultancy</span><span class="dc">€960</span><span><span class="d-badge dbo">Onverwerkt</span></span></div>
-            <div class="d-trow" style="grid-template-columns:2fr 1.5fr 1fr 1fr"><span class="dcb">De Vries BV</span><span class="dc">Maandabonnement</span><span class="dc">€350</span><span><span class="d-badge dbg">Klaar</span></span></div>
-            <div class="d-trow" style="grid-template-columns:2fr 1.5fr 1fr 1fr"><span class="dcb">Janssen Groep</span><span class="dc">5u advies</span><span class="dc">€600</span><span><span class="d-badge dbo">Onverwerkt</span></span></div>
-            <div class="d-trow" style="grid-template-columns:2fr 1.5fr 1fr 1fr"><span class="dcb">Hooft Advies</span><span class="dc">Licentie Q2</span><span class="dc">€199</span><span><span class="d-badge dbg">Klaar</span></span></div>
-          </div>
-        </div>
 
-        <!-- SCREEN: Facturen -->
-        <div class="ds" id="ds-facturen">
           <div class="d-hero">
             <div class="d-hero-inner">
-              <div class="d-hero-eyebrow"><span class="d-hero-eyebrow-dot"></span><span class="d-hero-eyebrow-lbl">Facturen</span></div>
-              <h1 class="d-hero-title">Facturen</h1>
-              <p class="d-hero-sub">Maak, beheer en synchroniseer facturen. Automatische Moneybird-sync ingebouwd.</p>
-              <div class="d-hero-actions"><span class="d-btn-o">+ Nieuwe factuur</span><span class="d-btn-n">Sync starten</span></div>
-            </div>
-          </div>
-          <div class="d-stats d-stats-4">
-            <div class="d-stat o"><div class="d-stat-v">3</div><div class="d-stat-l">Verzonden</div></div>
-            <div class="d-stat g"><div class="d-stat-v">4</div><div class="d-stat-l">Betaald</div></div>
-            <div class="d-stat r"><div class="d-stat-v">1</div><div class="d-stat-l">Te laat</div></div>
-            <div class="d-stat b"><div class="d-stat-v">1</div><div class="d-stat-l">Concept</div></div>
-          </div>
-          <div class="d-card" style="padding:0">
-            <div class="d-bar" style="padding:14px 20px 10px;border-bottom:1px solid #f1f5f9;gap:8px">
-              <div class="d-search"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg> Zoek facturen...</div>
-              <div class="d-ftabs"><button class="d-ftab on">Alle</button><button class="d-ftab">Verzonden</button><button class="d-ftab">Betaald</button><button class="d-ftab">Te laat</button></div>
-            </div>
-            <div class="d-thead" style="grid-template-columns:1.2fr 1.8fr 1fr 1.2fr 1fr"><span>Factuur</span><span>Klant</span><span>Bedrag</span><span>Status</span><span>Acties</span></div>
-            <div class="d-trow" style="grid-template-columns:1.2fr 1.8fr 1fr 1.2fr 1fr"><span class="dcb">INV-2026-008</span><span class="dc">Maas Solutions</span><span class="dc">€1.250,00</span><span><span class="d-badge dbo">Verzonden</span></span><span><button class="d-act d-act-o">Open</button></span></div>
-            <div class="d-trow" style="grid-template-columns:1.2fr 1.8fr 1fr 1.2fr 1fr"><span class="dcb">INV-2026-007</span><span class="dc">De Vries BV</span><span class="dc">€890,00</span><span><span class="d-badge dbg">Betaald</span></span><span><button class="d-act d-act-n">Open</button></span></div>
-            <div class="d-trow" style="grid-template-columns:1.2fr 1.8fr 1fr 1.2fr 1fr"><span class="dcb">INV-2026-006</span><span class="dc">Janssen Groep</span><span class="dc">€2.100,00</span><span><span class="d-badge dbr">Te laat</span></span><span><button class="d-act d-act-o">Open</button></span></div>
-            <div class="d-trow" style="grid-template-columns:1.2fr 1.8fr 1fr 1.2fr 1fr"><span class="dcb">INV-2026-005</span><span class="dc">Hooft Advies</span><span class="dc">€440,00</span><span><span class="d-badge dbg">Betaald</span></span><span><button class="d-act d-act-n">Open</button></span></div>
-            <div class="d-trow" style="grid-template-columns:1.2fr 1.8fr 1fr 1.2fr 1fr"><span class="dcb">INV-2026-004</span><span class="dc">Berg &amp; Zonen</span><span class="dc">€680,00</span><span><span class="d-badge dbg">Betaald</span></span><span><button class="d-act d-act-n">Open</button></span></div>
-            <div class="d-trow" style="grid-template-columns:1.2fr 1.8fr 1fr 1.2fr 1fr"><span class="dcb">INV-2026-003</span><span class="dc">Maas Solutions</span><span class="dc">€730,00</span><span><span class="d-badge dbgr">Concept</span></span><span><button class="d-act d-act-b">Afronden</button></span></div>
-          </div>
-        </div>
-
-        <!-- SCREEN: Offertes -->
-        <div class="ds" id="ds-offertes">
-          <div class="d-hero">
-            <div class="d-hero-inner">
-              <div class="d-hero-eyebrow"><span class="d-hero-eyebrow-dot"></span><span class="d-hero-eyebrow-lbl">Offertes</span></div>
-              <h1 class="d-hero-title">Offertes</h1>
-              <p class="d-hero-sub">Maak professionele offertes en synchroniseer ze als estimate naar Moneybird.</p>
-              <div class="d-hero-actions"><span class="d-btn-o">+ Nieuwe offerte</span></div>
-            </div>
-          </div>
-          <div class="d-stats d-stats-4">
-            <div class="d-stat b"><div class="d-stat-v">2</div><div class="d-stat-l">Verzonden</div></div>
-            <div class="d-stat g"><div class="d-stat-v">2</div><div class="d-stat-l">Geaccepteerd</div></div>
-            <div class="d-stat y"><div class="d-stat-v">1</div><div class="d-stat-l">Concept</div></div>
-            <div class="d-stat r"><div class="d-stat-v">0</div><div class="d-stat-l">Afgewezen</div></div>
-          </div>
-          <div class="d-card" style="padding:0">
-            <div class="d-bar" style="padding:14px 20px 10px;border-bottom:1px solid #f1f5f9;gap:8px">
-              <div class="d-search"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg> Zoek offertes...</div>
-              <div class="d-ftabs"><button class="d-ftab on">Alle</button><button class="d-ftab">Verzonden</button><button class="d-ftab">Geaccepteerd</button></div>
-            </div>
-            <div class="d-thead" style="grid-template-columns:1.2fr 1.8fr 1fr 1.2fr 1fr"><span>Offerte</span><span>Klant</span><span>Bedrag</span><span>Status</span><span>Acties</span></div>
-            <div class="d-trow" style="grid-template-columns:1.2fr 1.8fr 1fr 1.2fr 1fr"><span class="dcb">OFF-2026-005</span><span class="dc">Hooft Advies</span><span class="dc">€3.500,00</span><span><span class="d-badge dbb">Verzonden</span></span><span><button class="d-act d-act-o">Open</button></span></div>
-            <div class="d-trow" style="grid-template-columns:1.2fr 1.8fr 1fr 1.2fr 1fr"><span class="dcb">OFF-2026-004</span><span class="dc">Maas Solutions</span><span class="dc">€1.800,00</span><span><span class="d-badge dbg">Geaccepteerd</span></span><span><button class="d-act d-act-n">Open</button></span></div>
-            <div class="d-trow" style="grid-template-columns:1.2fr 1.8fr 1fr 1.2fr 1fr"><span class="dcb">OFF-2026-003</span><span class="dc">De Vries BV</span><span class="dc">€950,00</span><span><span class="d-badge dby">Concept</span></span><span><button class="d-act d-act-b">Afronden</button></span></div>
-            <div class="d-trow" style="grid-template-columns:1.2fr 1.8fr 1fr 1.2fr 1fr"><span class="dcb">OFF-2026-002</span><span class="dc">Janssen Groep</span><span class="dc">€5.200,00</span><span><span class="d-badge dbg">Geaccepteerd</span></span><span><button class="d-act d-act-n">Open</button></span></div>
-            <div class="d-trow" style="grid-template-columns:1.2fr 1.8fr 1fr 1.2fr 1fr"><span class="dcb">OFF-2026-001</span><span class="dc">Berg &amp; Zonen</span><span class="dc">€1.100,00</span><span><span class="d-badge dbb">Verzonden</span></span><span><button class="d-act d-act-o">Open</button></span></div>
-          </div>
-        </div>
-
-        <!-- SCREEN: Automatisering -->
-        <div class="ds" id="ds-auto">
-          <div class="d-hero">
-            <div class="d-hero-inner">
-              <div class="d-hero-eyebrow"><span class="d-hero-eyebrow-dot"></span><span class="d-hero-eyebrow-lbl">Beheer</span></div>
-              <h1 class="d-hero-title">Automatisering</h1>
-              <p class="d-hero-sub">Stel automatische herinneringen in voor openstaande facturen en configureer sync-gedrag.</p>
-            </div>
-          </div>
-          <div class="d-card">
-            <div class="d-shdr" style="margin-bottom:14px"><h2 class="d-stitle">Herinneringen</h2><span class="d-badge dbg">3 actief</span></div>
-            <div style="display:grid;gap:8px">
-              <div class="d-toggle"><div><p class="d-toggle-t">Herinnering na 7 dagen</p><p class="d-toggle-s">Vriendelijke eerste herinnering na verzending</p></div><div class="d-sw"></div></div>
-              <div class="d-toggle"><div><p class="d-toggle-t">Herinnering na 14 dagen</p><p class="d-toggle-s">Tweede herinnering met betalingsverzoek</p></div><div class="d-sw"></div></div>
-              <div class="d-toggle"><div><p class="d-toggle-t">Herinnering na 30 dagen</p><p class="d-toggle-s">Aanmaning bij langdurig niet betalen</p></div><div class="d-sw off"></div></div>
-            </div>
-          </div>
-          <div class="d-card">
-            <div class="d-shdr" style="margin-bottom:14px"><h2 class="d-stitle">Sync &amp; verzending</h2></div>
-            <div style="display:grid;gap:8px">
-              <div class="d-toggle"><div><p class="d-toggle-t">Auto-sync bij gereed markeren</p><p class="d-toggle-s">Synchroniseer factuur direct naar Moneybird</p></div><div class="d-sw"></div></div>
-              <div class="d-toggle"><div><p class="d-toggle-t">Automatisch verzenden na sync</p><p class="d-toggle-s">Stuur factuur meteen via Moneybird</p></div><div class="d-sw off"></div></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- SCREEN: Bankkoppeling -->
-        <div class="ds" id="ds-bank">
-          <div class="d-hero">
-            <div class="d-hero-inner">
-              <div class="d-hero-eyebrow"><span class="d-hero-eyebrow-dot"></span><span class="d-hero-eyebrow-lbl">Beheer</span></div>
-              <h1 class="d-hero-title">Bankkoppeling</h1>
-              <p class="d-hero-sub">Koppel je bankrekening en laat betalingen automatisch worden gematcht aan facturen.</p>
-            </div>
-          </div>
-          <div class="d-card">
-            <div class="d-shdr" style="margin-bottom:14px">
-              <div>
-                <p class="d-seyebrow" style="color:#16a34a">Gekoppeld</p>
-                <h2 class="d-stitle">Rabobank · NL91 RABO 0123</h2>
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;">
+                <div>
+                  <p style="margin:0 0 4px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#f97316;">Klanten</p>
+                  <h1 class="d-hero-title">Klantenbeheer</h1>
+                  <p class="d-hero-sub">12 klanten · 7 gekoppeld aan Moneybird</p>
+                </div>
+                <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+                  <span class="d-btn-o">Nieuwe klant</span>
+                  <span class="d-btn-n">Importeer uit Moneybird</span>
+                </div>
               </div>
+            </div>
+          </div>
+
+          <!-- 4 stat cards -->
+          <div class="d-stats" style="grid-template-columns:repeat(4,1fr);">
+            <div class="d-stat" style="border-top:none;">
+              <p style="margin:0 0 4px;font-size:12px;color:#64748b;">Klanten</p>
+              <div class="d-stat-v" style="font-size:22px;">12</div>
+              <div class="d-stat-sub">Totaal in deze omgeving</div>
+            </div>
+            <div class="d-stat" style="border-top:none;">
+              <p style="margin:0 0 4px;font-size:12px;color:#64748b;">Moneybird gekoppeld</p>
+              <div class="d-stat-v" style="font-size:22px;">7</div>
+              <div class="d-stat-sub">Contacten gesynchroniseerd</div>
+            </div>
+            <div class="d-stat" style="border-top:none;">
+              <p style="margin:0 0 4px;font-size:12px;color:#64748b;">Moneybird status</p>
+              <div class="d-stat-v" style="font-size:22px;color:#16a34a;">Actief</div>
+              <div class="d-stat-sub">Klaar voor import</div>
+            </div>
+            <div class="d-stat" style="border-top:none;">
+              <p style="margin:0 0 4px;font-size:12px;color:#64748b;">Administratie</p>
+              <div class="d-stat-v" style="font-size:16px;letter-spacing:-.01em;">Bakker &amp; Partners</div>
+              <div class="d-stat-sub">Gekoppeld 12 jan 2026</div>
+            </div>
+          </div>
+
+          <!-- Nieuwe klant form -->
+          <div style="background:#fff;border-radius:20px;border:1px solid #e2e8f0;box-shadow:0 2px 8px rgba(15,23,42,.07);overflow:hidden;">
+            <div style="padding:16px 20px;border-bottom:1px solid #e2e8f0;">
+              <p style="margin:0 0 2px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#f97316;">Toevoegen</p>
+              <h2 style="margin:0;font-size:16px;font-weight:700;color:#0f172a;">Nieuwe klant</h2>
+            </div>
+            <div style="padding:16px 20px;">
+              <div class="d-fgrid" style="margin-bottom:14px;">
+                <div><span class="d-flabel">Naam</span><div class="d-finput" style="color:#94a3b8;">Naam van de klant</div></div>
+                <div><span class="d-flabel">Bedrijfsnaam <span style="font-weight:400;color:#94a3b8;font-size:12px;">(optioneel)</span></span><div class="d-finput" style="color:#94a3b8;">Bedrijfsnaam</div></div>
+                <div><span class="d-flabel">E-mailadres</span><div class="d-finput" style="color:#94a3b8;">naam@bedrijf.nl</div></div>
+                <div><span class="d-flabel">BTW-nummer <span style="font-weight:400;color:#94a3b8;font-size:12px;">(optioneel)</span></span><div class="d-finput" style="color:#94a3b8;">NL000000000B01</div></div>
+              </div>
+              <div style="display:flex;justify-content:flex-end;">
+                <span class="d-btn-o">Klant aanmaken</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Klantenlijst -->
+          <div class="d-table">
+            <div style="padding:14px 20px;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
+              <div>
+                <h2 style="margin:0 0 2px;font-size:15px;font-weight:700;color:#0f172a;">Klantenlijst</h2>
+                <p style="margin:0;font-size:13px;color:#64748b;">12 klanten</p>
+              </div>
+              <div class="d-search" style="max-width:220px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                Zoek klant...
+              </div>
+            </div>
+            <div>
+              <div style="padding:16px 20px;border-bottom:1px solid #f1f5f9;">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;">
+                  <div>
+                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+                      <span style="font-size:15px;font-weight:700;color:#0f172a;">Maas Solutions</span>
+                      <span class="d-badge dbg">Gekoppeld</span>
+                    </div>
+                    <div style="display:flex;gap:24px;flex-wrap:wrap;">
+                      <div><p style="margin:0 0 2px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;">E-mail</p><p style="margin:0;font-size:13px;color:#0f172a;">info@maas.nl</p></div>
+                      <div><p style="margin:0 0 2px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;">Bron</p><p style="margin:0;font-size:13px;color:#0f172a;">Moneybird</p></div>
+                    </div>
+                  </div>
+                  <span class="d-btn-n" style="min-height:36px;font-size:13px;">Bewerken</span>
+                </div>
+              </div>
+              <div style="padding:16px 20px;border-bottom:1px solid #f1f5f9;">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;">
+                  <div>
+                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+                      <span style="font-size:15px;font-weight:700;color:#0f172a;">De Vries BV</span>
+                      <span class="d-badge dbg">Gekoppeld</span>
+                    </div>
+                    <div style="display:flex;gap:24px;flex-wrap:wrap;">
+                      <div><p style="margin:0 0 2px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;">E-mail</p><p style="margin:0;font-size:13px;color:#0f172a;">contact@devries.nl</p></div>
+                      <div><p style="margin:0 0 2px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;">Bron</p><p style="margin:0;font-size:13px;color:#0f172a;">Moneybird</p></div>
+                    </div>
+                  </div>
+                  <span class="d-btn-n" style="min-height:36px;font-size:13px;">Bewerken</span>
+                </div>
+              </div>
+              <div style="padding:16px 20px;">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;">
+                  <div>
+                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+                      <span style="font-size:15px;font-weight:700;color:#0f172a;">Janssen Groep</span>
+                      <span class="d-badge dbgr">Niet gekoppeld</span>
+                    </div>
+                    <div style="display:flex;gap:24px;flex-wrap:wrap;">
+                      <div><p style="margin:0 0 2px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;">E-mail</p><p style="margin:0;font-size:13px;color:#0f172a;">info@janssen.nl</p></div>
+                      <div><p style="margin:0 0 2px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;">Bron</p><p style="margin:0;font-size:13px;color:#0f172a;">Handmatig</p></div>
+                    </div>
+                  </div>
+                  <span class="d-btn-n" style="min-height:36px;font-size:13px;">Bewerken</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ════════════════════════════════════
+             SCREEN: Werk & inkomsten
+             ════════════════════════════════════ -->
+        <div class="ds" id="ds-werk">
+
+          <div class="d-tip" style="margin-bottom:0;">
+            <div class="d-tip-icon">i</div>
+            <div class="d-tip-txt">Hier voeg je losse werkregels, abonnementen en handmatige kosten toe. Alles wat je hier toevoegt kun je doorsturen naar een factuur.</div>
+          </div>
+
+          <div class="d-hero">
+            <div class="d-hero-inner">
+              <p style="margin:0 0 6px;font-size:12px;color:#fb923c;font-weight:700;text-transform:uppercase;letter-spacing:.1em;">Werk &amp; inkomsten</p>
+              <h1 class="d-hero-title">Werk &amp; inkomsten</h1>
+              <p class="d-hero-sub">Activiteiten, abonnementen, werkregistraties en handmatige kosten — alles op één plek.</p>
+            </div>
+          </div>
+
+          <!-- 4 linked cards 2x2 grid -->
+          <div class="d-werk-cards">
+            <div class="d-werk-card">
+              <div class="d-werk-emoji">📋</div>
+              <h2 class="d-werk-title">Activiteiten voor factuur</h2>
+              <p class="d-werk-desc">Alles wat klaarstaat om later op een factuur te komen. Koppel activiteiten aan een factuur of bekijk wat nog open staat.</p>
+              <div class="d-werk-btn">Bekijk activiteiten <span style="opacity:.8;font-size:12px;">→</span></div>
+            </div>
+            <div class="d-werk-card">
+              <div class="d-werk-emoji">🔁</div>
+              <h2 class="d-werk-title">Abonnementen</h2>
+              <p class="d-werk-desc">Terugkerende inkomsten die periodiek doorlopen voor klanten. Beheer en genereer abonnementsregels.</p>
+              <div class="d-werk-btn">Bekijk abonnementen <span style="opacity:.8;font-size:12px;">→</span></div>
+            </div>
+            <div class="d-werk-card">
+              <div class="d-werk-emoji">⏱</div>
+              <h2 class="d-werk-title">Werkregistraties</h2>
+              <p class="d-werk-desc">Geregistreerde uren en werkzaamheden die je later kunt verwerken op een factuur of als activiteit.</p>
+              <div class="d-werk-btn">Bekijk registraties <span style="opacity:.8;font-size:12px;">→</span></div>
+            </div>
+            <div class="d-werk-card">
+              <div class="d-werk-emoji">✏️</div>
+              <h2 class="d-werk-title">Handmatige kosten</h2>
+              <p class="d-werk-desc">Losse regels en handmatige aanvullingen die je zelf toevoegt aan de factuurflow.</p>
+              <div class="d-werk-btn">Bekijk kosten <span style="opacity:.8;font-size:12px;">→</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ════════════════════════════════════
+             SCREEN: Facturen
+             ════════════════════════════════════ -->
+        <div class="ds" id="ds-facturen">
+
+          <div class="d-tip" style="margin-bottom:0;">
+            <div class="d-tip-icon">i</div>
+            <div class="d-tip-txt">Hier staan al je facturen. Maak een factuur aan of zet een goedgekeurde offerte automatisch om naar een factuur.</div>
+          </div>
+
+          <!-- Hero -->
+          <div class="d-hero">
+            <div class="d-hero-inner">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap;">
+                <div>
+                  <p style="margin:0 0 6px;font-size:12px;color:#fb923c;font-weight:700;text-transform:uppercase;letter-spacing:.1em;">Facturen</p>
+                  <h1 class="d-hero-title">Overzicht facturen</h1>
+                  <p class="d-hero-sub" style="margin-bottom:10px;">8 facturen in je omgeving · Filter: Alle facturen</p>
+                  <span style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;background:#f8fafc;border:1px solid #e2e8f0;font-size:13px;font-weight:600;color:#64748b;">
+                    <span style="width:6px;height:6px;border-radius:50%;background:#16a34a;display:inline-block;flex-shrink:0;"></span>
+                    Geen directe actie nodig
+                  </span>
+                </div>
+                <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+                  <span class="d-btn-o">Alle facturen</span>
+                  <span class="d-btn-n">Genereer facturen</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5 stat cards -->
+          <div class="d-stats d-stats-5">
+            <div class="d-stat" style="border-top:none;">
+              <p style="margin:0 0 8px;font-size:13px;color:#64748b;font-weight:600;">Facturen</p>
+              <div class="d-stat-v">8</div>
+              <div class="d-stat-sub">Totaal</div>
+            </div>
+            <div class="d-stat" style="border-top:none;">
+              <p style="margin:0 0 8px;font-size:13px;color:#64748b;font-weight:600;">Betaald</p>
+              <div class="d-stat-v" style="font-size:22px;">€4.240</div>
+              <div class="d-stat-sub">Ontvangen</div>
+            </div>
+            <div class="d-stat" style="border-top:none;">
+              <p style="margin:0 0 8px;font-size:13px;color:#64748b;font-weight:600;">Open</p>
+              <div class="d-stat-v">3</div>
+              <div class="d-stat-sub">Wacht op betaling</div>
+            </div>
+            <div class="d-stat" style="border-top:none;">
+              <p style="margin:0 0 8px;font-size:13px;color:#64748b;font-weight:600;">Acties</p>
+              <div class="d-stat-v">0</div>
+              <div class="d-stat-sub">Alles in orde</div>
+            </div>
+            <div class="d-stat" style="border-top:none;">
+              <p style="margin:0 0 8px;font-size:13px;color:#64748b;font-weight:600;">Te innen</p>
+              <div class="d-stat-v" style="font-size:22px;">€2.150</div>
+              <div class="d-stat-sub">Openstaand bedrag</div>
+            </div>
+          </div>
+
+          <!-- Next step panel -->
+          <div class="d-nextstep">
+            <div style="max-width:600px;">
+              <p style="margin:0 0 4px;font-size:11px;color:#ea580c;text-transform:uppercase;letter-spacing:.1em;font-weight:700;">Volgende stap</p>
+              <h2 style="margin:0 0 4px;font-size:18px;font-weight:700;letter-spacing:-.02em;color:#0f172a;">Geen directe actie nodig</h2>
+              <p style="margin:0;font-size:14px;line-height:1.6;color:#64748b;">Je facturen staan op dit moment rustig. Er is nu geen directe actie nodig.</p>
+            </div>
+            <span class="d-btn-o">Open alle facturen</span>
+          </div>
+
+          <!-- Filter + table -->
+          <div class="d-table">
+            <!-- Filter bar -->
+            <div style="padding:18px 20px;border-bottom:1px solid #f1f5f9;">
+              <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;">
+                <span style="font-size:12px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.1em;margin-right:4px;">Filter</span>
+                <span class="d-fpill act">Alle facturen <span class="d-fpill-ct">8</span></span>
+                <span class="d-fpill in">Actie nodig <span class="d-fpill-ct">0</span></span>
+                <span class="d-fpill in">Concepten <span class="d-fpill-ct">2</span></span>
+                <span class="d-fpill in">In verwerking <span class="d-fpill-ct">1</span></span>
+                <span class="d-fpill in">In opvolging <span class="d-fpill-ct">3</span></span>
+                <span class="d-fpill in">Betaald <span class="d-fpill-ct">4</span></span>
+              </div>
+              <!-- Search bar -->
+              <div style="margin-top:10px;display:flex;gap:8px;align-items:center;">
+                <div class="d-search" style="max-width:280px;flex:none;">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                  Zoek op factuurnummer of klant...
+                </div>
+                <span class="d-act d-act-o">Zoeken</span>
+              </div>
+            </div>
+            <!-- Table header label -->
+            <div style="padding:12px 18px;border-bottom:1px solid #f1f5f9;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
+              <div>
+                <p style="margin:0;font-size:14px;font-weight:700;color:#0f172a;">Alle facturen</p>
+                <p style="margin:0;font-size:12px;color:#94a3b8;">5 van 8 zichtbaar</p>
+              </div>
+            </div>
+            <!-- Table rows -->
+            <div class="d-thead" style="grid-template-columns:1.5fr 2fr 1fr 1fr 1fr"><span>Nummer</span><span>Klant</span><span>Bedrag</span><span>Status</span><span>Sync</span></div>
+            <div class="d-trow" style="grid-template-columns:1.5fr 2fr 1fr 1fr 1fr"><span class="dcb">INV-2026-008</span><span class="dc">De Vries BV</span><span class="dc">€890,00</span><span><span class="d-badge dbg">Betaald</span></span><span><span class="d-badge dbg">Synced</span></span></div>
+            <div class="d-trow" style="grid-template-columns:1.5fr 2fr 1fr 1fr 1fr"><span class="dcb">INV-2026-007</span><span class="dc">Maas Solutions</span><span class="dc">€1.440,00</span><span><span class="d-badge dbo">Verzonden</span></span><span><span class="d-badge dbg">Synced</span></span></div>
+            <div class="d-trow" style="grid-template-columns:1.5fr 2fr 1fr 1fr 1fr"><span class="dcb">INV-2026-006</span><span class="dc">Janssen Groep</span><span class="dc">€600,00</span><span><span class="d-badge dbb">In verwerking</span></span><span><span class="d-badge dbo">Pending</span></span></div>
+            <div class="d-trow" style="grid-template-columns:1.5fr 2fr 1fr 1fr 1fr"><span class="dcb">INV-2026-005</span><span class="dc">Hooft Advies</span><span class="dc">€440,00</span><span><span class="d-badge dbg">Betaald</span></span><span><span class="d-badge dbg">Synced</span></span></div>
+            <div class="d-trow" style="grid-template-columns:1.5fr 2fr 1fr 1fr 1fr"><span class="dcb">—</span><span class="dc">Berg &amp; Zonen</span><span class="dc">€320,00</span><span><span class="d-badge dbgr">Concept</span></span><span><span class="d-badge dbgr">—</span></span></div>
+            <div class="d-tfoot">
+              <span class="d-tfoot-lnk">Alle 8 facturen bekijken →</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ════════════════════════════════════
+             SCREEN: Offertes
+             ════════════════════════════════════ -->
+        <div class="ds" id="ds-offertes">
+
+          <div class="d-tip" style="margin-bottom:0;">
+            <div class="d-tip-icon">i</div>
+            <div class="d-tip-txt">Maak hier offertes aan. Verstuur ze via Moneybird en volg automatisch op.</div>
+          </div>
+
+          <div class="d-hero">
+            <div class="d-hero-inner">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap;">
+                <div>
+                  <p style="margin:0 0 6px;font-size:12px;color:#a855f7;font-weight:700;text-transform:uppercase;letter-spacing:.1em;">Offertes</p>
+                  <h1 class="d-hero-title">Overzicht offertes</h1>
+                  <p class="d-hero-sub" style="margin-bottom:10px;">5 offertes in je omgeving · Filter: Alle offertes</p>
+                  <span style="display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:999px;background:#f8fafc;border:1px solid #e2e8f0;font-size:13px;font-weight:600;color:#64748b;">
+                    <span style="width:6px;height:6px;border-radius:50%;background:#16a34a;display:inline-block;flex-shrink:0;"></span>
+                    Geen directe actie nodig
+                  </span>
+                </div>
+                <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+                  <span class="d-btn-o">Nieuwe offerte</span>
+                  <span class="d-btn-n">Alle offertes</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5 stat cards -->
+          <div class="d-stats d-stats-5">
+            <div class="d-stat" style="border-top:none;">
+              <p style="margin:0 0 8px;font-size:13px;color:#64748b;font-weight:600;">Offertes</p>
+              <div class="d-stat-v">5</div>
+              <div class="d-stat-sub">Totaal</div>
+            </div>
+            <div class="d-stat" style="border-top:none;">
+              <p style="margin:0 0 8px;font-size:13px;color:#64748b;font-weight:600;">Omgezet</p>
+              <div class="d-stat-v">2</div>
+              <div class="d-stat-sub">Naar factuur</div>
+            </div>
+            <div class="d-stat" style="border-top:none;">
+              <p style="margin:0 0 8px;font-size:13px;color:#64748b;font-weight:600;">Open</p>
+              <div class="d-stat-v">2</div>
+              <div class="d-stat-sub">Wacht op besluit</div>
+            </div>
+            <div class="d-stat" style="border-top:none;">
+              <p style="margin:0 0 8px;font-size:13px;color:#64748b;font-weight:600;">Concepten</p>
+              <div class="d-stat-v">1</div>
+              <div class="d-stat-sub">Nog af te ronden</div>
+            </div>
+            <div class="d-stat" style="border-top:none;">
+              <p style="margin:0 0 8px;font-size:13px;color:#64748b;font-weight:600;">Met herinneringen</p>
+              <div class="d-stat-v">1</div>
+              <div class="d-stat-sub">In opvolging</div>
+            </div>
+          </div>
+
+          <!-- Next step -->
+          <div class="d-nextstep">
+            <div style="max-width:600px;">
+              <p style="margin:0 0 4px;font-size:11px;color:#ea580c;text-transform:uppercase;letter-spacing:.1em;font-weight:700;">Volgende stap</p>
+              <h2 style="margin:0 0 4px;font-size:18px;font-weight:700;letter-spacing:-.02em;color:#0f172a;">Geen directe actie nodig</h2>
+              <p style="margin:0;font-size:14px;line-height:1.6;color:#64748b;">Je offertes staan op dit moment rustig. Er is nu geen directe actie nodig.</p>
+            </div>
+            <span class="d-btn-o">Open alle offertes</span>
+          </div>
+
+          <!-- Filter + table -->
+          <div class="d-table">
+            <div style="padding:18px 20px;border-bottom:1px solid #f1f5f9;">
+              <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;">
+                <span style="font-size:12px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.1em;margin-right:4px;">Filter</span>
+                <span class="d-fpill act">Alle offertes <span class="d-fpill-ct">5</span></span>
+                <span class="d-fpill in">Concepten <span class="d-fpill-ct">1</span></span>
+                <span class="d-fpill in">Actie nodig <span class="d-fpill-ct">0</span></span>
+                <span class="d-fpill in">Wacht op besluit <span class="d-fpill-ct">2</span></span>
+                <span class="d-fpill in">Klaar voor factuur <span class="d-fpill-ct">0</span></span>
+                <span class="d-fpill in">Omgezet <span class="d-fpill-ct">2</span></span>
+                <span class="d-fpill in">Met herinneringen <span class="d-fpill-ct">1</span></span>
+              </div>
+              <div style="margin-top:10px;display:flex;gap:8px;align-items:center;">
+                <div class="d-search" style="max-width:280px;flex:none;">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                  Zoek op offertenummer of klant...
+                </div>
+                <span class="d-act d-act-o">Zoeken</span>
+              </div>
+            </div>
+            <div style="padding:12px 18px;border-bottom:1px solid #f1f5f9;">
+              <p style="margin:0;font-size:14px;font-weight:700;color:#0f172a;">Alle offertes</p>
+              <p style="margin:0;font-size:12px;color:#94a3b8;">5 van 5 zichtbaar</p>
+            </div>
+            <div class="d-thead" style="grid-template-columns:1.5fr 2fr 1fr 1fr 1fr"><span>Nummer</span><span>Klant</span><span>Bedrag</span><span>Status</span><span>Sync</span></div>
+            <div class="d-trow" style="grid-template-columns:1.5fr 2fr 1fr 1fr 1fr"><span class="dcb">OFF-2026-005</span><span class="dc">Maas Solutions</span><span class="dc">€3.200,00</span><span><span class="d-badge dbb">Verstuurd</span></span><span><span class="d-badge dbg">Synced</span></span></div>
+            <div class="d-trow" style="grid-template-columns:1.5fr 2fr 1fr 1fr 1fr"><span class="dcb">OFF-2026-004</span><span class="dc">De Vries BV</span><span class="dc">€1.850,00</span><span><span class="d-badge dbg">Geaccepteerd</span></span><span><span class="d-badge dbg">Synced</span></span></div>
+            <div class="d-trow" style="grid-template-columns:1.5fr 2fr 1fr 1fr 1fr"><span class="dcb">OFF-2026-003</span><span class="dc">Janssen Groep</span><span class="dc">€980,00</span><span><span class="d-badge dbb">Verstuurd</span></span><span><span class="d-badge dbg">Synced</span></span></div>
+            <div class="d-trow" style="grid-template-columns:1.5fr 2fr 1fr 1fr 1fr"><span class="dcb">OFF-2026-002</span><span class="dc">Hooft Advies</span><span class="dc">€540,00</span><span><span class="d-badge dbp">Omgezet</span></span><span><span class="d-badge dbg">Synced</span></span></div>
+            <div class="d-trow" style="grid-template-columns:1.5fr 2fr 1fr 1fr 1fr"><span class="dcb">—</span><span class="dc">Berg &amp; Zonen</span><span class="dc">€720,00</span><span><span class="d-badge dbgr">Concept</span></span><span><span class="d-badge dbgr">—</span></span></div>
+            <div class="d-tfoot">
+              <span class="d-tfoot-lnk">Alle 5 offertes bekijken →</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ════════════════════════════════════
+             SCREEN: Automatisering
+             ════════════════════════════════════ -->
+        <div class="ds" id="ds-auto">
+
+          <div class="d-tip" style="margin-bottom:0;">
+            <div class="d-tip-icon">i</div>
+            <div class="d-tip-txt">Stel hier in wanneer OfficeFlow automatisch herinneringen verstuurt voor offertes en facturen.</div>
+          </div>
+
+          <div class="d-hero">
+            <div class="d-hero-inner">
+              <p style="margin:0 0 6px;font-size:12px;color:#fb923c;font-weight:700;text-transform:uppercase;letter-spacing:.1em;">Automatisering</p>
+              <h1 class="d-hero-title">Automatisering</h1>
+              <p class="d-hero-sub">Beheer automatische flows voor offertes en facturen. Herinneringen, opvolging en statusbewaking.</p>
+            </div>
+          </div>
+
+          <!-- Two automation cards -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+            <div class="d-card">
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+                <div style="width:36px;height:36px;border-radius:10px;background:rgba(59,130,246,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.75"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+                </div>
+                <h2 style="margin:0;font-size:16px;font-weight:700;color:#0f172a;letter-spacing:-.02em;">Offertes</h2>
+              </div>
+              <p style="margin:0 0 16px;font-size:14px;color:#64748b;line-height:1.65;">Automatische statusbewaking van uitstaande offertes. Bij geen reactie of bijna verlopen bereidt het systeem een herinnering voor.</p>
+              <div class="d-toggle">
+                <div><p class="d-toggle-t">Herinneringen inschakelen</p><p class="d-toggle-s">Automatisch herinneringen versturen</p></div>
+                <div class="d-sw"></div>
+              </div>
+              <div style="margin-top:12px;">
+                <span class="d-slink">Instellingen openen →</span>
+              </div>
+            </div>
+            <div class="d-card">
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+                <div style="width:36px;height:36px;border-radius:10px;background:rgba(22,163,74,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="1.75"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
+                </div>
+                <h2 style="margin:0;font-size:16px;font-weight:700;color:#0f172a;letter-spacing:-.02em;">Facturen</h2>
+              </div>
+              <p style="margin:0 0 16px;font-size:14px;color:#64748b;line-height:1.65;">Van activiteiten voor factuur naar concept, via Moneybird-sync naar betaalde factuur. Betalingstermijnen bewaakt, herinneringen voorbereid.</p>
+              <div class="d-toggle">
+                <div><p class="d-toggle-t">Automatisering inschakelen</p><p class="d-toggle-s">Pipeline automatisch doorlopen</p></div>
+                <div class="d-sw"></div>
+              </div>
+              <div style="margin-top:12px;">
+                <span class="d-slink">Instellingen openen →</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ════════════════════════════════════
+             SCREEN: Bankkoppeling
+             ════════════════════════════════════ -->
+        <div class="ds" id="ds-bank">
+
+          <div class="d-tip" style="margin-bottom:0;">
+            <div class="d-tip-icon">i</div>
+            <div class="d-tip-txt">Verbind je bankrekening via Moneybird. OfficeFlow detecteert automatisch wanneer een factuur betaald is.</div>
+          </div>
+
+          <div class="d-hero">
+            <div class="d-hero-inner">
+              <p style="margin:0 0 6px;font-size:12px;color:#fb923c;font-weight:700;text-transform:uppercase;letter-spacing:.1em;">Bankkoppeling</p>
+              <h1 class="d-hero-title">Bankkoppeling</h1>
+              <p class="d-hero-sub">Koppel je bankrekening in Moneybird. OfficeFlow detecteert betalingen automatisch.</p>
+            </div>
+          </div>
+
+          <!-- Explanation cards -->
+          <div class="d-card">
+            <div class="d-shdr" style="margin-bottom:14px;">
+              <h2 class="d-stitle">Hoe werkt de bankkoppeling?</h2>
+            </div>
+            <div class="d-steps">
+              <div class="d-step done">
+                <div class="d-step-nr done">✓</div>
+                <div>
+                  <p class="d-step-title">Moneybird koppelen</p>
+                  <p class="d-step-desc">Je Moneybird-omgeving is actief en verbonden. Facturen worden automatisch gesynchroniseerd.</p>
+                </div>
+              </div>
+              <div class="d-step">
+                <div class="d-step-nr open">2</div>
+                <div>
+                  <p class="d-step-title">Bankrekening koppelen in Moneybird</p>
+                  <p class="d-step-desc">Ga naar Moneybird → Instellingen → Bankrekeningen. Koppel daar je bankrekening via de beschikbare integraties.</p>
+                </div>
+              </div>
+              <div class="d-step">
+                <div class="d-step-nr open">3</div>
+                <div>
+                  <p class="d-step-title">Automatische betaaldetectie</p>
+                  <p class="d-step-desc">Zodra Moneybird een inkomende betaling herkent en matcht aan een openstaande factuur, werkt OfficeFlow de status direct bij.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Nog geen koppeling status -->
+          <div style="border-radius:20px;padding:20px 24px;background:#fff7ed;border:1px solid #fed7aa;">
+            <p style="margin:0 0 4px;font-size:11px;color:#ea580c;text-transform:uppercase;letter-spacing:.1em;font-weight:700;">Status</p>
+            <h2 style="margin:0 0 6px;font-size:18px;font-weight:700;color:#0f172a;">Nog geen bankrekening gekoppeld</h2>
+            <p style="margin:0 0 14px;font-size:14px;color:#9a3412;line-height:1.6;">Je Moneybird-koppeling staat klaar, maar er is nog geen bankrekening verbonden. Ga naar Moneybird om dit in te stellen.</p>
+            <span class="d-btn-o">Bankrekening koppelen in Moneybird ↗</span>
+          </div>
+        </div>
+
+        <!-- ════════════════════════════════════
+             SCREEN: Branding
+             ════════════════════════════════════ -->
+        <div class="ds" id="ds-branding">
+
+          <div class="d-tip" style="margin-bottom:0;">
+            <div class="d-tip-icon">i</div>
+            <div class="d-tip-txt">Stel je huisstijl eenmalig in via Moneybird. Je logo verschijnt automatisch op alle offertes en facturen.</div>
+          </div>
+
+          <div class="d-hero">
+            <div class="d-hero-inner">
+              <p style="margin:0 0 6px;font-size:12px;color:#fb923c;font-weight:700;text-transform:uppercase;letter-spacing:.1em;">Branding</p>
+              <h1 class="d-hero-title">Huisstijl instellen</h1>
+              <p class="d-hero-sub">Je logo wordt ingesteld via Moneybird. Dat hoef je maar één keer te doen.</p>
+            </div>
+          </div>
+
+          <!-- Hoe werkt het? -->
+          <div class="d-card">
+            <div style="padding:0 0 14px;border-bottom:1px solid #f1f5f9;margin-bottom:18px;">
+              <h2 style="margin:0;font-size:14px;font-weight:800;letter-spacing:-.02em;color:#0f172a;">Hoe werkt het?</h2>
+            </div>
+            <div class="d-steps">
+              <div class="d-step done">
+                <div class="d-step-nr done">✓</div>
+                <div>
+                  <p class="d-step-title">Koppel Moneybird</p>
+                  <p class="d-step-desc">Verbind je Moneybird-account via Instellingen. Offertes en facturen worden dan automatisch gesynchroniseerd.</p>
+                </div>
+              </div>
+              <div class="d-step">
+                <div class="d-step-nr open">2</div>
+                <div>
+                  <p class="d-step-title">Stel je huisstijl in via Moneybird</p>
+                  <p class="d-step-desc">Ga naar Moneybird → Instellingen → Huisstijl. Upload je logo. Kleuren zijn aanpasbaar via de CSS-optie onderaan. Je huisstijl verschijnt automatisch op alle offertes en facturen.</p>
+                </div>
+              </div>
+              <div class="d-step">
+                <div class="d-step-nr open">3</div>
+                <div>
+                  <p class="d-step-title">Klaar</p>
+                  <p class="d-step-desc">Elke offerte of factuur die via OfficeFlow wordt aangemaakt en verstuurd, gebruikt automatisch jouw huisstijl.</p>
+                </div>
+              </div>
+            </div>
+            <div style="margin-top:18px;">
+              <span class="d-btn-o">Huisstijl instellen in Moneybird ↗</span>
+            </div>
+          </div>
+
+          <!-- Wat ziet de klant? -->
+          <div class="d-card">
+            <div style="padding:0 0 14px;border-bottom:1px solid #f1f5f9;margin-bottom:14px;">
+              <h2 style="margin:0;font-size:14px;font-weight:800;letter-spacing:-.02em;color:#0f172a;">Wat ziet de klant?</h2>
+            </div>
+            <div style="display:grid;gap:10px;">
+              <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:12px;background:#f8fafc;border:1px solid #e2e8f0;">
+                <span style="font-size:20px;">📄</span>
+                <div><p style="margin:0 0 1px;font-size:13px;font-weight:700;color:#0f172a;">Offerte (via Moneybird)</p><p style="margin:0;font-size:12px;color:#64748b;">Logo + kleur zoals ingesteld in Moneybird Huisstijl</p></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:12px;background:#f8fafc;border:1px solid #e2e8f0;">
+                <span style="font-size:20px;">🧾</span>
+                <div><p style="margin:0 0 1px;font-size:13px;font-weight:700;color:#0f172a;">Factuur (via Moneybird)</p><p style="margin:0;font-size:12px;color:#64748b;">Logo + kleur zoals ingesteld in Moneybird Huisstijl</p></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:12px;background:#f8fafc;border:1px solid #e2e8f0;">
+                <span style="font-size:20px;">✉️</span>
+                <div><p style="margin:0 0 1px;font-size:13px;font-weight:700;color:#0f172a;">E-mail vanuit Moneybird</p><p style="margin:0;font-size:12px;color:#64748b;">Jouw Moneybird huisstijl</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ════════════════════════════════════
+             SCREEN: Instellingen
+             ════════════════════════════════════ -->
+        <div class="ds" id="ds-settings">
+
+          <div class="d-tip" style="margin-bottom:0;">
+            <div class="d-tip-icon">i</div>
+            <div class="d-tip-txt">Vul hier je bedrijfsgegevens in. Deze gegevens worden gebruikt op je facturen en offertes.</div>
+          </div>
+
+          <div class="d-hero">
+            <div class="d-hero-inner">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;">
+                <div>
+                  <p style="margin:0 0 6px;font-size:12px;color:#fb923c;font-weight:700;text-transform:uppercase;letter-spacing:.1em;">Instellingen</p>
+                  <h1 class="d-hero-title">Bedrijfsinstellingen</h1>
+                  <p class="d-hero-sub">Beheer je bedrijfsgegevens, Moneybird-koppeling en factuurinstellingen.</p>
+                </div>
+                <span class="d-btn-o">Opslaan</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Moneybird koppeling status cards -->
+          <div class="d-stats" style="grid-template-columns:repeat(4,1fr);">
+            <div class="d-stat" style="border-top:none;">
+              <p style="margin:0 0 4px;font-size:12px;color:#64748b;">Moneybird</p>
+              <div class="d-stat-v" style="font-size:18px;color:#16a34a;">Actief</div>
+              <div class="d-stat-sub">Koppeling actief</div>
+            </div>
+            <div class="d-stat" style="border-top:none;">
+              <p style="margin:0 0 4px;font-size:12px;color:#64748b;">Administratie</p>
+              <div class="d-stat-v" style="font-size:16px;letter-spacing:-.01em;">Bakker &amp; Partners</div>
+              <div class="d-stat-sub">Gekoppeld 12 jan 2026</div>
+            </div>
+            <div class="d-stat" style="border-top:none;">
+              <p style="margin:0 0 4px;font-size:12px;color:#64748b;">Token status</p>
+              <div class="d-stat-v" style="font-size:18px;color:#16a34a;">Geldig</div>
+              <div class="d-stat-sub">Verloopt over 87 dagen</div>
+            </div>
+            <div class="d-stat" style="border-top:none;">
+              <p style="margin:0 0 4px;font-size:12px;color:#64748b;">Synchronisaties</p>
+              <div class="d-stat-v">47</div>
+              <div class="d-stat-sub">Afgelopen 30 dagen</div>
+            </div>
+          </div>
+
+          <!-- Company settings form -->
+          <div style="background:#fff;border-radius:20px;border:1px solid #e2e8f0;box-shadow:0 2px 8px rgba(15,23,42,.07);overflow:hidden;">
+            <div style="padding:18px 20px;border-bottom:1px solid #e2e8f0;">
+              <h2 style="margin:0;font-size:15px;font-weight:700;color:#0f172a;">Bedrijfsgegevens</h2>
+            </div>
+            <div style="padding:18px 20px;">
+              <div class="d-fgrid" style="margin-bottom:16px;">
+                <div><span class="d-flabel">Bedrijfsnaam</span><div class="d-finput">Bakker &amp; Partners</div></div>
+                <div><span class="d-flabel">E-mailadres</span><div class="d-finput">thomas@bakkerpartners.nl</div></div>
+                <div><span class="d-flabel">Adres</span><div class="d-finput">Keizersgracht 123</div></div>
+                <div><span class="d-flabel">Stad</span><div class="d-finput">Amsterdam</div></div>
+                <div><span class="d-flabel">KVK-nummer</span><div class="d-finput">12345678</div></div>
+                <div><span class="d-flabel">BTW-nummer</span><div class="d-finput">NL123456789B01</div></div>
+                <div><span class="d-flabel">IBAN</span><div class="d-finput">NL91 ABNA 0417 1643 00</div></div>
+                <div><span class="d-flabel">Standaard valuta</span><div class="d-finput">EUR — Euro</div></div>
+              </div>
+              <div style="display:flex;justify-content:flex-end;">
+                <span class="d-btn-o">Opslaan</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Moneybird koppeling sectie -->
+          <div style="background:#fff;border-radius:20px;border:1px solid #e2e8f0;box-shadow:0 2px 8px rgba(15,23,42,.07);overflow:hidden;">
+            <div style="padding:18px 20px;border-bottom:1px solid #e2e8f0;display:flex;justify-content:space-between;align-items:center;">
+              <h2 style="margin:0;font-size:15px;font-weight:700;color:#0f172a;">Moneybird koppeling</h2>
               <span class="d-badge dbg">Actief</span>
             </div>
-            <div class="d-stats d-stats-3" style="margin-bottom:0">
-              <div class="d-stat g"><div class="d-stat-v">7</div><div class="d-stat-l">Matches</div></div>
-              <div class="d-stat o"><div class="d-stat-v">€4.240</div><div class="d-stat-l">Gematcht</div></div>
-              <div class="d-stat b"><div class="d-stat-v">Vandaag</div><div class="d-stat-l">Laatste sync</div></div>
-            </div>
-          </div>
-          <div class="d-card" style="padding:0">
-            <div style="padding:16px 20px 12px;border-bottom:1px solid #f1f5f9"><h2 class="d-stitle">Recente betalingen</h2></div>
-            <div style="padding:12px 16px;display:grid;gap:8px">
-              <div class="d-bankrow"><div style="display:flex;align-items:center;gap:10px"><div class="d-bankicon">✓</div><div><div style="font-size:14px;font-weight:600;color:#0f172a">INV-2026-007 · De Vries BV</div><div style="font-size:12px;color:#64748b">12 april 2026 · Automatisch gematcht</div></div></div><span class="d-badge dbg">€890,00</span></div>
-              <div class="d-bankrow"><div style="display:flex;align-items:center;gap:10px"><div class="d-bankicon">✓</div><div><div style="font-size:14px;font-weight:600;color:#0f172a">INV-2026-005 · Hooft Advies</div><div style="font-size:12px;color:#64748b">10 april 2026 · Automatisch gematcht</div></div></div><span class="d-badge dbg">€440,00</span></div>
-              <div class="d-bankrow"><div style="display:flex;align-items:center;gap:10px"><div class="d-bankicon">✓</div><div><div style="font-size:14px;font-weight:600;color:#0f172a">INV-2026-004 · Berg &amp; Zonen</div><div style="font-size:12px;color:#64748b">8 april 2026 · Automatisch gematcht</div></div></div><span class="d-badge dbg">€680,00</span></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- SCREEN: Branding -->
-        <div class="ds" id="ds-branding">
-          <div class="d-hero">
-            <div class="d-hero-inner">
-              <div class="d-hero-eyebrow"><span class="d-hero-eyebrow-dot"></span><span class="d-hero-eyebrow-lbl">Beheer</span></div>
-              <h1 class="d-hero-title">Branding</h1>
-              <p class="d-hero-sub">Je huisstijl wordt beheerd via Moneybird. OfficeFlow biedt een directe koppeling naar je brandinginstellingen.</p>
-            </div>
-          </div>
-          <div class="d-card">
-            <div class="d-shdr" style="margin-bottom:16px"><h2 class="d-stitle">Huisstijl via Moneybird</h2><span class="d-badge dbb">Ingesteld</span></div>
-            <div style="display:grid;gap:12px">
-              <div style="display:flex;align-items:center;gap:14px;padding:16px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px">
-                <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#f97316,#fb923c);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff">BP</div>
-                <div><div style="font-size:14px;font-weight:700;color:#0f172a">Bakker &amp; Partners BV</div><div style="font-size:12px;color:#64748b">Logo ingesteld via Moneybird</div></div>
-                <span class="d-act d-act-o" style="margin-left:auto">Open Moneybird →</span>
+            <div style="padding:18px 20px;">
+              <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:14px;background:#f0fdf4;border:1px solid #bbf7d0;margin-bottom:12px;">
+                <span style="width:8px;height:8px;border-radius:50%;background:#16a34a;flex-shrink:0;"></span>
+                <div>
+                  <p style="margin:0 0 2px;font-size:14px;font-weight:600;color:#0f172a;">Moneybird verbonden</p>
+                  <p style="margin:0;font-size:12px;color:#64748b;">Bakker &amp; Partners · Gekoppeld 12 jan 2026</p>
+                </div>
               </div>
-              <div class="d-toggle"><div><p class="d-toggle-t">Facturen via Moneybird huisstijl</p><p class="d-toggle-s">Alle facturen dragen jouw eigen uitstraling</p></div><div class="d-sw"></div></div>
-              <div class="d-toggle"><div><p class="d-toggle-t">Klantportaal met branding</p><p class="d-toggle-s">Doorsturen naar Moneybird portaalweergave</p></div><div class="d-sw"></div></div>
+              <span class="d-btn-n" style="font-size:13px;min-height:36px;">Verbreek koppeling</span>
             </div>
           </div>
         </div>
 
-        <!-- SCREEN: Instellingen -->
-        <div class="ds" id="ds-settings">
-          <div class="d-hero">
-            <div class="d-hero-inner">
-              <div class="d-hero-eyebrow"><span class="d-hero-eyebrow-dot"></span><span class="d-hero-eyebrow-lbl">Beheer</span></div>
-              <h1 class="d-hero-title">Instellingen</h1>
-              <p class="d-hero-sub">Bedrijfsgegevens, betalingsinformatie en je OfficeFlow-omgeving instellen.</p>
-              <div class="d-hero-actions"><span class="d-btn-o">Opslaan</span></div>
-            </div>
-          </div>
-          <div class="d-card">
-            <div class="d-shdr" style="margin-bottom:18px"><h2 class="d-stitle">Bedrijfsgegevens</h2></div>
-            <div class="d-fgrid" style="margin-bottom:14px">
-              <div><label class="d-flabel">Bedrijfsnaam</label><div class="d-finput">Bakker &amp; Partners BV</div></div>
-              <div><label class="d-flabel">E-mailadres</label><div class="d-finput">info@bakkerpartners.nl</div></div>
-              <div><label class="d-flabel">Adres</label><div class="d-finput">Damrak 42, Amsterdam</div></div>
-              <div><label class="d-flabel">KVK-nummer</label><div class="d-finput">12345678</div></div>
-              <div><label class="d-flabel">BTW-nummer</label><div class="d-finput">NL001234567B01</div></div>
-              <div><label class="d-flabel">IBAN</label><div class="d-finput">NL91 RABO 0123 4567 89</div></div>
-            </div>
-            <div><label class="d-flabel">Betalingsreferentie prefix</label><div class="d-finput" style="max-width:280px">BP-2026</div></div>
-          </div>
-        </div>
-
-        <!-- SCREEN: Abonnement -->
+        <!-- ════════════════════════════════════
+             SCREEN: Abonnement
+             ════════════════════════════════════ -->
         <div class="ds" id="ds-subscription">
+
+          <div class="d-tip" style="margin-bottom:0;">
+            <div class="d-tip-icon">i</div>
+            <div class="d-tip-txt">Kies een abonnement dat bij je past. Je kunt altijd wisselen of opzeggen.</div>
+          </div>
+
           <div class="d-hero">
             <div class="d-hero-inner">
-              <div class="d-hero-eyebrow"><span class="d-hero-eyebrow-dot"></span><span class="d-hero-eyebrow-lbl">Account</span></div>
-              <h1 class="d-hero-title">Abonnement</h1>
-              <p class="d-hero-sub">Beheer je huidige plan. Maandelijks opzegbaar, alle modules inbegrepen.</p>
+              <p style="margin:0 0 6px;font-size:12px;color:#fb923c;font-weight:700;text-transform:uppercase;letter-spacing:.1em;">Abonnement</p>
+              <h1 class="d-hero-title">Mijn abonnement</h1>
+              <p class="d-hero-sub">Huidig pakket: <strong>Start</strong> · €34 per maand · Maandelijks opzegbaar</p>
             </div>
           </div>
-          <div class="d-plans">
+
+          <!-- 4 plan cards -->
+          <div class="d-plans" id="kies-pakket">
             <div class="d-plan">
+              <div class="d-plan-badge">&nbsp;</div>
               <div class="d-plan-name">Solo</div>
               <div class="d-plan-price">€19</div>
-              <div class="d-plan-per">per maand excl. btw</div>
-              <div class="d-plan-feat">25 facturen/mnd</div>
-              <div class="d-plan-feat">25 offertes/mnd</div>
-              <div class="d-plan-feat">1 gebruiker</div>
+              <div class="d-plan-per">per maand · excl. btw</div>
+              <div class="d-plan-limit" style="margin-bottom:14px;">
+                <div style="margin-bottom:4px;">✓ 25 facturen per maand</div>
+                <div>✓ 25 offertes per maand</div>
+              </div>
+              <span class="d-act d-act-n" style="width:100%;justify-content:center;">Wijzigen naar Solo</span>
             </div>
             <div class="d-plan cur">
-              <div class="d-plan-badge">● Huidig plan</div>
+              <div class="d-plan-badge">Meest gekozen</div>
               <div class="d-plan-name">Start</div>
               <div class="d-plan-price">€34</div>
-              <div class="d-plan-per">per maand excl. btw</div>
-              <div class="d-plan-feat">100 facturen/mnd</div>
-              <div class="d-plan-feat">100 offertes/mnd</div>
-              <div class="d-plan-feat">3 gebruikers</div>
+              <div class="d-plan-per">per maand · excl. btw</div>
+              <div class="d-plan-limit" style="margin-bottom:14px;">
+                <div style="margin-bottom:4px;">✓ 100 facturen per maand</div>
+                <div>✓ 100 offertes per maand</div>
+              </div>
+              <span class="d-act d-act-o" style="width:100%;justify-content:center;">Huidig pakket</span>
             </div>
             <div class="d-plan">
+              <div class="d-plan-badge">&nbsp;</div>
               <div class="d-plan-name">Groei</div>
               <div class="d-plan-price">€54</div>
-              <div class="d-plan-per">per maand excl. btw</div>
-              <div class="d-plan-feat">300 facturen/mnd</div>
-              <div class="d-plan-feat">300 offertes/mnd</div>
-              <div class="d-plan-feat">10 gebruikers</div>
+              <div class="d-plan-per">per maand · excl. btw</div>
+              <div class="d-plan-limit" style="margin-bottom:14px;">
+                <div style="margin-bottom:4px;">✓ 300 facturen per maand</div>
+                <div>✓ 300 offertes per maand</div>
+              </div>
+              <span class="d-act d-act-n" style="width:100%;justify-content:center;">Upgraden naar Groei</span>
             </div>
             <div class="d-plan">
+              <div class="d-plan-badge">&nbsp;</div>
               <div class="d-plan-name">Pro</div>
               <div class="d-plan-price">€89</div>
-              <div class="d-plan-per">per maand excl. btw</div>
-              <div class="d-plan-feat">Onbeperkt</div>
-              <div class="d-plan-feat">Onbeperkt</div>
-              <div class="d-plan-feat">Onbeperkt</div>
+              <div class="d-plan-per">per maand · excl. btw</div>
+              <div class="d-plan-limit" style="margin-bottom:14px;">
+                <div style="margin-bottom:4px;">✓ Onbeperkt facturen</div>
+                <div>✓ Onbeperkt offertes</div>
+              </div>
+              <span class="d-act d-act-n" style="width:100%;justify-content:center;">Upgraden naar Pro</span>
             </div>
+          </div>
+
+          <!-- Gevarenzone -->
+          <div style="border-radius:20px;padding:20px 24px;background:#fff;border:1px solid #fecaca;box-shadow:0 2px 8px rgba(15,23,42,.07);">
+            <p style="margin:0 0 4px;font-size:11px;color:#dc2626;text-transform:uppercase;letter-spacing:.1em;font-weight:700;">Gevarenzone</p>
+            <h2 style="margin:0 0 6px;font-size:18px;font-weight:700;color:#0f172a;">Abonnement opzeggen</h2>
+            <p style="margin:0 0 14px;font-size:14px;color:#64748b;line-height:1.6;">Je kunt je abonnement opzeggen. Je behoudt toegang tot het einde van je betaalperiode.</p>
+            <span class="d-act" style="background:#fef2f2;color:#dc2626;border:1px solid #fecaca;font-size:13px;padding:8px 16px;border-radius:12px;">Abonnement opzeggen</span>
           </div>
         </div>
 
@@ -2197,106 +2814,106 @@
 </div><!-- /demo-overlay -->
 
 <script>
-  // Lifecycle tab switcher
-  function switchTab(tab) {
-    document.querySelectorAll('.lc-tab').forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
-    document.querySelectorAll('.lifecycle').forEach(l => l.hidden = true);
-    var activeTab = document.getElementById('tab-' + tab);
-    var activePanel = document.getElementById('lc-' + tab);
-    if (activeTab) { activeTab.classList.add('active'); activeTab.setAttribute('aria-selected', 'true'); }
-    if (activePanel) { activePanel.hidden = false; }
+// ── Demo overlay JS ──────────────────────────────────────────────────────────
+let demoOpen = false;
+const screens = ['overzicht','klanten','werk','facturen','offertes','auto','bank','branding','settings','subscription'];
+let currentDemoScreen = 'overzicht';
+
+function openDemo(screenOrIdx) {
+  let screen = 'overzicht';
+  if (typeof screenOrIdx === 'number') {
+    const map = ['overzicht','klanten','werk','facturen','offertes','auto','bank','branding','settings','subscription'];
+    screen = map[screenOrIdx] || 'overzicht';
+  } else if (typeof screenOrIdx === 'string' && screens.includes(screenOrIdx)) {
+    screen = screenOrIdx;
   }
+  document.getElementById('demoOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  demoOpen = true;
+  switchDemo(screen);
+}
 
-  // Scroll reveal
-  var obs = new IntersectionObserver(
-    function(es) { es.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } }); },
-    { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
-  );
-  document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
+function closeDemo() {
+  document.getElementById('demoOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  demoOpen = false;
+}
 
-  // ===== DEMO CAROUSEL =====
-  var currentScreen = 0;
-  var carouselTimer = null;
-  var totalScreens = 10;
-  var screenMap = ['overzicht','klanten','facturen','offertes','werk','auto','bank','branding','settings','subscription'];
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('demoOverlay')) closeDemo();
+}
 
-  function goToScreen(idx, e) {
-    if (e) e.stopPropagation();
-    var screens = document.querySelectorAll('.dc-screen');
-    var dots = document.querySelectorAll('.dc-dot');
-    screens.forEach(function(s){ s.classList.remove('active'); });
-    dots.forEach(function(d){ d.classList.remove('active'); });
-    if (screens[idx]) screens[idx].classList.add('active');
-    if (dots[idx]) dots[idx].classList.add('active');
-    currentScreen = idx;
-  }
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape' && demoOpen) closeDemo();
+});
 
-  function nextScreen() {
-    goToScreen((currentScreen + 1) % totalScreens);
-  }
+function switchDemo(screen) {
+  if (!screens.includes(screen)) return;
+  currentDemoScreen = screen;
 
-  function startCarousel() {
-    if (!carouselTimer) carouselTimer = setInterval(nextScreen, 3500);
-  }
+  // Hide all screens
+  document.querySelectorAll('.ds').forEach(function(el) { el.classList.remove('active'); });
+  // Show target
+  const target = document.getElementById('ds-' + screen);
+  if (target) target.classList.add('active');
 
-  function pauseCarousel() {
-    if (carouselTimer) { clearInterval(carouselTimer); carouselTimer = null; }
-  }
+  // Desktop sidebar nav
+  document.querySelectorAll('.dsb-item').forEach(function(el) { el.classList.remove('active'); });
+  const nav = document.getElementById('dnav-' + screen);
+  if (nav) nav.classList.add('active');
 
-  startCarousel();
+  // Mobile nav
+  document.querySelectorAll('.demo-mob-item').forEach(function(el) { el.classList.remove('active'); });
+  const mnav = document.getElementById('mnav-' + screen);
+  if (mnav) mnav.classList.add('active');
 
-  var carousel = document.getElementById('demoCarousel');
-  if (carousel) {
-    carousel.addEventListener('mouseenter', pauseCarousel);
-    carousel.addEventListener('mouseleave', startCarousel);
-    carousel.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDemo(currentScreen); }
-      if (e.key === 'ArrowRight') { e.preventDefault(); nextScreen(); }
-      if (e.key === 'ArrowLeft') { e.preventDefault(); goToScreen((currentScreen + totalScreens - 1) % totalScreens); }
-    });
-  }
+  // Scroll content to top
+  const content = document.getElementById('demoContent');
+  if (content) content.scrollTop = 0;
+}
 
-  // ===== FULLSCREEN DEMO =====
-  function openDemo(screenIdx) {
-    pauseCarousel();
-    var overlay = document.getElementById('demoOverlay');
-    overlay.classList.add('open');
-    document.body.style.overflow = 'hidden';
-    var key = screenMap[screenIdx] || 'overzicht';
-    switchDemo(key);
-  }
+// ── Carousel JS ──────────────────────────────────────────────────────────────
+let currentScreen = 0;
+let carouselTimer = null;
+const totalScreens = 10;
 
-  function closeDemo() {
-    var overlay = document.getElementById('demoOverlay');
-    overlay.classList.remove('open');
-    document.body.style.overflow = '';
-    startCarousel();
-  }
-
-  function handleOverlayClick(e) {
-    if (e.target === document.getElementById('demoOverlay')) closeDemo();
-  }
-
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') closeDemo();
+function goToScreen(idx, e) {
+  if (e) e.stopPropagation();
+  currentScreen = idx;
+  const track = document.getElementById('dcScreens');
+  if (track) track.style.transform = 'translateX(-' + (idx * 100) + '%)';
+  document.querySelectorAll('.dc-dot').forEach(function(d, i) {
+    d.classList.toggle('active', i === idx);
   });
+  resetCarouselTimer();
+}
 
-  function switchDemo(key) {
-    document.querySelectorAll('.ds').forEach(function(s){ s.classList.remove('active'); });
-    var target = document.getElementById('ds-' + key);
-    if (target) target.classList.add('active');
+function nextScreen() {
+  goToScreen((currentScreen + 1) % totalScreens);
+}
 
-    document.querySelectorAll('.dsb-item').forEach(function(n){ n.classList.remove('active'); });
-    var navItem = document.getElementById('dnav-' + key);
-    if (navItem) navItem.classList.add('active');
+function resetCarouselTimer() {
+  if (carouselTimer) clearInterval(carouselTimer);
+  carouselTimer = setInterval(nextScreen, 3600);
+}
 
-    document.querySelectorAll('.demo-mob-item').forEach(function(n){ n.classList.remove('active'); });
-    var mobItem = document.getElementById('mnav-' + key);
-    if (mobItem) mobItem.classList.add('active');
-
-    var content = document.getElementById('demoContent');
-    if (content) content.scrollTop = 0;
-  }
+document.addEventListener('DOMContentLoaded', function() {
+  resetCarouselTimer();
+  // Lifecycle tab switcher
+  window.switchTab = function(tab) {
+    document.querySelectorAll('.lc-tab').forEach(function(t) { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+    document.querySelectorAll('.lifecycle').forEach(function(p) { p.hidden = true; });
+    const btn = document.getElementById('tab-' + tab);
+    const panel = document.getElementById('lc-' + tab);
+    if (btn) { btn.classList.add('active'); btn.setAttribute('aria-selected','true'); }
+    if (panel) panel.hidden = false;
+  };
+  // Reveal on scroll
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
+});
 </script>
-
 </body>
+</html>
