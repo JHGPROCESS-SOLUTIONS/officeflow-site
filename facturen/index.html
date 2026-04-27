@@ -661,7 +661,7 @@
     .demo-close:hover{background:#fee2e2;border-color:#fca5a5;color:#b91c1c;}
     .demo-main{display:flex;flex:1;overflow:hidden;}
     /* Exact sidebar replica — 248px matching real app */
-    .demo-sidebar{width:248px;flex-shrink:0;background:linear-gradient(160deg,rgba(9,18,44,.99) 0%,rgba(13,24,56,.98) 60%,rgba(18,32,70,.97) 100%);border-right:1px solid rgba(255,255,255,.04);box-shadow:4px 0 40px rgba(0,0,0,.22);display:flex;flex-direction:column;overflow-y:auto;overflow-x:hidden;padding:18px 14px;position:relative;}
+    .demo-sidebar{width:248px;flex-shrink:0;background-color:#09122c;background-image:linear-gradient(160deg,#09122c 0%,#0d1838 60%,#122046 100%)!important;border-right:1px solid rgba(255,255,255,.04);box-shadow:4px 0 40px rgba(0,0,0,.22);display:flex;flex-direction:column;overflow-y:auto;overflow-x:hidden;padding:18px 14px;position:relative;}
     .demo-sidebar::-webkit-scrollbar{display:none;}
     .demo-sidebar::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 20% 10%,rgba(249,115,22,.12),transparent 28%);}
     .dsb-inner{position:relative;z-index:1;flex:1;display:flex;flex-direction:column;}
@@ -687,7 +687,7 @@
     .demo-content::-webkit-scrollbar{width:5px;}
     .demo-content::-webkit-scrollbar-track{background:transparent;}
     .demo-content::-webkit-scrollbar-thumb{background:#dde1e7;border-radius:3px;}
-    .ds{display:none;}.ds.active{display:grid;gap:16px;}
+    .ds{display:none;}.ds.active{display:grid;gap:16px;max-width:100%;}
     /* Hero section */
     .d-hero{position:relative;overflow:hidden;border-radius:24px;padding:28px 32px;background:linear-gradient(135deg,#ffffff 0%,#fffaf7 50%,#f8fbff 100%);border:1px solid #e2e8f0;box-shadow:0 4px 20px rgba(15,23,42,.07),0 2px 8px rgba(15,23,42,.07),0 1px 3px rgba(15,23,42,.04);}
     .d-hero::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 8% 50%,rgba(249,115,22,.10),transparent 35%),radial-gradient(circle at 92% 20%,rgba(99,102,241,.06),transparent 30%);}
@@ -782,17 +782,24 @@
     /* Mobile overlay adaptations */
     @media(max-width:768px){
       .demo-overlay{padding:0;}
-      .demo-window{width:100%;height:100%;height:100dvh;max-height:none;border-radius:0;}
+      .demo-window{width:100%;height:100%;height:100dvh;max-height:none;border-radius:0;overflow-x:hidden;}
       .demo-sidebar{display:none;}
       .demo-mob-nav{display:flex!important;}
-      .demo-content{padding:16px 16px 20px;}
-      .d-hero{padding:20px;border-radius:16px;}
-      .d-hero-title{font-size:22px;}
-      .d-stats-4,.d-stats-3{grid-template-columns:repeat(2,1fr);}
-      .d-plans{grid-template-columns:repeat(2,1fr);}
+      .demo-content{padding:14px 14px 16px;overflow-x:hidden;max-width:100%;}
+      .d-hero{padding:18px;border-radius:16px;}
+      .d-hero-title{font-size:20px;}
+      .d-stats-5,.d-stats-4,.d-stats-3{grid-template-columns:repeat(2,1fr);}
+      .d-plans{grid-template-columns:1fr 1fr!important;}
       .d-ql{grid-template-columns:repeat(2,1fr);}
       .d-fgrid{grid-template-columns:1fr;}
       .d-topbar-url-txt{display:none;}
+      .d-two-col{grid-template-columns:1fr;}
+      .d-werk-cards{grid-template-columns:1fr;}
+      .d-nextstep{flex-direction:column;}
+      .d-table{overflow-x:auto;display:block;max-width:100%;}
+      .d-thead,.d-trow{min-width:480px;}
+      .ds{max-width:100%;overflow-x:hidden;}
+      .d-filters{flex-wrap:wrap;gap:6px;}
     }
     .demo-mob-nav{display:none;position:sticky;bottom:0;background:linear-gradient(160deg,rgba(9,18,44,.99) 0%,rgba(13,24,56,.98) 100%);border-top:1px solid rgba(255,255,255,.08);flex-shrink:0;z-index:10;}
     .demo-mob-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:7px 4px;cursor:pointer;color:rgba(255,255,255,.45);font-size:9px;font-weight:600;letter-spacing:.02em;border:none;background:transparent;font-family:'Plus Jakarta Sans',sans-serif;}
@@ -1186,7 +1193,6 @@
           <button class="dc-demo-btn" onclick="openDemo(currentScreen)" tabindex="-1">Bekijk live demo →</button>
         </div>
       </div><!-- /demo-carousel -->
-      <p style="text-align:center;margin:10px 0 0;font-size:11px;color:#94a3b8;letter-spacing:.04em;">Demo-weergave · Niet alle functies worden getoond</p>
 
       <!-- Mobile demo trigger -->
       <div class="demo-mobile-cta">
@@ -1201,6 +1207,7 @@
       </div>
 
     </div>
+    <p style="text-align:right;margin:8px 0 0;font-size:11px;color:#94a3b8;letter-spacing:.04em;">Demo-weergave · Niet alle functies worden getoond</p>
   </div>
 </section>
 
@@ -2880,8 +2887,9 @@ const totalScreens = 10;
 function goToScreen(idx, e) {
   if (e) e.stopPropagation();
   currentScreen = idx;
-  const track = document.getElementById('dcScreens');
-  if (track) track.style.transform = 'translateX(-' + (idx * 100) + '%)';
+  document.querySelectorAll('.dc-screen').forEach(function(s, i) {
+    s.classList.toggle('active', i === idx);
+  });
   document.querySelectorAll('.dc-dot').forEach(function(d, i) {
     d.classList.toggle('active', i === idx);
   });
