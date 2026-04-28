@@ -449,7 +449,7 @@
           </div>
 
           <div class="actions">
-            <a class="button-primary" href="https://mail.google.com/mail/u/0/#inbox" target="_blank" rel="noopener noreferrer">
+            <a class="button-primary" id="openGmailBtn" href="https://mail.google.com/mail/u/0/#inbox" target="_blank" rel="noopener noreferrer">
               Open Gmail
             </a>
             <a class="button-secondary" href="https://officeflowcompany.com">
@@ -473,6 +473,16 @@
       const draftsRaw = params.get("drafts");
       const labelsRaw = params.get("labels");
       const firstDraftRaw = params.get("first_draft");
+
+      // Open Gmail-knop dwingen naar het juiste account met ?authuser=EMAIL
+      // Anders opent Gmail het standaard-account dat in de browser is ingelogd.
+      const emailParam = params.get("email");
+      if (emailParam) {
+        const btn = document.getElementById("openGmailBtn");
+        if (btn) {
+          btn.href = `https://mail.google.com/mail/?authuser=${encodeURIComponent(emailParam)}#inbox`;
+        }
+      }
 
       function toNonNegativeInt(value) {
         const n = parseInt(value, 10);
