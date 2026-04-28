@@ -4,6 +4,11 @@
       "source": "/callback",
       "destination": "/facturen/callback",
       "permanent": false
+    },
+    {
+      "source": "/start",
+      "destination": "/",
+      "permanent": true
     }
   ],
   "rewrites": [
