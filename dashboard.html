@@ -2083,17 +2083,31 @@
     let _gmailMailboxEmail = null;
 
     function _applyGmailAccountToLinks(root) {
+      // Rewrites all mail.google.com links to include ?authuser=<email>, which
+      // is Google's documented way to pin a Gmail link to a specific account
+      // (works regardless of how many Google sessions the browser has).
       if (!_gmailMailboxEmail) return;
       const scope = root || document;
       const enc = encodeURIComponent(_gmailMailboxEmail);
       const links = scope.querySelectorAll('a[href*="mail.google.com"]');
       links.forEach(a => {
-        const href = a.getAttribute('href') || '';
-        if (href === 'https://mail.google.com' || href === 'https://mail.google.com/') {
-          a.setAttribute('href', `https://mail.google.com/mail/u/${enc}/`);
-        } else if (href.includes('/mail/u/0/')) {
-          a.setAttribute('href', href.replace('/mail/u/0/', `/mail/u/${enc}/`));
+        let href = a.getAttribute('href') || '';
+        if (!href.startsWith('https://mail.google.com')) return;
+        if (href.includes('authuser=')) return; // already pinned
+
+        // Split href into "before-hash" and "hash" parts so query is added correctly.
+        const hashIdx = href.indexOf('#');
+        let beforeHash = hashIdx >= 0 ? href.slice(0, hashIdx) : href;
+        const afterHash = hashIdx >= 0 ? href.slice(hashIdx) : '';
+
+        // Make sure we have at least the /mail/u/0/ segment so Gmail accepts
+        // the URL — bare https://mail.google.com gets normalised here too.
+        if (beforeHash === 'https://mail.google.com' || beforeHash === 'https://mail.google.com/') {
+          beforeHash = 'https://mail.google.com/mail/u/0/';
         }
+
+        const sep = beforeHash.includes('?') ? '&' : '?';
+        a.setAttribute('href', `${beforeHash}${sep}authuser=${enc}${afterHash}`);
       });
     }
 
