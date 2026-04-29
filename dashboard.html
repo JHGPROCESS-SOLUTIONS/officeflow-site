@@ -892,6 +892,66 @@
       .ss-item { flex-wrap: wrap; }
       .ss-cancel-btn { margin-left:auto; }
     }
+
+    /* ============ ATTACHMENT SUMMARY (under draft rows) ============ */
+    .att-wrap {
+      margin-top:6px;
+      padding:12px 14px;
+      background:#fffbeb;
+      border:1px solid #fde68a;
+      border-radius:12px;
+      font-size:13px;
+      color:#78350f;
+    }
+    .att-wrap.is-failed     { background:#fef2f2; border-color:#fecaca; color:#991b1b; }
+    .att-wrap.is-unsupported{ background:#f8fafc; border-color:#e2e8f0; color:#64748b; }
+    .att-wrap.is-too-large  { background:#f8fafc; border-color:#e2e8f0; color:#64748b; }
+    .att-head {
+      display:flex; align-items:center; gap:8px;
+      font-weight:700; margin-bottom:6px; font-size:12.5px;
+      letter-spacing:.02em;
+    }
+    .att-icon {
+      width:18px; height:18px; flex:none;
+    }
+    .att-filename {
+      font-size:12.5px; font-weight:600;
+      overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+      max-width:100%;
+    }
+    .att-summary { line-height:1.55; margin:6px 0 8px; color:#422006; }
+    .att-wrap.is-failed .att-summary,
+    .att-wrap.is-unsupported .att-summary,
+    .att-wrap.is-too-large .att-summary { color: inherit; }
+    .att-keys {
+      display:flex; flex-direction:column; gap:4px;
+      margin-top:6px;
+      font-size:12px;
+    }
+    .att-key-row {
+      display:flex; gap:8px;
+      padding:4px 0;
+      border-top:1px dashed rgba(120,53,15,.18);
+    }
+    .att-key-row:first-child { border-top:none; padding-top:0; }
+    .att-key-label {
+      font-weight:700; min-width:90px; flex:none;
+      text-transform:uppercase; letter-spacing:.04em; font-size:10.5px;
+      padding-top:1px;
+    }
+    .att-key-values { flex:1; min-width:0; }
+    .att-key-values li {
+      list-style:disc; margin-left:18px;
+    }
+    .att-pending {
+      font-size:12px; color:#a16207; margin-top:4px; font-style:italic;
+    }
+    .rd-att-pin {
+      display:inline-flex; align-items:center; gap:4px;
+      font-size:11px; color:var(--text-3); font-weight:600;
+      margin-top:4px;
+    }
+    .rd-att-pin svg { width:12px; height:12px; }
     .rd-legend {
       margin-top:10px; font-size:11px; color:var(--text-3);
       display:flex; gap:12px; flex-wrap:wrap;
@@ -2825,22 +2885,142 @@
             Verstuur later
           </button>
         ` : '';
+        // Mount-point for attachment summaries (filled async below).
+        const attMount = it.email_id
+          ? `<div class="att-mount" data-email-id="${escapeHtml(it.email_id)}"></div>`
+          : '';
         return `
-          <li class="rd-row">
-            <a class="rd-item" href="${escapeHtml(href)}"${target} title="${escapeHtml(subj)}">
-              <span class="${dotClass}" aria-label="${escapeHtml(aria)}" title="${escapeHtml(aria)}"></span>
-              <div class="rd-body">
-                <div class="rd-title">${escapeHtml(subj)}</div>
-                ${subLine}
-              </div>
-              <span class="rd-time">${when}</span>
-            </a>
-            ${scheduleBtn}
+          <li class="rd-row-wrap">
+            <div class="rd-row">
+              <a class="rd-item" href="${escapeHtml(href)}"${target} title="${escapeHtml(subj)}">
+                <span class="${dotClass}" aria-label="${escapeHtml(aria)}" title="${escapeHtml(aria)}"></span>
+                <div class="rd-body">
+                  <div class="rd-title">${escapeHtml(subj)}</div>
+                  ${subLine}
+                </div>
+                <span class="rd-time">${when}</span>
+              </a>
+              ${scheduleBtn}
+            </div>
+            ${attMount}
           </li>
         `;
       }).join('');
 
       body.innerHTML = `<ul class="rd-list">${rows}</ul>`;
+
+      // Async: fetch attachment summaries for these drafts and inject under each row.
+      const emailIds = items.map(it => it.email_id).filter(Boolean);
+      if (emailIds.length) {
+        loadAttachmentSummariesForEmails(emailIds).then(renderAttachmentSummaries);
+      }
+    }
+
+    // ============ ATTACHMENT SUMMARIES — fetch + inject under draft rows ============
+    async function loadAttachmentSummariesForEmails(emailIds) {
+      try {
+        const { data: { session } } = await sb.auth.getSession();
+        if (!session) return [];
+        const ids = (emailIds || []).filter(Boolean).slice(0, 50).join(',');
+        if (!ids) return [];
+        const res = await fetch(API_BASE + '/api/attachment-summaries?email_ids=' + encodeURIComponent(ids), {
+          headers: { 'Authorization': 'Bearer ' + session.access_token }
+        });
+        if (!res.ok) return [];
+        const data = await res.json();
+        return Array.isArray(data.items) ? data.items : [];
+      } catch (_) { return []; }
+    }
+
+    function _renderAttKeyRow(label, values) {
+      if (!Array.isArray(values) || values.length === 0) return '';
+      const items = values.map(v => `<li>${escapeHtml(String(v))}</li>`).join('');
+      return `
+        <div class="att-key-row">
+          <div class="att-key-label">${escapeHtml(label)}</div>
+          <ul class="att-key-values">${items}</ul>
+        </div>
+      `;
+    }
+
+    function renderAttachmentSummaries(rows) {
+      if (!Array.isArray(rows) || rows.length === 0) return;
+      // Group by email_id so multiple attachments render together under one draft.
+      const byEmail = {};
+      rows.forEach(r => {
+        if (!r || !r.email_id) return;
+        (byEmail[r.email_id] = byEmail[r.email_id] || []).push(r);
+      });
+
+      Object.keys(byEmail).forEach(emailId => {
+        const mount = document.querySelector(`.att-mount[data-email-id="${CSS.escape(emailId)}"]`);
+        if (!mount) return;
+
+        const html = byEmail[emailId].map(att => {
+          const status = att.status || 'success';
+          const wrapClass =
+            status === 'failed'      ? 'is-failed' :
+            status === 'unsupported' ? 'is-unsupported' :
+            status === 'too_large'   ? 'is-too-large' : '';
+
+          if (status === 'unsupported') {
+            return `
+              <div class="att-wrap ${wrapClass}">
+                <div class="att-head">
+                  <svg class="att-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66L9.41 17.41a2 2 0 1 1-2.83-2.83l8.49-8.49"/></svg>
+                  <span class="att-filename">${escapeHtml(att.filename || 'Bijlage')}</span>
+                </div>
+                <div class="att-summary">Bestandstype niet ondersteund voor AI-analyse (alleen PDF en Word op dit moment).</div>
+              </div>
+            `;
+          }
+          if (status === 'too_large') {
+            return `
+              <div class="att-wrap ${wrapClass}">
+                <div class="att-head">
+                  <svg class="att-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66L9.41 17.41a2 2 0 1 1-2.83-2.83l8.49-8.49"/></svg>
+                  <span class="att-filename">${escapeHtml(att.filename || 'Bijlage')}</span>
+                </div>
+                <div class="att-summary">Bestand te groot voor AI-analyse (max 5 MB).</div>
+              </div>
+            `;
+          }
+          if (status === 'failed') {
+            return `
+              <div class="att-wrap ${wrapClass}">
+                <div class="att-head">
+                  <svg class="att-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66L9.41 17.41a2 2 0 1 1-2.83-2.83l8.49-8.49"/></svg>
+                  <span class="att-filename">${escapeHtml(att.filename || 'Bijlage')}</span>
+                </div>
+                <div class="att-summary">AI-analyse mislukt. Open de bijlage in Gmail om 'm zelf te bekijken.</div>
+              </div>
+            `;
+          }
+
+          // Success
+          const k = att.key_data || {};
+          const keysHtml = [
+            _renderAttKeyRow('Bedragen', k.amounts),
+            _renderAttKeyRow('Datums', k.dates),
+            _renderAttKeyRow('Deadlines', k.deadlines),
+            _renderAttKeyRow('Partijen', k.parties),
+            _renderAttKeyRow('Belangrijke clausules', k.key_clauses),
+          ].filter(Boolean).join('');
+          const keysBlock = keysHtml ? `<div class="att-keys">${keysHtml}</div>` : '';
+          return `
+            <div class="att-wrap">
+              <div class="att-head">
+                <svg class="att-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66L9.41 17.41a2 2 0 1 1-2.83-2.83l8.49-8.49"/></svg>
+                <span class="att-filename">AI-samenvatting · ${escapeHtml(att.filename || 'Bijlage')}</span>
+              </div>
+              ${att.summary ? `<div class="att-summary">${escapeHtml(att.summary)}</div>` : ''}
+              ${keysBlock}
+            </div>
+          `;
+        }).join('');
+
+        mount.innerHTML = html;
+      });
     }
 
     async function refreshRecentDrafts() {
