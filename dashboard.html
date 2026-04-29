@@ -1164,6 +1164,16 @@
               <span class="todo-banner-icon" aria-hidden="true">!</span>
               <div class="todo-banner-text" id="todo-banner-text"></div>
             </div>
+
+            <!-- RECONNECT BANNER — verschijnt als Google token verlopen/ingetrokken is -->
+            <div class="todo-banner urgent" id="reconnect-banner" style="display:none;">
+              <span class="todo-banner-icon" aria-hidden="true">!</span>
+              <div class="todo-banner-text">
+                <strong>Je Gmail-koppeling is verlopen.</strong>
+                OfficeFlow kan tijdelijk geen nieuwe drafts of labels meer maken.
+                <a href="https://api.officeflowcompany.com/auth/google/start">Verbind opnieuw met Google →</a>
+              </div>
+            </div>
           </div>
           <a class="btn-orange" href="https://mail.google.com" target="_blank" rel="noopener" style="text-decoration:none;">Open Gmail →</a>
         </div>
@@ -1869,6 +1879,21 @@
         `;
         chart.appendChild(col);
       });
+    }
+
+    // ============ MAILBOX STATUS — show reconnect banner if Google token revoked ============
+    async function checkMailboxStatus(accessToken) {
+      try {
+        const res = await fetch(API_BASE + '/api/mailbox/status', {
+          headers: { 'Authorization': 'Bearer ' + accessToken }
+        });
+        if (!res.ok) return;
+        const data = await res.json();
+        if (data && data.mailbox_status === 'needs_reconnect') {
+          const banner = document.getElementById('reconnect-banner');
+          if (banner) banner.style.display = '';
+        }
+      } catch (_) { /* silent fail — banner just won't show */ }
     }
 
     // ============ STATS LOADER ============
@@ -2760,6 +2785,9 @@
         : '';
       document.getElementById('welcome-title').textContent =
         firstName ? `Welkom terug, ${firstName}` : 'Welkom terug';
+
+      // Non-blocking: check Gmail token status to surface reconnect banner.
+      checkMailboxStatus(session.access_token);
 
       const [stats, subscription, radar, archive, recentDrafts, weeklyRecap] = await Promise.all([
         loadStats(session.access_token),
