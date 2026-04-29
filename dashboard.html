@@ -103,6 +103,40 @@
     }
     .btn-ghost:hover { border-color: var(--orange); color: var(--orange); }
 
+    /* ============ MOBILE NAV TOGGLE (hamburger) ============ */
+    .nav-toggle {
+      display: none;
+      background: transparent;
+      border: 1.5px solid var(--border);
+      color: var(--text-2);
+      width: 40px; height: 40px;
+      border-radius: 8px;
+      padding: 0;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      transition: all .2s;
+      flex-shrink: 0;
+    }
+    .nav-toggle:hover { border-color: var(--orange); color: var(--orange); }
+    .nav-toggle svg { width: 22px; height: 22px; display: block; }
+
+    /* Off-canvas backdrop */
+    .sidebar-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15,23,42,.45);
+      z-index: 60;
+      opacity: 0;
+      transition: opacity .2s;
+      pointer-events: none;
+    }
+    .sidebar-backdrop.is-visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
     /* ============ LAYOUT ============ */
     .layout {
       display: flex;
@@ -464,20 +498,33 @@
       .stats-grid { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 900px) {
-      .layout { flex-direction: column; }
+      .nav-toggle { display: inline-flex; }
+      .sidebar-backdrop { display: block; }
+
+      .nav-inner { gap: 12px; }
+      .layout { display: block; }
       .sidebar {
-        width: 100%;
-        height: auto;
-        position: static;
-        border-right: none;
-        border-bottom: 1.5px solid var(--border-soft);
-        padding: 20px 20px 12px;
+        position: fixed;
+        top: 58px;
+        left: 0;
+        bottom: 0;
+        width: 280px;
+        max-width: 84vw;
+        z-index: 70;
+        height: calc(100vh - 58px);
+        overflow-y: auto;
+        transform: translateX(-100%);
+        transition: transform .25s ease;
+        border-right: 1.5px solid var(--border-soft);
+        border-bottom: none;
+        box-shadow: 0 20px 60px rgba(15,23,42,.18);
+        padding: 22px 18px;
       }
-      .sb-quick { margin-top: 4px; }
-      .main-content { padding: 28px 24px 80px; }
+      .sidebar.is-open { transform: translateX(0); }
+      .main-content { padding: 28px 20px 80px; max-width: 100%; }
     }
     @media (max-width: 640px) {
-      .nav-inner { padding: 0 16px; gap: 10px; }
+      .nav-inner { padding: 0 14px; gap: 10px; }
       .logo { font-size: 16px; }
       .nav-user { gap: 8px; }
       .nav-user .email-chip {
@@ -487,11 +534,7 @@
         white-space: nowrap;
       }
       .btn-ghost { padding: 7px 10px; font-size: 12px; }
-      .sidebar { padding: 16px 16px 10px; }
-      .sb-nav { margin-bottom: 18px; display: flex; flex-wrap: wrap; gap: 4px; }
-      .sb-nav li { flex: 1 0 auto; }
-      .sb-nav li a { padding: 9px 10px; font-size: 13.5px; }
-      .main-content { padding: 20px 16px 60px; }
+      .main-content { padding: 22px 16px 80px; }
       .page-head { gap: 10px; margin-bottom: 22px; }
       h1 { font-size: 24px; margin-top: 8px; }
       .page-desc { font-size: 14px; }
@@ -1087,6 +1130,9 @@
 
   <nav>
     <div class="nav-inner">
+      <button class="nav-toggle" id="nav-toggle" aria-label="Menu openen" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
       <a href="/" class="logo" aria-label="OfficeFlow">
         <svg viewBox="0 0 48 48" width="26" height="26" aria-hidden="true">
           <defs><linearGradient id="of-dash-mark" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F97316"/><stop offset="100%" stop-color="#FB923C"/></linearGradient></defs>
@@ -1103,6 +1149,8 @@
       </div>
     </div>
   </nav>
+
+  <div class="sidebar-backdrop" id="sidebar-backdrop" aria-hidden="true"></div>
 
   <div class="layout" id="page-content" style="display:none;">
 
@@ -2849,10 +2897,42 @@
         window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
       }
 
+      // ============ MOBILE DRAWER ============
+      const sidebarEl = document.querySelector('.sidebar');
+      const backdropEl = document.getElementById('sidebar-backdrop');
+      const navToggleEl = document.getElementById('nav-toggle');
+
+      function openDrawer() {
+        if (!sidebarEl) return;
+        sidebarEl.classList.add('is-open');
+        if (backdropEl) backdropEl.classList.add('is-visible');
+        if (navToggleEl) navToggleEl.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeDrawer() {
+        if (!sidebarEl) return;
+        sidebarEl.classList.remove('is-open');
+        if (backdropEl) backdropEl.classList.remove('is-visible');
+        if (navToggleEl) navToggleEl.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+      if (navToggleEl) {
+        navToggleEl.addEventListener('click', () => {
+          if (sidebarEl && sidebarEl.classList.contains('is-open')) closeDrawer();
+          else openDrawer();
+        });
+      }
+      if (backdropEl) backdropEl.addEventListener('click', closeDrawer);
+      // Esc to close
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && sidebarEl && sidebarEl.classList.contains('is-open')) closeDrawer();
+      });
+
       document.querySelectorAll('.sb-nav a[data-tab]').forEach(a => {
         a.addEventListener('click', e => {
           e.preventDefault();
           activateTab(a.dataset.tab);
+          closeDrawer();
         });
       });
 
