@@ -2076,6 +2076,27 @@
       });
     }
 
+    // ============ GMAIL ACCOUNT-AWARE LINKS ============
+    // The connected mailbox email — populated after /api/mailbox/status returns.
+    // Used to rewrite "https://mail.google.com" links to /mail/u/<email>/ so
+    // they open the right Google account when the browser has multiple sessions.
+    let _gmailMailboxEmail = null;
+
+    function _applyGmailAccountToLinks(root) {
+      if (!_gmailMailboxEmail) return;
+      const scope = root || document;
+      const enc = encodeURIComponent(_gmailMailboxEmail);
+      const links = scope.querySelectorAll('a[href*="mail.google.com"]');
+      links.forEach(a => {
+        const href = a.getAttribute('href') || '';
+        if (href === 'https://mail.google.com' || href === 'https://mail.google.com/') {
+          a.setAttribute('href', `https://mail.google.com/mail/u/${enc}/`);
+        } else if (href.includes('/mail/u/0/')) {
+          a.setAttribute('href', href.replace('/mail/u/0/', `/mail/u/${enc}/`));
+        }
+      });
+    }
+
     // ============ MAILBOX STATUS — show reconnect banner if Google token revoked ============
     async function checkMailboxStatus(accessToken) {
       try {
@@ -2084,6 +2105,10 @@
         });
         if (!res.ok) return;
         const data = await res.json();
+        if (data && data.email) {
+          _gmailMailboxEmail = data.email;
+          _applyGmailAccountToLinks();
+        }
         if (data && data.mailbox_status === 'needs_reconnect') {
           const banner = document.getElementById('reconnect-banner');
           if (banner) banner.style.display = '';
@@ -2147,6 +2172,8 @@
       banner.classList.add(isUrgent ? 'urgent' : 'warn');
       banner.style.display = 'flex';
       textEl.innerHTML = `To-do voor jou: ${parts.join('  ·  ')}`;
+      // Re-route any Gmail links to the connected mailbox account
+      try { _applyGmailAccountToLinks(textEl); } catch (_) {}
     }
 
     function renderStats(s) {
