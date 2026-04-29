@@ -917,9 +917,34 @@
     .att-filename {
       font-size:12.5px; font-weight:600;
       overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
-      max-width:100%;
+      flex: 1; min-width: 0;
     }
-    .att-summary { line-height:1.55; margin:6px 0 8px; color:#422006; }
+    /* Collapsible toggle (success state only) */
+    .att-toggle {
+      display:flex; align-items:center; gap:8px;
+      width:100%;
+      background:transparent;
+      border:none;
+      padding:0;
+      margin:0;
+      cursor:pointer;
+      font: inherit; color: inherit;
+      font-weight:700; font-size:12.5px; letter-spacing:.02em;
+      text-align:left;
+    }
+    .att-toggle:hover .att-filename { text-decoration: underline; }
+    .att-chevron {
+      width:14px; height:14px; flex:none;
+      transition: transform .2s ease;
+      opacity:.7;
+    }
+    .att-wrap.is-open .att-chevron { transform: rotate(180deg); }
+    .att-content {
+      display:none;
+      margin-top:8px;
+    }
+    .att-wrap.is-open .att-content { display:block; }
+    .att-summary { line-height:1.55; margin:0 0 8px; color:#422006; }
     .att-wrap.is-failed .att-summary,
     .att-wrap.is-unsupported .att-summary,
     .att-wrap.is-too-large .att-summary { color: inherit; }
@@ -2997,7 +3022,7 @@
             `;
           }
 
-          // Success
+          // Success — collapsible: header always visible, content toggles on click
           const k = att.key_data || {};
           const keysHtml = [
             _renderAttKeyRow('Bedragen', k.amounts),
@@ -3009,12 +3034,15 @@
           const keysBlock = keysHtml ? `<div class="att-keys">${keysHtml}</div>` : '';
           return `
             <div class="att-wrap">
-              <div class="att-head">
+              <button class="att-toggle" type="button" aria-expanded="false">
                 <svg class="att-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66L9.41 17.41a2 2 0 1 1-2.83-2.83l8.49-8.49"/></svg>
-                <span class="att-filename">AI-samenvatting · ${escapeHtml(att.filename || 'Bijlage')}</span>
+                <span class="att-filename">Bekijk samenvatting bijlage · ${escapeHtml(att.filename || 'Bijlage')}</span>
+                <svg class="att-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+              <div class="att-content">
+                ${att.summary ? `<div class="att-summary">${escapeHtml(att.summary)}</div>` : ''}
+                ${keysBlock}
               </div>
-              ${att.summary ? `<div class="att-summary">${escapeHtml(att.summary)}</div>` : ''}
-              ${keysBlock}
             </div>
           `;
         }).join('');
@@ -3267,6 +3295,16 @@
         e.preventDefault();
         if (confirm('Weet je zeker dat je deze geplande verzending wilt annuleren?')) {
           cancelScheduledSend(cancelBtn.dataset.id);
+        }
+        return;
+      }
+      // Toggle attachment summary card open/closed
+      const attToggle = e.target && e.target.closest && e.target.closest('.att-toggle');
+      if (attToggle) {
+        const wrap = attToggle.closest('.att-wrap');
+        if (wrap) {
+          const isOpen = wrap.classList.toggle('is-open');
+          attToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
         }
       }
     });
