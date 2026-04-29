@@ -782,6 +782,116 @@
       font-size:13px; color:var(--text-3);
       border:1px dashed #e5e7eb; border-radius:12px; background:#fafbfd;
     }
+
+    /* ============ SCHEDULE BUTTON ON DRAFT ROWS ============ */
+    .rd-row {
+      display:flex; align-items:stretch; gap:8px;
+    }
+    .rd-row .rd-item { flex:1; }
+    .rd-schedule-btn {
+      flex:none;
+      background:#fff;
+      border:1px solid var(--border);
+      color:var(--text-2);
+      padding:0 12px;
+      border-radius:12px;
+      font-size:12.5px; font-weight:600;
+      font-family:inherit;
+      cursor:pointer;
+      display:inline-flex; align-items:center; gap:6px;
+      transition: all .15s;
+      white-space:nowrap;
+    }
+    .rd-schedule-btn:hover {
+      border-color: var(--orange);
+      color: var(--orange);
+      background: var(--orange-soft);
+    }
+    .rd-schedule-btn svg { width:14px; height:14px; }
+
+    /* ============ SCHEDULED-SENDS LIST ============ */
+    .ss-list {
+      display:flex; flex-direction:column; gap:8px;
+      list-style:none; padding:0; margin:0;
+    }
+    .ss-item {
+      display:flex; align-items:center; gap:12px;
+      padding:12px 14px;
+      border:1px solid #eef0f4;
+      border-radius:12px;
+      background:#fff;
+    }
+    .ss-item.is-sent     { background:#f0fdf4; border-color:#bbf7d0; }
+    .ss-item.is-failed   { background:#fef2f2; border-color:#fecaca; }
+    .ss-item.is-cancelled{ background:#f8fafc; border-color:#e2e8f0; opacity:.7; }
+    .ss-clock {
+      width:32px; height:32px; border-radius:8px;
+      background: var(--orange-soft); color: var(--orange-2);
+      display:flex; align-items:center; justify-content:center;
+      flex:none;
+    }
+    .ss-clock svg { width:16px; height:16px; }
+    .ss-body { flex:1; min-width:0; }
+    .ss-title {
+      font-size:14px; font-weight:600; color:#111827; line-height:1.35;
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    }
+    .ss-meta { font-size:12px; color:var(--text-3); margin-top:3px; }
+    .ss-status-pill {
+      font-size:11px; font-weight:700; padding:3px 8px; border-radius:999px;
+      text-transform:uppercase; letter-spacing:.04em;
+    }
+    .ss-status-pill.pending  { background:#fff4e6; color: var(--orange-2); }
+    .ss-status-pill.sent     { background:#dcfce7; color:#166534; }
+    .ss-status-pill.failed   { background:#fee2e2; color:#991b1b; }
+    .ss-status-pill.cancelled{ background:#e2e8f0; color:#475569; }
+    .ss-cancel-btn {
+      flex:none;
+      background: transparent; border:1px solid var(--border);
+      color: var(--text-2);
+      padding:6px 10px; border-radius:8px;
+      font-size:12px; font-weight:600; font-family:inherit;
+      cursor:pointer;
+      transition: all .15s;
+    }
+    .ss-cancel-btn:hover { border-color:#dc2626; color:#dc2626; }
+
+    /* ============ SCHEDULE MODAL: presets ============ */
+    .preset-chips {
+      display:flex; flex-wrap:wrap; gap:8px;
+      margin: 4px 0 14px;
+    }
+    .preset-chip {
+      background:#fff; border:1.5px solid var(--border);
+      color: var(--text-2);
+      padding:8px 12px; border-radius:10px;
+      font-size:13px; font-weight:600; font-family:inherit;
+      cursor:pointer; transition: all .15s;
+    }
+    .preset-chip:hover { border-color: var(--orange); color: var(--orange); }
+    .preset-chip.active {
+      background: var(--orange-soft);
+      border-color: var(--orange);
+      color: var(--orange-2);
+    }
+    .schedule-subject-preview {
+      font-size:13px; color: var(--text-2);
+      background: #f8fafc;
+      border:1px solid var(--border-soft);
+      border-radius:10px;
+      padding:10px 12px;
+      margin-bottom:10px;
+      max-height:48px; overflow:hidden;
+      text-overflow:ellipsis; white-space:nowrap;
+    }
+    .schedule-subject-preview strong { color: #111827; font-weight:600; }
+
+    @media (max-width: 640px) {
+      .rd-row { flex-direction: column; gap: 6px; }
+      .rd-schedule-btn { width: 100%; padding: 10px 12px; justify-content: center; }
+      .ss-item { flex-wrap: wrap; }
+      .ss-cancel-btn { margin-left:auto; }
+    }
     .rd-legend {
       margin-top:10px; font-size:11px; color:var(--text-3);
       display:flex; gap:12px; flex-wrap:wrap;
@@ -1353,6 +1463,17 @@
             <div class="rd-empty">Concepten laden…</div>
           </div>
         </div>
+
+        <!-- ============ GEPLANDE VERZENDINGEN ============ -->
+        <div class="drafts-feature" id="scheduled-sends-card" style="margin-top:20px; display:none;">
+          <div class="drafts-feature-head">
+            <div class="drafts-feature-title">
+              <h2>Geplande verzendingen</h2>
+              <p>Concepten die OfficeFlow op het door jou gekozen moment voor je verstuurt. Annuleren kan tot het verzendmoment.</p>
+            </div>
+          </div>
+          <div id="ss-body"></div>
+        </div>
       </section>
 
       <!-- ============ VOORKEUREN ============ -->
@@ -1830,6 +1951,32 @@
   <div class="loading" id="loading">Laden…</div>
 
   <!-- CANCEL MODAL -->
+  <!-- ============ SCHEDULE-SEND MODAL ============ -->
+  <div class="modal-overlay" id="schedule-modal" hidden>
+    <div class="modal">
+      <h3>Plan verzending</h3>
+      <p class="modal-desc">Kies wanneer OfficeFlow dit concept namens jou verstuurt.</p>
+
+      <div class="schedule-subject-preview" id="schedule-subject-preview"></div>
+
+      <label class="modal-label">Snel kiezen</label>
+      <div class="preset-chips" id="schedule-presets">
+        <button type="button" class="preset-chip" data-preset="in1h">Over 1 uur</button>
+        <button type="button" class="preset-chip" data-preset="tonight">Vanavond 18:00</button>
+        <button type="button" class="preset-chip" data-preset="tomorrow">Morgen 09:00</button>
+        <button type="button" class="preset-chip" data-preset="monday">Maandag 09:00</button>
+      </div>
+
+      <label class="modal-label" for="schedule-datetime">Of kies een specifiek moment</label>
+      <input type="datetime-local" id="schedule-datetime" class="modal-input" />
+
+      <div class="modal-actions">
+        <button class="btn-ghost" id="schedule-close">Annuleren</button>
+        <button class="btn-orange" id="schedule-confirm" style="border:none;color:#fff;background:var(--orange);padding:10px 18px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;">Inplannen</button>
+      </div>
+    </div>
+  </div>
+
   <div class="modal-overlay" id="cancel-modal" hidden>
     <div class="modal">
       <h3>Abonnement opzeggen</h3>
@@ -2626,8 +2773,19 @@
         // Optionele subline: afzender als die er is, anders niks (geen herhaalde tekst meer)
         const sender = (it.sender_name || it.sender_email || '').trim();
         const subLine = sender ? `<div class="rd-meta">${escapeHtml(sender)}</div>` : '';
+        const scheduleBtn = it.gmail_draft_id ? `
+          <button class="rd-schedule-btn" type="button"
+            data-draft-id="${escapeHtml(it.gmail_draft_id)}"
+            data-thread-id="${escapeHtml(it.gmail_thread_id || '')}"
+            data-subject="${escapeHtml(subj)}"
+            data-to-email="${escapeHtml(it.sender_email || '')}"
+            title="Plan verzending op een later moment">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Verstuur later
+          </button>
+        ` : '';
         return `
-          <li>
+          <li class="rd-row">
             <a class="rd-item" href="${escapeHtml(href)}"${target} title="${escapeHtml(subj)}">
               <span class="${dotClass}" aria-label="${escapeHtml(aria)}" title="${escapeHtml(aria)}"></span>
               <div class="rd-body">
@@ -2636,6 +2794,7 @@
               </div>
               <span class="rd-time">${when}</span>
             </a>
+            ${scheduleBtn}
           </li>
         `;
       }).join('');
@@ -2649,6 +2808,276 @@
       const data = await loadRecentDrafts(session.access_token);
       renderRecentDrafts(data);
     }
+
+    // ============ SCHEDULED SENDS — modal, list, cancel ============
+    const scheduleState = {
+      draftId: null,
+      threadId: null,
+      subject: null,
+      toEmail: null,
+    };
+
+    function _pad2(n) { return String(n).padStart(2, '0'); }
+    function _toLocalDatetimeInputValue(d) {
+      // <input type="datetime-local"> expects "YYYY-MM-DDTHH:MM" in LOCAL time.
+      return `${d.getFullYear()}-${_pad2(d.getMonth()+1)}-${_pad2(d.getDate())}T${_pad2(d.getHours())}:${_pad2(d.getMinutes())}`;
+    }
+    function _fmtScheduledFor(iso) {
+      try {
+        const d = new Date(iso);
+        const today = new Date(); today.setHours(0,0,0,0);
+        const target = new Date(d); target.setHours(0,0,0,0);
+        const diffDays = Math.round((target - today) / 86400000);
+        const time = `${_pad2(d.getHours())}:${_pad2(d.getMinutes())}`;
+        if (diffDays === 0) return `vandaag ${time}`;
+        if (diffDays === 1) return `morgen ${time}`;
+        if (diffDays > 1 && diffDays < 7) {
+          const dn = ['zo','ma','di','wo','do','vr','za'][d.getDay()];
+          return `${dn} ${time}`;
+        }
+        return d.toLocaleString('nl-NL', { day:'numeric', month:'short', hour:'2-digit', minute:'2-digit' });
+      } catch (_) { return iso || ''; }
+    }
+    function _presetDate(preset) {
+      const now = new Date();
+      const d = new Date(now);
+      switch (preset) {
+        case 'in1h':
+          d.setMinutes(d.getMinutes() + 60, 0, 0); break;
+        case 'tonight':
+          d.setHours(18, 0, 0, 0);
+          if (d <= now) d.setDate(d.getDate() + 1);
+          break;
+        case 'tomorrow':
+          d.setDate(d.getDate() + 1);
+          d.setHours(9, 0, 0, 0);
+          break;
+        case 'monday': {
+          const day = d.getDay(); // 0=zo, 1=ma...
+          const daysUntilMonday = ((1 - day + 7) % 7) || 7;
+          d.setDate(d.getDate() + daysUntilMonday);
+          d.setHours(9, 0, 0, 0);
+          break;
+        }
+      }
+      return d;
+    }
+
+    function openScheduleModal({ draftId, threadId, subject, toEmail }) {
+      scheduleState.draftId = draftId;
+      scheduleState.threadId = threadId || null;
+      scheduleState.subject = subject || null;
+      scheduleState.toEmail = toEmail || null;
+
+      const previewEl = document.getElementById('schedule-subject-preview');
+      if (previewEl) {
+        previewEl.innerHTML = `<strong>Onderwerp:</strong> ${escapeHtml(subject || '(geen onderwerp)')}`;
+      }
+      const dt = document.getElementById('schedule-datetime');
+      if (dt) {
+        const def = _presetDate('tomorrow');
+        dt.value = _toLocalDatetimeInputValue(def);
+        const min = new Date();
+        dt.min = _toLocalDatetimeInputValue(min);
+      }
+      document.querySelectorAll('#schedule-presets .preset-chip').forEach(c => c.classList.remove('active'));
+
+      const modal = document.getElementById('schedule-modal');
+      if (modal) modal.hidden = false;
+    }
+
+    function closeScheduleModal() {
+      const modal = document.getElementById('schedule-modal');
+      if (modal) modal.hidden = true;
+      scheduleState.draftId = null;
+      scheduleState.threadId = null;
+      scheduleState.subject = null;
+      scheduleState.toEmail = null;
+    }
+
+    async function submitScheduleSend() {
+      const dt = document.getElementById('schedule-datetime');
+      if (!dt || !dt.value) {
+        alert('Kies een moment om in te plannen.');
+        return;
+      }
+      const when = new Date(dt.value);
+      if (isNaN(when.getTime())) {
+        alert('Ongeldige datum/tijd.');
+        return;
+      }
+      if (when.getTime() < Date.now() - 30000) {
+        alert('Het gekozen moment ligt in het verleden.');
+        return;
+      }
+      if (!scheduleState.draftId) {
+        alert('Geen draft geselecteerd.');
+        return;
+      }
+
+      const btn = document.getElementById('schedule-confirm');
+      if (btn) { btn.disabled = true; btn.textContent = 'Inplannen…'; }
+
+      try {
+        const { data: { session } } = await sb.auth.getSession();
+        if (!session) throw new Error('Niet ingelogd');
+        const res = await fetch(API_BASE + '/api/scheduled-sends', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + session.access_token,
+          },
+          body: JSON.stringify({
+            gmail_draft_id: scheduleState.draftId,
+            gmail_thread_id: scheduleState.threadId,
+            subject: scheduleState.subject,
+            to_email: scheduleState.toEmail,
+            scheduled_at: when.toISOString(),
+          }),
+        });
+        if (!res.ok) {
+          const errText = await res.text().catch(() => '');
+          throw new Error(`Kon niet inplannen (${res.status}) ${errText}`);
+        }
+        closeScheduleModal();
+        await refreshScheduledSends();
+      } catch (err) {
+        alert(err && err.message ? err.message : 'Er ging iets mis bij het inplannen.');
+      } finally {
+        if (btn) { btn.disabled = false; btn.textContent = 'Inplannen'; }
+      }
+    }
+
+    async function loadScheduledSends(accessToken) {
+      try {
+        const res = await fetch(API_BASE + '/api/scheduled-sends', {
+          headers: { 'Authorization': 'Bearer ' + accessToken }
+        });
+        if (!res.ok) return { items: [] };
+        const data = await res.json();
+        return { items: Array.isArray(data.items) ? data.items : [] };
+      } catch (_) { return { items: [] }; }
+    }
+
+    function renderScheduledSends(data) {
+      const card = document.getElementById('scheduled-sends-card');
+      const body = document.getElementById('ss-body');
+      if (!card || !body) return;
+
+      const items = (data && data.items) || [];
+      // Hide card entirely if there's nothing to show.
+      if (!items.length) {
+        card.style.display = 'none';
+        body.innerHTML = '';
+        return;
+      }
+      card.style.display = '';
+
+      const rows = items.map(it => {
+        const subj = it.subject && it.subject.trim() ? it.subject : '(geen onderwerp)';
+        const status = it.status || 'pending';
+        const when = _fmtScheduledFor(it.scheduled_at);
+        const itemClass = status === 'sent' ? 'is-sent'
+                        : status === 'failed' ? 'is-failed'
+                        : status === 'cancelled' ? 'is-cancelled'
+                        : '';
+        const meta = status === 'pending' ? `Wordt verstuurd ${escapeHtml(when)}`
+                   : status === 'sent' ? `Verstuurd ${escapeHtml(_fmtScheduledFor(it.sent_at || it.scheduled_at))}`
+                   : status === 'failed' ? `Mislukt — ${escapeHtml((it.error_message || '').slice(0, 120))}`
+                   : `Geannuleerd`;
+        const cancelBtn = status === 'pending'
+          ? `<button class="ss-cancel-btn" type="button" data-id="${escapeHtml(it.id)}">Annuleren</button>`
+          : '';
+        return `
+          <li class="ss-item ${itemClass}">
+            <span class="ss-clock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+            <div class="ss-body">
+              <div class="ss-title">${escapeHtml(subj)}</div>
+              <div class="ss-meta">${meta}</div>
+            </div>
+            <span class="ss-status-pill ${status}">${escapeHtml(status)}</span>
+            ${cancelBtn}
+          </li>
+        `;
+      }).join('');
+
+      body.innerHTML = `<ul class="ss-list">${rows}</ul>`;
+    }
+
+    async function refreshScheduledSends() {
+      const { data: { session } } = await sb.auth.getSession();
+      if (!session) return;
+      const data = await loadScheduledSends(session.access_token);
+      renderScheduledSends(data);
+    }
+
+    async function cancelScheduledSend(id) {
+      if (!id) return;
+      const { data: { session } } = await sb.auth.getSession();
+      if (!session) return;
+      try {
+        const res = await fetch(API_BASE + '/api/scheduled-sends/' + encodeURIComponent(id), {
+          method: 'DELETE',
+          headers: { 'Authorization': 'Bearer ' + session.access_token },
+        });
+        if (!res.ok) throw new Error('Annuleren mislukt');
+        await refreshScheduledSends();
+      } catch (err) {
+        alert(err && err.message ? err.message : 'Annuleren mislukt');
+      }
+    }
+
+    // Wire up: open modal from any "Verstuur later" button (event delegation
+    // because the buttons are re-rendered by renderRecentDrafts).
+    document.addEventListener('click', (e) => {
+      const btn = e.target && e.target.closest && e.target.closest('.rd-schedule-btn');
+      if (btn) {
+        e.preventDefault();
+        openScheduleModal({
+          draftId: btn.dataset.draftId,
+          threadId: btn.dataset.threadId,
+          subject: btn.dataset.subject,
+          toEmail: btn.dataset.toEmail,
+        });
+        return;
+      }
+      const cancelBtn = e.target && e.target.closest && e.target.closest('.ss-cancel-btn');
+      if (cancelBtn) {
+        e.preventDefault();
+        if (confirm('Weet je zeker dat je deze geplande verzending wilt annuleren?')) {
+          cancelScheduledSend(cancelBtn.dataset.id);
+        }
+      }
+    });
+
+    // Preset chip handler
+    document.querySelectorAll('#schedule-presets .preset-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        document.querySelectorAll('#schedule-presets .preset-chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        const d = _presetDate(chip.dataset.preset);
+        const dt = document.getElementById('schedule-datetime');
+        if (dt) dt.value = _toLocalDatetimeInputValue(d);
+      });
+    });
+
+    // De-activate presets when user manually picks a custom time
+    const _scheduleDt = document.getElementById('schedule-datetime');
+    if (_scheduleDt) {
+      _scheduleDt.addEventListener('input', () => {
+        document.querySelectorAll('#schedule-presets .preset-chip').forEach(c => c.classList.remove('active'));
+      });
+    }
+
+    // Modal close handlers
+    const _scheduleClose = document.getElementById('schedule-close');
+    if (_scheduleClose) _scheduleClose.addEventListener('click', closeScheduleModal);
+    const _scheduleConfirm = document.getElementById('schedule-confirm');
+    if (_scheduleConfirm) _scheduleConfirm.addEventListener('click', submitScheduleSend);
+    const _scheduleOverlay = document.getElementById('schedule-modal');
+    if (_scheduleOverlay) _scheduleOverlay.addEventListener('click', (e) => {
+      if (e.target === _scheduleOverlay) closeScheduleModal();
+    });
 
     // ============ SUBSCRIPTION LOADER ============
     async function loadSubscription(accessToken) {
@@ -2836,6 +3265,8 @@
 
       // Non-blocking: check Gmail token status to surface reconnect banner.
       checkMailboxStatus(session.access_token);
+      // Non-blocking: load scheduled sends list so it renders ASAP.
+      loadScheduledSends(session.access_token).then(renderScheduledSends);
 
       const [stats, subscription, radar, archive, recentDrafts, weeklyRecap] = await Promise.all([
         loadStats(session.access_token),
