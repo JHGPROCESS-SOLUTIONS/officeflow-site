@@ -820,6 +820,28 @@
     }
     .rd-schedule-btn svg { width:14px; height:14px; }
 
+    /* ============ SNOOZE BUTTON ON DRAFT ROWS ============ */
+    .rd-snooze-btn {
+      flex:none;
+      background:#fff;
+      border:1px solid var(--border);
+      color:var(--text-2);
+      padding:0 12px;
+      border-radius:12px;
+      font-size:12.5px; font-weight:600;
+      font-family:inherit;
+      cursor:pointer;
+      display:inline-flex; align-items:center; gap:6px;
+      transition: all .15s;
+      white-space:nowrap;
+    }
+    .rd-snooze-btn:hover {
+      border-color: #6366f1;
+      color: #4f46e5;
+      background: #eef2ff;
+    }
+    .rd-snooze-btn svg { width:14px; height:14px; }
+
     /* ============ SCHEDULED-SENDS LIST ============ */
     .ss-list {
       display:flex; flex-direction:column; gap:8px;
@@ -867,6 +889,53 @@
     }
     .ss-cancel-btn:hover { border-color:#dc2626; color:#dc2626; }
 
+    /* ============ SNOOZED EMAILS LIST ============ */
+    .sn-list {
+      display:flex; flex-direction:column; gap:8px;
+      list-style:none; padding:0; margin:0;
+    }
+    .sn-item {
+      display:flex; align-items:center; gap:12px;
+      padding:12px 14px;
+      border:1px solid #eef0f4;
+      border-radius:12px;
+      background:#fff;
+    }
+    .sn-item.is-woken    { background:#f0fdf4; border-color:#bbf7d0; }
+    .sn-item.is-failed   { background:#fef2f2; border-color:#fecaca; }
+    .sn-item.is-cancelled{ background:#f8fafc; border-color:#e2e8f0; opacity:.7; }
+    .sn-moon {
+      width:32px; height:32px; border-radius:8px;
+      background:#eef2ff; color:#4f46e5;
+      display:flex; align-items:center; justify-content:center;
+      flex:none;
+    }
+    .sn-moon svg { width:16px; height:16px; }
+    .sn-body { flex:1; min-width:0; }
+    .sn-title {
+      font-size:14px; font-weight:600; color:#111827; line-height:1.35;
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    }
+    .sn-meta { font-size:12px; color:var(--text-3); margin-top:3px; }
+    .sn-status-pill {
+      font-size:11px; font-weight:700; padding:3px 8px; border-radius:999px;
+      text-transform:uppercase; letter-spacing:.04em;
+    }
+    .sn-status-pill.pending  { background:#eef2ff; color:#4338ca; }
+    .sn-status-pill.woken    { background:#dcfce7; color:#166534; }
+    .sn-status-pill.failed   { background:#fee2e2; color:#991b1b; }
+    .sn-status-pill.cancelled{ background:#e2e8f0; color:#475569; }
+    .sn-cancel-btn {
+      flex:none;
+      background: transparent; border:1px solid var(--border);
+      color: var(--text-2);
+      padding:6px 10px; border-radius:8px;
+      font-size:12px; font-weight:600; font-family:inherit;
+      cursor:pointer;
+      transition: all .15s;
+    }
+    .sn-cancel-btn:hover { border-color:#4f46e5; color:#4f46e5; }
+
     /* ============ SCHEDULE MODAL: presets ============ */
     .preset-chips {
       display:flex; flex-wrap:wrap; gap:8px;
@@ -899,9 +968,10 @@
 
     @media (max-width: 640px) {
       .rd-row { flex-direction: column; gap: 6px; }
-      .rd-schedule-btn { width: 100%; padding: 10px 12px; justify-content: center; }
-      .ss-item { flex-wrap: wrap; }
-      .ss-cancel-btn { margin-left:auto; }
+      .rd-schedule-btn,
+      .rd-snooze-btn { width: 100%; padding: 10px 12px; justify-content: center; }
+      .ss-item, .sn-item { flex-wrap: wrap; }
+      .ss-cancel-btn, .sn-cancel-btn { margin-left:auto; }
     }
 
     /* ============ ATTACHMENT SUMMARY (under draft rows) ============ */
@@ -931,7 +1001,8 @@
        seam so they read as one unit. Modern browsers only (:has) — older
        browsers just see them with the small gap, which is fine. */
     .rd-row-wrap:has(.att-wrap) .rd-item,
-    .rd-row-wrap:has(.att-wrap) .rd-schedule-btn {
+    .rd-row-wrap:has(.att-wrap) .rd-schedule-btn,
+    .rd-row-wrap:has(.att-wrap) .rd-snooze-btn {
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
       border-bottom: 1px solid #fde68a;
@@ -1589,6 +1660,17 @@
           </div>
           <div id="ss-body"></div>
         </div>
+
+        <!-- ============ SNOOZED EMAILS ============ -->
+        <div class="drafts-feature" id="snoozed-emails-card" style="margin-top:20px; display:none;">
+          <div class="drafts-feature-head">
+            <div class="drafts-feature-title">
+              <h2>Snoozed mails</h2>
+              <p>Tijdelijk uit je Inbox. OfficeFlow zet ze automatisch terug op het door jou gekozen moment.</p>
+            </div>
+          </div>
+          <div id="sn-body"></div>
+        </div>
       </section>
 
       <!-- ============ VOORKEUREN ============ -->
@@ -2088,6 +2170,32 @@
       <div class="modal-actions">
         <button class="btn-ghost" id="schedule-close">Annuleren</button>
         <button class="btn-orange" id="schedule-confirm" style="border:none;color:#fff;background:var(--orange);padding:10px 18px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;">Inplannen</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ SNOOZE MODAL ============ -->
+  <div class="modal-overlay" id="snooze-modal" hidden>
+    <div class="modal">
+      <h3>Tijdelijk uit Inbox</h3>
+      <p class="modal-desc">Kies wanneer deze mail terug moet komen. Hij krijgt het label <strong>Snoozed</strong> en verlaat je primaire Inbox tot dat moment.</p>
+
+      <div class="schedule-subject-preview" id="snooze-subject-preview"></div>
+
+      <label class="modal-label">Snel kiezen</label>
+      <div class="preset-chips" id="snooze-presets">
+        <button type="button" class="preset-chip" data-preset="tonight">Vanavond 18:00</button>
+        <button type="button" class="preset-chip" data-preset="tomorrow">Morgen 08:00</button>
+        <button type="button" class="preset-chip" data-preset="monday">Maandag 08:00</button>
+        <button type="button" class="preset-chip" data-preset="nextweek">Volgende week</button>
+      </div>
+
+      <label class="modal-label" for="snooze-datetime">Of kies een specifiek moment</label>
+      <input type="datetime-local" id="snooze-datetime" class="modal-input" />
+
+      <div class="modal-actions">
+        <button class="btn-ghost" id="snooze-close">Annuleren</button>
+        <button class="btn-orange" id="snooze-confirm" style="border:none;color:#fff;background:#4f46e5;padding:10px 18px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;">Snooze</button>
       </div>
     </div>
   </div>
@@ -2966,6 +3074,15 @@
             Verstuur later
           </button>
         ` : '';
+        const snoozeBtn = it.email_id ? `
+          <button class="rd-snooze-btn" type="button"
+            data-email-id="${escapeHtml(it.email_id)}"
+            data-subject="${escapeHtml(subj)}"
+            title="Tijdelijk uit Inbox halen">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            Snooze
+          </button>
+        ` : '';
         // Mount-point for attachment summaries (filled async below).
         const attMount = it.email_id
           ? `<div class="att-mount" data-email-id="${escapeHtml(it.email_id)}"></div>`
@@ -2981,6 +3098,7 @@
                 </div>
                 <span class="rd-time">${when}</span>
               </a>
+              ${snoozeBtn}
               ${scheduleBtn}
             </div>
             ${attMount}
@@ -3364,6 +3482,25 @@
         }
         return;
       }
+      // Snooze open modal
+      const snBtn = e.target && e.target.closest && e.target.closest('.rd-snooze-btn');
+      if (snBtn) {
+        e.preventDefault();
+        openSnoozeModal({
+          emailId: snBtn.dataset.emailId,
+          subject: snBtn.dataset.subject,
+        });
+        return;
+      }
+      // Snooze cancel (wake now)
+      const snCancelBtn = e.target && e.target.closest && e.target.closest('.sn-cancel-btn');
+      if (snCancelBtn) {
+        e.preventDefault();
+        if (confirm('Wil je deze mail nu terug in je Inbox plaatsen?')) {
+          cancelSnooze(snCancelBtn.dataset.emailId);
+        }
+        return;
+      }
       // Toggle attachment summary card open/closed
       const attToggle = e.target && e.target.closest && e.target.closest('.att-toggle');
       if (attToggle) {
@@ -3402,6 +3539,262 @@
     const _scheduleOverlay = document.getElementById('schedule-modal');
     if (_scheduleOverlay) _scheduleOverlay.addEventListener('click', (e) => {
       if (e.target === _scheduleOverlay) closeScheduleModal();
+    });
+
+    // ============ SNOOZE — modal + list + API ============
+    const snoozeState = { emailId: null, subject: null };
+
+    function _snoozePresetDate(preset) {
+      const now = new Date();
+      const d = new Date(now);
+      switch (preset) {
+        case 'tonight': {
+          d.setHours(18, 0, 0, 0);
+          // If already past 18:00, default to tomorrow 08:00 instead.
+          if (d <= now) {
+            d.setDate(d.getDate() + 1);
+            d.setHours(8, 0, 0, 0);
+          }
+          return d;
+        }
+        case 'tomorrow': {
+          d.setDate(d.getDate() + 1);
+          d.setHours(8, 0, 0, 0);
+          return d;
+        }
+        case 'monday': {
+          // Next Monday at 08:00. If today is Monday and it's before 08:00 use today.
+          const day = d.getDay(); // 0=Sun,1=Mon,...
+          let daysUntilMonday = (1 - day + 7) % 7;
+          d.setHours(8, 0, 0, 0);
+          if (daysUntilMonday === 0 && d <= now) daysUntilMonday = 7;
+          d.setDate(d.getDate() + daysUntilMonday);
+          d.setHours(8, 0, 0, 0);
+          return d;
+        }
+        case 'nextweek': {
+          // Same weekday, +7 days, 08:00
+          d.setDate(d.getDate() + 7);
+          d.setHours(8, 0, 0, 0);
+          return d;
+        }
+      }
+      return null;
+    }
+
+    function _fmtSnoozedFor(iso) {
+      // Reuse same humanized formatter as scheduled-sends
+      try {
+        return _fmtScheduledFor(iso);
+      } catch (_) {
+        return iso || '';
+      }
+    }
+
+    function openSnoozeModal({ emailId, subject }) {
+      if (!emailId) return;
+      snoozeState.emailId = emailId;
+      snoozeState.subject = subject || '';
+
+      const preview = document.getElementById('snooze-subject-preview');
+      if (preview) {
+        preview.innerHTML = subject
+          ? `<strong>Onderwerp:</strong> ${escapeHtml(subject)}`
+          : '<em>Geen onderwerp</em>';
+      }
+
+      const dt = document.getElementById('snooze-datetime');
+      if (dt) {
+        dt.value = '';
+        const min = new Date();
+        dt.min = _toLocalDatetimeInputValue(min);
+      }
+      document.querySelectorAll('#snooze-presets .preset-chip').forEach(c => c.classList.remove('active'));
+
+      const modal = document.getElementById('snooze-modal');
+      if (modal) modal.hidden = false;
+    }
+
+    function closeSnoozeModal() {
+      const modal = document.getElementById('snooze-modal');
+      if (modal) modal.hidden = true;
+      snoozeState.emailId = null;
+      snoozeState.subject = null;
+    }
+
+    let _snoozeSubmitInFlight = false;
+
+    async function submitSnooze() {
+      if (_snoozeSubmitInFlight) return;
+
+      const dt = document.getElementById('snooze-datetime');
+      if (!dt || !dt.value) {
+        alert('Kies een moment om de mail terug te brengen.');
+        return;
+      }
+      const when = new Date(dt.value);
+      if (isNaN(when.getTime())) {
+        alert('Ongeldige datum/tijd.');
+        return;
+      }
+      // Backend requires at least 30s in the future.
+      if (when.getTime() < Date.now() + 30000) {
+        alert('Kies een moment minstens een minuut in de toekomst.');
+        return;
+      }
+      if (!snoozeState.emailId) {
+        alert('Geen mail geselecteerd.');
+        return;
+      }
+
+      _snoozeSubmitInFlight = true;
+      const btn = document.getElementById('snooze-confirm');
+      if (btn) { btn.disabled = true; btn.textContent = 'Snoozen…'; }
+
+      try {
+        const { data: { session } } = await sb.auth.getSession();
+        if (!session) throw new Error('Niet ingelogd');
+        const res = await apiFetch(
+          API_BASE + '/api/emails/' + encodeURIComponent(snoozeState.emailId) + '/snooze',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + session.access_token,
+            },
+            body: JSON.stringify({ wake_at: when.toISOString() }),
+          },
+        );
+        if (!res.ok) {
+          let errText = '';
+          try { errText = await res.text(); } catch (_) {}
+          if (res.status === 409) throw new Error('Deze mail is al gesnoozed.');
+          throw new Error(`Snooze mislukt (${res.status}) ${errText}`);
+        }
+        closeSnoozeModal();
+        // Refresh both: snoozed list + recent drafts (mail leaves drafts list visually too)
+        await refreshSnoozedEmails();
+      } catch (err) {
+        alert(err && err.message ? err.message : 'Snooze mislukt.');
+      } finally {
+        _snoozeSubmitInFlight = false;
+        if (btn) { btn.disabled = false; btn.textContent = 'Snooze'; }
+      }
+    }
+
+    async function loadSnoozedEmails(accessToken) {
+      try {
+        const res = await fetch(API_BASE + '/api/emails/snoozed', {
+          headers: { 'Authorization': 'Bearer ' + accessToken },
+        });
+        if (!res.ok) return { items: [] };
+        const data = await res.json();
+        return { items: Array.isArray(data.items) ? data.items : [] };
+      } catch (_) { return { items: [] }; }
+    }
+
+    function renderSnoozedEmails(data) {
+      const card = document.getElementById('snoozed-emails-card');
+      const body = document.getElementById('sn-body');
+      if (!card || !body) return;
+
+      const all = (data && data.items) || [];
+      // Show only currently-pending snoozes by default; filter aggressively
+      // so woken/cancelled history doesn't pile up. (We could surface that
+      // via a "Toon geschiedenis" toggle later.)
+      const items = all.filter(it => (it.status || 'pending') === 'pending');
+
+      if (!items.length) {
+        card.style.display = 'none';
+        body.innerHTML = '';
+        return;
+      }
+      card.style.display = '';
+
+      const rows = items.map(it => {
+        const subj = it.subject && it.subject.trim() ? it.subject : '(geen onderwerp)';
+        const status = it.status || 'pending';
+        const when = _fmtSnoozedFor(it.wake_at);
+        const itemClass = status === 'woken' ? 'is-woken'
+                        : status === 'failed' ? 'is-failed'
+                        : status === 'cancelled' ? 'is-cancelled'
+                        : '';
+        const meta = status === 'pending' ? `Komt terug ${escapeHtml(when)}`
+                   : status === 'woken' ? `Terug in Inbox ${escapeHtml(_fmtSnoozedFor(it.woken_at || it.wake_at))}`
+                   : status === 'failed' ? `Mislukt — ${escapeHtml((it.error_message || '').slice(0, 120))}`
+                   : `Geannuleerd`;
+        const cancelBtn = status === 'pending'
+          ? `<button class="sn-cancel-btn" type="button" data-email-id="${escapeHtml(it.email_id)}">Nu terug</button>`
+          : '';
+        return `
+          <li class="sn-item ${itemClass}">
+            <span class="sn-moon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+            <div class="sn-body">
+              <div class="sn-title">${escapeHtml(subj)}</div>
+              <div class="sn-meta">${meta}</div>
+            </div>
+            <span class="sn-status-pill ${status}">${escapeHtml(status)}</span>
+            ${cancelBtn}
+          </li>
+        `;
+      }).join('');
+
+      body.innerHTML = `<ul class="sn-list">${rows}</ul>`;
+    }
+
+    async function refreshSnoozedEmails() {
+      const { data: { session } } = await sb.auth.getSession();
+      if (!session) return;
+      const data = await loadSnoozedEmails(session.access_token);
+      renderSnoozedEmails(data);
+    }
+
+    async function cancelSnooze(emailId) {
+      if (!emailId) return;
+      const { data: { session } } = await sb.auth.getSession();
+      if (!session) return;
+      try {
+        const res = await fetch(
+          API_BASE + '/api/emails/' + encodeURIComponent(emailId) + '/snooze',
+          {
+            method: 'DELETE',
+            headers: { 'Authorization': 'Bearer ' + session.access_token },
+          },
+        );
+        if (!res.ok) throw new Error('Annuleren mislukt');
+        await refreshSnoozedEmails();
+      } catch (err) {
+        alert(err && err.message ? err.message : 'Annuleren mislukt');
+      }
+    }
+
+    // Snooze preset chip handler
+    document.querySelectorAll('#snooze-presets .preset-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        document.querySelectorAll('#snooze-presets .preset-chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        const d = _snoozePresetDate(chip.dataset.preset);
+        const dt = document.getElementById('snooze-datetime');
+        if (d && dt) dt.value = _toLocalDatetimeInputValue(d);
+      });
+    });
+
+    // De-activate presets when user manually picks a custom time
+    const _snoozeDt = document.getElementById('snooze-datetime');
+    if (_snoozeDt) {
+      _snoozeDt.addEventListener('input', () => {
+        document.querySelectorAll('#snooze-presets .preset-chip').forEach(c => c.classList.remove('active'));
+      });
+    }
+
+    // Snooze modal close handlers
+    const _snoozeClose = document.getElementById('snooze-close');
+    if (_snoozeClose) _snoozeClose.addEventListener('click', closeSnoozeModal);
+    const _snoozeConfirm = document.getElementById('snooze-confirm');
+    if (_snoozeConfirm) _snoozeConfirm.addEventListener('click', submitSnooze);
+    const _snoozeOverlay = document.getElementById('snooze-modal');
+    if (_snoozeOverlay) _snoozeOverlay.addEventListener('click', (e) => {
+      if (e.target === _snoozeOverlay) closeSnoozeModal();
     });
 
     // ============ SUBSCRIPTION LOADER ============
@@ -3592,6 +3985,8 @@
       checkMailboxStatus(session.access_token);
       // Non-blocking: load scheduled sends list so it renders ASAP.
       loadScheduledSends(session.access_token).then(renderScheduledSends);
+      // Non-blocking: load snoozed mails list (hides itself if empty).
+      loadSnoozedEmails(session.access_token).then(renderSnoozedEmails);
 
       const [stats, subscription, radar, archive, recentDrafts, weeklyRecap] = await Promise.all([
         loadStats(session.access_token),
