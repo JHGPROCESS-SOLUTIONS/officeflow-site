@@ -406,11 +406,22 @@
       background: rgba(15,23,42,.55);
       display: flex; align-items: center; justify-content: center;
       z-index: 1000; padding: 20px;
+      overflow-y: auto;
     }
     .modal {
       background: #fff; border-radius: 16px; padding: 32px;
       max-width: 460px; width: 100%;
+      max-height: calc(100vh - 40px);
+      overflow-y: auto;
       box-shadow: 0 20px 60px rgba(0,0,0,.25);
+    }
+    /* Modal on small phones — fill width, less padding, scrollable */
+    @media (max-width: 480px) {
+      .modal-overlay { padding: 12px; align-items: flex-start; padding-top: 32px; }
+      .modal { padding: 22px 18px; border-radius: 14px; max-height: calc(100vh - 64px); }
+      .modal h3 { font-size: 19px; }
+      .modal-actions { flex-direction: column-reverse; gap: 8px; }
+      .modal-actions button { width: 100%; }
     }
     .modal h3 { margin: 0 0 10px; font-size: 22px; }
     .modal-desc { font-size: 14px; color: var(--text-2); line-height: 1.6; margin-bottom: 20px; }
@@ -2153,6 +2164,27 @@
     const API_BASE = 'https://api.officeflowcompany.com';
     const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
+    // ============ AUTH-AWARE FETCH WRAPPER ============
+    // Detects 401 responses and redirects to login. Use everywhere instead
+    // of plain fetch() for OfficeFlow API calls. Old fetch() calls also
+    // still work — they just don't auto-redirect on 401.
+    let _redirectingTo401 = false;
+
+    async function apiFetch(url, options) {
+      const res = await fetch(url, options);
+      if (res.status === 401 && !_redirectingTo401) {
+        _redirectingTo401 = true;
+        try {
+          await sb.auth.signOut();
+        } catch (_) { /* best-effort */ }
+        // Small delay so any in-flight UI updates can settle
+        setTimeout(() => {
+          window.location.href = '/login.html?reason=session_expired';
+        }, 100);
+      }
+      return res;
+    }
+
     // ============ HELPERS ============
     function formatTimeSaved(minutes) {
       if (!minutes || minutes < 1) return { big: '0', unit: 'min' };
@@ -2269,14 +2301,19 @@
       const textEl = document.getElementById('todo-banner-text');
       if (!banner || !textEl) return;
 
+      // Defensive: coerce to integers so a malformed API response cannot
+      // inject HTML/script via the count fields.
+      const followupNum = Math.max(0, Math.floor(Number(followup) || 0));
+      const draftsNum = Math.max(0, Math.floor(Number(drafts) || 0));
+
       const parts = [];
-      if (followup > 0) {
-        const label = followup === 1 ? 'follow-up vraagt' : 'follow-ups vragen';
-        parts.push(`<a href='https://mail.google.com/mail/u/0/#search/label%3A"Follow+Up"' target="_blank" rel="noopener"><strong>${followup} ${label} jouw actie</strong></a>`);
+      if (followupNum > 0) {
+        const label = followupNum === 1 ? 'follow-up vraagt' : 'follow-ups vragen';
+        parts.push(`<a href='https://mail.google.com/mail/u/0/#search/label%3A"Follow+Up"' target="_blank" rel="noopener"><strong>${followupNum} ${label} jouw actie</strong></a>`);
       }
-      if (drafts > 0) {
-        const label = drafts === 1 ? 'concept klaar' : 'concepten klaar';
-        parts.push(`<a href="https://mail.google.com" target="_blank" rel="noopener"><strong>${drafts} ${label}</strong> om te verzenden</a>`);
+      if (draftsNum > 0) {
+        const label = draftsNum === 1 ? 'concept klaar' : 'concepten klaar';
+        parts.push(`<a href="https://mail.google.com" target="_blank" rel="noopener"><strong>${draftsNum} ${label}</strong> om te verzenden</a>`);
       }
 
       if (parts.length === 0) {
@@ -2285,7 +2322,7 @@
       }
 
       // Urgency: rood als er veel follow-ups of concepten staan
-      const isUrgent = followup > 3 || drafts > 10;
+      const isUrgent = followupNum > 3 || draftsNum > 10;
       banner.classList.remove('warn', 'urgent');
       banner.classList.add(isUrgent ? 'urgent' : 'warn');
       banner.style.display = 'flex';
@@ -3163,7 +3200,15 @@
       scheduleState.toEmail = null;
     }
 
+    // Module-level flag prevents race condition: rapid double-click on
+    // "Inplannen" must not POST twice. Disabling the button is one layer,
+    // this is the second (covers Enter-key spam, etc.).
+    let _scheduleSubmitInFlight = false;
+
     async function submitScheduleSend() {
+      // Race condition guard
+      if (_scheduleSubmitInFlight) return;
+
       const dt = document.getElementById('schedule-datetime');
       if (!dt || !dt.value) {
         alert('Kies een moment om in te plannen.');
@@ -3183,13 +3228,14 @@
         return;
       }
 
+      _scheduleSubmitInFlight = true;
       const btn = document.getElementById('schedule-confirm');
       if (btn) { btn.disabled = true; btn.textContent = 'Inplannen…'; }
 
       try {
         const { data: { session } } = await sb.auth.getSession();
         if (!session) throw new Error('Niet ingelogd');
-        const res = await fetch(API_BASE + '/api/scheduled-sends', {
+        const res = await apiFetch(API_BASE + '/api/scheduled-sends', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -3212,6 +3258,7 @@
       } catch (err) {
         alert(err && err.message ? err.message : 'Er ging iets mis bij het inplannen.');
       } finally {
+        _scheduleSubmitInFlight = false;
         if (btn) { btn.disabled = false; btn.textContent = 'Inplannen'; }
       }
     }
