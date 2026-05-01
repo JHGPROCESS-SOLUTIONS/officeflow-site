@@ -1807,6 +1807,23 @@
               </label>
             </div>
 
+            <!-- Read-only weergave van wat OfficeFlow uit je SENT mails heeft geleerd -->
+            <div id="style-profile-card" class="style-profile-card" style="display:none;margin:0 0 14px;padding:14px 16px;background:#fffaf3;border:1px solid #fed7aa;border-radius:12px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px;flex-wrap:wrap;">
+                <div style="display:flex;align-items:center;gap:8px;font-weight:700;color:#9a3412;font-size:13.5px;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
+                  Wat OfficeFlow van jouw stijl heeft geleerd
+                </div>
+                <div id="style-profile-meta" style="font-size:11.5px;color:#9a3412;opacity:.85;"></div>
+              </div>
+              <div id="style-profile-text" style="font-size:13px;line-height:1.55;color:#7c2d12;white-space:pre-wrap;background:#fff;border:1px solid #fed7aa;border-radius:10px;padding:12px 14px;max-height:240px;overflow-y:auto;"></div>
+              <div style="font-size:11.5px;color:#9a3412;opacity:.75;margin-top:8px;">Wordt automatisch elke maand opnieuw afgeleid uit je verzonden mails.</div>
+            </div>
+
+            <div id="style-profile-empty" class="style-profile-empty" style="display:none;font-size:12.5px;color:var(--text-3);padding:0 0 8px;">
+              Stijlprofiel wordt opgesteld zodra je voldoende verzonden mails hebt en de toggle aan staat. Daarna verschijnt hier een samenvatting.
+            </div>
+
             <!-- ============ INBOX OPRUIMEN — verhuisd uit Gmail-koppeling ============ -->
             <div class="acc-group-head" style="margin:24px 0 14px;">Inbox opruimen</div>
 
@@ -1835,7 +1852,30 @@
             <!-- ============ NOTIFICATIES ============ -->
             <div class="acc-group-head" style="margin:24px 0 14px;">Notificaties</div>
 
-            <div class="rc-row" style="padding:8px 0 14px;">
+            <div class="rc-row" style="padding:8px 0 14px;border-bottom:1px solid var(--border-soft);">
+              <div>
+                <div class="k">Dagelijkse briefing</div>
+                <div class="s">Elke ochtend een mail met de belangrijkste threads: Priority, To Respond en open beloftes. Helpt je de dag te starten met overzicht.</div>
+              </div>
+              <label class="switch" aria-label="Dagelijkse briefing aan/uit">
+                <input id="tgl-daily-briefing" type="checkbox">
+                <span class="slider"></span>
+              </label>
+            </div>
+
+            <div class="rc-row" id="briefing-time-row" style="padding:14px 0 14px;border-bottom:1px solid var(--border-soft);display:none;flex-wrap:wrap;gap:12px;">
+              <div>
+                <div class="k">Aankomsttijd briefing</div>
+                <div class="s">Wanneer komt de briefing in je Inbox? <span id="briefing-tz-label" style="color:var(--text-3);">(Europe/Amsterdam)</span></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <input id="briefing-time" type="time" value="07:00"
+                  style="padding:8px 10px;border:1.5px solid var(--border);border-radius:10px;font-family:inherit;font-size:14px;color:var(--text);width:110px;">
+                <span id="briefing-last-sent" style="font-size:12px;color:var(--text-3);"></span>
+              </div>
+            </div>
+
+            <div class="rc-row" style="padding:14px 0 14px;">
               <div>
                 <div class="k">Weekoverzicht per mail</div>
                 <div class="s">Elke zaterdagochtend een korte samenvatting: mails verwerkt, concepten klaargezet en tijd bespaard.</div>
@@ -2844,6 +2884,178 @@
           showArchiveToast('Opslaan mislukt — ' + (err.message || 'probeer opnieuw'), 'error');
         }
       });
+    }
+
+    // ============ DAILY BRIEFING SETTINGS ============
+    async function loadBriefingSettings(accessToken) {
+      try {
+        const res = await fetch(API_BASE + '/api/me/briefing-settings', {
+          headers: { 'Authorization': 'Bearer ' + accessToken }
+        });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return await res.json();
+      } catch (_) {
+        // Mailbox not yet connected → endpoint returns 404. Show defaults.
+        return {
+          briefing_enabled: false,
+          briefing_hour: 7,
+          briefing_minute: 0,
+          briefing_timezone: 'Europe/Amsterdam',
+          briefing_last_sent_at: null,
+        };
+      }
+    }
+
+    function _padTwo(n) { return String(n).padStart(2, '0'); }
+
+    function _fmtRelativeShort(iso) {
+      if (!iso) return '';
+      try {
+        const then = new Date(iso);
+        if (isNaN(then.getTime())) return '';
+        const diffMs = Date.now() - then.getTime();
+        if (diffMs < 0) return then.toLocaleString('nl-NL', { day:'numeric', month:'short', hour:'2-digit', minute:'2-digit' });
+        const mins = Math.floor(diffMs / 60000);
+        if (mins < 1) return 'zojuist';
+        if (mins < 60) return mins + ' min geleden';
+        const hours = Math.floor(mins / 60);
+        if (hours < 24) return hours + ' uur geleden';
+        const days = Math.floor(hours / 24);
+        if (days < 7) return days + ' dag' + (days === 1 ? '' : 'en') + ' geleden';
+        return then.toLocaleDateString('nl-NL', { day:'numeric', month:'short' });
+      } catch (_) { return ''; }
+    }
+
+    function renderBriefingSettings(data) {
+      const tgl = document.getElementById('tgl-daily-briefing');
+      const timeRow = document.getElementById('briefing-time-row');
+      const timeInput = document.getElementById('briefing-time');
+      const tzLabel = document.getElementById('briefing-tz-label');
+      const lastSentEl = document.getElementById('briefing-last-sent');
+
+      const enabled = !!(data && data.briefing_enabled);
+      const hour = Number((data && data.briefing_hour) ?? 7);
+      const minute = Number((data && data.briefing_minute) ?? 0);
+      const tz = (data && data.briefing_timezone) || 'Europe/Amsterdam';
+      const lastSent = data && data.briefing_last_sent_at;
+
+      if (tgl) tgl.checked = enabled;
+      if (timeRow) timeRow.style.display = enabled ? 'flex' : 'none';
+      if (timeInput) timeInput.value = `${_padTwo(hour)}:${_padTwo(minute)}`;
+      if (tzLabel) tzLabel.textContent = `(${tz})`;
+      if (lastSentEl) {
+        lastSentEl.textContent = lastSent
+          ? 'Laatst verstuurd: ' + _fmtRelativeShort(lastSent)
+          : '';
+      }
+    }
+
+    async function _patchBriefingSettings(payload) {
+      const { data: { session } } = await sb.auth.getSession();
+      if (!session) throw new Error('Geen actieve sessie');
+      const res = await fetch(API_BASE + '/api/me/briefing-settings', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + session.access_token,
+        },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) {
+        let msg = 'HTTP ' + res.status;
+        try { const t = await res.text(); if (t) msg += ' — ' + t.slice(0, 200); } catch (_) {}
+        throw new Error(msg);
+      }
+      return res.json();
+    }
+
+    function wireBriefingControls() {
+      const tgl = document.getElementById('tgl-daily-briefing');
+      const timeRow = document.getElementById('briefing-time-row');
+      const timeInput = document.getElementById('briefing-time');
+
+      if (tgl) {
+        tgl.addEventListener('change', async (e) => {
+          const val = e.target.checked;
+          if (timeRow) timeRow.style.display = val ? 'flex' : 'none';
+          try {
+            await _patchBriefingSettings({ enabled: val });
+            showArchiveToast(val
+              ? 'Dagelijkse briefing staat aan'
+              : 'Dagelijkse briefing staat uit'
+            );
+          } catch (err) {
+            // Optimistic rollback on failure
+            e.target.checked = !val;
+            if (timeRow) timeRow.style.display = !val ? 'flex' : 'none';
+            showArchiveToast('Opslaan mislukt — ' + (err.message || 'probeer opnieuw'), 'error');
+          }
+        });
+      }
+
+      if (timeInput) {
+        // Debounce: a single time-picker value-change can fire multiple
+        // 'change' events on some browsers; settle for ~400ms before patching.
+        let _t = null;
+        timeInput.addEventListener('change', () => {
+          const val = timeInput.value || '';
+          const m = val.match(/^(\d{1,2}):(\d{2})$/);
+          if (!m) return;
+          const hour = Math.max(0, Math.min(23, parseInt(m[1], 10) || 0));
+          const minute = Math.max(0, Math.min(59, parseInt(m[2], 10) || 0));
+          if (_t) clearTimeout(_t);
+          _t = setTimeout(async () => {
+            try {
+              await _patchBriefingSettings({ hour, minute });
+              showArchiveToast('Briefing-tijd opgeslagen — ' + _padTwo(hour) + ':' + _padTwo(minute));
+            } catch (err) {
+              showArchiveToast('Tijd opslaan mislukt — ' + (err.message || 'probeer opnieuw'), 'error');
+            }
+          }, 400);
+        });
+      }
+    }
+
+    // ============ STYLE PROFILE PREVIEW ============
+    async function loadStyleProfile(accessToken) {
+      try {
+        const res = await fetch(API_BASE + '/api/me/style-profile', {
+          headers: { 'Authorization': 'Bearer ' + accessToken }
+        });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return await res.json();
+      } catch (_) { return { has_profile: false, style_profile: null }; }
+    }
+
+    function renderStyleProfile(data) {
+      const card = document.getElementById('style-profile-card');
+      const empty = document.getElementById('style-profile-empty');
+      const textEl = document.getElementById('style-profile-text');
+      const metaEl = document.getElementById('style-profile-meta');
+      if (!card || !empty || !textEl || !metaEl) return;
+
+      const has = !!(data && data.has_profile);
+      const profile = (data && data.style_profile) || null;
+      const txt = (profile && profile.style_profile_text) || '';
+
+      if (!has || !txt.trim()) {
+        card.style.display = 'none';
+        empty.style.display = 'block';
+        return;
+      }
+
+      empty.style.display = 'none';
+      card.style.display = 'block';
+
+      // Set as text (not innerHTML) so any user-content stays escaped.
+      textEl.textContent = txt;
+
+      const sourceCount = Number((profile && profile.source_sent_count) || 0);
+      const lastTrained = profile && profile.last_trained_at;
+      const parts = [];
+      if (sourceCount > 0) parts.push(sourceCount + ' verzonden mails');
+      if (lastTrained) parts.push('bijgewerkt ' + _fmtRelativeShort(lastTrained));
+      metaEl.textContent = parts.length ? parts.join(' · ') : '';
     }
 
     async function loadArchiveSettings(accessToken) {
@@ -3990,13 +4202,15 @@
       // Non-blocking: load snoozed mails list (hides itself if empty).
       loadSnoozedEmails(session.access_token).then(renderSnoozedEmails);
 
-      const [stats, subscription, radar, archive, recentDrafts, weeklyRecap] = await Promise.all([
+      const [stats, subscription, radar, archive, recentDrafts, weeklyRecap, briefing, styleProfile] = await Promise.all([
         loadStats(session.access_token),
         loadSubscription(session.access_token),
         loadRadarOverview(session.access_token),
         loadArchiveSettings(session.access_token),
         loadRecentDrafts(session.access_token),
-        loadWeeklyRecapSettings(session.access_token)
+        loadWeeklyRecapSettings(session.access_token),
+        loadBriefingSettings(session.access_token),
+        loadStyleProfile(session.access_token)
       ]);
 
       renderStats(stats);
@@ -4005,9 +4219,12 @@
       renderArchive(archive);
       renderRecentDrafts(recentDrafts);
       renderWeeklyRecap(weeklyRecap);
+      renderBriefingSettings(briefing);
+      renderStyleProfile(styleProfile);
       wireRadarControls();
       wireArchiveControls();
       wireWeeklyRecapToggle();
+      wireBriefingControls();
 
       // First-run wow moment — non-blocking, fails silent.
       maybeShowWelcomeModal(session.access_token, firstName).catch((err) => {
