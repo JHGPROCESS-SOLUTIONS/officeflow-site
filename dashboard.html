@@ -1460,6 +1460,87 @@
     .acc-group .link-row:first-of-type { border-top: none; padding-top: 4px; }
     .acc-group .link-row:last-of-type { padding-bottom: 4px; }
 
+    /* ============ PREF CARDS — themed grouping in Voorkeuren ============
+       Replaces the older monolithic <form> with explicit themed cards so
+       users can see at a glance which family of settings they're touching. */
+    .pref-card {
+      background: #fff;
+      border: 1.5px solid var(--border-soft);
+      border-radius: 14px;
+      padding: 22px 24px;
+      margin-bottom: 16px;
+      transition: border-color .15s, box-shadow .15s;
+    }
+    .pref-card:hover { border-color: var(--border); }
+    .pref-card-head {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 16px; flex-wrap: wrap;
+      padding-bottom: 16px;
+      margin-bottom: 6px;
+      border-bottom: 1px solid var(--border-soft);
+    }
+    .pref-card-title { flex: 1; min-width: 200px; }
+    .pref-card-title h3 {
+      font-size: 17px; font-weight: 700;
+      color: var(--text);
+      margin: 0 0 4px;
+      line-height: 1.3;
+    }
+    .pref-card-title p {
+      font-size: 13px; color: var(--text-3);
+      margin: 0; line-height: 1.5;
+    }
+    .pref-card-autosave {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 5px 11px;
+      background: #f0fdf4;
+      color: #166534;
+      border: 1px solid #bbf7d0;
+      border-radius: 999px;
+      font-size: 11.5px; font-weight: 700;
+      letter-spacing: .02em;
+      white-space: nowrap;
+      flex: none;
+    }
+    .pref-card-autosave::before {
+      content: ""; width: 6px; height: 6px; border-radius: 50%;
+      background: #16a34a;
+      flex: none;
+    }
+
+    /* Sub-section heading inside a pref-card (Schrijfstijl / Handtekening / Woordkeuze) */
+    .pref-subsection {
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px dashed var(--border-soft);
+    }
+    .pref-subsection:first-of-type {
+      margin-top: 4px;
+      padding-top: 0;
+      border-top: none;
+    }
+    .pref-subsection-title {
+      font-size: 12px; font-weight: 700;
+      letter-spacing: .08em; text-transform: uppercase;
+      color: var(--text-3);
+      margin: 0 0 14px;
+    }
+
+    /* Form save row, lives inside the form between Card 2 and Card 3 */
+    .pref-form-actions {
+      display: flex; justify-content: flex-end; align-items: center;
+      gap: 14px; flex-wrap: wrap;
+      padding: 14px 20px;
+      background: #fffaf3;
+      border: 1.5px solid #fed7aa;
+      border-radius: 12px;
+      margin-bottom: 16px;
+    }
+    .pref-form-actions-help {
+      font-size: 12px; color: var(--text-3);
+      margin-right: auto;
+    }
+
     /* Abonnement — meer detail */
     .plan-card {
       background: linear-gradient(135deg, #fffaf3 0%, #fff 60%);
@@ -1820,126 +1901,147 @@
       <section id="voorkeuren">
         <div class="tab-head" data-tab-head="voorkeuren" style="display:none;">
           <div class="eyebrow">Voorkeuren</div>
-          <h1>Hoe OfficeFlow voor je schrijft</h1>
-          <p>Stel hier de basis-tone, lengte en handtekening in. Voor uitgebreide instellingen (taal, emoji's, voorkeurszinnen, stijlleren) gebruik je de volledige voorkeuren-pagina.</p>
+          <h1>Hoe OfficeFlow voor je werkt</h1>
+          <p>Schrijfstijl, leren, archiveren en briefings — vier groepen, elk apart.</p>
         </div>
 
-        <div class="card" id="prefs-card">
-          <div id="prefs-loading" class="card-meta" style="text-align:center;padding:30px;">Voorkeuren laden…</div>
-          <form id="prefs-form" style="display:none;">
+        <div id="prefs-loading" class="card-meta" style="text-align:center;padding:30px;background:#fff;border:1.5px solid var(--border-soft);border-radius:14px;margin-bottom:16px;">Voorkeuren laden…</div>
 
-            <!-- ============ SCHRIJFSTIJL ============ -->
-            <div class="acc-group-head" style="margin:0 0 14px;">Schrijfstijl</div>
+        <form id="prefs-form" style="display:none;">
 
-            <div class="rc-row" style="align-items:flex-start;flex-direction:column;gap:8px;padding:8px 0 18px;border-bottom:1px solid var(--border-soft);">
-              <div>
-                <div class="k">Tone</div>
-                <div class="s">Hoe klinkt OfficeFlow in jouw concepten?</div>
-              </div>
-              <div class="chip-group" id="prefs-chips-tone" role="radiogroup" aria-label="Tone">
-                <button class="chip" type="button" data-val="vriendelijk">Vriendelijk</button>
-                <button class="chip" type="button" data-val="professioneel">Professioneel</button>
-                <button class="chip" type="button" data-val="direct">Direct</button>
-                <button class="chip" type="button" data-val="enthousiast">Enthousiast</button>
+          <!-- ============ CARD 1 — HOE OFFICEFLOW SCHRIJFT ============ -->
+          <div class="pref-card">
+            <div class="pref-card-head">
+              <div class="pref-card-title">
+                <h3>Hoe OfficeFlow voor je schrijft</h3>
+                <p>Tone, lengte, taal, handtekening en woordkeuze. Bepaalt hoe elk concept klinkt.</p>
               </div>
             </div>
 
-            <div class="rc-row" style="align-items:flex-start;flex-direction:column;gap:8px;padding:14px 0 18px;border-bottom:1px solid var(--border-soft);">
-              <div>
-                <div class="k">Formaliteit</div>
-                <div class="s">Hoe formeel adresseert OfficeFlow ontvangers?</div>
+            <!-- Schrijfstijl -->
+            <div class="pref-subsection">
+              <div class="pref-subsection-title">Schrijfstijl</div>
+
+              <div class="rc-row" style="align-items:flex-start;flex-direction:column;gap:8px;padding:8px 0 18px;border-bottom:1px solid var(--border-soft);">
+                <div>
+                  <div class="k">Tone</div>
+                  <div class="s">Hoe klinkt OfficeFlow in jouw concepten?</div>
+                </div>
+                <div class="chip-group" id="prefs-chips-tone" role="radiogroup" aria-label="Tone">
+                  <button class="chip" type="button" data-val="vriendelijk">Vriendelijk</button>
+                  <button class="chip" type="button" data-val="professioneel">Professioneel</button>
+                  <button class="chip" type="button" data-val="direct">Direct</button>
+                  <button class="chip" type="button" data-val="enthousiast">Enthousiast</button>
+                </div>
               </div>
-              <div class="chip-group" id="prefs-chips-formality" role="radiogroup" aria-label="Formaliteit">
-                <button class="chip" type="button" data-val="informeel">Informeel</button>
-                <button class="chip" type="button" data-val="neutraal">Neutraal</button>
-                <button class="chip" type="button" data-val="formeel">Formeel</button>
+
+              <div class="rc-row" style="align-items:flex-start;flex-direction:column;gap:8px;padding:14px 0 18px;border-bottom:1px solid var(--border-soft);">
+                <div>
+                  <div class="k">Formaliteit</div>
+                  <div class="s">Hoe formeel adresseert OfficeFlow ontvangers?</div>
+                </div>
+                <div class="chip-group" id="prefs-chips-formality" role="radiogroup" aria-label="Formaliteit">
+                  <button class="chip" type="button" data-val="informeel">Informeel</button>
+                  <button class="chip" type="button" data-val="neutraal">Neutraal</button>
+                  <button class="chip" type="button" data-val="formeel">Formeel</button>
+                </div>
+              </div>
+
+              <div class="rc-row" style="align-items:flex-start;flex-direction:column;gap:8px;padding:14px 0 18px;border-bottom:1px solid var(--border-soft);">
+                <div>
+                  <div class="k">Standaard lengte</div>
+                  <div class="s">Hoe lang mag een concept-reply gemiddeld zijn?</div>
+                </div>
+                <div class="chip-group" id="prefs-chips-length" role="radiogroup" aria-label="Lengte">
+                  <button class="chip" type="button" data-val="kort">Kort</button>
+                  <button class="chip" type="button" data-val="gemiddeld">Normaal</button>
+                  <button class="chip" type="button" data-val="uitgebreid">Uitgebreid</button>
+                </div>
+              </div>
+
+              <div class="rc-row" style="align-items:flex-start;flex-direction:column;gap:8px;padding:14px 0 18px;border-bottom:1px solid var(--border-soft);">
+                <div>
+                  <div class="k">Talen</div>
+                  <div class="s">Welke talen mag OfficeFlow gebruiken? Meerdere selecteren mag — auto-detect bepaalt dan welke.</div>
+                </div>
+                <div class="chip-group" id="prefs-chips-language" role="group" aria-label="Talen" data-multi="true">
+                  <button class="chip" type="button" data-val="nl">Nederlands</button>
+                  <button class="chip" type="button" data-val="en">Engels</button>
+                  <button class="chip" type="button" data-val="de">Duits</button>
+                  <button class="chip" type="button" data-val="fr">Frans</button>
+                  <button class="chip" type="button" data-val="es">Spaans</button>
+                  <button class="chip" type="button" data-val="it">Italiaans</button>
+                </div>
+              </div>
+
+              <div class="rc-row" style="padding:14px 0 4px;">
+                <div>
+                  <div class="k">Emoji toegestaan</div>
+                  <div class="s">Soms een emoji gebruiken als dat natuurlijk past bij de conversatie.</div>
+                </div>
+                <label class="switch" aria-label="Emoji aan/uit">
+                  <input id="prefs-emoji" type="checkbox">
+                  <span class="slider"></span>
+                </label>
               </div>
             </div>
 
-            <div class="rc-row" style="align-items:flex-start;flex-direction:column;gap:8px;padding:14px 0 18px;border-bottom:1px solid var(--border-soft);">
-              <div>
-                <div class="k">Standaard lengte</div>
-                <div class="s">Hoe lang mag een concept-reply gemiddeld zijn?</div>
-              </div>
-              <div class="chip-group" id="prefs-chips-length" role="radiogroup" aria-label="Lengte">
-                <button class="chip" type="button" data-val="kort">Kort</button>
-                <button class="chip" type="button" data-val="gemiddeld">Normaal</button>
-                <button class="chip" type="button" data-val="uitgebreid">Uitgebreid</button>
-              </div>
-            </div>
-
-            <div class="rc-row" style="align-items:flex-start;flex-direction:column;gap:8px;padding:14px 0 18px;border-bottom:1px solid var(--border-soft);">
-              <div>
-                <div class="k">Talen</div>
-                <div class="s">Welke talen mag OfficeFlow gebruiken? Meerdere selecteren mag — auto-detect bepaalt dan welke.</div>
-              </div>
-              <div class="chip-group" id="prefs-chips-language" role="group" aria-label="Talen" data-multi="true">
-                <button class="chip" type="button" data-val="nl">Nederlands</button>
-                <button class="chip" type="button" data-val="en">Engels</button>
-                <button class="chip" type="button" data-val="de">Duits</button>
-                <button class="chip" type="button" data-val="fr">Frans</button>
-                <button class="chip" type="button" data-val="es">Spaans</button>
-                <button class="chip" type="button" data-val="it">Italiaans</button>
+            <!-- Handtekening -->
+            <div class="pref-subsection">
+              <div class="pref-subsection-title">Handtekening</div>
+              <div class="rc-row" style="align-items:flex-start;flex-direction:column;gap:8px;padding:0;">
+                <div>
+                  <div class="k">Wat staat er onder elke concept?</div>
+                  <div class="s">Wordt automatisch onder elk concept-reply gezet. Je kunt 'm in Gmail nog aanpassen voor je verzendt.</div>
+                </div>
+                <textarea id="prefs-signature" rows="3" placeholder="Met vriendelijke groet,&#10;Jouw naam"
+                  style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;font-family:inherit;font-size:14px;color:var(--text);resize:vertical;"></textarea>
               </div>
             </div>
 
-            <div class="rc-row" style="padding:14px 0 18px;border-bottom:1px solid var(--border-soft);">
-              <div>
-                <div class="k">Emoji toegestaan</div>
-                <div class="s">Soms een emoji gebruiken als dat natuurlijk past bij de conversatie.</div>
+            <!-- Woordkeuze -->
+            <div class="pref-subsection">
+              <div class="pref-subsection-title">Woordkeuze</div>
+
+              <div class="rc-row" style="align-items:flex-start;flex-direction:column;gap:8px;padding:0 0 18px;border-bottom:1px solid var(--border-soft);">
+                <div>
+                  <div class="k">Voorkeurszinnen</div>
+                  <div class="s">Komma-gescheiden. OfficeFlow zal deze zinnen waar mogelijk gebruiken in concepten.</div>
+                </div>
+                <input id="prefs-preferred" type="text" placeholder="bijv: ik kom er morgen op terug, even voor de zekerheid"
+                  style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;font-family:inherit;font-size:14px;color:var(--text);">
               </div>
-              <label class="switch" aria-label="Emoji aan/uit">
-                <input id="prefs-emoji" type="checkbox">
-                <span class="slider"></span>
-              </label>
+
+              <div class="rc-row" style="align-items:flex-start;flex-direction:column;gap:8px;padding:14px 0 18px;border-bottom:1px solid var(--border-soft);">
+                <div>
+                  <div class="k">Te vermijden zinnen</div>
+                  <div class="s">Komma-gescheiden. OfficeFlow zal deze zinnen vermijden.</div>
+                </div>
+                <input id="prefs-forbidden" type="text" placeholder="bijv: heel hartelijk, mooi je te ontmoeten"
+                  style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;font-family:inherit;font-size:14px;color:var(--text);">
+              </div>
+
+              <div class="rc-row" style="align-items:flex-start;flex-direction:column;gap:8px;padding:14px 0 0;">
+                <div>
+                  <div class="k">Extra instructies</div>
+                  <div class="s">Vrije tekst — geef OfficeFlow context over jouw stijl, je bedrijf of veelvoorkomende vragen.</div>
+                </div>
+                <textarea id="prefs-custom" rows="4" placeholder="Bijv: ik antwoord altijd in dezelfde taal als de afzender, bedrijfsnaam is X, gebruik geen 'beste' maar 'hoi' bij bestaande klanten…"
+                  style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;font-family:inherit;font-size:14px;color:var(--text);resize:vertical;"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- ============ CARD 2 — WAT OFFICEFLOW VAN JOU LEERT ============ -->
+          <div class="pref-card">
+            <div class="pref-card-head">
+              <div class="pref-card-title">
+                <h3>Wat OfficeFlow van jou leert</h3>
+                <p>AI past zich aan op jouw schrijfstijl uit verzonden mails. Het profiel hieronder zie je live bijwerken.</p>
+              </div>
             </div>
 
-            <!-- ============ HANDTEKENING ============ -->
-            <div class="acc-group-head" style="margin:24px 0 14px;">Handtekening</div>
-
-            <div class="rc-row" style="align-items:flex-start;flex-direction:column;gap:8px;padding:8px 0 14px;">
-              <div>
-                <div class="k">Wat staat er onder elke concept?</div>
-                <div class="s">Wordt automatisch onder elk concept-reply gezet. Je kunt 'm in Gmail nog aanpassen voor je verzendt.</div>
-              </div>
-              <textarea id="prefs-signature" rows="3" placeholder="Met vriendelijke groet,&#10;Jouw naam"
-                style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;font-family:inherit;font-size:14px;color:var(--text);resize:vertical;"></textarea>
-            </div>
-
-            <!-- ============ WOORDKEUZE ============ -->
-            <div class="acc-group-head" style="margin:24px 0 14px;">Woordkeuze</div>
-
-            <div class="rc-row" style="align-items:flex-start;flex-direction:column;gap:8px;padding:8px 0 18px;border-bottom:1px solid var(--border-soft);">
-              <div>
-                <div class="k">Voorkeurszinnen</div>
-                <div class="s">Komma-gescheiden. OfficeFlow zal deze zinnen waar mogelijk gebruiken in concepten.</div>
-              </div>
-              <input id="prefs-preferred" type="text" placeholder="bijv: ik kom er morgen op terug, even voor de zekerheid"
-                style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;font-family:inherit;font-size:14px;color:var(--text);">
-            </div>
-
-            <div class="rc-row" style="align-items:flex-start;flex-direction:column;gap:8px;padding:14px 0 18px;border-bottom:1px solid var(--border-soft);">
-              <div>
-                <div class="k">Te vermijden zinnen</div>
-                <div class="s">Komma-gescheiden. OfficeFlow zal deze zinnen vermijden.</div>
-              </div>
-              <input id="prefs-forbidden" type="text" placeholder="bijv: heel hartelijk, mooi je te ontmoeten"
-                style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;font-family:inherit;font-size:14px;color:var(--text);">
-            </div>
-
-            <div class="rc-row" style="align-items:flex-start;flex-direction:column;gap:8px;padding:14px 0 14px;">
-              <div>
-                <div class="k">Extra instructies</div>
-                <div class="s">Vrije tekst — geef OfficeFlow context over jouw stijl, je bedrijf of veelvoorkomende vragen.</div>
-              </div>
-              <textarea id="prefs-custom" rows="4" placeholder="Bijv: ik antwoord altijd in dezelfde taal als de afzender, bedrijfsnaam is X, gebruik geen 'beste' maar 'hoi' bij bestaande klanten…"
-                style="width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;font-family:inherit;font-size:14px;color:var(--text);resize:vertical;"></textarea>
-            </div>
-
-            <!-- ============ STIJL LEREN ============ -->
-            <div class="acc-group-head" style="margin:24px 0 14px;">Stijl leren</div>
-
-            <div class="rc-row" style="padding:8px 0 14px;">
+            <div class="rc-row" style="padding:6px 0 14px;">
               <div>
                 <div class="k">Leer van mijn verzonden mails</div>
                 <div class="s">OfficeFlow analyseert je laatste 20 verzonden berichten om jouw schrijfstijl beter te imiteren.</div>
@@ -1951,7 +2053,7 @@
             </div>
 
             <!-- Read-only weergave van wat OfficeFlow uit je SENT mails heeft geleerd -->
-            <div id="style-profile-card" class="style-profile-card" style="display:none;margin:0 0 14px;padding:14px 16px;background:#fffaf3;border:1px solid #fed7aa;border-radius:12px;">
+            <div id="style-profile-card" class="style-profile-card" style="display:none;margin:6px 0 0;padding:14px 16px;background:#fffaf3;border:1px solid #fed7aa;border-radius:12px;">
               <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px;flex-wrap:wrap;">
                 <div style="display:flex;align-items:center;gap:8px;font-weight:700;color:#9a3412;font-size:13.5px;">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
@@ -1963,82 +2065,98 @@
               <div style="font-size:11.5px;color:#9a3412;opacity:.75;margin-top:8px;">Wordt automatisch elke maand opnieuw afgeleid uit je verzonden mails.</div>
             </div>
 
-            <div id="style-profile-empty" class="style-profile-empty" style="display:none;font-size:12.5px;color:var(--text-3);padding:0 0 8px;">
+            <div id="style-profile-empty" class="style-profile-empty" style="display:none;font-size:12.5px;color:var(--text-3);padding:6px 0 0;">
               Stijlprofiel wordt opgesteld zodra je voldoende verzonden mails hebt en de toggle aan staat. Daarna verschijnt hier een samenvatting.
             </div>
+          </div>
 
-            <!-- ============ INBOX OPRUIMEN — verhuisd uit Gmail-koppeling ============ -->
-            <div class="acc-group-head" style="margin:24px 0 14px;">Inbox opruimen</div>
+          <!-- Save action — covers Card 1 + Card 2 (atomic save) -->
+          <div class="pref-form-actions">
+            <span class="pref-form-actions-help">Bewaart Schrijven &amp; Stijl leren. De andere twee groepen slaan zichzelf op.</span>
+            <span id="prefs-saved-msg" style="font-size:13px;color:var(--green);display:none;">✓ Opgeslagen</span>
+            <button id="prefs-save-btn" type="submit" class="btn-orange" style="padding:10px 24px;">Schrijfstijl opslaan</button>
+          </div>
 
-            <div class="rc-row" style="padding:8px 0 18px;border-bottom:1px solid var(--border-soft);">
-              <div>
-                <div class="k">Marketing &amp; ruis uit je Inbox halen</div>
-                <div class="s">Mails met label <strong>Marketing</strong> of <strong>Ignore</strong> verlaten je primaire Inbox en blijven vindbaar via hun label. Niets wordt verwijderd.</div>
-              </div>
-              <label class="switch" aria-label="Auto-archive low-value aan/uit">
-                <input id="tgl-auto-archive" type="checkbox">
-                <span class="slider"></span>
-              </label>
+        </form>
+
+        <!-- ============ CARD 3 — HOE OFFICEFLOW JE INBOX OPRUIMT (auto-save) ============ -->
+        <div class="pref-card">
+          <div class="pref-card-head">
+            <div class="pref-card-title">
+              <h3>Hoe OfficeFlow je inbox opruimt</h3>
+              <p>Marketing en ruis automatisch uit je primaire inbox halen. Mails worden niet verwijderd.</p>
             </div>
+            <span class="pref-card-autosave">Slaat automatisch op</span>
+          </div>
 
-            <div class="rc-row" style="padding:14px 0;">
-              <div>
-                <div class="k">Ook Notification-mails automatisch archiveren</div>
-                <div class="s">Standaard <strong>uit</strong> — notificaties zijn soms transactioneel (bank, bezorging, 2FA, belastingdienst). Zet alleen aan als je zeker weet dat je die niet mist.</div>
-              </div>
-              <label class="switch" aria-label="Notification auto-archive aan/uit">
-                <input id="tgl-notification-archive" type="checkbox">
-                <span class="slider"></span>
-              </label>
+          <div class="rc-row" style="padding:6px 0 18px;border-bottom:1px solid var(--border-soft);">
+            <div>
+              <div class="k">Marketing &amp; ruis uit je Inbox halen</div>
+              <div class="s">Mails met label <strong>Marketing</strong> of <strong>Ignore</strong> verlaten je primaire Inbox en blijven vindbaar via hun label. Niets wordt verwijderd.</div>
             </div>
+            <label class="switch" aria-label="Auto-archive low-value aan/uit">
+              <input id="tgl-auto-archive" type="checkbox">
+              <span class="slider"></span>
+            </label>
+          </div>
 
-            <!-- ============ NOTIFICATIES ============ -->
-            <div class="acc-group-head" style="margin:24px 0 14px;">Notificaties</div>
-
-            <div class="rc-row" style="padding:8px 0 14px;border-bottom:1px solid var(--border-soft);">
-              <div>
-                <div class="k">Dagelijkse briefing</div>
-                <div class="s">Elke ochtend een mail met de belangrijkste threads: Priority, To Respond en open beloftes. Helpt je de dag te starten met overzicht.</div>
-              </div>
-              <label class="switch" aria-label="Dagelijkse briefing aan/uit">
-                <input id="tgl-daily-briefing" type="checkbox">
-                <span class="slider"></span>
-              </label>
+          <div class="rc-row" style="padding:14px 0 0;">
+            <div>
+              <div class="k">Ook Notification-mails automatisch archiveren</div>
+              <div class="s">Standaard <strong>uit</strong> — notificaties zijn soms transactioneel (bank, bezorging, 2FA, belastingdienst). Zet alleen aan als je zeker weet dat je die niet mist.</div>
             </div>
-
-            <div class="rc-row" id="briefing-time-row" style="padding:14px 0 14px;border-bottom:1px solid var(--border-soft);display:none;flex-wrap:wrap;gap:12px;">
-              <div>
-                <div class="k">Aankomsttijd briefing</div>
-                <div class="s">Wanneer komt de briefing in je Inbox? <span id="briefing-tz-label" style="color:var(--text-3);">(Europe/Amsterdam)</span></div>
-              </div>
-              <div style="display:flex;align-items:center;gap:8px;">
-                <input id="briefing-time" type="time" value="07:00"
-                  style="padding:8px 10px;border:1.5px solid var(--border);border-radius:10px;font-family:inherit;font-size:14px;color:var(--text);width:110px;">
-                <span id="briefing-last-sent" style="font-size:12px;color:var(--text-3);"></span>
-              </div>
-            </div>
-
-            <div class="rc-row" style="padding:14px 0 14px;">
-              <div>
-                <div class="k">Weekoverzicht per mail</div>
-                <div class="s">Elke zaterdagochtend een korte samenvatting: mails verwerkt, concepten klaargezet en tijd bespaard.</div>
-              </div>
-              <label class="switch" aria-label="Weekrecap aan/uit">
-                <input id="tgl-weekly-recap" type="checkbox">
-                <span class="slider"></span>
-              </label>
-            </div>
-
-            <!-- ACTIONS -->
-            <div style="display:flex;justify-content:flex-end;align-items:center;gap:14px;flex-wrap:wrap;margin-top:24px;padding-top:18px;border-top:1px solid var(--border-soft);">
-              <span id="prefs-saved-msg" style="font-size:13px;color:var(--green);display:none;">✓ Schrijfstijl-voorkeuren opgeslagen</span>
-              <button id="prefs-save-btn" type="submit" class="btn-orange" style="padding:10px 24px;">Opslaan</button>
-            </div>
-            <div style="font-size:11.5px;color:var(--text-3);margin-top:6px;text-align:right;">
-              Toggle-instellingen (inbox opruimen, weekoverzicht) bewaren automatisch zodra je ze omklikt.
-            </div>
-          </form>
+            <label class="switch" aria-label="Notification auto-archive aan/uit">
+              <input id="tgl-notification-archive" type="checkbox">
+              <span class="slider"></span>
+            </label>
+          </div>
         </div>
+
+        <!-- ============ CARD 4 — WANNEER OFFICEFLOW JE BERICHT (auto-save) ============ -->
+        <div class="pref-card">
+          <div class="pref-card-head">
+            <div class="pref-card-title">
+              <h3>Wanneer OfficeFlow je bericht</h3>
+              <p>Dagelijkse briefing en weekoverzicht. Geen nieuwe inbox-meldingen, alleen samenvattingen.</p>
+            </div>
+            <span class="pref-card-autosave">Slaat automatisch op</span>
+          </div>
+
+          <div class="rc-row" style="padding:6px 0 14px;border-bottom:1px solid var(--border-soft);">
+            <div>
+              <div class="k">Dagelijkse briefing</div>
+              <div class="s">Elke ochtend een mail met de belangrijkste threads: Priority, To Respond en open beloftes. Helpt je de dag te starten met overzicht.</div>
+            </div>
+            <label class="switch" aria-label="Dagelijkse briefing aan/uit">
+              <input id="tgl-daily-briefing" type="checkbox">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="rc-row" id="briefing-time-row" style="padding:14px 0;border-bottom:1px solid var(--border-soft);display:none;flex-wrap:wrap;gap:12px;">
+            <div>
+              <div class="k">Aankomsttijd briefing</div>
+              <div class="s">Wanneer komt de briefing in je Inbox? <span id="briefing-tz-label" style="color:var(--text-3);">(Europe/Amsterdam)</span></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <input id="briefing-time" type="time" value="07:00"
+                style="padding:8px 10px;border:1.5px solid var(--border);border-radius:10px;font-family:inherit;font-size:14px;color:var(--text);width:110px;">
+              <span id="briefing-last-sent" style="font-size:12px;color:var(--text-3);"></span>
+            </div>
+          </div>
+
+          <div class="rc-row" style="padding:14px 0 0;">
+            <div>
+              <div class="k">Weekoverzicht per mail</div>
+              <div class="s">Elke zaterdagochtend een korte samenvatting: mails verwerkt, concepten klaargezet en tijd bespaard.</div>
+            </div>
+            <label class="switch" aria-label="Weekrecap aan/uit">
+              <input id="tgl-weekly-recap" type="checkbox">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+
       </section>
 
       <!-- ============ FOLLOW-UP RADAR ============ -->
