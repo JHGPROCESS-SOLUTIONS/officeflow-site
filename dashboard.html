@@ -1109,6 +1109,105 @@
     .snap-pill.muted { color: var(--text-2); }
     .snap-pill.muted .dot { background: var(--text-3); }
     .snap-pill strong { color: var(--orange-2); font-weight: 800; }
+
+    /* ============ HERO STATUS LINE (replaces 3-pill snapshot) ============
+       One prominent contextual line: "X concepten wachten op je actie".
+       Hidden when there's nothing to act on. */
+    .hero-status {
+      display: none;            /* shown by JS when count > 0 */
+      align-items: center;
+      gap: 12px;
+      margin: 16px 0 0;
+      padding: 14px 18px;
+      background: linear-gradient(90deg, #fff7ed 0%, #fffaf3 100%);
+      border: 1.5px solid #fed7aa;
+      border-radius: 14px;
+      font-size: 15px; font-weight: 600;
+      color: var(--text);
+    }
+    .hero-status.is-active { display: flex; }
+    .hero-status-pulse {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--orange);
+      box-shadow: 0 0 0 0 rgba(249,115,22,.6);
+      animation: heroPulse 2.2s infinite;
+      flex: none;
+    }
+    @keyframes heroPulse {
+      0%   { box-shadow: 0 0 0 0 rgba(249,115,22,.6); }
+      70%  { box-shadow: 0 0 0 12px rgba(249,115,22,0); }
+      100% { box-shadow: 0 0 0 0 rgba(249,115,22,0); }
+    }
+    .hero-status-text { flex: 1; min-width: 0; }
+    .hero-status-text strong {
+      color: var(--orange-2);
+      font-weight: 800; font-size: 17px;
+      margin-right: 4px;
+    }
+    .hero-status-cta {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 8px 14px; border-radius: 10px;
+      background: var(--orange); color: #fff;
+      text-decoration: none;
+      font-size: 13px; font-weight: 700;
+      transition: background .15s;
+      flex: none;
+    }
+    .hero-status-cta:hover { background: var(--orange-2); }
+
+    /* ============ QUICK ACTIONS — discoverability strip ============
+       4 cards directly under the hero. Each shows a feature with its
+       current state, so a new user immediately sees what's possible. */
+    .quick-actions {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+    .qa-card {
+      display: flex; flex-direction: column; gap: 4px;
+      padding: 14px 16px;
+      background: #fff;
+      border: 1.5px solid var(--border-soft);
+      border-radius: 14px;
+      text-decoration: none;
+      color: var(--text);
+      cursor: pointer;
+      transition: border-color .15s, transform .08s, box-shadow .15s;
+      font: inherit;
+      text-align: left;
+    }
+    .qa-card:hover {
+      border-color: #fed7aa;
+      box-shadow: 0 4px 14px rgba(249,115,22,.08);
+      transform: translateY(-1px);
+    }
+    .qa-card-head {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 12px; font-weight: 700;
+      letter-spacing: .02em; text-transform: uppercase;
+      color: var(--text-3);
+    }
+    .qa-card-head svg { width: 14px; height: 14px; flex: none; }
+    .qa-card-value {
+      font-size: 18px; font-weight: 700;
+      color: var(--text);
+      line-height: 1.25;
+    }
+    .qa-card-sub {
+      font-size: 12.5px;
+      color: var(--text-3);
+      margin-top: 2px;
+    }
+    .qa-card.is-empty .qa-card-value { color: var(--text-3); font-weight: 600; }
+
+    @media (max-width: 720px) {
+      .quick-actions { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .hero-status { flex-direction: column; align-items: flex-start; }
+      .hero-status-cta { width: 100%; justify-content: center; }
+    }
+
     /* TO-DO BANNER — verschijnt alleen als er actie nodig is */
     .todo-banner {
       margin-top: 14px;
@@ -1497,11 +1596,19 @@
             <div class="eyebrow">Dashboard</div>
             <h1 id="welcome-title">Welkom terug</h1>
             <p class="page-desc">Zo heeft OfficeFlow je inbox deze maand geholpen. Blijf zelf in controle — elk antwoord kies je zelf.</p>
-            <div class="hero-snapshot" id="hero-snapshot">
-              <span class="snap-pill"><span class="dot"></span><strong id="snap-drafts">0</strong>&nbsp;concepten klaar</span>
-              <span class="snap-pill muted"><span class="dot"></span><strong id="snap-week">0</strong>&nbsp;mails verwerkt deze week</span>
-              <span class="snap-pill muted"><span class="dot"></span><strong id="snap-time">—</strong>&nbsp;bespaard deze maand</span>
+            <!-- HERO STATUS — single prominent line, only visible when there's actually work waiting -->
+            <div class="hero-status" id="hero-status" role="status" aria-live="polite">
+              <span class="hero-status-pulse" aria-hidden="true"></span>
+              <span class="hero-status-text">
+                <strong id="hero-status-num">0</strong>
+                <span id="hero-status-label">concepten wachten op je actie</span>
+              </span>
+              <a class="hero-status-cta" href="#recent-drafts" data-scroll-to="recent-drafts">Bekijk →</a>
             </div>
+            <!-- Backwards-compat IDs — JS still writes here, kept hidden so we don't have to touch every setter -->
+            <span id="snap-drafts" hidden>0</span>
+            <span id="snap-week" hidden>0</span>
+            <span id="snap-time" hidden>—</span>
 
             <!-- TO-DO BANNER — verschijnt alleen als er actie van jou nodig is -->
             <div class="todo-banner" id="todo-banner" style="display:none;">
@@ -1520,6 +1627,95 @@
             </div>
           </div>
           <a class="btn-orange" href="https://mail.google.com" target="_blank" rel="noopener" style="text-decoration:none;">Open Gmail →</a>
+        </div>
+
+        <!-- ============ QUICK ACTIONS — feature discoverability strip ============ -->
+        <div class="quick-actions" id="quick-actions" aria-label="Snelle acties">
+          <a class="qa-card is-empty" id="qa-card-snoozed" href="#snoozed-emails-card" data-scroll-to="snoozed-emails-card">
+            <div class="qa-card-head">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+              Snoozed
+            </div>
+            <div class="qa-card-value" id="qa-snoozed-value">Geen actief</div>
+            <div class="qa-card-sub">Mails die later terugkomen</div>
+          </a>
+          <a class="qa-card is-empty" id="qa-card-scheduled" href="#scheduled-sends-card" data-scroll-to="scheduled-sends-card">
+            <div class="qa-card-head">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              Geplande verzendingen
+            </div>
+            <div class="qa-card-value" id="qa-scheduled-value">Geen actief</div>
+            <div class="qa-card-sub">Concepten ingepland voor later</div>
+          </a>
+          <a class="qa-card" id="qa-card-briefing" href="#voorkeuren" data-tab="voorkeuren" data-scroll-to="briefing-time-row">
+            <div class="qa-card-head">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 6l-10 7L2 6"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
+              Dagelijkse briefing
+            </div>
+            <div class="qa-card-value" id="qa-briefing-value">Aanpassen</div>
+            <div class="qa-card-sub">Tijd en voorkeur instellen</div>
+          </a>
+          <a class="qa-card" id="qa-card-style" href="#voorkeuren" data-tab="voorkeuren" data-scroll-to="style-profile-card">
+            <div class="qa-card-head">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
+              Stijlprofiel
+            </div>
+            <div class="qa-card-value" id="qa-style-value">Bekijk</div>
+            <div class="qa-card-sub">Wat AI van jouw stijl leerde</div>
+          </a>
+        </div>
+      </section>
+
+      <!-- ============ FEATURED: CONCEPTEN KLAAR ============ -->
+      <section id="recent-drafts" style="margin-top:8px;">
+        <div class="tab-head" data-tab-head="recent-drafts" style="display:none;">
+          <div class="eyebrow">Concepten</div>
+          <h1>Wat OfficeFlow voor je heeft klaargezet</h1>
+          <p>AI-voorstellen wachtend in je Gmail-threads. Klik om te openen, lees, pas aan, verzend.</p>
+        </div>
+        <div class="drafts-feature">
+          <div class="drafts-feature-head">
+            <div class="drafts-feature-title">
+              <h2>Concepten klaar voor jou</h2>
+              <p>AI heeft alvast antwoorden klaargezet in je Gmail-threads. Klik een rij om de thread te openen, lees, pas aan, verzend.</p>
+            </div>
+            <div class="drafts-counter">
+              <span class="drafts-counter-num" id="drafts-counter-num">0</span>
+              <span class="drafts-counter-lbl">wachtend</span>
+            </div>
+          </div>
+
+          <div class="drafts-confidence" id="rd-summary" aria-live="polite">
+            <span class="conf-item"><span class="rd-dot high"></span><strong id="rd-count-high">0</strong>&nbsp;direct te verzenden</span>
+            <span class="conf-item"><span class="rd-dot medium"></span><strong id="rd-count-medium">0</strong>&nbsp;quick review</span>
+            <span class="conf-item"><span class="rd-dot low"></span><strong id="rd-count-low">0</strong>&nbsp;goed lezen</span>
+          </div>
+
+          <div id="rd-body">
+            <div class="rd-empty">Concepten laden…</div>
+          </div>
+        </div>
+
+        <!-- ============ GEPLANDE VERZENDINGEN ============ -->
+        <div class="drafts-feature" id="scheduled-sends-card" style="margin-top:20px; display:none;">
+          <div class="drafts-feature-head">
+            <div class="drafts-feature-title">
+              <h2>Geplande verzendingen</h2>
+              <p>Concepten die OfficeFlow op het door jou gekozen moment voor je verstuurt. Annuleren kan tot het verzendmoment.</p>
+            </div>
+          </div>
+          <div id="ss-body"></div>
+        </div>
+
+        <!-- ============ SNOOZED EMAILS ============ -->
+        <div class="drafts-feature" id="snoozed-emails-card" style="margin-top:20px; display:none;">
+          <div class="drafts-feature-head">
+            <div class="drafts-feature-title">
+              <h2>Snoozed mails</h2>
+              <p>Tijdelijk uit je Inbox. OfficeFlow zet ze automatisch terug op het door jou gekozen moment.</p>
+            </div>
+          </div>
+          <div id="sn-body"></div>
         </div>
       </section>
 
@@ -1617,59 +1813,6 @@
             <div class="stat-mini-value"><span id="stat-waiting">—</span></div>
             <div class="stat-mini-sub">Klik — wacht op anderen →</div>
           </a>
-        </div>
-      </section>
-
-      <!-- ============ FEATURED: CONCEPTEN KLAAR ============ -->
-      <section id="recent-drafts" style="margin-top:8px;">
-        <div class="tab-head" data-tab-head="recent-drafts" style="display:none;">
-          <div class="eyebrow">Concepten</div>
-          <h1>Wat OfficeFlow voor je heeft klaargezet</h1>
-          <p>AI-voorstellen wachtend in je Gmail-threads. Klik om te openen, lees, pas aan, verzend.</p>
-        </div>
-        <div class="drafts-feature">
-          <div class="drafts-feature-head">
-            <div class="drafts-feature-title">
-              <h2>Concepten klaar voor jou</h2>
-              <p>AI heeft alvast antwoorden klaargezet in je Gmail-threads. Klik een rij om de thread te openen, lees, pas aan, verzend.</p>
-            </div>
-            <div class="drafts-counter">
-              <span class="drafts-counter-num" id="drafts-counter-num">0</span>
-              <span class="drafts-counter-lbl">wachtend</span>
-            </div>
-          </div>
-
-          <div class="drafts-confidence" id="rd-summary" aria-live="polite">
-            <span class="conf-item"><span class="rd-dot high"></span><strong id="rd-count-high">0</strong>&nbsp;direct te verzenden</span>
-            <span class="conf-item"><span class="rd-dot medium"></span><strong id="rd-count-medium">0</strong>&nbsp;quick review</span>
-            <span class="conf-item"><span class="rd-dot low"></span><strong id="rd-count-low">0</strong>&nbsp;goed lezen</span>
-          </div>
-
-          <div id="rd-body">
-            <div class="rd-empty">Concepten laden…</div>
-          </div>
-        </div>
-
-        <!-- ============ GEPLANDE VERZENDINGEN ============ -->
-        <div class="drafts-feature" id="scheduled-sends-card" style="margin-top:20px; display:none;">
-          <div class="drafts-feature-head">
-            <div class="drafts-feature-title">
-              <h2>Geplande verzendingen</h2>
-              <p>Concepten die OfficeFlow op het door jou gekozen moment voor je verstuurt. Annuleren kan tot het verzendmoment.</p>
-            </div>
-          </div>
-          <div id="ss-body"></div>
-        </div>
-
-        <!-- ============ SNOOZED EMAILS ============ -->
-        <div class="drafts-feature" id="snoozed-emails-card" style="margin-top:20px; display:none;">
-          <div class="drafts-feature-head">
-            <div class="drafts-feature-title">
-              <h2>Snoozed mails</h2>
-              <p>Tijdelijk uit je Inbox. OfficeFlow zet ze automatisch terug op het door jou gekozen moment.</p>
-            </div>
-          </div>
-          <div id="sn-body"></div>
         </div>
       </section>
 
@@ -2477,7 +2620,87 @@
       textEl.innerHTML = `To-do voor jou: ${parts.join('  ·  ')}`;
       // Re-route any Gmail links to the connected mailbox account
       try { _applyGmailAccountToLinks(textEl); } catch (_) {}
+
+      // Mirror the drafts count into the hero-status line above quick actions
+      updateHeroStatus(draftsNum);
     }
+
+    // ============ HERO STATUS (replaces 3-pill snapshot) ============
+    function updateHeroStatus(draftsCount) {
+      const status = document.getElementById('hero-status');
+      const numEl = document.getElementById('hero-status-num');
+      const labelEl = document.getElementById('hero-status-label');
+      if (!status || !numEl || !labelEl) return;
+      const n = Math.max(0, Math.floor(Number(draftsCount) || 0));
+      if (n === 0) {
+        status.classList.remove('is-active');
+        return;
+      }
+      numEl.textContent = String(n);
+      labelEl.textContent = n === 1
+        ? 'concept wacht op je actie'
+        : 'concepten wachten op je actie';
+      status.classList.add('is-active');
+    }
+
+    // ============ QUICK ACTION CARDS — feature-discovery strip ============
+    // Each helper sets the value text on the corresponding card and toggles
+    // `is-empty` (greyed-out) when there's nothing to show.
+    function _setQaCardValue(cardId, valueElId, value, isEmpty) {
+      const card = document.getElementById(cardId);
+      const valueEl = document.getElementById(valueElId);
+      if (valueEl) valueEl.textContent = value;
+      if (card) card.classList.toggle('is-empty', !!isEmpty);
+    }
+
+    function updateQuickActionsSnoozed(pendingCount) {
+      const n = Math.max(0, Math.floor(Number(pendingCount) || 0));
+      const value = n === 0 ? 'Geen actief' : (n + ' actief');
+      _setQaCardValue('qa-card-snoozed', 'qa-snoozed-value', value, n === 0);
+    }
+
+    function updateQuickActionsScheduled(pendingCount) {
+      const n = Math.max(0, Math.floor(Number(pendingCount) || 0));
+      const value = n === 0 ? 'Geen actief' : (n + ' wacht' + (n === 1 ? '' : 'en'));
+      _setQaCardValue('qa-card-scheduled', 'qa-scheduled-value', value, n === 0);
+    }
+
+    function updateQuickActionsBriefing(data) {
+      const enabled = !!(data && data.briefing_enabled);
+      const hour = Number((data && data.briefing_hour) ?? 7);
+      const minute = Number((data && data.briefing_minute) ?? 0);
+      const value = enabled
+        ? `Aan · ${_padTwo(hour)}:${_padTwo(minute)}`
+        : 'Uit';
+      _setQaCardValue('qa-card-briefing', 'qa-briefing-value', value, !enabled);
+    }
+
+    function updateQuickActionsStyle(data) {
+      const has = !!(data && data.has_profile);
+      const sourceCount = Number((data && data.style_profile && data.style_profile.source_sent_count) || 0);
+      const value = has
+        ? (sourceCount > 0 ? `Geleerd uit ${sourceCount} mails` : 'Beschikbaar')
+        : 'Nog niet getraind';
+      _setQaCardValue('qa-card-style', 'qa-style-value', value, !has);
+    }
+
+    // Click-handler for the chips: smooth-scroll to their anchor, and
+    // switch tabs first if a `data-tab` attribute is present.
+    document.addEventListener('click', (e) => {
+      const card = e.target && e.target.closest && e.target.closest('.qa-card[data-scroll-to], .hero-status-cta[data-scroll-to]');
+      if (!card) return;
+      e.preventDefault();
+      const targetId = card.getAttribute('data-scroll-to');
+      const tabName = card.getAttribute('data-tab');
+      if (tabName && typeof activateTab === 'function') {
+        try { activateTab(tabName); } catch (_) {}
+      }
+      // Defer scroll so the tab-switch DOM updates settle first
+      setTimeout(() => {
+        const tgt = document.getElementById(targetId);
+        if (tgt) tgt.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 60);
+    });
 
     function renderStats(s) {
       // Helper: only set if the element exists (defensive after sidebar redesign)
@@ -2948,6 +3171,9 @@
           ? 'Laatst verstuurd: ' + _fmtRelativeShort(lastSent)
           : '';
       }
+
+      // Mirror to the overview quick-action card
+      try { updateQuickActionsBriefing(data); } catch (_) {}
     }
 
     async function _patchBriefingSettings(payload) {
@@ -3028,6 +3254,10 @@
     }
 
     function renderStyleProfile(data) {
+      // Mirror to the overview quick-action card (does not depend on DOM elements
+      // below, so we can do it first).
+      try { updateQuickActionsStyle(data); } catch (_) {}
+
       const card = document.getElementById('style-profile-card');
       const empty = document.getElementById('style-profile-empty');
       const textEl = document.getElementById('style-profile-text');
@@ -3612,6 +3842,10 @@
       if (!card || !body) return;
 
       const items = (data && data.items) || [];
+      const pendingCount = items.filter(it => (it.status || 'pending') === 'pending').length;
+      // Mirror count to the quick-action card on the overview
+      try { updateQuickActionsScheduled(pendingCount); } catch (_) {}
+
       // Hide card entirely if there's nothing to show.
       if (!items.length) {
         card.style.display = 'none';
@@ -3917,6 +4151,9 @@
       // so woken/cancelled history doesn't pile up. (We could surface that
       // via a "Toon geschiedenis" toggle later.)
       const items = all.filter(it => (it.status || 'pending') === 'pending');
+
+      // Mirror count to the quick-action card on the overview
+      try { updateQuickActionsSnoozed(items.length); } catch (_) {}
 
       if (!items.length) {
         card.style.display = 'none';
