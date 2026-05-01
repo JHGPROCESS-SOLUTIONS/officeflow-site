@@ -794,53 +794,48 @@
       border:1px dashed #e5e7eb; border-radius:12px; background:#fafbfd;
     }
 
-    /* ============ SCHEDULE BUTTON ON DRAFT ROWS ============ */
+    /* ============ ROW ACTION BUTTONS (snooze + schedule) ============ */
     .rd-row {
-      display:flex; align-items:stretch; gap:8px;
+      display:flex; align-items:stretch; gap:6px;
     }
     .rd-row .rd-item { flex:1; }
-    .rd-schedule-btn {
-      flex:none;
-      background:#fff;
-      border:1px solid var(--border);
-      color:var(--text-2);
-      padding:0 12px;
-      border-radius:12px;
-      font-size:12.5px; font-weight:600;
-      font-family:inherit;
-      cursor:pointer;
-      display:inline-flex; align-items:center; gap:6px;
-      transition: all .15s;
-      white-space:nowrap;
-    }
-    .rd-schedule-btn:hover {
-      border-color: var(--orange);
-      color: var(--orange);
-      background: var(--orange-soft);
-    }
-    .rd-schedule-btn svg { width:14px; height:14px; }
 
-    /* ============ SNOOZE BUTTON ON DRAFT ROWS ============ */
+    /* Shared base for both action buttons. On desktop they render as
+       compact icon-only squares (text label is visually hidden, kept in
+       DOM for screen-reader users). On mobile the label re-appears so
+       the buttons are clear when stacked full-width. */
+    .rd-schedule-btn,
     .rd-snooze-btn {
       flex:none;
       background:#fff;
       border:1px solid var(--border);
       color:var(--text-2);
-      padding:0 12px;
-      border-radius:12px;
+      width:36px; height:36px;
+      align-self:center;
+      padding:0;
+      border-radius:10px;
       font-size:12.5px; font-weight:600;
       font-family:inherit;
       cursor:pointer;
-      display:inline-flex; align-items:center; gap:6px;
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:6px;
       transition: all .15s;
       white-space:nowrap;
+    }
+    .rd-schedule-btn svg,
+    .rd-snooze-btn svg { width:16px; height:16px; }
+    .rd-btn-label { display:none; }
+
+    .rd-schedule-btn:hover {
+      border-color: var(--orange);
+      color: var(--orange);
+      background: var(--orange-soft);
     }
     .rd-snooze-btn:hover {
       border-color: #6366f1;
       color: #4f46e5;
       background: #eef2ff;
     }
-    .rd-snooze-btn svg { width:14px; height:14px; }
 
     /* ============ SCHEDULED-SENDS LIST ============ */
     .ss-list {
@@ -969,7 +964,12 @@
     @media (max-width: 640px) {
       .rd-row { flex-direction: column; gap: 6px; }
       .rd-schedule-btn,
-      .rd-snooze-btn { width: 100%; padding: 10px 12px; justify-content: center; }
+      .rd-snooze-btn {
+        width: 100%; height: auto;
+        padding: 10px 12px;
+        justify-content: center;
+      }
+      .rd-btn-label { display: inline; }
       .ss-item, .sn-item { flex-wrap: wrap; }
       .ss-cancel-btn, .sn-cancel-btn { margin-left:auto; }
     }
@@ -3069,18 +3069,20 @@
             data-thread-id="${escapeHtml(it.gmail_thread_id || '')}"
             data-subject="${escapeHtml(subj)}"
             data-to-email="${escapeHtml(it.sender_email || '')}"
-            title="Plan verzending op een later moment">
+            title="Verstuur later — plan verzending op een later moment"
+            aria-label="Verstuur later">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            Verstuur later
+            <span class="rd-btn-label">Verstuur later</span>
           </button>
         ` : '';
         const snoozeBtn = it.email_id ? `
           <button class="rd-snooze-btn" type="button"
             data-email-id="${escapeHtml(it.email_id)}"
             data-subject="${escapeHtml(subj)}"
-            title="Tijdelijk uit Inbox halen">
+            title="Snooze — tijdelijk uit Inbox halen"
+            aria-label="Snooze">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-            Snooze
+            <span class="rd-btn-label">Snooze</span>
           </button>
         ` : '';
         // Mount-point for attachment summaries (filled async below).
