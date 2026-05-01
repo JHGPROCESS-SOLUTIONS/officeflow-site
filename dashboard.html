@@ -121,6 +121,55 @@
     .nav-toggle:hover { border-color: var(--orange); color: var(--orange); }
     .nav-toggle svg { width: 22px; height: 22px; display: block; }
 
+    /* ============ MOBILE CURRENT-TAB PILL ============
+       Visible only on narrow screens (matches the breakpoint where the
+       sidebar collapses into a drawer). Shows which section the user is
+       on so they don't lose context when the drawer is closed. */
+    .nav-current-tab {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 12px;
+      background: var(--orange-soft);
+      color: var(--orange-2);
+      border: 1.5px solid #fed7aa;
+      border-radius: 9px;
+      font-size: 13px; font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background .15s, border-color .15s;
+      max-width: 50vw;
+    }
+    .nav-current-tab:hover {
+      background: #ffedd5;
+      border-color: var(--orange);
+    }
+    .nav-current-tab svg { width: 14px; height: 14px; flex: none; }
+    .nav-current-tab-label {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* ============ SIDEBAR ATTENTION DOT ============
+       Small red dot next to a sidebar nav item that needs urgent attention
+       (currently only Gmail-koppeling when token is revoked). Lives at the
+       end of the row so the layout doesn't shift. */
+    .sb-attention-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #dc2626;
+      box-shadow: 0 0 0 2px #fff, 0 0 0 3px rgba(220,38,38,.25);
+      margin-left: auto;
+      flex: none;
+      animation: sbDotPulse 2s infinite;
+    }
+    @keyframes sbDotPulse {
+      0%   { box-shadow: 0 0 0 0 rgba(220,38,38,.55), 0 0 0 2px #fff; }
+      70%  { box-shadow: 0 0 0 8px rgba(220,38,38,0), 0 0 0 2px #fff; }
+      100% { box-shadow: 0 0 0 0 rgba(220,38,38,0), 0 0 0 2px #fff; }
+    }
+
     /* Off-canvas backdrop */
     .sidebar-backdrop {
       display: none;
@@ -510,6 +559,7 @@
     }
     @media (max-width: 900px) {
       .nav-toggle { display: inline-flex; }
+      .nav-current-tab { display: inline-flex; }
       .sidebar-backdrop { display: block; }
 
       .nav-inner { gap: 12px; }
@@ -1664,6 +1714,10 @@
       <button class="nav-toggle" id="nav-toggle" aria-label="Menu openen" aria-expanded="false">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
       </button>
+      <button class="nav-current-tab" id="nav-current-tab" aria-label="Huidige sectie — open menu">
+        <svg id="nav-current-tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        <span class="nav-current-tab-label" id="nav-current-tab-label">Overzicht</span>
+      </button>
       <a href="/" class="logo" aria-label="OfficeFlow">
         <svg viewBox="0 0 48 48" width="26" height="26" aria-hidden="true">
           <defs><linearGradient id="of-dash-mark" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F97316"/><stop offset="100%" stop-color="#FB923C"/></linearGradient></defs>
@@ -1704,6 +1758,7 @@
         <li><a href="#koppeling" data-tab="koppeling">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
           Gmail-koppeling
+          <span class="sb-attention-dot" id="sb-koppeling-dot" style="display:none;" aria-label="Actie nodig"></span>
         </a></li>
         <li><a href="#abonnement" data-tab="abonnement">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg>
@@ -2740,6 +2795,10 @@
         if (data && data.mailbox_status === 'needs_reconnect') {
           const banner = document.getElementById('reconnect-banner');
           if (banner) banner.style.display = '';
+          // Sidebar attention dot — visible from any tab so the user always
+          // sees that Gmail-koppeling needs action.
+          const dot = document.getElementById('sb-koppeling-dot');
+          if (dot) dot.style.display = 'inline-block';
         }
       } catch (_) { /* silent fail — banner just won't show */ }
     }
@@ -4683,6 +4742,25 @@
       };
       const ALL_SECTION_IDS = ['overzicht','statistieken','voorkeuren','radar','koppeling','recent-drafts','abonnement','account'];
 
+      // Display labels + icon SVGs for each tab — used by the mobile
+      // current-tab pill so the user always knows where they are.
+      const TAB_DISPLAY = {
+        'overzicht':  { label: 'Overzicht',       svg: '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>' },
+        'voorkeuren': { label: 'Voorkeuren',      svg: '<path d="M12 20v-6m0-4V4m-8 6h6m4 0h6M6 14h12"/>' },
+        'radar':      { label: 'Follow-Up Radar', svg: '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>' },
+        'koppeling':  { label: 'Gmail-koppeling', svg: '<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>' },
+        'abonnement': { label: 'Abonnement',      svg: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/>' },
+        'account':    { label: 'Account',         svg: '<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>' },
+      };
+
+      function _updateMobileCurrentTab(tabName) {
+        const labelEl = document.getElementById('nav-current-tab-label');
+        const iconEl = document.getElementById('nav-current-tab-icon');
+        const meta = TAB_DISPLAY[tabName] || TAB_DISPLAY['overzicht'];
+        if (labelEl) labelEl.textContent = meta.label;
+        if (iconEl) iconEl.innerHTML = meta.svg;
+      }
+
       function activateTab(tabName) {
         const wanted = TAB_SECTIONS[tabName] || TAB_SECTIONS['overzicht'];
         ALL_SECTION_IDS.forEach(id => {
@@ -4699,6 +4777,9 @@
           const matchesActive = el.dataset.tabHead === tabName;
           el.style.display = (isSoloTab && matchesActive) ? '' : 'none';
         });
+        // Sync mobile current-tab pill so the user knows where they are
+        // even with the drawer closed.
+        _updateMobileCurrentTab(tabName);
         history.replaceState(null, '', '#' + tabName);
         window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
       }
@@ -4724,6 +4805,15 @@
       }
       if (navToggleEl) {
         navToggleEl.addEventListener('click', () => {
+          if (sidebarEl && sidebarEl.classList.contains('is-open')) closeDrawer();
+          else openDrawer();
+        });
+      }
+      // Mobile current-tab pill — clicking it opens the drawer so the user
+      // can switch sections without hunting for the hamburger.
+      const navCurrentTabEl = document.getElementById('nav-current-tab');
+      if (navCurrentTabEl) {
+        navCurrentTabEl.addEventListener('click', () => {
           if (sidebarEl && sidebarEl.classList.contains('is-open')) closeDrawer();
           else openDrawer();
         });
