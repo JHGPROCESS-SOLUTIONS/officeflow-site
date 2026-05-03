@@ -489,58 +489,191 @@
     .btn-danger-solid:hover { background: #b91c1c; }
     .btn-danger-solid:disabled { opacity: .6; }
 
-    /* ============ WELCOME MODAL (first-run wow) ============ */
+    /* ============ WELCOME MODAL — first-run "wow" moment ============
+       Full visual takeover when a brand-new user lands on dashboard for the
+       first time. Personal greeting + animated counters + preview of the
+       very first AI-generated draft so they immediately see real value
+       instead of empty cards. */
     .welcome-modal {
-      max-width: 520px;
-      padding: 36px 32px 28px;
-      text-align: center;
+      max-width: 600px;
+      padding: 0;
+      text-align: left;
+      position: relative;
+      overflow: hidden;
+      animation: welcome-modal-in .35s cubic-bezier(.2,.8,.2,1);
+    }
+    @keyframes welcome-modal-in {
+      from { opacity: 0; transform: translateY(20px) scale(.96); }
+      to   { opacity: 1; transform: translateY(0)    scale(1); }
+    }
+    .welcome-glow {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 15% 0%, rgba(249,115,22,.18) 0%, transparent 45%),
+        radial-gradient(circle at 100% 100%, rgba(251,146,60,.10) 0%, transparent 50%),
+        linear-gradient(180deg, #ffffff 0%, #fffaf3 100%);
+      z-index: 0;
+      pointer-events: none;
+    }
+    .welcome-content {
+      position: relative;
+      z-index: 1;
+      padding: 36px 36px 28px;
     }
     .welcome-spark {
-      width: 56px; height: 56px; border-radius: 50%;
-      background: linear-gradient(135deg, #fff4ec 0%, #ffe1cc 100%);
+      width: 60px; height: 60px; border-radius: 16px;
+      background: linear-gradient(135deg, #fff4ec 0%, #ffd9b8 100%);
+      box-shadow:
+        0 8px 22px rgba(249,115,22,.18),
+        inset 0 0 0 1px rgba(249,115,22,.20);
       display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 14px; font-size: 28px;
+      margin: 0 0 18px; font-size: 30px;
+      animation: welcome-spark-pulse 2.4s ease-in-out infinite;
+    }
+    @keyframes welcome-spark-pulse {
+      0%, 100% { transform: scale(1);     filter: drop-shadow(0 0 0 rgba(249,115,22,0)); }
+      50%      { transform: scale(1.03);  filter: drop-shadow(0 0 14px rgba(249,115,22,.35)); }
+    }
+    .welcome-eyebrow {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--orange-2);
+      margin-bottom: 10px;
     }
     .welcome-title {
-      font-size: 24px; font-weight: 700; margin: 0 0 8px;
-      color: var(--text-1);
+      font-size: 32px; font-weight: 800; margin: 0 0 10px;
+      color: var(--text);
+      line-height: 1.15;
+      letter-spacing: -.01em;
     }
     .welcome-sub {
-      font-size: 14.5px; color: var(--text-2); line-height: 1.55;
-      margin: 0 auto 22px; max-width: 380px;
+      font-size: 15px; color: var(--text-2); line-height: 1.6;
+      margin: 0 0 26px;
+      max-width: 480px;
     }
     .welcome-grid {
       display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 10px; margin-bottom: 22px;
+      gap: 12px; margin-bottom: 22px;
     }
     .welcome-stat {
-      background: var(--bg-soft);
+      background: #fff;
       border: 1.5px solid var(--border-soft);
-      border-radius: 14px; padding: 16px 10px;
+      border-radius: 14px; padding: 18px 14px;
+      text-align: left;
+      transition: border-color .2s, transform .2s;
     }
+    .welcome-stat:hover { transform: translateY(-2px); }
     .welcome-stat .ws-value {
-      font-size: 26px; font-weight: 700; color: var(--text-1);
-      line-height: 1.1;
+      font-size: 30px; font-weight: 800; color: var(--text);
+      line-height: 1.05;
       font-variant-numeric: tabular-nums;
+      letter-spacing: -.01em;
     }
     .welcome-stat .ws-label {
-      font-size: 11.5px; color: var(--text-2); margin-top: 6px;
-      font-weight: 500; text-transform: uppercase; letter-spacing: .04em;
+      font-size: 11.5px; color: var(--text-3); margin-top: 8px;
+      font-weight: 700; text-transform: uppercase; letter-spacing: .06em;
     }
-    .welcome-stat.ws-orange .ws-value { color: var(--orange); }
-    .welcome-stat.ws-green  .ws-value { color: var(--green); }
-    .welcome-stat.ws-blue   .ws-value { color: #2563eb; }
+    .welcome-stat.ws-orange { border-color: #fed7aa; }
+    .welcome-stat.ws-orange .ws-value { color: var(--orange-2); }
+    .welcome-stat.ws-green  { border-color: #bbf7d0; }
+    .welcome-stat.ws-green  .ws-value { color: #15803d; }
+    .welcome-stat.ws-blue   { border-color: #bfdbfe; }
+    .welcome-stat.ws-blue   .ws-value { color: #1d4ed8; }
+
+    /* First-draft preview card — only shown when at least one draft exists */
+    .welcome-preview { margin: 4px 0 22px; }
+    .welcome-preview-label {
+      font-size: 11.5px; font-weight: 700;
+      letter-spacing: .06em; text-transform: uppercase;
+      color: var(--text-3);
+      margin-bottom: 8px;
+    }
+    .welcome-preview-card {
+      display: flex; align-items: center; gap: 12px;
+      padding: 14px 16px;
+      background: #fff;
+      border: 1.5px solid var(--border-soft);
+      border-radius: 14px;
+      text-decoration: none;
+      color: var(--text);
+      cursor: pointer;
+      transition: border-color .2s, transform .2s, box-shadow .2s;
+    }
+    .welcome-preview-card:hover {
+      border-color: #fed7aa;
+      box-shadow: 0 6px 20px rgba(249,115,22,.10);
+      transform: translateY(-1px);
+    }
+    .welcome-preview-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      flex: none;
+      background: #16a34a; /* default: green for high confidence */
+    }
+    .welcome-preview-dot.medium { background: #eab308; }
+    .welcome-preview-dot.low    { background: #dc2626; }
+    .welcome-preview-body {
+      flex: 1; min-width: 0;
+    }
+    .welcome-preview-subject {
+      font-size: 14.5px; font-weight: 700; color: var(--text);
+      line-height: 1.3;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .welcome-preview-sender {
+      font-size: 12.5px; color: var(--text-3);
+      margin-top: 2px;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .welcome-preview-arrow {
+      font-size: 18px; color: var(--orange);
+      flex: none;
+      transition: transform .2s;
+    }
+    .welcome-preview-card:hover .welcome-preview-arrow {
+      transform: translateX(3px);
+    }
+
+    /* Footer actions */
+    .welcome-actions {
+      display: flex; gap: 10px; align-items: center;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+    }
     .welcome-cta {
-      display: inline-block; padding: 12px 22px;
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 12px 22px;
       background: var(--orange); color: #fff;
-      border: none; border-radius: 10px;
-      font-size: 14.5px; font-weight: 600; cursor: pointer;
+      border: none; border-radius: 11px;
+      font-size: 14.5px; font-weight: 700;
+      cursor: pointer;
       font-family: inherit;
+      transition: background .15s, transform .08s;
     }
-    .welcome-cta:hover { background: #ea6a1e; }
+    .welcome-cta:hover { background: var(--orange-2); transform: translateY(-1px); }
+    .welcome-cta-secondary {
+      background: transparent; color: var(--text-2);
+      border: 1.5px solid var(--border-soft);
+      padding: 11px 18px; border-radius: 11px;
+      font-size: 14px; font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: border-color .15s, color .15s;
+    }
+    .welcome-cta-secondary:hover {
+      border-color: var(--text-3);
+      color: var(--text);
+    }
+
     @media (max-width: 520px) {
-      .welcome-grid { grid-template-columns: 1fr; }
-      .welcome-stat { padding: 14px 12px; }
+      .welcome-content { padding: 26px 22px 22px; }
+      .welcome-title { font-size: 24px; }
+      .welcome-sub { font-size: 14px; margin-bottom: 20px; }
+      .welcome-grid { grid-template-columns: 1fr; gap: 8px; margin-bottom: 18px; }
+      .welcome-stat { padding: 14px 14px; }
+      .welcome-stat .ws-value { font-size: 26px; }
+      .welcome-actions { flex-direction: column; }
+      .welcome-cta, .welcome-cta-secondary { width: 100%; justify-content: center; }
     }
 
     .loading { text-align: center; padding: 80px 20px; color: var(--text-2); }
@@ -2656,29 +2789,52 @@
     </div>
   </div>
 
-  <!-- FIRST-RUN WELCOME MODAL -->
+  <!-- FIRST-RUN WELCOME MODAL — visual takeover with personal welcome,
+       animated stats and a preview of the user's very first AI draft. -->
   <div class="modal-overlay" id="welcome-modal" hidden>
     <div class="modal welcome-modal">
-      <div class="welcome-spark">✨</div>
-      <h3 class="welcome-title" id="welcome-headline">Welkom bij OfficeFlow</h3>
-      <p class="welcome-sub" id="welcome-sub">
-        Terwijl jij aan het instellen was, is OfficeFlow al aan de slag gegaan met jouw inbox.
-      </p>
-      <div class="welcome-grid">
-        <div class="welcome-stat ws-orange">
-          <div class="ws-value" id="wc-emails">0</div>
-          <div class="ws-label">E-mails gescand</div>
+      <div class="welcome-glow" aria-hidden="true"></div>
+      <div class="welcome-content">
+        <div class="welcome-spark" aria-hidden="true">✨</div>
+        <div class="welcome-eyebrow">OfficeFlow staat klaar</div>
+        <h2 class="welcome-title" id="welcome-headline">Welkom bij OfficeFlow</h2>
+        <p class="welcome-sub" id="welcome-sub">
+          Terwijl jij aan het instellen was, is OfficeFlow al aan de slag gegaan met jouw inbox.
+        </p>
+
+        <div class="welcome-grid">
+          <div class="welcome-stat ws-orange">
+            <div class="ws-value" id="wc-emails">0</div>
+            <div class="ws-label">Mails geordend</div>
+          </div>
+          <div class="welcome-stat ws-green">
+            <div class="ws-value" id="wc-drafts">0</div>
+            <div class="ws-label">Concepten klaar</div>
+          </div>
+          <div class="welcome-stat ws-blue">
+            <div class="ws-value" id="wc-time">0s</div>
+            <div class="ws-label">Tijd bespaard</div>
+          </div>
         </div>
-        <div class="welcome-stat ws-green">
-          <div class="ws-value" id="wc-drafts">0</div>
-          <div class="ws-label">Concepten klaar</div>
+
+        <!-- First-draft preview — populated only when at least one draft exists -->
+        <div class="welcome-preview" id="welcome-preview" style="display:none;">
+          <div class="welcome-preview-label">Klaar om te lezen — je eerste concept</div>
+          <a class="welcome-preview-card" id="welcome-preview-card" href="#recent-drafts" data-scroll-to="recent-drafts">
+            <span class="welcome-preview-dot" id="welcome-preview-dot"></span>
+            <div class="welcome-preview-body">
+              <div class="welcome-preview-subject" id="welcome-preview-subject">—</div>
+              <div class="welcome-preview-sender" id="welcome-preview-sender">—</div>
+            </div>
+            <span class="welcome-preview-arrow" aria-hidden="true">→</span>
+          </a>
         </div>
-        <div class="welcome-stat ws-blue">
-          <div class="ws-value" id="wc-time">0s</div>
-          <div class="ws-label">Tijd bespaard</div>
+
+        <div class="welcome-actions">
+          <button class="welcome-cta-secondary" id="welcome-close-secondary" type="button">Later</button>
+          <button class="welcome-cta" id="welcome-close" type="button">Bekijk je concepten →</button>
         </div>
       </div>
-      <button class="welcome-cta" id="welcome-close">Laat maar zien</button>
     </div>
   </div>
 
@@ -4549,7 +4705,7 @@
     }
 
     // ============ FIRST-RUN WELCOME MODAL ============
-    async function maybeShowWelcomeModal(accessToken, firstName) {
+    async function maybeShowWelcomeModal(accessToken, firstName, recentDraftsData) {
       let data;
       try {
         const res = await fetch(API_BASE + '/api/first-run-stats', {
@@ -4562,9 +4718,9 @@
       }
       if (!data || data.seen) return;
 
-      // Personal headline
+      // Personal headline — prefer first name, fall back to neutral greeting.
       const headline = firstName
-        ? `Welkom bij OfficeFlow, ${firstName}`
+        ? `Welkom, ${firstName}`
         : 'Welkom bij OfficeFlow';
       document.getElementById('welcome-headline').textContent = headline;
 
@@ -4572,26 +4728,52 @@
       const emails = Number(data.emails_classified || 0);
       const drafts = Number(data.drafts_created || 0);
       const sub = document.getElementById('welcome-sub');
-      if (emails > 0) {
+      if (drafts > 0) {
         sub.textContent =
-          'Terwijl jij aan het instellen was, is OfficeFlow al aan de slag gegaan met jouw inbox.';
+          `We scanden je inbox en zetten ${drafts === 1 ? 'al een eerste concept' : drafts + ' concepten'} voor je klaar. Onder dit venster wachten ze in Gmail-stijl op één klik.`;
+      } else if (emails > 0) {
+        sub.textContent =
+          'Je inbox is alvast geordend. Zodra er een mail binnenkomt die om een reactie vraagt, ligt het concept hier klaar.';
       } else {
         sub.textContent =
-          'OfficeFlow staat klaar. Zodra er nieuwe e-mails binnenkomen, verschijnen ze hier gesorteerd met concepten.';
+          'OfficeFlow staat klaar. Zodra er nieuwe e-mails binnenkomen, verschijnen ze hier gesorteerd met concepten in jouw stijl.';
       }
 
-      // Populate stat targets
+      // Populate stat targets — sequential reveal: emails first, then drafts,
+      // then time. Each kicks off ~150ms after the previous so the user sees
+      // numbers animating one after another (perceived as "more work being
+      // shown", not a static dump).
       const timeHuman = data.time_saved_human || '0s';
       animateCount(document.getElementById('wc-emails'), emails, 0);
-      animateCount(document.getElementById('wc-drafts'), drafts, 0);
-      // Time saved is already a formatted string ("3u 20m" / "47m" / "12s"),
-      // so just set it directly with a tiny fade-in for polish.
+      setTimeout(() => animateCount(document.getElementById('wc-drafts'), drafts, 0), 200);
       const timeEl = document.getElementById('wc-time');
       timeEl.style.opacity = '0';
       timeEl.textContent = timeHuman;
-      setTimeout(() => { timeEl.style.transition = 'opacity .6s ease'; timeEl.style.opacity = '1'; }, 250);
+      setTimeout(() => { timeEl.style.transition = 'opacity .6s ease'; timeEl.style.opacity = '1'; }, 450);
 
-      // Show + wire close
+      // First-draft preview — show the most recent draft's subject/sender so
+      // the user can immediately tap into a concrete piece of value.
+      const previewBlock = document.getElementById('welcome-preview');
+      const previewItems = recentDraftsData && Array.isArray(recentDraftsData.items)
+        ? recentDraftsData.items
+        : [];
+      if (previewBlock && previewItems.length > 0) {
+        const first = previewItems[0];
+        const subj = (first.subject && first.subject.trim()) ? first.subject : '(geen onderwerp)';
+        const sender = (first.sender_name || first.sender_email || 'Onbekende afzender').trim();
+        const conf = (first.confidence || '').toLowerCase();
+        document.getElementById('welcome-preview-subject').textContent = subj;
+        document.getElementById('welcome-preview-sender').textContent = sender;
+        const dot = document.getElementById('welcome-preview-dot');
+        dot.classList.remove('medium', 'low');
+        if (conf === 'medium') dot.classList.add('medium');
+        else if (conf === 'low') dot.classList.add('low');
+        previewBlock.style.display = '';
+      } else if (previewBlock) {
+        previewBlock.style.display = 'none';
+      }
+
+      // Show + wire close handlers
       const overlay = document.getElementById('welcome-modal');
       overlay.hidden = false;
 
@@ -4605,8 +4787,38 @@
         } catch (_) { /* best-effort */ }
       };
 
-      document.getElementById('welcome-close').addEventListener('click', markSeen, { once: true });
-      // Click on dim backdrop dismisses too
+      // Primary CTA: dismiss + scroll the user straight to the drafts list.
+      const primaryBtn = document.getElementById('welcome-close');
+      if (primaryBtn) {
+        primaryBtn.addEventListener('click', () => {
+          markSeen();
+          setTimeout(() => {
+            const target = document.getElementById('recent-drafts');
+            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 80);
+        }, { once: true });
+      }
+
+      // Secondary CTA: just dismiss, don't scroll.
+      const secondaryBtn = document.getElementById('welcome-close-secondary');
+      if (secondaryBtn) {
+        secondaryBtn.addEventListener('click', markSeen, { once: true });
+      }
+
+      // First-draft preview also dismisses + scrolls (it's already a link).
+      const previewCard = document.getElementById('welcome-preview-card');
+      if (previewCard) {
+        previewCard.addEventListener('click', (e) => {
+          e.preventDefault();
+          markSeen();
+          setTimeout(() => {
+            const target = document.getElementById('recent-drafts');
+            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 80);
+        }, { once: true });
+      }
+
+      // Click on dim backdrop dismisses too (no scroll, like secondary CTA).
       overlay.addEventListener('click', (e) => {
         if (e.target === overlay) markSeen();
       }, { once: true });
@@ -4714,7 +4926,9 @@
       wireBriefingControls();
 
       // First-run wow moment — non-blocking, fails silent.
-      maybeShowWelcomeModal(session.access_token, firstName).catch((err) => {
+      // Pass recentDrafts so the welcome modal can preview the user's very
+      // first AI-prepared concept — instant, concrete value perception.
+      maybeShowWelcomeModal(session.access_token, firstName, recentDrafts).catch((err) => {
         console.warn('[welcome] failed:', err);
       });
 
