@@ -310,7 +310,10 @@
           throw new Error(`API fout (${res.status}): ${err.slice(0, 200)}`);
         }
         const data = await res.json();
-        renderResult(data);
+        // Pass the user's mailbox email so thread links open in the correct
+        // Google account (multi-account browsers otherwise default to the
+        // first signed-in inbox).
+        renderResult(data, userEmail);
       } catch (exc) {
         box.innerHTML = `<div class="state error">${escapeHtml(exc.message || String(exc))}</div>`;
       } finally {
@@ -318,9 +321,14 @@
       }
     }
 
-    function renderResult(data) {
+    function renderResult(data, userEmail) {
       const box = document.getElementById("result");
       const b = data.label_breakdown || {};
+
+      // Pin Gmail thread links to the user's connected mailbox via authuser.
+      // Without this, browsers with multiple Google sessions land in whichever
+      // account was opened last — possibly belonging to a different user.
+      const authQs = userEmail ? `?authuser=${encodeURIComponent(userEmail)}` : "";
 
       const directionBadge = data.last_contact_direction
         ? `<span class="direction ${data.last_contact_direction}">${data.last_contact_direction === "outgoing" ? "Jij stuurde als laatste" : "Zij stuurden als laatste"}</span>`
@@ -355,7 +363,7 @@
               .join("");
             return `
               <tr>
-                <td><a class="thread-subject" href="https://mail.google.com/mail/u/0/#inbox/${escapeHtml(t.thread_id)}" target="_blank" rel="noopener">${escapeHtml(t.subject || "(geen onderwerp)")}</a></td>
+                <td><a class="thread-subject" href="https://mail.google.com/mail/u/0/${authQs}#inbox/${escapeHtml(t.thread_id)}" target="_blank" rel="noopener">${escapeHtml(t.subject || "(geen onderwerp)")}</a></td>
                 <td>${labels || '<span class="badge fyi">—</span>'}</td>
                 <td><span class="direction ${t.direction || ""}">${t.direction === "outgoing" ? "Uit" : "In"}</span></td>
               </tr>`;
